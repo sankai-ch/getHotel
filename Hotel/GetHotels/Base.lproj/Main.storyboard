@@ -9,63 +9,6 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--航空-->
-        <scene sceneID="eDe-hq-Msh">
-            <objects>
-                <viewController title="航空" id="XbB-7o-jKA" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="iy9-FJ-KxP"/>
-                        <viewControllerLayoutGuide type="bottom" id="MsO-be-ABQ"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="j79-il-VeK">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                    <tabBarItem key="tabBarItem" title="航空" image="航空" id="H4Q-MU-WyP"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="bf0-hs-eYJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="510" y="485"/>
-        </scene>
-        <!--我的-->
-        <scene sceneID="qUS-q2-5de">
-            <objects>
-                <viewController title="我的" id="BVZ-nW-2wg" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="G5P-sf-Cev"/>
-                        <viewControllerLayoutGuide type="bottom" id="QFl-mG-YNO"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="X6o-PE-dvX">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                    <tabBarItem key="tabBarItem" title="我的" image="我的" selectedImage="我的-选中" id="kJD-sb-Em0"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="IgP-1i-hMt" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="510" y="1312"/>
-        </scene>
-        <!--酒店-->
-        <scene sceneID="Ufj-gM-Qrh">
-            <objects>
-                <viewController title="酒店" id="g1E-hs-aPT" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="g5j-G7-WuG"/>
-                        <viewControllerLayoutGuide type="bottom" id="NvH-Ca-bu4"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="DNV-RI-L4f">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                    <tabBarItem key="tabBarItem" title="酒店" image="酒店" id="WdU-lM-XdO"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="TfF-my-pd4" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="511" y="-213"/>
-        </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="iqG-pK-ZZu">
             <objects>
@@ -76,20 +19,44 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </tabBar>
                     <connections>
-                        <segue destination="g1E-hs-aPT" kind="relationship" relationship="viewControllers" id="M0L-IG-WHg"/>
-                        <segue destination="XbB-7o-jKA" kind="relationship" relationship="viewControllers" id="tRn-7u-4Vj"/>
-                        <segue destination="BVZ-nW-2wg" kind="relationship" relationship="viewControllers" id="FjO-WG-qJb"/>
+                        <segue destination="3LI-Ww-OxQ" kind="relationship" relationship="viewControllers" id="bRe-PA-CsZ"/>
+                        <segue destination="5JX-aM-GfE" kind="relationship" relationship="viewControllers" id="lbJ-sP-xSi"/>
+                        <segue destination="Qlc-Lc-dXv" kind="relationship" relationship="viewControllers" id="ZFA-05-Hec"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Mm7-X7-XMY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-441" y="115"/>
+            <point key="canvasLocation" x="-447" y="114"/>
+        </scene>
+        <!--Hotel-->
+        <scene sceneID="SzY-km-FW5">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Hotel" id="3LI-Ww-OxQ" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Item" id="Dex-Kd-p4T"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="d6A-Be-g9Y" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1676" y="-348"/>
+        </scene>
+        <!--Aviation-->
+        <scene sceneID="yes-cl-N7G">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Aviation" id="5JX-aM-GfE" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Item" id="4sq-A2-W7s"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="tzS-x3-Jml" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1689" y="73"/>
+        </scene>
+        <!--MyInfo-->
+        <scene sceneID="4OL-fs-7D0">
+            <objects>
+                <viewControllerPlaceholder storyboardName="MyInfo" id="Qlc-Lc-dXv" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Item" id="4cY-WC-TCU"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ke1-cq-8Ia" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1689" y="465"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="我的" width="25" height="25"/>
-        <image name="我的-选中" width="22" height="22"/>
-        <image name="航空" width="25" height="25"/>
-        <image name="酒店" width="25" height="25"/>
-    </resources>
 </document>
