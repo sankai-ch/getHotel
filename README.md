@@ -1,0 +1,2 @@
+# getHotel
+Hotels
