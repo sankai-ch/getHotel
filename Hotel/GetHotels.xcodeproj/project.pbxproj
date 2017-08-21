@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		2B4FA0F841ACEB1152934141 /* libPods-GetHotels.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 91A29EB61D066B9FD83C2A3C /* libPods-GetHotels.a */; };
+		B2A2D71F1F4AF35B001D6B81 /* Deatil.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B2A2D71D1F4AF35B001D6B81 /* Deatil.storyboard */; };
+		B2A2D7221F4AF373001D6B81 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B2A2D7201F4AF373001D6B81 /* Login.storyboard */; };
 		B2BD3E311F4AA201002C6B98 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B2BD3E301F4AA201002C6B98 /* main.m */; };
 		B2BD3E341F4AA201002C6B98 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B2BD3E331F4AA201002C6B98 /* AppDelegate.m */; };
 		B2BD3E3A1F4AA201002C6B98 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B2BD3E381F4AA201002C6B98 /* Main.storyboard */; };
@@ -57,6 +59,8 @@
 		3B7B4C9DBECEE4870F284CD1 /* Pods-GetHotels.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GetHotels.release.xcconfig"; path = "Pods/Target Support Files/Pods-GetHotels/Pods-GetHotels.release.xcconfig"; sourceTree = "<group>"; };
 		87E248321E9C674FE6281D42 /* Pods-GetHotels.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GetHotels.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GetHotels/Pods-GetHotels.debug.xcconfig"; sourceTree = "<group>"; };
 		91A29EB61D066B9FD83C2A3C /* libPods-GetHotels.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-GetHotels.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		B2A2D71E1F4AF35B001D6B81 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = GetHotels/Base.lproj/Deatil.storyboard; sourceTree = SOURCE_ROOT; };
+		B2A2D7211F4AF373001D6B81 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = GetHotels/Base.lproj/Login.storyboard; sourceTree = SOURCE_ROOT; };
 		B2BD3E2C1F4AA201002C6B98 /* GetHotels.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GetHotels.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B2BD3E301F4AA201002C6B98 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		B2BD3E321F4AA201002C6B98 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -142,6 +146,62 @@
 				3B7B4C9DBECEE4870F284CD1 /* Pods-GetHotels.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		B2A2D7241F4AF3C4001D6B81 /* Aviation */ = {
+			isa = PBXGroup;
+			children = (
+				B2BD3EAD1F4ACBA0002C6B98 /* Aviation.storyboard */,
+			);
+			name = Aviation;
+			sourceTree = "<group>";
+		};
+		B2A2D7251F4AF3D2001D6B81 /* Hotel */ = {
+			isa = PBXGroup;
+			children = (
+				B2BD3EAF1F4ACBA0002C6B98 /* Hotel.storyboard */,
+			);
+			name = Hotel;
+			sourceTree = "<group>";
+		};
+		B2A2D7261F4AF3DF001D6B81 /* Detail */ = {
+			isa = PBXGroup;
+			children = (
+				B2A2D71D1F4AF35B001D6B81 /* Deatil.storyboard */,
+			);
+			name = Detail;
+			sourceTree = "<group>";
+		};
+		B2A2D7271F4AF3ED001D6B81 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				B2BD3E381F4AA201002C6B98 /* Main.storyboard */,
+			);
+			name = Main;
+			sourceTree = "<group>";
+		};
+		B2A2D7281F4AF3F6001D6B81 /* MyInfo */ = {
+			isa = PBXGroup;
+			children = (
+				B2BD3EB11F4ACBA0002C6B98 /* MyInfo.storyboard */,
+			);
+			name = MyInfo;
+			sourceTree = "<group>";
+		};
+		B2A2D7291F4AF3FD001D6B81 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				B2A2D7201F4AF373001D6B81 /* Login.storyboard */,
+			);
+			name = Login;
+			sourceTree = "<group>";
+		};
+		B2A2D72A1F4AF415001D6B81 /* Launch */ = {
+			isa = PBXGroup;
+			children = (
+				B2BD3E401F4AA201002C6B98 /* LaunchScreen.storyboard */,
+			);
+			name = Launch;
 			sourceTree = "<group>";
 		};
 		B2BD3E231F4AA201002C6B98 = {
@@ -280,11 +340,13 @@
 		B2BD3E711F4AA439002C6B98 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				B2BD3EAD1F4ACBA0002C6B98 /* Aviation.storyboard */,
-				B2BD3EAF1F4ACBA0002C6B98 /* Hotel.storyboard */,
-				B2BD3EB11F4ACBA0002C6B98 /* MyInfo.storyboard */,
-				B2BD3E381F4AA201002C6B98 /* Main.storyboard */,
-				B2BD3E401F4AA201002C6B98 /* LaunchScreen.storyboard */,
+				B2A2D7291F4AF3FD001D6B81 /* Login */,
+				B2A2D7281F4AF3F6001D6B81 /* MyInfo */,
+				B2A2D7271F4AF3ED001D6B81 /* Main */,
+				B2A2D7261F4AF3DF001D6B81 /* Detail */,
+				B2A2D7251F4AF3D2001D6B81 /* Hotel */,
+				B2A2D7241F4AF3C4001D6B81 /* Aviation */,
+				B2A2D72A1F4AF415001D6B81 /* Launch */,
 				B2BD3E721F4AA439002C6B98 /* Assets.xcassets */,
 			);
 			path = View;
@@ -430,11 +492,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B2A2D7221F4AF373001D6B81 /* Login.storyboard in Resources */,
 				B2BD3E421F4AA201002C6B98 /* LaunchScreen.storyboard in Resources */,
 				B2BD3EB31F4ACBA0002C6B98 /* Aviation.storyboard in Resources */,
 				B2BD3E741F4AA439002C6B98 /* Assets.xcassets in Resources */,
 				B2BD3EB41F4ACBA0002C6B98 /* Hotel.storyboard in Resources */,
 				B2BD3EB51F4ACBA0002C6B98 /* MyInfo.storyboard in Resources */,
+				B2A2D71F1F4AF35B001D6B81 /* Deatil.storyboard in Resources */,
 				B2BD3E3A1F4AA201002C6B98 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -560,6 +624,22 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		B2A2D71D1F4AF35B001D6B81 /* Deatil.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				B2A2D71E1F4AF35B001D6B81 /* Base */,
+			);
+			name = Deatil.storyboard;
+			sourceTree = "<group>";
+		};
+		B2A2D7201F4AF373001D6B81 /* Login.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				B2A2D7211F4AF373001D6B81 /* Base */,
+			);
+			name = Login.storyboard;
+			sourceTree = "<group>";
+		};
 		B2BD3E381F4AA201002C6B98 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
