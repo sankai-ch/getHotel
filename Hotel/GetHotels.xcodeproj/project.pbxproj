@@ -132,8 +132,8 @@
 		B2BD3EAE1F4ACBA0002C6B98 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = GetHotels/Base.lproj/Aviation.storyboard; sourceTree = SOURCE_ROOT; };
 		B2BD3EB01F4ACBA0002C6B98 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = GetHotels/Base.lproj/Hotel.storyboard; sourceTree = SOURCE_ROOT; };
 		B2BD3EB21F4ACBA0002C6B98 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = GetHotels/Base.lproj/MyInfo.storyboard; sourceTree = SOURCE_ROOT; };
-		B2E555071F4AF70700D314C0 /* DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
-		B2E555081F4AF70700D314C0 /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
+		B2E555071F4AF70700D314C0 /* DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DetailViewController.h; path = ../View/DetailViewController.h; sourceTree = "<group>"; };
+		B2E555081F4AF70700D314C0 /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DetailViewController.m; path = ../View/DetailViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -194,8 +194,6 @@
 			isa = PBXGroup;
 			children = (
 				B2A2D71D1F4AF35B001D6B81 /* Deatil.storyboard */,
-				B2E555071F4AF70700D314C0 /* DetailViewController.h */,
-				B2E555081F4AF70700D314C0 /* DetailViewController.m */,
 			);
 			name = Detail;
 			sourceTree = "<group>";
@@ -272,6 +270,8 @@
 		B2A2D72E1F4AFB8D001D6B81 /* DetailViewController */ = {
 			isa = PBXGroup;
 			children = (
+				B2E555071F4AF70700D314C0 /* DetailViewController.h */,
+				B2E555081F4AF70700D314C0 /* DetailViewController.m */,
 			);
 			name = DetailViewController;
 			sourceTree = "<group>";
