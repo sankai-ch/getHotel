@@ -8,8 +8,13 @@
 
 #import "SignInViewController.h"
 
-@interface SignInViewController ()
+@interface SignInViewController ()<UITextFieldDelegate>
 @property (weak, nonatomic) IBOutlet UIImageView *shadowImageView;
+@property (weak, nonatomic) IBOutlet UITextField *phoneTextField;
+@property (weak, nonatomic) IBOutlet UITextField *pwdTextField;
+@property (weak, nonatomic) IBOutlet UITextField *confirmPwdTextField;
+@property (weak, nonatomic) IBOutlet UIButton *signInBtn;
+- (IBAction)SignInAction:(UIButton *)sender forEvent:(UIEvent *)event;
 
 @end
 
@@ -17,6 +22,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+
+    _signInBtn.enabled = NO;
+
+    [self naviConfig];
     // Do any additional setup after loading the view.
 }
 
@@ -33,6 +42,46 @@
     _shadowImageView.layer.shadowRadius = 4;//阴影半径，默认3
 }
 
+//设置导航栏样式
+- (void)naviConfig{
+    //self.navigationController.navigationBar.backgroundColor = [UIColor whiteColor];
+    [self.navigationController.navigationBar setBarTintColor:HEAD_THEMECOLOR];
+    //实例化一个button 类型为UIButtonTypeSystem
+    UIButton *leftBtn = [UIButton buttonWithType:UIButtonTypeSystem];
+    //设置位置大小
+    leftBtn.frame = CGRectMake(0, 0, 20, 20);
+    //设置其背景图片为返回图片
+    [leftBtn setBackgroundImage:[UIImage imageNamed:@"返回"] forState:UIControlStateNormal];
+    //给按钮添加事件
+    [leftBtn addTarget:self action:@selector(leftButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+    
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:leftBtn];
+}
+//自定的返回按钮的事件
+- (void)leftButtonAction: (UIButton *)sender{
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)textFieldDidEndEditing:(UITextField *)textField{
+    if (textField == _phoneTextField || textField == _pwdTextField || textField == _confirmPwdTextField) {
+        if (_phoneTextField.text.length != 0 && _pwdTextField.text.length != 0 && _confirmPwdTextField.text.length != 0) {
+            _signInBtn.enabled =YES;
+        }
+    }
+}
+//按键盘的return收回按钮
+- (BOOL)textFieldShouldReturn:(UITextField *)textField{
+    if (textField == _phoneTextField || textField == _pwdTextField || textField == _confirmPwdTextField) {
+        [textField resignFirstResponder];
+    }
+    return YES;
+}
+
+//让根视图结束编辑状态，到达收起键盘的目的
+- (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+    [self.view endEditing:YES];
+}
+
 
 /*
 #pragma mark - Navigation
@@ -44,4 +93,15 @@
 }
 */
 
+- (IBAction)SignInAction:(UIButton *)sender forEvent:(UIEvent *)event {
+    if ([_pwdTextField.text isEqualToString:_confirmPwdTextField.text]) {
+        NSLog(@"注册成功");
+    }else{
+        [Utilities popUpAlertViewWithMsg:@"密码输入不一致，请重新输入" andTitle:@"提示" onView:self onCompletion:^{
+            _pwdTextField.text = @"";
+            _confirmPwdTextField.text = @"";
+        }];
+    }
+
+}
 @end
