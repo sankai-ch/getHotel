@@ -12,6 +12,25 @@
 		844E869D1F4B12C20080C2ED /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 844E869C1F4B12C20080C2ED /* LoginViewController.m */; };
 		844E86A01F4B12E20080C2ED /* SignInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 844E869F1F4B12E20080C2ED /* SignInViewController.m */; };
 		B224DB761F4BEA970022C007 /* CustomerServiceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B224DB751F4BEA970022C007 /* CustomerServiceViewController.m */; };
+		B224DB911F4C33910022C007 /* GBAlipayManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B224DB7A1F4C33910022C007 /* GBAlipayManager.m */; };
+		B224DB921F4C33910022C007 /* base64.m in Sources */ = {isa = PBXBuildFile; fileRef = B224DB7D1F4C33910022C007 /* base64.m */; };
+		B224DB931F4C33910022C007 /* DataSigner.m in Sources */ = {isa = PBXBuildFile; fileRef = B224DB801F4C33910022C007 /* DataSigner.m */; };
+		B224DB941F4C33910022C007 /* DataVerifier.m in Sources */ = {isa = PBXBuildFile; fileRef = B224DB821F4C33910022C007 /* DataVerifier.m */; };
+		B224DB951F4C33910022C007 /* MD5DataSigner.m in Sources */ = {isa = PBXBuildFile; fileRef = B224DB841F4C33910022C007 /* MD5DataSigner.m */; };
+		B224DB961F4C33910022C007 /* NSDataEx.m in Sources */ = {isa = PBXBuildFile; fileRef = B224DB861F4C33910022C007 /* NSDataEx.m */; };
+		B224DB971F4C33910022C007 /* openssl_wrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = B224DB881F4C33910022C007 /* openssl_wrapper.m */; };
+		B224DB981F4C33910022C007 /* RSADataSigner.m in Sources */ = {isa = PBXBuildFile; fileRef = B224DB8A1F4C33910022C007 /* RSADataSigner.m */; };
+		B224DB991F4C33910022C007 /* RSADataVerifier.m in Sources */ = {isa = PBXBuildFile; fileRef = B224DB8C1F4C33910022C007 /* RSADataVerifier.m */; };
+		B224DB9A1F4C33910022C007 /* JSONS.m in Sources */ = {isa = PBXBuildFile; fileRef = B224DB8E1F4C33910022C007 /* JSONS.m */; };
+		B224DB9D1F4C33D90022C007 /* Cities.plist in Resources */ = {isa = PBXBuildFile; fileRef = B224DB9C1F4C33D90022C007 /* Cities.plist */; };
+		B224DBA21F4C34000022C007 /* AlipaySDK.bundle in Frameworks */ = {isa = PBXBuildFile; fileRef = B224DB9E1F4C34000022C007 /* AlipaySDK.bundle */; };
+		B224DBA31F4C34000022C007 /* AlipaySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B224DB9F1F4C34000022C007 /* AlipaySDK.framework */; };
+		B224DBA41F4C34000022C007 /* libcrypto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B224DBA01F4C34000022C007 /* libcrypto.a */; };
+		B224DBA51F4C34000022C007 /* libssl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B224DBA11F4C34000022C007 /* libssl.a */; };
+		B224DBA71F4C341C0022C007 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = B224DBA61F4C341C0022C007 /* libz.tbd */; };
+		B224DBA91F4C34300022C007 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B224DBA81F4C34300022C007 /* CoreMotion.framework */; };
+		B224DBAB1F4C343E0022C007 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B224DBAA1F4C343E0022C007 /* CoreTelephony.framework */; };
+		B224DBAE1F4C34E00022C007 /* Order.m in Sources */ = {isa = PBXBuildFile; fileRef = B224DBAD1F4C34E00022C007 /* Order.m */; };
 		B2A2D71F1F4AF35B001D6B81 /* Deatil.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B2A2D71D1F4AF35B001D6B81 /* Deatil.storyboard */; };
 		B2A2D7221F4AF373001D6B81 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B2A2D7201F4AF373001D6B81 /* Login.storyboard */; };
 		B2A2D7321F4AFC20001D6B81 /* MyInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B2A2D7311F4AFC20001D6B81 /* MyInfoViewController.m */; };
@@ -76,6 +95,38 @@
 		91A29EB61D066B9FD83C2A3C /* libPods-GetHotels.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-GetHotels.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B224DB741F4BEA970022C007 /* CustomerServiceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomerServiceViewController.h; sourceTree = "<group>"; };
 		B224DB751F4BEA970022C007 /* CustomerServiceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomerServiceViewController.m; sourceTree = "<group>"; };
+		B224DB781F4C33910022C007 /* GBAlipayConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GBAlipayConfig.h; sourceTree = "<group>"; };
+		B224DB791F4C33910022C007 /* GBAlipayManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GBAlipayManager.h; sourceTree = "<group>"; };
+		B224DB7A1F4C33910022C007 /* GBAlipayManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GBAlipayManager.m; sourceTree = "<group>"; };
+		B224DB7C1F4C33910022C007 /* base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = base64.h; sourceTree = "<group>"; };
+		B224DB7D1F4C33910022C007 /* base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = base64.m; sourceTree = "<group>"; };
+		B224DB7E1F4C33910022C007 /* config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = config.h; sourceTree = "<group>"; };
+		B224DB7F1F4C33910022C007 /* DataSigner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataSigner.h; sourceTree = "<group>"; };
+		B224DB801F4C33910022C007 /* DataSigner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataSigner.m; sourceTree = "<group>"; };
+		B224DB811F4C33910022C007 /* DataVerifier.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataVerifier.h; sourceTree = "<group>"; };
+		B224DB821F4C33910022C007 /* DataVerifier.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataVerifier.m; sourceTree = "<group>"; };
+		B224DB831F4C33910022C007 /* MD5DataSigner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MD5DataSigner.h; sourceTree = "<group>"; };
+		B224DB841F4C33910022C007 /* MD5DataSigner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MD5DataSigner.m; sourceTree = "<group>"; };
+		B224DB851F4C33910022C007 /* NSDataEx.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSDataEx.h; sourceTree = "<group>"; };
+		B224DB861F4C33910022C007 /* NSDataEx.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSDataEx.m; sourceTree = "<group>"; };
+		B224DB871F4C33910022C007 /* openssl_wrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = openssl_wrapper.h; sourceTree = "<group>"; };
+		B224DB881F4C33910022C007 /* openssl_wrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = openssl_wrapper.m; sourceTree = "<group>"; };
+		B224DB891F4C33910022C007 /* RSADataSigner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSADataSigner.h; sourceTree = "<group>"; };
+		B224DB8A1F4C33910022C007 /* RSADataSigner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSADataSigner.m; sourceTree = "<group>"; };
+		B224DB8B1F4C33910022C007 /* RSADataVerifier.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSADataVerifier.h; sourceTree = "<group>"; };
+		B224DB8C1F4C33910022C007 /* RSADataVerifier.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSADataVerifier.m; sourceTree = "<group>"; };
+		B224DB8D1F4C33910022C007 /* JSONS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONS.h; sourceTree = "<group>"; };
+		B224DB8E1F4C33910022C007 /* JSONS.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONS.m; sourceTree = "<group>"; };
+		B224DB9C1F4C33D90022C007 /* Cities.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Cities.plist; sourceTree = "<group>"; };
+		B224DB9E1F4C34000022C007 /* AlipaySDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = AlipaySDK.bundle; path = GetHotels/AlipaySDK.bundle; sourceTree = "<group>"; };
+		B224DB9F1F4C34000022C007 /* AlipaySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AlipaySDK.framework; path = GetHotels/AlipaySDK.framework; sourceTree = "<group>"; };
+		B224DBA01F4C34000022C007 /* libcrypto.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcrypto.a; path = GetHotels/libcrypto.a; sourceTree = "<group>"; };
+		B224DBA11F4C34000022C007 /* libssl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libssl.a; path = GetHotels/libssl.a; sourceTree = "<group>"; };
+		B224DBA61F4C341C0022C007 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		B224DBA81F4C34300022C007 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
+		B224DBAA1F4C343E0022C007 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
+		B224DBAC1F4C34E00022C007 /* Order.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Order.h; sourceTree = "<group>"; };
+		B224DBAD1F4C34E00022C007 /* Order.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Order.m; sourceTree = "<group>"; };
 		B2A2D71E1F4AF35B001D6B81 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = GetHotels/Base.lproj/Deatil.storyboard; sourceTree = SOURCE_ROOT; };
 		B2A2D7211F4AF373001D6B81 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = GetHotels/Base.lproj/Login.storyboard; sourceTree = SOURCE_ROOT; };
 		B2A2D7301F4AFC20001D6B81 /* MyInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyInfoViewController.h; sourceTree = "<group>"; };
@@ -144,6 +195,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B224DBAB1F4C343E0022C007 /* CoreTelephony.framework in Frameworks */,
+				B224DBA91F4C34300022C007 /* CoreMotion.framework in Frameworks */,
+				B224DBA71F4C341C0022C007 /* libz.tbd in Frameworks */,
+				B224DBA21F4C34000022C007 /* AlipaySDK.bundle in Frameworks */,
+				B224DBA31F4C34000022C007 /* AlipaySDK.framework in Frameworks */,
+				B224DBA41F4C34000022C007 /* libcrypto.a in Frameworks */,
+				B224DBA51F4C34000022C007 /* libssl.a in Frameworks */,
 				B2BD3EA31F4AA5DB002C6B98 /* Openssl.framework in Frameworks */,
 				2B4FA0F841ACEB1152934141 /* libPods-GetHotels.a in Frameworks */,
 			);
@@ -173,6 +231,40 @@
 				3B7B4C9DBECEE4870F284CD1 /* Pods-GetHotels.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		B224DB771F4C33910022C007 /* AliMgr */ = {
+			isa = PBXGroup;
+			children = (
+				B224DB781F4C33910022C007 /* GBAlipayConfig.h */,
+				B224DB791F4C33910022C007 /* GBAlipayManager.h */,
+				B224DB7A1F4C33910022C007 /* GBAlipayManager.m */,
+			);
+			path = AliMgr;
+			sourceTree = "<group>";
+		};
+		B224DB7B1F4C33910022C007 /* AliUtil */ = {
+			isa = PBXGroup;
+			children = (
+				B224DB7C1F4C33910022C007 /* base64.h */,
+				B224DB7D1F4C33910022C007 /* base64.m */,
+				B224DB7E1F4C33910022C007 /* config.h */,
+				B224DB7F1F4C33910022C007 /* DataSigner.h */,
+				B224DB801F4C33910022C007 /* DataSigner.m */,
+				B224DB811F4C33910022C007 /* DataVerifier.h */,
+				B224DB821F4C33910022C007 /* DataVerifier.m */,
+				B224DB831F4C33910022C007 /* MD5DataSigner.h */,
+				B224DB841F4C33910022C007 /* MD5DataSigner.m */,
+				B224DB851F4C33910022C007 /* NSDataEx.h */,
+				B224DB861F4C33910022C007 /* NSDataEx.m */,
+				B224DB871F4C33910022C007 /* openssl_wrapper.h */,
+				B224DB881F4C33910022C007 /* openssl_wrapper.m */,
+				B224DB891F4C33910022C007 /* RSADataSigner.h */,
+				B224DB8A1F4C33910022C007 /* RSADataSigner.m */,
+				B224DB8B1F4C33910022C007 /* RSADataVerifier.h */,
+				B224DB8C1F4C33910022C007 /* RSADataVerifier.m */,
+			);
+			path = AliUtil;
 			sourceTree = "<group>";
 		};
 		B2A2D7241F4AF3C4001D6B81 /* Aviation */ = {
@@ -328,6 +420,7 @@
 			isa = PBXGroup;
 			children = (
 				B2BD3E431F4AA201002C6B98 /* Info.plist */,
+				B224DB9C1F4C33D90022C007 /* Cities.plist */,
 				B2BD3E321F4AA201002C6B98 /* AppDelegate.h */,
 				B2BD3E331F4AA201002C6B98 /* AppDelegate.m */,
 				B2BD3E301F4AA201002C6B98 /* main.m */,
@@ -365,6 +458,8 @@
 		B2BD3E681F4AA430002C6B98 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				B224DBAC1F4C34E00022C007 /* Order.h */,
+				B224DBAD1F4C34E00022C007 /* Order.m */,
 				B2BD3E9F1F4AA59D002C6B98 /* GetHotels.xcdatamodeld */,
 			);
 			path = Model;
@@ -392,6 +487,10 @@
 		B2BD3E701F4AA439002C6B98 /* Utlity */ = {
 			isa = PBXGroup;
 			children = (
+				B224DB771F4C33910022C007 /* AliMgr */,
+				B224DB7B1F4C33910022C007 /* AliUtil */,
+				B224DB8D1F4C33910022C007 /* JSONS.h */,
+				B224DB8E1F4C33910022C007 /* JSONS.m */,
 				B2BD3E751F4AA4EF002C6B98 /* AppAPIClient.h */,
 				B2BD3E761F4AA4EF002C6B98 /* AppAPIClient.m */,
 				B2BD3E771F4AA4EF002C6B98 /* ErrorHandler.h */,
@@ -454,6 +553,13 @@
 		FAD6FEFC89CC80A05647D01D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				B224DBAA1F4C343E0022C007 /* CoreTelephony.framework */,
+				B224DBA81F4C34300022C007 /* CoreMotion.framework */,
+				B224DBA61F4C341C0022C007 /* libz.tbd */,
+				B224DB9E1F4C34000022C007 /* AlipaySDK.bundle */,
+				B224DB9F1F4C34000022C007 /* AlipaySDK.framework */,
+				B224DBA01F4C34000022C007 /* libcrypto.a */,
+				B224DBA11F4C34000022C007 /* libssl.a */,
 				B2BD3EA21F4AA5DB002C6B98 /* Openssl.framework */,
 				91A29EB61D066B9FD83C2A3C /* libPods-GetHotels.a */,
 			);
@@ -574,6 +680,7 @@
 				B2BD3EB31F4ACBA0002C6B98 /* Aviation.storyboard in Resources */,
 				B2BD3E741F4AA439002C6B98 /* Assets.xcassets in Resources */,
 				B2BD3EB41F4ACBA0002C6B98 /* Hotel.storyboard in Resources */,
+				B224DB9D1F4C33D90022C007 /* Cities.plist in Resources */,
 				B2BD3EB51F4ACBA0002C6B98 /* MyInfo.storyboard in Resources */,
 				B2A2D71F1F4AF35B001D6B81 /* Deatil.storyboard in Resources */,
 				B2BD3E3A1F4AA201002C6B98 /* Main.storyboard in Resources */,
@@ -651,18 +758,24 @@
 			files = (
 				B2BD3E881F4AA4EF002C6B98 /* ErrorHandler.m in Sources */,
 				B2BD3EA11F4AA59D002C6B98 /* GetHotels.xcdatamodeld in Sources */,
+				B224DB981F4C33910022C007 /* RSADataSigner.m in Sources */,
 				B2BD3E8C1F4AA4EF002C6B98 /* NSString+Crypt.m in Sources */,
 				B2BD3E871F4AA4EF002C6B98 /* AppAPIClient.m in Sources */,
 				B2A2D7321F4AFC20001D6B81 /* MyInfoViewController.m in Sources */,
 				B2BD3E731F4AA439002C6B98 /* BasicEncodingRules.m in Sources */,
 				6A7C04911F4B15FC003D72FB /* HotelTableViewCell.m in Sources */,
+				B224DB951F4C33910022C007 /* MD5DataSigner.m in Sources */,
 				B2BD3E8E1F4AA4EF002C6B98 /* StorageMgr.m in Sources */,
+				B224DB991F4C33910022C007 /* RSADataVerifier.m in Sources */,
 				B2BD3E891F4AA4EF002C6B98 /* NSData+Base64.m in Sources */,
 				B2BD3E341F4AA201002C6B98 /* AppDelegate.m in Sources */,
+				B224DB971F4C33910022C007 /* openssl_wrapper.m in Sources */,
+				B224DB911F4C33910022C007 /* GBAlipayManager.m in Sources */,
 				B2BD3E9A1F4AA4F7002C6B98 /* HMSegmentedControl.m in Sources */,
 				B2BD3E8B1F4AA4EF002C6B98 /* NSDateFormatter+Category.m in Sources */,
 				B224DB761F4BEA970022C007 /* CustomerServiceViewController.m in Sources */,
 				844E86A01F4B12E20080C2ED /* SignInViewController.m in Sources */,
+				B224DB941F4C33910022C007 /* DataVerifier.m in Sources */,
 				B2BD3E8A1F4AA4EF002C6B98 /* NSDate+Utility.m in Sources */,
 				B2E555091F4AF70700D314C0 /* DetailViewController.m in Sources */,
 				B2BD3E9B1F4AA4F7002C6B98 /* SKTag.m in Sources */,
@@ -670,9 +783,14 @@
 				B2BD3E8F1F4AA4EF002C6B98 /* Utilities.m in Sources */,
 				B2A2D7351F4B066E001D6B81 /* AccountSettingViewController.m in Sources */,
 				B2BD3E9D1F4AA4F7002C6B98 /* SKTagView.m in Sources */,
+				B224DB9A1F4C33910022C007 /* JSONS.m in Sources */,
 				B2BD3E9C1F4AA4F7002C6B98 /* SKTagButton.m in Sources */,
 				B2BD3E311F4AA201002C6B98 /* main.m in Sources */,
+				B224DB931F4C33910022C007 /* DataSigner.m in Sources */,
+				B224DB921F4C33910022C007 /* base64.m in Sources */,
 				B2A2D73B1F4B06C4001D6B81 /* MyHotelViewController.m in Sources */,
+				B224DBAE1F4C34E00022C007 /* Order.m in Sources */,
+				B224DB961F4C33910022C007 /* NSDataEx.m in Sources */,
 				844E869D1F4B12C20080C2ED /* LoginViewController.m in Sources */,
 				B2A2D7381F4B06A1001D6B81 /* AgreementViewController.m in Sources */,
 			);
@@ -876,6 +994,10 @@
 				GCC_PREFIX_HEADER = GetHotels/PrefixHeader.pch;
 				INFOPLIST_FILE = GetHotels/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/GetHotels",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = self.yixin.GetHotels;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -894,6 +1016,10 @@
 				GCC_PREFIX_HEADER = GetHotels/PrefixHeader.pch;
 				INFOPLIST_FILE = GetHotels/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/GetHotels",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = self.yixin.GetHotels;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
