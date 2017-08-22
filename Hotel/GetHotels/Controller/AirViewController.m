@@ -1,18 +1,18 @@
 //
-//  MyHotelViewController.m
+//  AirViewController.m
 //  GetHotels
 //
-//  Created by admin1 on 2017/8/21.
+//  Created by admin1 on 2017/8/22.
 //  Copyright © 2017年 Yixin studio. All rights reserved.
 //
 
-#import "MyHotelViewController.h"
+#import "AirViewController.h"
 
-@interface MyHotelViewController ()
+@interface AirViewController ()
 
 @end
 
-@implementation MyHotelViewController
+@implementation AirViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];

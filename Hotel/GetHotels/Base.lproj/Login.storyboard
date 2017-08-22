@@ -31,6 +31,9 @@
                                 <state key="normal" title="登录">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="loginBtn:" destination="id3-CZ-Eni" eventType="touchUpInside" id="6Pg-Sp-ouT"/>
+                                </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="r5P-9u-UVg">
                                 <rect key="frame" x="15" y="144" width="345" height="250"/>
@@ -50,6 +53,9 @@
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                         <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="id3-CZ-Eni" id="Ici-fF-bhz"/>
+                                        </connections>
                                     </textField>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="flG-pa-svw" userLabel="line">
                                         <rect key="frame" x="60" y="163" width="235" height="1"/>
@@ -62,7 +68,10 @@
                                         <rect key="frame" x="94" y="81" width="201" height="19"/>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                        <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="id3-CZ-Eni" id="xsq-XG-Z33"/>
+                                        </connections>
                                     </textField>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="手机" translatesAutoresizingMaskIntoConstraints="NO" id="ov3-Q6-ESa">
                                         <rect key="frame" x="60" y="80" width="19" height="21"/>
@@ -137,6 +146,9 @@
                     </view>
                     <navigationItem key="navigationItem" title="会员登录" id="hzZ-Zh-S4u"/>
                     <connections>
+                        <outlet property="loginBtn" destination="43J-Hq-eEt" id="ar4-ui-7sS"/>
+                        <outlet property="phoneTextField" destination="1HO-GQ-sC0" id="O65-Fh-teM"/>
+                        <outlet property="pwdTextField" destination="9ZM-hV-s9G" id="BJp-PP-w5d"/>
                         <outlet property="shadowImageView" destination="Q6W-LD-sIX" id="64i-ae-DSG"/>
                     </connections>
                 </viewController>
@@ -183,6 +195,9 @@
                                 <state key="normal" title="注册">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="SignInAction:forEvent:" destination="Rx5-Qi-HVl" eventType="touchUpInside" id="g4z-qH-VRl"/>
+                                </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AeH-4z-ImI">
                                 <rect key="frame" x="15" y="144" width="345" height="250"/>
@@ -199,6 +214,9 @@
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                         <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="Rx5-Qi-HVl" id="THR-6J-Kja"/>
+                                        </connections>
                                     </textField>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fbe-0h-iqH" userLabel="line">
                                         <rect key="frame" x="60" y="163" width="235" height="1"/>
@@ -211,7 +229,10 @@
                                         <rect key="frame" x="94" y="81" width="201" height="19"/>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                        <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="Rx5-Qi-HVl" id="j30-0U-oac"/>
+                                        </connections>
                                     </textField>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="手机" translatesAutoresizingMaskIntoConstraints="NO" id="iEZ-3u-A5s">
                                         <rect key="frame" x="60" y="80" width="19" height="21"/>
@@ -234,6 +255,9 @@
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                         <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="Rx5-Qi-HVl" id="Tkl-mj-K4r"/>
+                                        </connections>
                                     </textField>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="账号与安全" translatesAutoresizingMaskIntoConstraints="NO" id="a7a-Od-f3S">
                                         <rect key="frame" x="60" y="194" width="19" height="21"/>
@@ -307,7 +331,11 @@
                     </view>
                     <navigationItem key="navigationItem" title="会员注册" id="GD8-z3-CqO"/>
                     <connections>
+                        <outlet property="confirmPwdTextField" destination="Cg1-xZ-pn5" id="kQl-1Y-HbH"/>
+                        <outlet property="phoneTextField" destination="CCm-Nk-0Np" id="OlU-Ry-YPJ"/>
+                        <outlet property="pwdTextField" destination="f6k-ZQ-L3o" id="2mK-CB-iXU"/>
                         <outlet property="shadowImageView" destination="eH7-ek-qIg" id="0Sa-vs-7Ol"/>
+                        <outlet property="signInBtn" destination="rf4-Mj-t9n" id="HPc-WR-hjD"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cTP-r5-f4G" userLabel="First Responder" sceneMemberID="firstResponder"/>

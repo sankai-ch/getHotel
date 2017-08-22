@@ -86,6 +86,9 @@
                                                 <state key="normal" title="地图 &gt;">
                                                     <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
+                                                <connections>
+                                                    <action selector="dituAction:forEvent:" destination="aVw-Cn-1er" eventType="touchUpInside" id="esQ-7M-BQF"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -357,13 +360,19 @@
                                         <state key="normal" title="微聊">
                                             <color key="titleColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
                                         </state>
+                                        <connections>
+                                            <action selector="weiiaoAction:forEvent:" destination="aVw-Cn-1er" eventType="touchUpInside" id="Vtv-4X-dnr"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3uH-c5-FTj">
                                         <rect key="frame" x="187.5" y="410" width="187.5" height="30"/>
                                         <color key="backgroundColor" red="0.31926995218878917" green="0.58064662929267807" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <state key="normal" title="微聊">
+                                        <state key="normal" title="购买">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
+                                        <connections>
+                                            <action selector="goumaiAction:forEvent:" destination="aVw-Cn-1er" eventType="touchUpInside" id="l3X-XP-03Z"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
@@ -438,10 +447,27 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="酒店预订" id="KTl-rz-QW8"/>
+                    <connections>
+                        <outlet property="dizhi" destination="pca-0G-cvL" id="VTR-hF-9fg"/>
+                        <outlet property="goumai" destination="3uH-c5-FTj" id="aHg-qb-GMS"/>
+                        <outlet property="image2" destination="YWC-EI-vu4" id="9C6-52-we6"/>
+                        <outlet property="image3" destination="o1D-RV-I0W" id="O9E-Cd-Z2P"/>
+                        <outlet property="imaget" destination="ZbO-u9-wXI" id="ssr-IB-5WA"/>
+                        <outlet property="jiudian" destination="bMW-YT-ed7" id="z0y-5v-cv4"/>
+                        <outlet property="price" destination="QJp-2d-G8f" id="lwV-w9-Qol"/>
+                        <outlet property="scrollView1" destination="3d4-Mi-uze" id="qXW-Y6-hAU"/>
+                        <outlet property="scrollView2" destination="34h-Uw-Yoy" id="CbL-t5-Ei2"/>
+                        <outlet property="tidu" destination="dqu-jP-cIo" id="W5H-uH-9i5"/>
+                        <outlet property="time" destination="2Pz-Va-E36" id="H8C-A3-5qZ"/>
+                        <outlet property="timeday" destination="7GQ-jo-Ku5" id="fBx-qY-mNN"/>
+                        <outlet property="timeday1" destination="vRs-Jc-3YO" id="u1g-6S-Unv"/>
+                        <outlet property="toolbar" destination="wL2-8J-zTW" id="wUy-Py-BLv"/>
+                        <outlet property="weiliao" destination="zDq-xM-a3D" id="JaJ-9f-6GQ"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cfw-BM-vzT" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="976.79999999999995" y="142.57871064467767"/>
+            <point key="canvasLocation" x="975" y="143"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="nwd-5f-Uti">
