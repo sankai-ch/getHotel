@@ -119,6 +119,7 @@
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="我的" image="我的" selectedImage="tabBarItem:ncQ-M8-ACk:selectedImage" id="ncQ-M8-ACk"/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
                         <segue destination="qVW-by-kyL" kind="show" id="0bR-9w-Lv4"/>
                         <segue destination="0xc-Xy-VyM" kind="show" id="PsA-0J-a7i"/>
@@ -413,10 +414,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceHorizontal="YES" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UkJ-sq-YGm">
-                                <rect key="frame" x="0.0" y="175" width="375" height="492"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <subviews>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="177" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="wQG-Xa-Fu9">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="492"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="acquireCell" rowHeight="177" id="pLV-cS-65c" customClass="AcquireTableViewCell">
@@ -469,7 +470,7 @@
                                         </connections>
                                     </tableView>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="65" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="HCU-3l-Bbu">
-                                        <rect key="frame" x="375" y="0.0" width="375" height="492"/>
+                                        <rect key="frame" x="375" y="0.0" width="375" height="603"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="notAcquireCell" rowHeight="65" id="J9w-23-GAW" customClass="NotAcquireTableViewCell">
@@ -523,7 +524,7 @@
                                         </connections>
                                     </tableView>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="2Kf-aU-6E2">
-                                        <rect key="frame" x="750" y="0.0" width="375" height="492"/>
+                                        <rect key="frame" x="750" y="0.0" width="375" height="603"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="followCell" id="WP8-Rt-tBp" customClass="FollowTableViewCell">
@@ -596,43 +597,20 @@
                                     <outlet property="delegate" destination="bzq-xN-ghb" id="bk5-s8-6hx"/>
                                 </connections>
                             </scrollView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="STr-Yd-zaN">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="95"/>
-                                <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo-120x30透明" translatesAutoresizingMaskIntoConstraints="NO" id="fG9-XZ-92d">
-                                        <rect key="frame" x="125" y="35" width="125" height="31.5"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" secondItem="fG9-XZ-92d" secondAttribute="height" multiplier="4:1" id="j98-kJ-PMI"/>
-                                        </constraints>
-                                    </imageView>
-                                </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstItem="fG9-XZ-92d" firstAttribute="width" secondItem="STr-Yd-zaN" secondAttribute="width" multiplier="1:3" id="3hp-fV-6I0"/>
-                                    <constraint firstItem="fG9-XZ-92d" firstAttribute="centerX" secondItem="STr-Yd-zaN" secondAttribute="centerX" id="IAV-Qm-HL9"/>
-                                    <constraint firstAttribute="height" constant="95" id="otl-z3-Y8N"/>
-                                    <constraint firstItem="fG9-XZ-92d" firstAttribute="top" secondItem="STr-Yd-zaN" secondAttribute="top" constant="35" id="wjv-iv-ncs"/>
-                                </constraints>
-                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="UkJ-sq-YGm" firstAttribute="leading" secondItem="hLt-X2-OWt" secondAttribute="leading" id="BR6-kB-k2I"/>
                             <constraint firstItem="bdb-XM-7X1" firstAttribute="top" secondItem="UkJ-sq-YGm" secondAttribute="bottom" id="PmL-Sn-8uS"/>
-                            <constraint firstItem="UkJ-sq-YGm" firstAttribute="top" secondItem="STr-Yd-zaN" secondAttribute="bottom" constant="80" id="SO8-1n-pIY"/>
-                            <constraint firstAttribute="trailing" secondItem="STr-Yd-zaN" secondAttribute="trailing" id="WNd-aW-NPk"/>
+                            <constraint firstItem="UkJ-sq-YGm" firstAttribute="top" secondItem="l8m-3f-c55" secondAttribute="bottom" id="ZFc-k3-oh5"/>
                             <constraint firstAttribute="trailing" secondItem="UkJ-sq-YGm" secondAttribute="trailing" id="drN-nj-iDh"/>
-                            <constraint firstItem="STr-Yd-zaN" firstAttribute="leading" secondItem="hLt-X2-OWt" secondAttribute="leading" id="sPY-43-eek"/>
                             <constraint firstItem="wQG-Xa-Fu9" firstAttribute="width" secondItem="hLt-X2-OWt" secondAttribute="width" id="x2j-7T-Smm"/>
-                            <constraint firstItem="STr-Yd-zaN" firstAttribute="top" secondItem="hLt-X2-OWt" secondAttribute="top" id="zcp-bB-ABR"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="Wtf-Rs-umz"/>
-                    <nil key="simulatedTopBarMetrics"/>
                     <connections>
                         <outlet property="acquireTableView" destination="wQG-Xa-Fu9" id="Pqy-na-aGx"/>
                         <outlet property="followTableView" destination="2Kf-aU-6E2" id="7ZQ-uc-XeA"/>
-                        <outlet property="headBackView" destination="STr-Yd-zaN" id="zPY-5o-V30"/>
                         <outlet property="notAcquireTableView" destination="HCU-3l-Bbu" id="eeq-U7-4TY"/>
                         <outlet property="scrollView" destination="UkJ-sq-YGm" id="Ael-Px-jOL"/>
                     </connections>
@@ -645,7 +623,6 @@
     <resources>
         <image name="ic_locked" width="18" height="21"/>
         <image name="ic_unlock" width="18" height="21"/>
-        <image name="logo-120x30透明" width="16" height="16"/>
         <image name="logo-200x50透明" width="16" height="16"/>
         <image name="tabBarItem:ncQ-M8-ACk:selectedImage" width="22" height="22">
             <mutableData key="keyedArchiveRepresentation">
