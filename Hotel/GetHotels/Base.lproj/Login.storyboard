@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="3Ta-Eg-wn6">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -306,8 +306,8 @@
         </scene>
     </scenes>
     <resources>
-        <image name="人像" width="166" height="166"/>
-        <image name="手机" width="50" height="50"/>
-        <image name="账号与安全" width="44" height="44"/>
+        <image name="人像" width="83" height="83"/>
+        <image name="手机" width="25" height="25"/>
+        <image name="账号与安全" width="22" height="22"/>
     </resources>
 </document>
