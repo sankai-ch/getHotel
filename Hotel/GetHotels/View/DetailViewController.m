@@ -9,6 +9,24 @@
 #import "DetailViewController.h"
 
 @interface DetailViewController ()
+@property (weak, nonatomic) IBOutlet UIScrollView *scrollView1;
+@property (weak, nonatomic) IBOutlet UIScrollView *scrollView2;
+@property (weak, nonatomic) IBOutlet UIDatePicker *time;
+@property (weak, nonatomic) IBOutlet UIToolbar *toolbar;
+@property (weak, nonatomic) IBOutlet UIImageView *imaget;
+@property (weak, nonatomic) IBOutlet UILabel *jiudian;
+@property (weak, nonatomic) IBOutlet UILabel *price;
+@property (weak, nonatomic) IBOutlet UIImageView *image2;
+@property (weak, nonatomic) IBOutlet UILabel *dizhi;
+@property (weak, nonatomic) IBOutlet UIButton *tidu;
+- (IBAction)dituAction:(UIButton *)sender forEvent:(UIEvent *)event;
+@property (weak, nonatomic) IBOutlet UIButton *timeday;
+@property (weak, nonatomic) IBOutlet UIButton *timeday1;
+@property (weak, nonatomic) IBOutlet UIImageView *image3;
+@property (weak, nonatomic) IBOutlet UIButton *weiliao;
+@property (weak, nonatomic) IBOutlet UIButton *goumai;
+- (IBAction)weiiaoAction:(UIButton *)sender forEvent:(UIEvent *)event;
+- (IBAction)goumaiAction:(UIButton *)sender forEvent:(UIEvent *)event;
 
 @end
 
@@ -50,4 +68,11 @@
 }
 */
 
+- (IBAction)dituAction:(UIButton *)sender forEvent:(UIEvent *)event {
+}
+- (IBAction)weiiaoAction:(UIButton *)sender forEvent:(UIEvent *)event {
+}
+
+- (IBAction)goumaiAction:(UIButton *)sender forEvent:(UIEvent *)event {
+}
 @end
