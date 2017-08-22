@@ -9,6 +9,7 @@
 #import "SignInViewController.h"
 
 @interface SignInViewController ()
+@property (weak, nonatomic) IBOutlet UIImageView *shadowImageView;
 
 @end
 
@@ -23,6 +24,15 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+- (void)setShadow {
+    
+    _shadowImageView.layer.shadowColor = [UIColor blackColor].CGColor;//shadowColor阴影颜色
+    _shadowImageView.layer.shadowOffset = CGSizeMake(0,0);//shadowOffset阴影偏移,x向右偏移4，y向下偏移4，默认(0, -3),这个跟shadowRadius配合使用
+    _shadowImageView.layer.shadowOpacity = 0.5;//阴影透明度，默认0
+    _shadowImageView.layer.shadowRadius = 4;//阴影半径，默认3
+}
+
 
 /*
 #pragma mark - Navigation
