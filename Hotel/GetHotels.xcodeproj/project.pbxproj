@@ -36,6 +36,7 @@
 		B2BD3EB31F4ACBA0002C6B98 /* Aviation.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B2BD3EAD1F4ACBA0002C6B98 /* Aviation.storyboard */; };
 		B2BD3EB41F4ACBA0002C6B98 /* Hotel.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B2BD3EAF1F4ACBA0002C6B98 /* Hotel.storyboard */; };
 		B2BD3EB51F4ACBA0002C6B98 /* MyInfo.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B2BD3EB11F4ACBA0002C6B98 /* MyInfo.storyboard */; };
+		B2E555091F4AF70700D314C0 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B2E555081F4AF70700D314C0 /* DetailViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -110,6 +111,8 @@
 		B2BD3EAE1F4ACBA0002C6B98 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = GetHotels/Base.lproj/Aviation.storyboard; sourceTree = SOURCE_ROOT; };
 		B2BD3EB01F4ACBA0002C6B98 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = GetHotels/Base.lproj/Hotel.storyboard; sourceTree = SOURCE_ROOT; };
 		B2BD3EB21F4ACBA0002C6B98 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = GetHotels/Base.lproj/MyInfo.storyboard; sourceTree = SOURCE_ROOT; };
+		B2E555071F4AF70700D314C0 /* DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
+		B2E555081F4AF70700D314C0 /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -168,6 +171,8 @@
 			isa = PBXGroup;
 			children = (
 				B2A2D71D1F4AF35B001D6B81 /* Deatil.storyboard */,
+				B2E555071F4AF70700D314C0 /* DetailViewController.h */,
+				B2E555081F4AF70700D314C0 /* DetailViewController.m */,
 			);
 			name = Detail;
 			sourceTree = "<group>";
@@ -583,6 +588,7 @@
 				B2BD3E9A1F4AA4F7002C6B98 /* HMSegmentedControl.m in Sources */,
 				B2BD3E8B1F4AA4EF002C6B98 /* NSDateFormatter+Category.m in Sources */,
 				B2BD3E8A1F4AA4EF002C6B98 /* NSDate+Utility.m in Sources */,
+				B2E555091F4AF70700D314C0 /* DetailViewController.m in Sources */,
 				B2BD3E9B1F4AA4F7002C6B98 /* SKTag.m in Sources */,
 				B2BD3E8D1F4AA4EF002C6B98 /* RequestAPI.m in Sources */,
 				B2BD3E8F1F4AA4EF002C6B98 /* Utilities.m in Sources */,
