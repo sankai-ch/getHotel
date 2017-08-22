@@ -31,6 +31,9 @@
 		B224DBA91F4C34300022C007 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B224DBA81F4C34300022C007 /* CoreMotion.framework */; };
 		B224DBAB1F4C343E0022C007 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B224DBAA1F4C343E0022C007 /* CoreTelephony.framework */; };
 		B224DBAE1F4C34E00022C007 /* Order.m in Sources */ = {isa = PBXBuildFile; fileRef = B224DBAD1F4C34E00022C007 /* Order.m */; };
+		B224DBB11F4C46110022C007 /* MyInfoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B224DBB01F4C46110022C007 /* MyInfoTableViewCell.m */; };
+		B224DBB41F4C4D370022C007 /* AirViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B224DBB31F4C4D370022C007 /* AirViewController.m */; };
+		B224DBB71F4C4D4C0022C007 /* MessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B224DBB61F4C4D4C0022C007 /* MessageViewController.m */; };
 		B2A2D71F1F4AF35B001D6B81 /* Deatil.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B2A2D71D1F4AF35B001D6B81 /* Deatil.storyboard */; };
 		B2A2D7221F4AF373001D6B81 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B2A2D7201F4AF373001D6B81 /* Login.storyboard */; };
 		B2A2D7321F4AFC20001D6B81 /* MyInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B2A2D7311F4AFC20001D6B81 /* MyInfoViewController.m */; };
@@ -127,6 +130,12 @@
 		B224DBAA1F4C343E0022C007 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
 		B224DBAC1F4C34E00022C007 /* Order.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Order.h; sourceTree = "<group>"; };
 		B224DBAD1F4C34E00022C007 /* Order.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Order.m; sourceTree = "<group>"; };
+		B224DBAF1F4C46110022C007 /* MyInfoTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyInfoTableViewCell.h; sourceTree = "<group>"; };
+		B224DBB01F4C46110022C007 /* MyInfoTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyInfoTableViewCell.m; sourceTree = "<group>"; };
+		B224DBB21F4C4D370022C007 /* AirViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AirViewController.h; sourceTree = "<group>"; };
+		B224DBB31F4C4D370022C007 /* AirViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AirViewController.m; sourceTree = "<group>"; };
+		B224DBB51F4C4D4C0022C007 /* MessageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageViewController.h; sourceTree = "<group>"; };
+		B224DBB61F4C4D4C0022C007 /* MessageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageViewController.m; sourceTree = "<group>"; };
 		B2A2D71E1F4AF35B001D6B81 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = GetHotels/Base.lproj/Deatil.storyboard; sourceTree = SOURCE_ROOT; };
 		B2A2D7211F4AF373001D6B81 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = GetHotels/Base.lproj/Login.storyboard; sourceTree = SOURCE_ROOT; };
 		B2A2D7301F4AFC20001D6B81 /* MyInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyInfoViewController.h; sourceTree = "<group>"; };
@@ -305,6 +314,8 @@
 			isa = PBXGroup;
 			children = (
 				B2BD3EB11F4ACBA0002C6B98 /* MyInfo.storyboard */,
+				B224DBAF1F4C46110022C007 /* MyInfoTableViewCell.h */,
+				B224DBB01F4C46110022C007 /* MyInfoTableViewCell.m */,
 			);
 			name = MyInfo;
 			sourceTree = "<group>";
@@ -349,6 +360,10 @@
 				B2A2D73A1F4B06C4001D6B81 /* MyHotelViewController.m */,
 				B224DB741F4BEA970022C007 /* CustomerServiceViewController.h */,
 				B224DB751F4BEA970022C007 /* CustomerServiceViewController.m */,
+				B224DBB21F4C4D370022C007 /* AirViewController.h */,
+				B224DBB31F4C4D370022C007 /* AirViewController.m */,
+				B224DBB51F4C4D4C0022C007 /* MessageViewController.h */,
+				B224DBB61F4C4D4C0022C007 /* MessageViewController.m */,
 			);
 			name = MyInfoViewController;
 			sourceTree = "<group>";
@@ -762,9 +777,11 @@
 				B2BD3E8C1F4AA4EF002C6B98 /* NSString+Crypt.m in Sources */,
 				B2BD3E871F4AA4EF002C6B98 /* AppAPIClient.m in Sources */,
 				B2A2D7321F4AFC20001D6B81 /* MyInfoViewController.m in Sources */,
+				B224DBB71F4C4D4C0022C007 /* MessageViewController.m in Sources */,
 				B2BD3E731F4AA439002C6B98 /* BasicEncodingRules.m in Sources */,
 				6A7C04911F4B15FC003D72FB /* HotelTableViewCell.m in Sources */,
 				B224DB951F4C33910022C007 /* MD5DataSigner.m in Sources */,
+				B224DBB41F4C4D370022C007 /* AirViewController.m in Sources */,
 				B2BD3E8E1F4AA4EF002C6B98 /* StorageMgr.m in Sources */,
 				B224DB991F4C33910022C007 /* RSADataVerifier.m in Sources */,
 				B2BD3E891F4AA4EF002C6B98 /* NSData+Base64.m in Sources */,
@@ -777,6 +794,7 @@
 				844E86A01F4B12E20080C2ED /* SignInViewController.m in Sources */,
 				B224DB941F4C33910022C007 /* DataVerifier.m in Sources */,
 				B2BD3E8A1F4AA4EF002C6B98 /* NSDate+Utility.m in Sources */,
+				B224DBB11F4C46110022C007 /* MyInfoTableViewCell.m in Sources */,
 				B2E555091F4AF70700D314C0 /* DetailViewController.m in Sources */,
 				B2BD3E9B1F4AA4F7002C6B98 /* SKTag.m in Sources */,
 				B2BD3E8D1F4AA4EF002C6B98 /* RequestAPI.m in Sources */,
