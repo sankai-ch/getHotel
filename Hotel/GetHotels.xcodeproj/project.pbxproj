@@ -11,6 +11,7 @@
 		6A7C04911F4B15FC003D72FB /* HotelTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A7C04901F4B15FC003D72FB /* HotelTableViewCell.m */; };
 		844E869D1F4B12C20080C2ED /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 844E869C1F4B12C20080C2ED /* LoginViewController.m */; };
 		844E86A01F4B12E20080C2ED /* SignInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 844E869F1F4B12E20080C2ED /* SignInViewController.m */; };
+		B224DB761F4BEA970022C007 /* CustomerServiceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B224DB751F4BEA970022C007 /* CustomerServiceViewController.m */; };
 		B2A2D71F1F4AF35B001D6B81 /* Deatil.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B2A2D71D1F4AF35B001D6B81 /* Deatil.storyboard */; };
 		B2A2D7221F4AF373001D6B81 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B2A2D7201F4AF373001D6B81 /* Login.storyboard */; };
 		B2A2D7321F4AFC20001D6B81 /* MyInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B2A2D7311F4AFC20001D6B81 /* MyInfoViewController.m */; };
@@ -73,6 +74,8 @@
 		844E869F1F4B12E20080C2ED /* SignInViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignInViewController.m; sourceTree = "<group>"; };
 		87E248321E9C674FE6281D42 /* Pods-GetHotels.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GetHotels.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GetHotels/Pods-GetHotels.debug.xcconfig"; sourceTree = "<group>"; };
 		91A29EB61D066B9FD83C2A3C /* libPods-GetHotels.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-GetHotels.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		B224DB741F4BEA970022C007 /* CustomerServiceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomerServiceViewController.h; sourceTree = "<group>"; };
+		B224DB751F4BEA970022C007 /* CustomerServiceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomerServiceViewController.m; sourceTree = "<group>"; };
 		B2A2D71E1F4AF35B001D6B81 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = GetHotels/Base.lproj/Deatil.storyboard; sourceTree = SOURCE_ROOT; };
 		B2A2D7211F4AF373001D6B81 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = GetHotels/Base.lproj/Login.storyboard; sourceTree = SOURCE_ROOT; };
 		B2A2D7301F4AFC20001D6B81 /* MyInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyInfoViewController.h; sourceTree = "<group>"; };
@@ -252,6 +255,8 @@
 				B2A2D7371F4B06A1001D6B81 /* AgreementViewController.m */,
 				B2A2D7391F4B06C4001D6B81 /* MyHotelViewController.h */,
 				B2A2D73A1F4B06C4001D6B81 /* MyHotelViewController.m */,
+				B224DB741F4BEA970022C007 /* CustomerServiceViewController.h */,
+				B224DB751F4BEA970022C007 /* CustomerServiceViewController.m */,
 			);
 			name = MyInfoViewController;
 			sourceTree = "<group>";
@@ -656,6 +661,7 @@
 				B2BD3E341F4AA201002C6B98 /* AppDelegate.m in Sources */,
 				B2BD3E9A1F4AA4F7002C6B98 /* HMSegmentedControl.m in Sources */,
 				B2BD3E8B1F4AA4EF002C6B98 /* NSDateFormatter+Category.m in Sources */,
+				B224DB761F4BEA970022C007 /* CustomerServiceViewController.m in Sources */,
 				844E86A01F4B12E20080C2ED /* SignInViewController.m in Sources */,
 				B2BD3E8A1F4AA4EF002C6B98 /* NSDate+Utility.m in Sources */,
 				B2E555091F4AF70700D314C0 /* DetailViewController.m in Sources */,
