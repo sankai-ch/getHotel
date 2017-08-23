@@ -106,6 +106,13 @@
     return imageDownloaded;
 }
 
++ (BOOL)loginCheck {
+    if ([[[StorageMgr singletonStorageMgr] objectForKey:@"MemberId"] isKindOfClass:[NSNull class]] || [[StorageMgr singletonStorageMgr] objectForKey:@"MemberId"] == nil) {
+        return NO;
+    } else {
+        return YES;
+    }
+}
 + (NSDictionary *)makeHeaderForToken:(NSString *)token {
     return @{@"key" : @"x-auth-token", @"value" : [Utilities nullAndNilCheck:token replaceBy:@""]};
 }
