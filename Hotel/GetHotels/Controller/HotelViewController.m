@@ -8,6 +8,7 @@
 
 #import "HotelViewController.h"
 #import "HotelTableViewCell.h"
+#import "DetailViewController.h"
 @interface HotelViewController () <UITableViewDelegate,UITableViewDataSource> {
     NSInteger btnTime;
 }
@@ -97,6 +98,10 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    DetailViewController *detailVC = [Utilities getStoryboardInstance:@"Deatil" byIdentity:@"reservation"];
+    //UINavigationController *nc = [[UINavigationController alloc]initWithRootViewController:detailVC];
+    //[self presentViewController:nc animated:YES completion:nil];
+    [self.navigationController pushViewController:detailVC animated:YES];
 }
 
 #pragma mark - btnAction

@@ -276,9 +276,6 @@
                                                 <constraint firstAttribute="trailing" secondItem="gOd-ET-CZq" secondAttribute="trailing" constant="15" id="y4A-pU-ery"/>
                                             </constraints>
                                         </tableViewCellContentView>
-                                        <connections>
-                                            <segue destination="brE-YN-dfI" kind="show" identifier="getHotelToDetail" id="nrV-zu-Eyo"/>
-                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>
@@ -341,14 +338,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Wmu-O9-Vs7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-2228" y="-234.33283358320841"/>
-        </scene>
-        <!--Deatil-->
-        <scene sceneID="791-Vg-HBa">
-            <objects>
-                <viewControllerPlaceholder storyboardName="Deatil" id="brE-YN-dfI" sceneMemberID="viewController"/>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="1NF-TP-CRL" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-1610" y="-119"/>
         </scene>
         <!--酒店-->
         <scene sceneID="d4Z-uf-gVd">
