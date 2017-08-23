@@ -8,14 +8,18 @@
 
 #import "CustomerServiceViewController.h"
 
-@interface CustomerServiceViewController ()
-
+@interface CustomerServiceViewController ()<UITableViewDelegate, UITableViewDataSource>
+@property (weak, nonatomic) IBOutlet UITableView *customTableView;
+@property (strong, nonatomic) NSArray *arr;
 @end
 
 @implementation CustomerServiceViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    _arr = @[@{@"title":@"客服电话",@"content":@"88888888"},@{@"title":@"客服QQ",@"content":@"820989774"}];
+    
+    _customTableView.tableFooterView = [UIView new];
     [self setNavigationItem];
     // Do any additional setup after loading the view.
 }
@@ -24,7 +28,11 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
+//当前页面将要显示的时候，显示导航栏
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:NO animated:animated];
+}
 /*
 #pragma mark - Navigation
 
@@ -52,5 +60,26 @@
 //自定的返回按钮的事件
 - (void)leftButtonAction: (UIButton *)sender{
     [self.navigationController popViewControllerAnimated:YES];
+}
+//每组多少行
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    return _arr.count;
+}
+
+//细胞长什么样
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"callUsCell" forIndexPath:indexPath];
+    NSDictionary *dict = _arr[indexPath.row];
+    cell.textLabel.text = dict[@"title"];
+    cell.detailTextLabel.text = dict[@"content"];
+    return cell;
+}
+//设置每行高度
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return 50.f;
+}
+//细胞选中后调用
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 @end

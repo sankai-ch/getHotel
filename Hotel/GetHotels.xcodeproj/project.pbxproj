@@ -67,6 +67,7 @@
 		B2BD3EB31F4ACBA0002C6B98 /* Aviation.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B2BD3EAD1F4ACBA0002C6B98 /* Aviation.storyboard */; };
 		B2BD3EB41F4ACBA0002C6B98 /* Hotel.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B2BD3EAF1F4ACBA0002C6B98 /* Hotel.storyboard */; };
 		B2BD3EB51F4ACBA0002C6B98 /* MyInfo.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B2BD3EB11F4ACBA0002C6B98 /* MyInfo.storyboard */; };
+		B2C913441F4D19DD00AAC60A /* agreement.txt in Resources */ = {isa = PBXBuildFile; fileRef = B2C913431F4D19DD00AAC60A /* agreement.txt */; };
 		B2E555091F4AF70700D314C0 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B2E555081F4AF70700D314C0 /* DetailViewController.m */; };
 		B2F076231F4D18DB0074C80C /* zhifuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B2F076221F4D18DB0074C80C /* zhifuViewController.m */; };
 /* End PBXBuildFile section */
@@ -199,6 +200,7 @@
 		B2BD3EAE1F4ACBA0002C6B98 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = GetHotels/Base.lproj/Aviation.storyboard; sourceTree = SOURCE_ROOT; };
 		B2BD3EB01F4ACBA0002C6B98 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = GetHotels/Base.lproj/Hotel.storyboard; sourceTree = SOURCE_ROOT; };
 		B2BD3EB21F4ACBA0002C6B98 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = GetHotels/Base.lproj/MyInfo.storyboard; sourceTree = SOURCE_ROOT; };
+		B2C913431F4D19DD00AAC60A /* agreement.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = agreement.txt; sourceTree = "<group>"; };
 		B2E555071F4AF70700D314C0 /* DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DetailViewController.h; path = ../View/DetailViewController.h; sourceTree = "<group>"; };
 		B2E555081F4AF70700D314C0 /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DetailViewController.m; path = ../View/DetailViewController.m; sourceTree = "<group>"; };
 		B2F076211F4D18DB0074C80C /* zhifuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zhifuViewController.h; sourceTree = "<group>"; };
@@ -444,6 +446,7 @@
 		B2BD3E2F1F4AA201002C6B98 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				B2C913431F4D19DD00AAC60A /* agreement.txt */,
 				B2BD3E431F4AA201002C6B98 /* Info.plist */,
 				B224DB9C1F4C33D90022C007 /* Cities.plist */,
 				B2BD3E321F4AA201002C6B98 /* AppDelegate.h */,
@@ -709,6 +712,7 @@
 				B2BD3EB51F4ACBA0002C6B98 /* MyInfo.storyboard in Resources */,
 				B2A2D71F1F4AF35B001D6B81 /* Deatil.storyboard in Resources */,
 				B2BD3E3A1F4AA201002C6B98 /* Main.storyboard in Resources */,
+				B2C913441F4D19DD00AAC60A /* agreement.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

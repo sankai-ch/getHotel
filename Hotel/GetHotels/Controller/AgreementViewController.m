@@ -9,6 +9,10 @@
 #import "AgreementViewController.h"
 
 @interface AgreementViewController ()
+@property (weak, nonatomic) IBOutlet UITextView *agreement;
+
+
+
 
 @end
 
@@ -17,6 +21,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setNavigationItem];
+    [self dataInitialize];
+   
     // Do any additional setup after loading the view.
 }
 
@@ -25,7 +31,32 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
+//当前页面将要显示的时候，显示导航栏
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:NO animated:animated];
+}
+
+- (void)dataInitialize {
+    //创建文件管理器
+    NSFileManager *fileMgr = [NSFileManager defaultManager];
+    //获取要读取的文件路径
+    NSString *filePath = [[NSBundle mainBundle] pathForResource:@"agreement" ofType:@"txt"];
+    //判断路径下是否存在文件
+    if ([fileMgr fileExistsAtPath:filePath]) {
+        //将文件内容读取为对应的格式
+       
+        NSString *str = [NSString stringWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:nil];
+        //判断读取到的内容是否存在（判断文件是否损坏）
+        if (str) {
+       
+        _agreement.text = str;
+        
+        
+         }
+    }
+}
+    /*
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
