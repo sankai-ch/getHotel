@@ -68,6 +68,7 @@
 		B2BD3EB41F4ACBA0002C6B98 /* Hotel.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B2BD3EAF1F4ACBA0002C6B98 /* Hotel.storyboard */; };
 		B2BD3EB51F4ACBA0002C6B98 /* MyInfo.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B2BD3EB11F4ACBA0002C6B98 /* MyInfo.storyboard */; };
 		B2E555091F4AF70700D314C0 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B2E555081F4AF70700D314C0 /* DetailViewController.m */; };
+		B2F076231F4D18DB0074C80C /* zhifuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B2F076221F4D18DB0074C80C /* zhifuViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -200,6 +201,8 @@
 		B2BD3EB21F4ACBA0002C6B98 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = GetHotels/Base.lproj/MyInfo.storyboard; sourceTree = SOURCE_ROOT; };
 		B2E555071F4AF70700D314C0 /* DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DetailViewController.h; path = ../View/DetailViewController.h; sourceTree = "<group>"; };
 		B2E555081F4AF70700D314C0 /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DetailViewController.m; path = ../View/DetailViewController.m; sourceTree = "<group>"; };
+		B2F076211F4D18DB0074C80C /* zhifuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zhifuViewController.h; sourceTree = "<group>"; };
+		B2F076221F4D18DB0074C80C /* zhifuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = zhifuViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -387,6 +390,8 @@
 			children = (
 				B2E555071F4AF70700D314C0 /* DetailViewController.h */,
 				B2E555081F4AF70700D314C0 /* DetailViewController.m */,
+				B2F076211F4D18DB0074C80C /* zhifuViewController.h */,
+				B2F076221F4D18DB0074C80C /* zhifuViewController.m */,
 			);
 			name = DetailViewController;
 			sourceTree = "<group>";
@@ -799,6 +804,7 @@
 				B224DB761F4BEA970022C007 /* CustomerServiceViewController.m in Sources */,
 				844E86A01F4B12E20080C2ED /* SignInViewController.m in Sources */,
 				B224DB941F4C33910022C007 /* DataVerifier.m in Sources */,
+				B2F076231F4D18DB0074C80C /* zhifuViewController.m in Sources */,
 				B2BD3E8A1F4AA4EF002C6B98 /* NSDate+Utility.m in Sources */,
 				B224DBB11F4C46110022C007 /* MyInfoTableViewCell.m in Sources */,
 				B2E555091F4AF70700D314C0 /* DetailViewController.m in Sources */,
