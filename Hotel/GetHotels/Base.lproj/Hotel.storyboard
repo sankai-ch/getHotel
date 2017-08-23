@@ -58,11 +58,11 @@
                                             <constraint firstAttribute="width" secondItem="RRh-E5-Ax9" secondAttribute="height" multiplier="1:1" id="cJX-S9-PrB"/>
                                         </constraints>
                                     </imageView>
-                                    <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="jPe-Mp-qxy">
-                                        <rect key="frame" x="71" y="3" width="233" height="44"/>
-                                        <color key="backgroundColor" red="0.0" green="0.23529411764705882" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                        <color key="tintColor" red="0.0" green="0.39215686274509803" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                        <color key="barTintColor" red="0.0" green="0.39215686274509803" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                    <searchBar contentMode="redraw" barStyle="black" translatesAutoresizingMaskIntoConstraints="NO" id="jPe-Mp-qxy">
+                                        <rect key="frame" x="71" y="0.0" width="233" height="50"/>
+                                        <color key="backgroundColor" red="0.094117647058823528" green="0.48627450980392156" blue="0.92549019607843142" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="tintColor" red="0.094117647058823528" green="0.48627450980392156" blue="0.92549019607843142" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="barTintColor" red="0.094117647058823528" green="0.48627450980392156" blue="0.92549019607843142" alpha="1" colorSpace="calibratedRGB"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </searchBar>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="B8c-Yx-9pR">
@@ -73,16 +73,17 @@
                                         </state>
                                     </button>
                                 </subviews>
-                                <color key="backgroundColor" red="0.0" green="0.39086415816326531" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.094117647058823528" green="0.48627450980392156" blue="0.92549019607843142" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstItem="FWG-m2-7Ig" firstAttribute="leading" secondItem="B8c-Yx-9pR" secondAttribute="trailing" id="1li-Ld-ZxM"/>
                                     <constraint firstItem="jPe-Mp-qxy" firstAttribute="leading" secondItem="FWG-m2-7Ig" secondAttribute="trailing" constant="5" id="9LS-i5-ttS"/>
                                     <constraint firstItem="B8c-Yx-9pR" firstAttribute="leading" secondItem="Qa4-eC-mBZ" secondAttribute="trailing" id="9Wz-Wm-F3y"/>
-                                    <constraint firstItem="jPe-Mp-qxy" firstAttribute="centerY" secondItem="S76-32-ZGi" secondAttribute="centerY" id="BFD-kT-GVp"/>
                                     <constraint firstItem="Gr6-Nb-25P" firstAttribute="top" secondItem="S76-32-ZGi" secondAttribute="top" constant="10" id="FFo-GL-RkI"/>
                                     <constraint firstItem="B8c-Yx-9pR" firstAttribute="centerY" secondItem="S76-32-ZGi" secondAttribute="centerY" id="HaL-MF-6VZ"/>
+                                    <constraint firstItem="jPe-Mp-qxy" firstAttribute="top" secondItem="S76-32-ZGi" secondAttribute="top" id="K4L-Vu-RTS"/>
                                     <constraint firstItem="Gr6-Nb-25P" firstAttribute="leading" secondItem="dsO-RX-pdG" secondAttribute="leading" id="NsS-Ky-dLp"/>
                                     <constraint firstItem="RRh-E5-Ax9" firstAttribute="leading" secondItem="Gr6-Nb-25P" secondAttribute="trailing" constant="10" id="Rzy-rL-A5v"/>
+                                    <constraint firstAttribute="bottom" secondItem="jPe-Mp-qxy" secondAttribute="bottom" id="V0w-fO-7b0"/>
                                     <constraint firstItem="RRh-E5-Ax9" firstAttribute="leading" secondItem="dsO-RX-pdG" secondAttribute="trailing" constant="5" id="YhI-Jy-fgx"/>
                                     <constraint firstAttribute="bottom" secondItem="dsO-RX-pdG" secondAttribute="bottom" constant="10" id="b51-g4-pTA"/>
                                     <constraint firstItem="Qa4-eC-mBZ" firstAttribute="centerY" secondItem="S76-32-ZGi" secondAttribute="centerY" id="dfE-oh-zyU"/>
@@ -276,6 +277,13 @@
                                                 <constraint firstAttribute="trailing" secondItem="gOd-ET-CZq" secondAttribute="trailing" constant="15" id="y4A-pU-ery"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="hotelDistance" destination="E6m-g7-Obq" id="Vfp-1N-sUf"/>
+                                            <outlet property="hotelImage" destination="98N-pQ-52h" id="0oC-lc-Tui"/>
+                                            <outlet property="hotelLocation" destination="fCQ-Pp-XU5" id="TyR-Lb-w9f"/>
+                                            <outlet property="hotelName" destination="hZZ-E4-PgJ" id="yJ4-wa-RBa"/>
+                                            <outlet property="hotelPrice" destination="gOd-ET-CZq" id="BIj-Kt-bXC"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>

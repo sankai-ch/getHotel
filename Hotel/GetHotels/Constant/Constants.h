@@ -43,7 +43,7 @@
 #define FRelease(x) {[x removeFromSuperview]; x = nil;}
 
 //设置Server
-#define kServer @"http://121.41.18.135:9096"
+#define kServer @"https://127.0.0.1:10010"
 //#define kServer @"http://192.168.2.187:9096"
 #define kQNServer @"http://oo81h9152.bkt.clouddn.com/"
 
