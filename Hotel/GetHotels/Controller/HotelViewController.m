@@ -16,7 +16,8 @@
 @property (weak, nonatomic) IBOutlet UIButton *dateInBtn;
 @property (weak, nonatomic) IBOutlet UIButton *dateOutBtn;
 @property (weak, nonatomic) IBOutlet UIToolbar *toolBar;
-
+@property (strong, nonatomic) NSString *date1;
+@property (strong, nonatomic) NSString *date2;
 
 
 - (IBAction)dateInAction:(UIButton *)sender forEvent:(UIEvent *)event;
@@ -58,8 +59,11 @@
     formatter.dateFormat = @"MM-dd";
     NSDate *today = [NSDate date];
     NSDate *tomorrow = [NSDate dateTomorrow];
-    [_dateInBtn setTitle:[NSString stringWithFormat:@"入住%@", [formatter stringFromDate:today]] forState:UIControlStateNormal];
-    [_dateOutBtn setTitle:[NSString stringWithFormat:@"离店%@", [formatter stringFromDate:tomorrow]] forState:UIControlStateNormal];
+    _date1 = [formatter stringFromDate:today];
+    _date2 = [formatter stringFromDate:tomorrow];
+    [_dateInBtn setTitle:[NSString stringWithFormat:@"入住%@", _date1] forState:UIControlStateNormal];
+    [_dateOutBtn setTitle:[NSString stringWithFormat:@"离店%@", _date2] forState:UIControlStateNormal];
+    [_datePicker setMinimumDate:today];
     
 }
 
@@ -70,7 +74,7 @@
     //设置导航条标题的文字
     self.navigationItem.title = @"GetHotel";
     //设置导航条的颜色（风格颜色）
-    self.navigationController.navigationBar.barTintColor = UIColorFromRGB(0, 100, 255);
+    self.navigationController.navigationBar.barTintColor = UIColorFromRGB(24, 124, 236);
     //设置导航条标题颜色
     self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName : [UIColor whiteColor]};
     //设置导航条是否被隐藏
@@ -84,6 +88,18 @@
 //    UIBarButtonItem *left = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self action:@selector(backAction)];
 //    self.navigationItem.leftBarButtonItem = left;
 }
+
+#pragma mark - request 
+
+- (void)requestAll {
+    NSDictionary *para = @{};
+    [RequestAPI requestURL:@"/findAllHotelAndAdvertising" withParameters:para andHeader:nil byMethod:kGet andSerializer:kForm success:^(id responseObject) {
+        
+    } failure:^(NSInteger statusCode, NSError *error) {
+        
+    }];
+}
+
 
 #pragma mark - table View
 
@@ -128,12 +144,13 @@
     NSDate *date =  _datePicker.date;
     //初始化一个日期格式器
     NSDateFormatter *formatter = [NSDateFormatter new];
-    //定义日期的格式为yyyy-MM-dd
     formatter.dateFormat = @"MM-dd";
     NSString *theDate = [formatter stringFromDate:date];
 
     if (btnTime == 0) {
         [_dateInBtn setTitle:[NSString stringWithFormat:@"入住%@", theDate] forState:UIControlStateNormal];
+        [_dateOutBtn setTitle:[NSString stringWithFormat:@"离店%@", theDate] forState:UIControlStateNormal];
+        [_datePicker setMinimumDate:date];
     }
     else {
         
