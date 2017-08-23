@@ -33,6 +33,8 @@
 + (NSDictionary *)makeHeaderForToken:(NSString *)token;
 //补0
 + (NSString *)checkZero:(NSInteger)num;
+//检查是否已登录
++ (BOOL)loginCheck;
 //隐藏手机号中间四位
 + (NSString *)invisiblePhoneNo:(NSString *)rawPhone;
 //强制下线

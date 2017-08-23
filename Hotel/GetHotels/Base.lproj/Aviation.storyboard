@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="HVh-OA-hcf">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="mak-BZ-agU">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -12,7 +12,7 @@
         <!--航空-->
         <scene sceneID="Y3v-dA-WWp">
             <objects>
-                <viewController title="航空" id="HVh-OA-hcf" sceneMemberID="viewController">
+                <viewController title="航空" id="HVh-OA-hcf" customClass="AirViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="z2B-Pb-JXV"/>
                         <viewControllerLayoutGuide type="bottom" id="OUv-z2-AxJ"/>
@@ -22,11 +22,30 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="航空" image="航空" id="1LP-h5-s2a"/>
+                    <navigationItem key="navigationItem" id="6ym-Pe-aoA"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TdV-SB-dZ8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2830" y="827"/>
+            <point key="canvasLocation" x="-1892" y="826.23688155922048"/>
+        </scene>
+        <!--航空-->
+        <scene sceneID="672-dx-brh">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="mak-BZ-agU" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="航空" image="航空" id="1LP-h5-s2a"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="u2G-e0-Bwa">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="HVh-OA-hcf" kind="relationship" relationship="rootViewController" id="bs7-ut-xhi"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="gm8-n5-tme" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2831.1999999999998" y="826.23688155922048"/>
         </scene>
     </scenes>
     <resources>

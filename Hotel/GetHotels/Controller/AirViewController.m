@@ -16,7 +16,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self setNavigationItem];
+    [self naviConfig];
     // Do any additional setup after loading the view.
 }
 
@@ -39,22 +39,23 @@
 }
 */
 //设置导航栏样式
-- (void)setNavigationItem{
-    //self.navigationController.navigationBar.backgroundColor = [UIColor whiteColor];
-    [self.navigationController.navigationBar setBarTintColor:HEAD_THEMECOLOR];
-    //实例化一个button 类型为UIButtonTypeSystem
-    UIButton *leftBtn = [UIButton buttonWithType:UIButtonTypeSystem];
-    //设置位置大小
-    leftBtn.frame = CGRectMake(0, 0, 20, 20);
-    //设置其背景图片为返回图片
-    [leftBtn setBackgroundImage:[UIImage imageNamed:@"返回"] forState:UIControlStateNormal];
-    //给按钮添加事件
-    [leftBtn addTarget:self action:@selector(leftButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+//这个方法专门做导航条的控制
+- (void)naviConfig{
+    //设置导航条标题的文字
+    self.navigationItem.title = @"航空";
+    //设置导航条的颜色（风格颜色）
+    self.navigationController.navigationBar.barTintColor = UIColorFromRGB(0, 100, 255);
+    //设置导航条标题颜色
+    self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName : [UIColor whiteColor]};
+    //设置导航条是否被隐藏
+    self.navigationController.navigationBar.hidden = NO;
     
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:leftBtn];
-}
-//自定的返回按钮的事件
-- (void)leftButtonAction: (UIButton *)sender{
-    [self.navigationController popViewControllerAnimated:YES];
+    //设置导航条上按钮的风格颜色
+    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
+    //设置是否需要毛玻璃效果
+    self.navigationController.navigationBar.translucent = YES;
+    //为导航条左上角创建一个按钮
+    //    UIBarButtonItem *left = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self action:@selector(backAction)];
+    //    self.navigationItem.leftBarButtonItem = left;
 }
 @end
