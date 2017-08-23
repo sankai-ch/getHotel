@@ -8,16 +8,18 @@
 
 #import "HotelViewController.h"
 #import "HotelTableViewCell.h"
-@interface HotelViewController () <UITableViewDelegate,UITableViewDataSource>
-@property (weak, nonatomic) IBOutlet UIDatePicker *dataPicker;
-@property (weak, nonatomic) IBOutlet UIButton *dataInBtn;
-@property (weak, nonatomic) IBOutlet UIButton *dataOutBtn;
+@interface HotelViewController () <UITableViewDelegate,UITableViewDataSource> {
+    NSInteger btnTime;
+}
+@property (weak, nonatomic) IBOutlet UIDatePicker *datePicker;
+@property (weak, nonatomic) IBOutlet UIButton *dateInBtn;
+@property (weak, nonatomic) IBOutlet UIButton *dateOutBtn;
 @property (weak, nonatomic) IBOutlet UIToolbar *toolBar;
 
 
 
-- (IBAction)dataInAction:(UIButton *)sender forEvent:(UIEvent *)event;
-- (IBAction)dataOutAction:(UIButton *)sender forEvent:(UIEvent *)event;
+- (IBAction)dateInAction:(UIButton *)sender forEvent:(UIEvent *)event;
+- (IBAction)dateOutAction:(UIButton *)sender forEvent:(UIEvent *)event;
 - (IBAction)cancelAction:(UIBarButtonItem *)sender;
 - (IBAction)confirmAction:(UIBarButtonItem *)sender;
 
@@ -32,6 +34,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self naviConfig];
+    [self setDefaultTime];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -48,6 +51,18 @@
     // Pass the selected object to the new view controller.
 }
 */
+
+- (void)setDefaultTime {
+    NSDateFormatter *formatter = [NSDateFormatter new];
+    formatter.dateFormat = @"MM-dd";
+    NSDate *today = [NSDate date];
+    NSDate *tomorrow = [NSDate dateTomorrow];
+    [_dateInBtn setTitle:[NSString stringWithFormat:@"入住%@", [formatter stringFromDate:today]] forState:UIControlStateNormal];
+    [_dateOutBtn setTitle:[NSString stringWithFormat:@"离店%@", [formatter stringFromDate:tomorrow]] forState:UIControlStateNormal];
+    
+}
+
+
 #pragma mark - naviConfig
 //这个方法专门做导航条的控制
 - (void)naviConfig{
@@ -86,23 +101,41 @@
 
 #pragma mark - btnAction
 
-- (IBAction)dataInAction:(UIButton *)sender forEvent:(UIEvent *)event {
-    _dataPicker.hidden = NO;
+- (IBAction)dateInAction:(UIButton *)sender forEvent:(UIEvent *)event {
+    btnTime = 0;
+    _datePicker.hidden = NO;
     _toolBar.hidden = NO;
 }
 
-- (IBAction)dataOutAction:(UIButton *)sender forEvent:(UIEvent *)event {
-    _dataPicker.hidden = NO;
+- (IBAction)dateOutAction:(UIButton *)sender forEvent:(UIEvent *)event {
+    btnTime = 1;
+    _datePicker.hidden = NO;
     _toolBar.hidden = NO;
 }
 
 - (IBAction)cancelAction:(UIBarButtonItem *)sender {
-    _dataPicker.hidden = YES;
+    _datePicker.hidden = YES;
     _toolBar.hidden = YES;
 }
 
 - (IBAction)confirmAction:(UIBarButtonItem *)sender {
-    _dataPicker.hidden = YES;
+    //拿到当前datepicker选择的事件
+    NSDate *date =  _datePicker.date;
+    //初始化一个日期格式器
+    NSDateFormatter *formatter = [NSDateFormatter new];
+    //定义日期的格式为yyyy-MM-dd
+    formatter.dateFormat = @"MM-dd";
+    NSString *theDate = [formatter stringFromDate:date];
+
+    if (btnTime == 0) {
+        [_dateInBtn setTitle:[NSString stringWithFormat:@"入住%@", theDate] forState:UIControlStateNormal];
+    }
+    else {
+        
+        [_dateOutBtn setTitle:[NSString stringWithFormat:@"离店%@", theDate] forState:UIControlStateNormal];
+    }
+    
+    _datePicker.hidden = YES;
     _toolBar.hidden = YES;
 }
 @end
