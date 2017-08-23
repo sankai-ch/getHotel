@@ -43,13 +43,17 @@
     // Pass the selected object to the new view controller.
 }
 */
+
+- (void)setSegment{
+}
+
 //有多少组
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return _myInfoArr.count;
 }
 //每组多少行
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 1;
+        return 1;
 }
 //细胞长什么样
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -76,28 +80,35 @@
 //细胞选中后调用
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
-    switch (indexPath.section) {
-        case 0:
-            [self performSegueWithIdentifier:@"ToHotel" sender:self];
-            break;
-        case 1:
-            [self performSegueWithIdentifier:@"ToAir" sender:self];
-            break;
-        case 2:
-            [self performSegueWithIdentifier:@"ToMessage" sender:self];
-            break;
-        case 3:
-            [self performSegueWithIdentifier:@"ToSafe" sender:self];
-            break;
-        case 4:
-            [self performSegueWithIdentifier:@"ToProtocol" sender:self];
-            break;
-        default:
-            [self performSegueWithIdentifier:@"ToCall" sender:self];
-            break;
+    if([Utilities loginCheck]){
+        switch (indexPath.section) {
+            case 0:
+                [self performSegueWithIdentifier:@"ToHotel" sender:self];
+                break;
+            case 1:
+                [self performSegueWithIdentifier:@"ToAir" sender:self];
+                break;
+            case 2:
+                [self performSegueWithIdentifier:@"ToMessage" sender:self];
+                break;
+            case 3:
+                [self performSegueWithIdentifier:@"ToSafe" sender:self];
+                break;
+            case 4:
+                [self performSegueWithIdentifier:@"ToProtocol" sender:self];
+                break;
+            default:
+                [self performSegueWithIdentifier:@"ToCall" sender:self];
+                break;
+        }
+
+    }else{
+        UINavigationController *signNavi=[Utilities getStoryboardInstance:@"Login" byIdentity:@"SignNavi"];
+        //执行跳转
+        [self presentViewController:signNavi animated:YES completion:nil];
     }
-}
+    
+    }
 - (IBAction)loginBtn:(UIButton *)sender forEvent:(UIEvent *)event {
 }
 @end

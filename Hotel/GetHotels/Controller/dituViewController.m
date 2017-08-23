@@ -1,18 +1,18 @@
 //
-//  zhifuViewController.m
+//  dituViewController.m
 //  GetHotels
 //
 //  Created by admin1 on 2017/8/23.
 //  Copyright © 2017年 Yixin studio. All rights reserved.
 //
 
-#import "zhifuViewController.h"
+#import "dituViewController.h"
 
-@interface zhifuViewController ()
+@interface dituViewController ()
 
 @end
 
-@implementation zhifuViewController
+@implementation dituViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -23,7 +23,6 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
 
 
 //设置导航栏样式
