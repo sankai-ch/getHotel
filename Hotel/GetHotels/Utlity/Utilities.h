@@ -20,7 +20,7 @@
 //获得venderID的UUID字符串
 + (NSString *)uniqueVendor;
 //根据id获取控制器实例
-+ (id)getStoryboardInstanceByIdentity:(NSString*)identity;
++ (id)getStoryboardInstance:(NSString *)sbName byIdentity:(NSString*)identity;
 //弹出普通提示框
 + (void)popUpAlertViewWithMsg:(NSString *)msg andTitle:(NSString* )title onView:(UIViewController *)vc onCompletion:(void (^)(void))completion;
 //获得保护膜
