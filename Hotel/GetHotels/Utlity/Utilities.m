@@ -38,9 +38,9 @@
     return uniqueIdentifier;
 }
 
-+ (id)getStoryboardInstanceByIdentity:(NSString*)identity
++ (id)getStoryboardInstance:(NSString *)sbName byIdentity:(NSString*)identity
 {
-    UIStoryboard* storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
+    UIStoryboard* storyboard = [UIStoryboard storyboardWithName:sbName bundle:[NSBundle mainBundle]];
     return [storyboard instantiateViewControllerWithIdentifier:identity];
 }
 

@@ -29,7 +29,11 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
+//当前页面将要显示的时候，隐藏导航栏
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:YES animated:NO];
+}
 /*
 #pragma mark - Navigation
 
@@ -58,7 +62,7 @@
 }
 //设置组的底部视图高度
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
-    if (section == 0) {
+    if (section == 2) {
         return 5.f;
     }
     return 1.f;

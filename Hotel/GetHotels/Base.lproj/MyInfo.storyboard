@@ -162,7 +162,7 @@
         <!--联系客服-->
         <scene sceneID="HJp-oR-kPE">
             <objects>
-                <viewController title="联系客服" id="0xc-Xy-VyM" customClass="CustomerServiceViewController" sceneMemberID="viewController">
+                <viewController title="联系客服" hidesBottomBarWhenPushed="YES" id="0xc-Xy-VyM" customClass="CustomerServiceViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="0Ik-pJ-xPr"/>
                         <viewControllerLayoutGuide type="bottom" id="guc-1e-aqZ"/>
@@ -207,6 +207,10 @@
                                         <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                     </tableViewCell>
                                 </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="0xc-Xy-VyM" id="Had-72-hx7"/>
+                                    <outlet property="delegate" destination="0xc-Xy-VyM" id="R6B-y6-SXF"/>
+                                </connections>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -220,6 +224,9 @@
                             <constraint firstItem="dVG-Uh-f7f" firstAttribute="top" secondItem="xXx-b9-A5y" secondAttribute="bottom" constant="80" id="xst-4I-xUv"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="customTableView" destination="dVG-Uh-f7f" id="iIY-Om-gNN"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="D4N-dn-kPq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -228,7 +235,7 @@
         <!--使用协议-->
         <scene sceneID="R7A-G7-EVr">
             <objects>
-                <viewController title="使用协议" id="qVW-by-kyL" customClass="AgreementViewController" sceneMemberID="viewController">
+                <viewController title="使用协议" hidesBottomBarWhenPushed="YES" id="qVW-by-kyL" customClass="AgreementViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="lJg-gJ-oeg"/>
                         <viewControllerLayoutGuide type="bottom" id="Q5y-pC-Y7x"/>
@@ -237,25 +244,25 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="J4b-OH-B4L">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="pMa-UV-jA0">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                <connections>
-                                    <outlet property="delegate" destination="qVW-by-kyL" id="GpU-Za-wGd"/>
-                                </connections>
                             </textView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="J4b-OH-B4L" secondAttribute="trailing" id="ARb-Il-MKH"/>
-                            <constraint firstItem="J4b-OH-B4L" firstAttribute="leading" secondItem="PQR-JJ-sQ2" secondAttribute="leading" id="FZq-zL-61q"/>
-                            <constraint firstItem="J4b-OH-B4L" firstAttribute="top" secondItem="PQR-JJ-sQ2" secondAttribute="top" id="kbk-Ms-XW9"/>
-                            <constraint firstAttribute="bottom" secondItem="J4b-OH-B4L" secondAttribute="bottom" id="ssg-z8-ybi"/>
+                            <constraint firstItem="Q5y-pC-Y7x" firstAttribute="top" secondItem="pMa-UV-jA0" secondAttribute="bottom" id="6cB-8t-NqM"/>
+                            <constraint firstAttribute="trailing" secondItem="pMa-UV-jA0" secondAttribute="trailing" id="Sao-Gn-fXK"/>
+                            <constraint firstItem="pMa-UV-jA0" firstAttribute="top" secondItem="PQR-JJ-sQ2" secondAttribute="top" id="XAY-0U-Rwv"/>
+                            <constraint firstItem="pMa-UV-jA0" firstAttribute="leading" secondItem="PQR-JJ-sQ2" secondAttribute="leading" id="adX-Bq-YUs"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="agreement" destination="pMa-UV-jA0" id="lUM-TH-Bbv"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Bqm-Fu-kua" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -264,7 +271,7 @@
         <!--我的消息-->
         <scene sceneID="hGF-we-n0e">
             <objects>
-                <viewController title="我的消息" id="yi7-De-Q7g" customClass="MessageViewController" sceneMemberID="viewController">
+                <viewController title="我的消息" hidesBottomBarWhenPushed="YES" id="yi7-De-Q7g" customClass="MessageViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="OIj-SE-Fog"/>
                         <viewControllerLayoutGuide type="bottom" id="u2y-YU-mvR"/>
@@ -282,7 +289,7 @@
         <!--我的航空-->
         <scene sceneID="jwh-gF-SUU">
             <objects>
-                <viewController title="我的航空" id="nbF-9o-4F9" customClass="AirViewController" sceneMemberID="viewController">
+                <viewController title="我的航空" hidesBottomBarWhenPushed="YES" id="nbF-9o-4F9" customClass="AirViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="lpl-uO-gbi"/>
                         <viewControllerLayoutGuide type="bottom" id="0Vc-Fv-QQn"/>
@@ -415,7 +422,7 @@
         <!--我的酒店-->
         <scene sceneID="01U-2l-vcJ">
             <objects>
-                <viewController title="我的酒店" id="bzq-xN-ghb" customClass="MyHotelViewController" sceneMemberID="viewController">
+                <viewController title="我的酒店" hidesBottomBarWhenPushed="YES" id="bzq-xN-ghb" customClass="MyHotelViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="l8m-3f-c55"/>
                         <viewControllerLayoutGuide type="bottom" id="bdb-XM-7X1"/>
