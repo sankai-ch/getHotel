@@ -12,6 +12,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *shadowImageView;
 @property (weak, nonatomic) IBOutlet UITextField *phoneTextField;
 @property (weak, nonatomic) IBOutlet UITextField *pwdTextField;
+@property (strong,nonatomic)UIActivityIndicatorView *avi;
 - (IBAction)loginBtn:(UIButton *)sender;
 
 @property (weak, nonatomic) IBOutlet UIButton *loginBtn;
@@ -144,10 +145,23 @@
         }];
     }
     //确认无误后，执行网络请求
-    
+    [self signInRequest];
 }
 #pragma mark - request
 -(void)signInRequest{
-    NSDictionary *para=@{@"tel":_phoneTextField.text};
+    _avi=[Utilities getCoverOnView:self.view];
+    NSDictionary *para=@{@"tel":_phoneTextField.text,@"pwd":_pwdTextField.text};
+    [RequestAPI requestURL:@"/login" withParameters:para andHeader:nil byMethod:kPost andSerializer:kForm success:^(id responseObject) {
+        [_avi stopAnimating];
+        NSLog(@"%@",responseObject[@"result"]);
+        
+    } failure:^(NSInteger statusCode, NSError *error) {
+        [_avi stopAnimating];
+        NSLog(@"%ld",(long)statusCode);
+        [Utilities popUpAlertViewWithMsg:@"网络错误，请稍后再试!" andTitle:@"提示" onView:self onCompletion:^{
+            
+        }];
+
+    }];
 }
 @end
