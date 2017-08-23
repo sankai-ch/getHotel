@@ -159,7 +159,7 @@
         <!--Navigation Controller-->
         <scene sceneID="cKQ-Gi-0Lh">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="3Ta-Eg-wn6" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="SignNavi" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="3Ta-Eg-wn6" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="tYa-ut-dGB">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
