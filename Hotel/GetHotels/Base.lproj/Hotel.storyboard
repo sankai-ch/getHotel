@@ -119,7 +119,7 @@
                                             <rect key="frame" x="20" y="0.0" width="65" height="30"/>
                                             <state key="normal" title="入住3-24"/>
                                             <connections>
-                                                <action selector="dataInAction:forEvent:" destination="pb5-Fu-s1p" eventType="touchUpInside" id="oxU-LE-TkU"/>
+                                                <action selector="dateInAction:forEvent:" destination="pb5-Fu-s1p" eventType="touchUpInside" id="YoP-QB-jpu"/>
                                             </connections>
                                         </button>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="HXM-OV-3ld">
@@ -140,7 +140,7 @@
                                             <rect key="frame" x="125" y="0.0" width="65" height="30"/>
                                             <state key="normal" title="离店4-20"/>
                                             <connections>
-                                                <action selector="dataOutAction:forEvent:" destination="pb5-Fu-s1p" eventType="touchUpInside" id="pJm-jk-KCy"/>
+                                                <action selector="dateOutAction:forEvent:" destination="pb5-Fu-s1p" eventType="touchUpInside" id="wNs-9z-2cj"/>
                                             </connections>
                                         </button>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="2Td-xm-NlN">
@@ -276,6 +276,9 @@
                                                 <constraint firstAttribute="trailing" secondItem="gOd-ET-CZq" secondAttribute="trailing" constant="15" id="y4A-pU-ery"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="brE-YN-dfI" kind="show" identifier="getHotelToDetail" id="nrV-zu-Eyo"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>
@@ -283,11 +286,12 @@
                                     <outlet property="delegate" destination="pb5-Fu-s1p" id="Szp-dE-U8u"/>
                                 </connections>
                             </tableView>
-                            <datePicker hidden="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="SU5-sG-LYu">
+                            <datePicker hidden="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="SU5-sG-LYu">
                                 <rect key="frame" x="0.0" y="451" width="375" height="216"/>
                                 <date key="date" timeIntervalSinceReferenceDate="525156071.433321">
                                     <!--2017-08-23 04:41:11 +0000-->
                                 </date>
+                                <locale key="locale" localeIdentifier="zh-Hans"/>
                             </datePicker>
                             <toolbar hidden="YES" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TcS-ei-m1e">
                                 <rect key="frame" x="0.0" y="407" width="375" height="44"/>
@@ -328,15 +332,23 @@
                     </view>
                     <navigationItem key="navigationItem" title="GetHotel" id="8Jp-hA-M5H"/>
                     <connections>
-                        <outlet property="dataInBtn" destination="jF3-cO-0gN" id="Bdt-H2-vxB"/>
-                        <outlet property="dataOutBtn" destination="2Bf-ya-TGX" id="ayJ-et-cTA"/>
-                        <outlet property="dataPicker" destination="SU5-sG-LYu" id="ti3-3s-jjl"/>
+                        <outlet property="dateInBtn" destination="jF3-cO-0gN" id="wYo-Je-ANY"/>
+                        <outlet property="dateOutBtn" destination="2Bf-ya-TGX" id="a24-Gd-tfy"/>
+                        <outlet property="datePicker" destination="SU5-sG-LYu" id="RUe-ps-fJv"/>
                         <outlet property="toolBar" destination="TcS-ei-m1e" id="Itn-pO-SUF"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Wmu-O9-Vs7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-2228" y="-234.33283358320841"/>
+        </scene>
+        <!--Deatil-->
+        <scene sceneID="791-Vg-HBa">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Deatil" id="brE-YN-dfI" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1NF-TP-CRL" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1610" y="-119"/>
         </scene>
         <!--酒店-->
         <scene sceneID="d4Z-uf-gVd">
