@@ -117,6 +117,37 @@
 
 
 - (IBAction)loginBtn:(UIButton *)sender {
-    NSLog(@"登录成功");
+    if(_phoneTextField.text.length==0 ||_phoneTextField.text.length<11){
+        [Utilities popUpAlertViewWithMsg:@"请输入有效的手机号" andTitle:nil onView:self onCompletion:^{
+            
+        }];
+        return;
+    }
+    if(_pwdTextField.text.length==0)
+    {
+        [Utilities popUpAlertViewWithMsg:@"请输入密码" andTitle:nil onView:self onCompletion:^{
+            
+        }];
+        return;
+    }
+    if(_pwdTextField.text.length<6||_pwdTextField.text.length>18){
+        [Utilities popUpAlertViewWithMsg:@"您输入的密码必须在6到18位之间" andTitle:nil onView:self onCompletion:^{
+            
+        }];
+        return;
+    }
+    //判断电话号码是否都是数字
+    NSCharacterSet *notDigits=[[NSCharacterSet decimalDigitCharacterSet]invertedSet];
+    if(_phoneTextField.text.length<11||[_phoneTextField.text rangeOfCharacterFromSet:notDigits].location!=NSNotFound){
+        [Utilities popUpAlertViewWithMsg:@"请输入有效手机号" andTitle:nil onView:self onCompletion:^{
+            
+        }];
+    }
+    //确认无误后，执行网络请求
+    
+}
+#pragma mark - request
+-(void)signInRequest{
+    NSDictionary *para=@{@"tel":_phoneTextField.text};
 }
 @end
