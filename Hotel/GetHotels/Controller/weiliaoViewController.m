@@ -1,18 +1,22 @@
 //
-//  zhifuViewController.m
+//  weiliaoViewController.m
 //  GetHotels
 //
 //  Created by admin1 on 2017/8/23.
 //  Copyright © 2017年 Yixin studio. All rights reserved.
 //
 
-#import "zhifuViewController.h"
+#import "weiliaoViewController.h"
 
-@interface zhifuViewController ()
+@interface weiliaoViewController ()
+@property (weak, nonatomic) IBOutlet UIButton *send;
+- (IBAction)sendAction:(UIButton *)sender forEvent:(UIEvent *)event;
+@property (weak, nonatomic) IBOutlet UITextField *input;
+@property (weak, nonatomic) IBOutlet UILabel *show;
 
 @end
 
-@implementation zhifuViewController
+@implementation weiliaoViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -54,4 +58,7 @@
 }
 */
 
+- (IBAction)sendAction:(UIButton *)sender forEvent:(UIEvent *)event {
+    _show.text = _input.text;
+}
 @end

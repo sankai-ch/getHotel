@@ -70,6 +70,8 @@
 		B2C913441F4D19DD00AAC60A /* agreement.txt in Resources */ = {isa = PBXBuildFile; fileRef = B2C913431F4D19DD00AAC60A /* agreement.txt */; };
 		B2E555091F4AF70700D314C0 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B2E555081F4AF70700D314C0 /* DetailViewController.m */; };
 		B2F076231F4D18DB0074C80C /* zhifuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B2F076221F4D18DB0074C80C /* zhifuViewController.m */; };
+		B2F076261F4DA24A0074C80C /* weiliaoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B2F076251F4DA24A0074C80C /* weiliaoViewController.m */; };
+		B2F076291F4DA3A10074C80C /* dituViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B2F076281F4DA3A10074C80C /* dituViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -205,6 +207,10 @@
 		B2E555081F4AF70700D314C0 /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DetailViewController.m; path = ../View/DetailViewController.m; sourceTree = "<group>"; };
 		B2F076211F4D18DB0074C80C /* zhifuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zhifuViewController.h; sourceTree = "<group>"; };
 		B2F076221F4D18DB0074C80C /* zhifuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = zhifuViewController.m; sourceTree = "<group>"; };
+		B2F076241F4DA24A0074C80C /* weiliaoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = weiliaoViewController.h; sourceTree = "<group>"; };
+		B2F076251F4DA24A0074C80C /* weiliaoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = weiliaoViewController.m; sourceTree = "<group>"; };
+		B2F076271F4DA3A10074C80C /* dituViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = dituViewController.h; sourceTree = "<group>"; };
+		B2F076281F4DA3A10074C80C /* dituViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = dituViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -394,6 +400,10 @@
 				B2E555081F4AF70700D314C0 /* DetailViewController.m */,
 				B2F076211F4D18DB0074C80C /* zhifuViewController.h */,
 				B2F076221F4D18DB0074C80C /* zhifuViewController.m */,
+				B2F076241F4DA24A0074C80C /* weiliaoViewController.h */,
+				B2F076251F4DA24A0074C80C /* weiliaoViewController.m */,
+				B2F076271F4DA3A10074C80C /* dituViewController.h */,
+				B2F076281F4DA3A10074C80C /* dituViewController.m */,
 			);
 			name = DetailViewController;
 			sourceTree = "<group>";
@@ -794,12 +804,14 @@
 				B224DBB71F4C4D4C0022C007 /* MessageViewController.m in Sources */,
 				B2BD3E731F4AA439002C6B98 /* BasicEncodingRules.m in Sources */,
 				6A7C04911F4B15FC003D72FB /* HotelTableViewCell.m in Sources */,
+				B2F076261F4DA24A0074C80C /* weiliaoViewController.m in Sources */,
 				B224DB951F4C33910022C007 /* MD5DataSigner.m in Sources */,
 				6A958D671F4D1856008C2A7D /* HotelViewController.m in Sources */,
 				B224DBB41F4C4D370022C007 /* AirViewController.m in Sources */,
 				B2BD3E8E1F4AA4EF002C6B98 /* StorageMgr.m in Sources */,
 				B224DB991F4C33910022C007 /* RSADataVerifier.m in Sources */,
 				B2BD3E891F4AA4EF002C6B98 /* NSData+Base64.m in Sources */,
+				B2F076291F4DA3A10074C80C /* dituViewController.m in Sources */,
 				B2BD3E341F4AA201002C6B98 /* AppDelegate.m in Sources */,
 				B224DB971F4C33910022C007 /* openssl_wrapper.m in Sources */,
 				B224DB911F4C33910022C007 /* GBAlipayManager.m in Sources */,
