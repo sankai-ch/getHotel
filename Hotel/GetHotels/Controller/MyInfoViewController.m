@@ -9,6 +9,7 @@
 #import "MyInfoViewController.h"
 #import "MyInfoTableViewCell.h"
 #import "UserModel.h"
+#import "YKStarView.h"
 @interface MyInfoViewController ()<UITableViewDelegate, UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UIImageView *headImageView;
@@ -17,6 +18,8 @@
 - (IBAction)loginBtn:(UIButton *)sender forEvent:(UIEvent *)event;
 @property (strong, nonatomic) NSArray *myInfoArr;
 @property (weak, nonatomic) IBOutlet UIButton *loginBtn;
+@property (weak, nonatomic) IBOutlet YKStarView *myStarView;
+@property (weak, nonatomic) IBOutlet UILabel *grade;
 
 @end
 
@@ -40,7 +43,22 @@
         _loginBtn.hidden=YES;
         _nameLabel.hidden=NO;
         UserModel *user=[[StorageMgr singletonStorageMgr]objectForKey:@"UserInfo"];
+        [_headImageView sd_setImageWithURL:[NSURL URLWithString:user.headImg]placeholderImage:[UIImage imageNamed:@"用户"]];
+        _nameLabel.text=user.nickName;
+        _grade.hidden=NO;
+        _myStarView.hidden=NO;
+        _myStarView=[[YKStarView alloc]initWithFrame:CGRectMake(0, 0, 100, 16)];
+        _myStarView.showStar=user.state *20;
+       
         
+    }
+    else{
+        _loginBtn.hidden=NO;
+        _nameLabel.hidden=YES;
+        _myStarView.hidden=YES;
+        _grade.hidden=YES;
+        _headImageView.image=[UIImage imageNamed:@"用户"];
+        _nameLabel.text=@"游客";
     }
 }
 /*

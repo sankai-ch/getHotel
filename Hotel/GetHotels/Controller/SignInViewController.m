@@ -109,8 +109,10 @@
     _avi=[Utilities getCoverOnView:self.view];
     NSDictionary *para=@{@"tel":_phoneTextField.text,@"pwd":_pwdTextField.text};
     [RequestAPI requestURL:@"/register" withParameters:para andHeader:nil byMethod:kPost andSerializer:kForm success:^(id responseObject) {
+        [_avi stopAnimating];
         NSLog(@"%@",responseObject);
     } failure:^(NSInteger statusCode, NSError *error) {
+        [_avi stopAnimating];
         NSLog(@"%ld",(long)statusCode);
     }];
 }
