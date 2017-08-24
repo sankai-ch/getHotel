@@ -230,7 +230,7 @@
                                         <rect key="frame" x="0.0" y="58" width="375" height="122"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="i7G-R3-yvm" id="8ry-NJ-mqs">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="122"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="121.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="98N-pQ-52h">
@@ -385,7 +385,7 @@
                             <outlet property="delegate" destination="2OR-c9-kRN" id="eBa-Zy-SVz"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="城市列表" id="HpC-GD-Er8"/>
+                    <navigationItem key="navigationItem" id="HpC-GD-Er8"/>
                     <connections>
                         <outlet property="cityListTableView" destination="99O-Th-SUU" id="C36-FV-qw2"/>
                     </connections>

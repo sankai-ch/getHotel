@@ -7,7 +7,7 @@
 //
 
 #import "DetailViewController.h"
-#import "detailModel.h"
+
 @interface DetailViewController ()
 {
     NSInteger Flag;
@@ -46,7 +46,6 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self setNavigationItem];
-    [self request];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -89,40 +88,7 @@
     [_timeday1 setTitle:dateTomStr forState:UIControlStateNormal];
 }
 
-#pragma mark - request
-- (void)request{
-    NSDictionary *para = @{@"id":@1};
-    [RequestAPI requestURL:@"/findHotelById" withParameters:para andHeader:nil byMethod:kGet andSerializer:kForm success:^(id responseObject) {
-        NSLog(@"数据请求结果是：%@",responseObject);
-        if([responseObject[@"result"] integerValue] == 1){
-            NSLog(@"获取数据成功");
-            
-            NSDictionary *result = responseObject[@"content"];
-            detailModel * model = [[detailModel alloc]initWithDict:result];
-            _jiudian.text= model.hotels;
-            _dizhi.text = model.address;
-            NSLog(@"model.image:%@", model.image);
-            NSString *imageStr = [model.image substringToIndex:model.image.length - 4];
-            NSURL * Url = [NSURL URLWithString:@"http://7u2h3s.com2.z0.glb.qiniucdn.com/activityImg_2_0B28535F-B789-4E8B-9B5D-28DEDB728E9A"];
-//            NSData * data = [NSData dataWithContentsOfURL:Url];
-//            _image3.image = [UIImage imageWithData:data];
-            
-            [_image3 sd_setImageWithURL:Url placeholderImage:[UIImage imageNamed:@"酒店"]];
-            
-            _price.text =[NSString stringWithFormat: @"%ld", (long)model.price];
-        }else
-        {
-             NSLog(@"获取数据失败");
-        }
-        
-        
-    } failure:^(NSInteger statusCode, NSError *error) {
-        NSLog(@"登录失败");
-    }];
-    
-    
-    
-}
+
 
 /*
 #pragma mark - Navigation
