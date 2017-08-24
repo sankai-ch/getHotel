@@ -25,6 +25,6 @@
 @property (nonatomic) NSInteger cityId;
 
 - (instancetype)initWithDictForHotelCell: (NSDictionary *)dict;
-
+- (instancetype)initWithDictForAD: (NSDictionary *)dict;
 
 @end

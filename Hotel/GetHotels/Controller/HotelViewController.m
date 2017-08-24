@@ -214,7 +214,7 @@
                 CLPlacemark *first = placemarks.firstObject;
                 NSDictionary *locDict = first.addressDictionary;
                 
-                NSLog(@"locDict = %@",locDict);
+                //NSLog(@"locDict = %@",locDict);
                 NSString *cityStr = locDict[@"City"];
                 cityStr = [cityStr substringToIndex:cityStr.length - 1];
                 [[StorageMgr singletonStorageMgr] removeObjectForKey:@"locDict"];
@@ -290,13 +290,13 @@
 
 #pragma mark - request 
 
-- (void)requestCiry {
-    [RequestAPI requestURL:@"/findCity" withParameters:@{@"id":@0} andHeader:nil byMethod:kGet andSerializer:kForm success:^(id responseObject) {
-        NSLog(@"%@",responseObject);
-    } failure:^(NSInteger statusCode, NSError *error) {
-        
-    }];
-}
+//- (void)requestCiry {
+//    [RequestAPI requestURL:@"/findCity" withParameters:@{@"id":@0} andHeader:nil byMethod:kGet andSerializer:kForm success:^(id responseObject) {
+//        NSLog(@"%@",responseObject);
+//    } failure:^(NSInteger statusCode, NSError *error) {
+//        
+//    }];
+//}
 
 
 - (void)requestAll {
@@ -304,7 +304,7 @@
     NSDictionary *para = @{@"startId":@1,@"priceId":@0,@"sortingId":@1,@"inTime":_date1,@"outTime":_date2,@"page":@5};
     //NSLog(@"%@,%@",_date1,_date2);
     [RequestAPI requestURL:@"/findAllHotelAndAdvertising" withParameters:para andHeader:nil byMethod:kForm andSerializer:kForm success:^(id responseObject) {
-        //NSLog(@"%@",responseObject);
+        NSLog(@"%@",responseObject);
         if ([responseObject[@"result"] integerValue] == 0) {
             //NSArray *advertising = responseObject[@"content"][@"advertising"];
             NSArray *hotel = responseObject[@"content"][@"hotel"];
@@ -341,13 +341,11 @@
     //NSLog(@"%@",cell.hotelName.text);
     cell.hotelPrice.text = [NSString stringWithFormat:@"¥%@",hotelModel.hotelPrice];
     //NSLog(@"%@",cell.hotelPrice.text);
-    NSLog(@"%@",hotelModel.hotelImg);
+    //NSLog(@"%@",hotelModel.hotelImg);
     NSURL *url = [NSURL URLWithString:hotelModel.hotelImg];
-    NSLog(@"%@",url);
-    NSData *data = [NSData dataWithContentsOfURL:url];
-    NSLog(@"%@",data);
-    cell.hotelImage.image = [UIImage imageWithData:data];
-    cell.hotelLocation.text = [NSString stringWithFormat:@"%ld",(long)hotelModel.cityId];
+    [cell.imageView sd_setImageWithURL:url placeholderImage:[UIImage imageNamed:@"酒店"]];
+    
+    cell.hotelLocation.text = hotelModel.hotelAdd;
     cell.hotelDistance.text = hotelModel.distance;
     return cell;
 }
@@ -403,5 +401,6 @@
     
     _datePicker.hidden = YES;
     _toolBar.hidden = YES;
+    [self requestAll];
 }
 @end
