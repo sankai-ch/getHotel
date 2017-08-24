@@ -15,6 +15,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *gradeLabel;
 - (IBAction)loginBtn:(UIButton *)sender forEvent:(UIEvent *)event;
 @property (strong, nonatomic) NSArray *myInfoArr;
+@property (weak, nonatomic) IBOutlet UIButton *loginBtn;
 
 @end
 
