@@ -9,6 +9,8 @@
 #import "HotelViewController.h"
 #import "HotelTableViewCell.h"
 #import "DetailViewController.h"
+#import "AAndHModel.h"
+
 @interface HotelViewController () <UITableViewDelegate,UITableViewDataSource> {
     NSInteger btnTime;
 }
@@ -18,6 +20,10 @@
 @property (weak, nonatomic) IBOutlet UIToolbar *toolBar;
 @property (strong, nonatomic) NSString *date1;
 @property (strong, nonatomic) NSString *date2;
+@property (strong, nonatomic) NSMutableArray *hotelArr;
+@property (strong, nonatomic) NSMutableArray *advArr;
+@property (weak, nonatomic) IBOutlet UITableView *hotelTableView;
+
 
 - (IBAction)dateInAction:(UIButton *)sender forEvent:(UIEvent *)event;
 - (IBAction)dateOutAction:(UIButton *)sender forEvent:(UIEvent *)event;
@@ -34,6 +40,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    _advArr = [NSMutableArray new];
+    _hotelArr = [NSMutableArray new];
     [self naviConfig];
     [self setDefaultTime];
     //[self requestCiry];
@@ -105,12 +113,23 @@
 
 - (void)requestAll {
     
-    NSDictionary *para = @{@"startId":@1,@"priceId":@0,@"sortingId":@1,@"inTime":_date1,@"outTime":_date2,@"page":@10};
+    NSDictionary *para = @{@"startId":@1,@"priceId":@0,@"sortingId":@1,@"inTime":_date1,@"outTime":_date2,@"page":@5};
     //NSLog(@"%@,%@",_date1,_date2);
     [RequestAPI requestURL:@"/findAllHotelAndAdvertising" withParameters:para andHeader:nil byMethod:kForm andSerializer:kForm success:^(id responseObject) {
         NSLog(@"%@",responseObject);
-        if (responseObject[@"result"] == 0) {
-            NSArray *advertising = responseObject[@"advertising"];
+        if ([responseObject[@"result"] integerValue] == 0) {
+            NSArray *advertising = responseObject[@"content"][@"advertising"];
+            NSArray *hotel = responseObject[@"content"][@"hotel"];
+            for (NSDictionary *dict in hotel) {
+                AAndHModel *hotelModel = [[AAndHModel alloc] initWithDictForHotelCell:dict];
+                //NSLog(@"%@",hotelModel.hotelName);
+                [_hotelArr addObject:hotelModel];
+                
+            }
+//            AAndHModel *hotel1 = _hotelArr[0];
+//            NSLog(@"%@",hotel1.hotelName);
+//            NSLog(@"%@",hotel1.hotelPrice);
+            [_hotelTableView reloadData];
         }
         
     } failure:^(NSInteger statusCode, NSError *error) {
@@ -123,11 +142,25 @@
 #pragma mark - table View
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return _hotelArr.count;
+}
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     HotelTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"HotelCell" forIndexPath:indexPath];
+    //NSLog(@"%ld",(long)indexPath.row);
+    AAndHModel *hotelModel = _hotelArr[indexPath.row];
+    //NSLog(@"123%@",hotelModel.hotelName);
+    cell.hotelName.text = hotelModel.hotelName;
+    //NSLog(@"%@",cell.hotelName.text);
+    cell.hotelPrice.text = [NSString stringWithFormat:@"¥%@",hotelModel.hotelPrice];
+    //NSLog(@"%@",cell.hotelPrice.text);
+    NSURL *url = [NSURL URLWithString:hotelModel.hotelImg];
+    NSData *data = [NSData dataWithContentsOfURL:url];
+    cell.hotelImage.image = [UIImage imageWithData:data];
+    
     return cell;
 }
 
@@ -178,7 +211,7 @@
         [_dateOutBtn setTitle:[NSString stringWithFormat:@"离店%@", theDate] forState:UIControlStateNormal];
         _date2 = [pFormatter stringFromDate:date];
     }
-    
+    [self requestAll];
     _datePicker.hidden = YES;
     _toolBar.hidden = YES;
 }

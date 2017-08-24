@@ -237,8 +237,8 @@
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="wuli皇冠大酒店" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hZZ-E4-PgJ">
-                                                    <rect key="frame" x="135" y="7.5" width="117" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <rect key="frame" x="135" y="7.5" width="103.5" height="18"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -340,6 +340,7 @@
                         <outlet property="dateInBtn" destination="jF3-cO-0gN" id="wYo-Je-ANY"/>
                         <outlet property="dateOutBtn" destination="2Bf-ya-TGX" id="a24-Gd-tfy"/>
                         <outlet property="datePicker" destination="SU5-sG-LYu" id="RUe-ps-fJv"/>
+                        <outlet property="hotelTableView" destination="a8w-zK-PCD" id="J9A-eN-Gla"/>
                         <outlet property="toolBar" destination="TcS-ei-m1e" id="Itn-pO-SUF"/>
                     </connections>
                 </viewController>
