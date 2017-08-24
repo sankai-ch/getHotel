@@ -24,4 +24,16 @@
 }
 
 
+- (instancetype)initWithDictForAD:(NSDictionary *)dict
+{
+    self = [super init];
+    if (self) {
+        self.adName = [Utilities nullAndNilCheck:dict[@"555"] replaceBy:@"暂无"];
+        self.adImg = [Utilities nullAndNilCheck:dict[@"ad_img"] replaceBy:@""];
+        self.adId = [[Utilities nullAndNilCheck:dict[@"id"] replaceBy:0] integerValue];
+        self.adUrl = [Utilities nullAndNilCheck:@"ad_url" replaceBy:@""];
+    }
+    return self;
+}
+
 @end
