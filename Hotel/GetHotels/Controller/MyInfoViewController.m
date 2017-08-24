@@ -15,6 +15,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *gradeLabel;
 - (IBAction)loginBtn:(UIButton *)sender forEvent:(UIEvent *)event;
 @property (strong, nonatomic) NSArray *myInfoArr;
+@property (weak, nonatomic) IBOutlet UIButton *loginBtn;
 
 @end
 
@@ -33,6 +34,10 @@
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:YES animated:NO];
+    if([Utilities loginCheck]){
+        //已登录
+        
+    }
 }
 /*
 #pragma mark - Navigation

@@ -13,6 +13,13 @@
 		6AB8B9581F4E619500E45E61 /* AAndHModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AB8B9571F4E619400E45E61 /* AAndHModel.m */; };
 		844E869D1F4B12C20080C2ED /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 844E869C1F4B12C20080C2ED /* LoginViewController.m */; };
 		844E86A01F4B12E20080C2ED /* SignInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 844E869F1F4B12E20080C2ED /* SignInViewController.m */; };
+<<<<<<< HEAD
+		845EF1A91F4E6E4800363087 /* AllOrdersTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 845EF1A81F4E6E4800363087 /* AllOrdersTableViewCell.m */; };
+		845EF1AC1F4E6F4000363087 /* AvailableTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 845EF1AB1F4E6F4000363087 /* AvailableTableViewCell.m */; };
+		845EF1AF1F4E6F8700363087 /* ExpiredTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 845EF1AE1F4E6F8700363087 /* ExpiredTableViewCell.m */; };
+=======
+		B21E853A1F4E622F00C32754 /* UserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B21E85391F4E622F00C32754 /* UserModel.m */; };
+>>>>>>> 8cd7810b415068006a64f3e31667ab4e0d88d2c8
 		B224DB761F4BEA970022C007 /* CustomerServiceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B224DB751F4BEA970022C007 /* CustomerServiceViewController.m */; };
 		B224DB911F4C33910022C007 /* GBAlipayManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B224DB7A1F4C33910022C007 /* GBAlipayManager.m */; };
 		B224DB921F4C33910022C007 /* base64.m in Sources */ = {isa = PBXBuildFile; fileRef = B224DB7D1F4C33910022C007 /* base64.m */; };
@@ -104,8 +111,16 @@
 		844E869C1F4B12C20080C2ED /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		844E869E1F4B12E20080C2ED /* SignInViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignInViewController.h; sourceTree = "<group>"; };
 		844E869F1F4B12E20080C2ED /* SignInViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignInViewController.m; sourceTree = "<group>"; };
+		845EF1A71F4E6E4800363087 /* AllOrdersTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AllOrdersTableViewCell.h; sourceTree = "<group>"; };
+		845EF1A81F4E6E4800363087 /* AllOrdersTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AllOrdersTableViewCell.m; sourceTree = "<group>"; };
+		845EF1AA1F4E6F4000363087 /* AvailableTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AvailableTableViewCell.h; sourceTree = "<group>"; };
+		845EF1AB1F4E6F4000363087 /* AvailableTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AvailableTableViewCell.m; sourceTree = "<group>"; };
+		845EF1AD1F4E6F8700363087 /* ExpiredTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExpiredTableViewCell.h; sourceTree = "<group>"; };
+		845EF1AE1F4E6F8700363087 /* ExpiredTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExpiredTableViewCell.m; sourceTree = "<group>"; };
 		87E248321E9C674FE6281D42 /* Pods-GetHotels.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GetHotels.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GetHotels/Pods-GetHotels.debug.xcconfig"; sourceTree = "<group>"; };
 		91A29EB61D066B9FD83C2A3C /* libPods-GetHotels.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-GetHotels.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		B21E85381F4E622F00C32754 /* UserModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserModel.h; sourceTree = "<group>"; };
+		B21E85391F4E622F00C32754 /* UserModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserModel.m; sourceTree = "<group>"; };
 		B224DB741F4BEA970022C007 /* CustomerServiceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomerServiceViewController.h; sourceTree = "<group>"; };
 		B224DB751F4BEA970022C007 /* CustomerServiceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomerServiceViewController.m; sourceTree = "<group>"; };
 		B224DB781F4C33910022C007 /* GBAlipayConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GBAlipayConfig.h; sourceTree = "<group>"; };
@@ -333,6 +348,12 @@
 				B2BD3EB11F4ACBA0002C6B98 /* MyInfo.storyboard */,
 				B224DBAF1F4C46110022C007 /* MyInfoTableViewCell.h */,
 				B224DBB01F4C46110022C007 /* MyInfoTableViewCell.m */,
+				845EF1A71F4E6E4800363087 /* AllOrdersTableViewCell.h */,
+				845EF1A81F4E6E4800363087 /* AllOrdersTableViewCell.m */,
+				845EF1AA1F4E6F4000363087 /* AvailableTableViewCell.h */,
+				845EF1AB1F4E6F4000363087 /* AvailableTableViewCell.m */,
+				845EF1AD1F4E6F8700363087 /* ExpiredTableViewCell.h */,
+				845EF1AE1F4E6F8700363087 /* ExpiredTableViewCell.m */,
 			);
 			name = MyInfo;
 			sourceTree = "<group>";
@@ -502,8 +523,13 @@
 				B224DBAC1F4C34E00022C007 /* Order.h */,
 				B224DBAD1F4C34E00022C007 /* Order.m */,
 				B2BD3E9F1F4AA59D002C6B98 /* GetHotels.xcdatamodeld */,
+<<<<<<< HEAD
 				6AB8B9561F4E619400E45E61 /* AAndHModel.h */,
 				6AB8B9571F4E619400E45E61 /* AAndHModel.m */,
+=======
+				B21E85381F4E622F00C32754 /* UserModel.h */,
+				B21E85391F4E622F00C32754 /* UserModel.m */,
+>>>>>>> 14bba77b42e2535e94ef554b09355194ee449e1b
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -800,6 +826,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				845EF1A91F4E6E4800363087 /* AllOrdersTableViewCell.m in Sources */,
 				B2BD3E881F4AA4EF002C6B98 /* ErrorHandler.m in Sources */,
 				B2BD3EA11F4AA59D002C6B98 /* GetHotels.xcdatamodeld in Sources */,
 				B224DB981F4C33910022C007 /* RSADataSigner.m in Sources */,
@@ -814,6 +841,7 @@
 				B224DB951F4C33910022C007 /* MD5DataSigner.m in Sources */,
 				6A958D671F4D1856008C2A7D /* HotelViewController.m in Sources */,
 				B224DBB41F4C4D370022C007 /* AirViewController.m in Sources */,
+				845EF1AF1F4E6F8700363087 /* ExpiredTableViewCell.m in Sources */,
 				B2BD3E8E1F4AA4EF002C6B98 /* StorageMgr.m in Sources */,
 				B224DB991F4C33910022C007 /* RSADataVerifier.m in Sources */,
 				B2BD3E891F4AA4EF002C6B98 /* NSData+Base64.m in Sources */,
@@ -827,6 +855,7 @@
 				844E86A01F4B12E20080C2ED /* SignInViewController.m in Sources */,
 				B224DB941F4C33910022C007 /* DataVerifier.m in Sources */,
 				B2F076231F4D18DB0074C80C /* zhifuViewController.m in Sources */,
+				B21E853A1F4E622F00C32754 /* UserModel.m in Sources */,
 				B2BD3E8A1F4AA4EF002C6B98 /* NSDate+Utility.m in Sources */,
 				B224DBB11F4C46110022C007 /* MyInfoTableViewCell.m in Sources */,
 				B2E555091F4AF70700D314C0 /* DetailViewController.m in Sources */,
@@ -843,6 +872,7 @@
 				B2A2D73B1F4B06C4001D6B81 /* MyHotelViewController.m in Sources */,
 				B224DBAE1F4C34E00022C007 /* Order.m in Sources */,
 				B224DB961F4C33910022C007 /* NSDataEx.m in Sources */,
+				845EF1AC1F4E6F4000363087 /* AvailableTableViewCell.m in Sources */,
 				844E869D1F4B12C20080C2ED /* LoginViewController.m in Sources */,
 				B2A2D7381F4B06A1001D6B81 /* AgreementViewController.m in Sources */,
 			);
