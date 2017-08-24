@@ -33,6 +33,10 @@
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:YES animated:NO];
+    if([Utilities loginCheck]){
+        //已登录
+        
+    }
 }
 /*
 #pragma mark - Navigation
