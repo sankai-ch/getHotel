@@ -298,7 +298,7 @@
     }];
 }
 
-
+//获得所有的酒店信息和广告
 - (void)requestAll {
     
     NSDictionary *para = @{@"startId":@1,@"priceId":@0,@"sortingId":@1,@"inTime":_date1,@"outTime":_date2,@"page":@5};
