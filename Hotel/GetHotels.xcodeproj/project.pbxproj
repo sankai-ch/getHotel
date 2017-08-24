@@ -43,6 +43,7 @@
 		B224DBB11F4C46110022C007 /* MyInfoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B224DBB01F4C46110022C007 /* MyInfoTableViewCell.m */; };
 		B224DBB41F4C4D370022C007 /* AirViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B224DBB31F4C4D370022C007 /* AirViewController.m */; };
 		B224DBB71F4C4D4C0022C007 /* MessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B224DBB61F4C4D4C0022C007 /* MessageViewController.m */; };
+		B26019861F4EF6E200C5782C /* YKStarView.m in Sources */ = {isa = PBXBuildFile; fileRef = B26019851F4EF6E200C5782C /* YKStarView.m */; };
 		B2A2D71F1F4AF35B001D6B81 /* Deatil.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B2A2D71D1F4AF35B001D6B81 /* Deatil.storyboard */; };
 		B2A2D7221F4AF373001D6B81 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B2A2D7201F4AF373001D6B81 /* Login.storyboard */; };
 		B2A2D7321F4AFC20001D6B81 /* MyInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B2A2D7311F4AFC20001D6B81 /* MyInfoViewController.m */; };
@@ -167,6 +168,8 @@
 		B224DBB31F4C4D370022C007 /* AirViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AirViewController.m; sourceTree = "<group>"; };
 		B224DBB51F4C4D4C0022C007 /* MessageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageViewController.h; sourceTree = "<group>"; };
 		B224DBB61F4C4D4C0022C007 /* MessageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageViewController.m; sourceTree = "<group>"; };
+		B26019841F4EF6E200C5782C /* YKStarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YKStarView.h; sourceTree = "<group>"; };
+		B26019851F4EF6E200C5782C /* YKStarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YKStarView.m; sourceTree = "<group>"; };
 		B2A2D71E1F4AF35B001D6B81 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = GetHotels/Base.lproj/Deatil.storyboard; sourceTree = SOURCE_ROOT; };
 		B2A2D7211F4AF373001D6B81 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = GetHotels/Base.lproj/Login.storyboard; sourceTree = SOURCE_ROOT; };
 		B2A2D7301F4AFC20001D6B81 /* MyInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyInfoViewController.h; sourceTree = "<group>"; };
@@ -587,6 +590,8 @@
 				B2BD3E841F4AA4EF002C6B98 /* StorageMgr.m */,
 				B2BD3E851F4AA4EF002C6B98 /* Utilities.h */,
 				B2BD3E861F4AA4EF002C6B98 /* Utilities.m */,
+				B26019841F4EF6E200C5782C /* YKStarView.h */,
+				B26019851F4EF6E200C5782C /* YKStarView.m */,
 			);
 			path = Utlity;
 			sourceTree = "<group>";
@@ -868,6 +873,7 @@
 				B2BD3E8A1F4AA4EF002C6B98 /* NSDate+Utility.m in Sources */,
 				B224DBB11F4C46110022C007 /* MyInfoTableViewCell.m in Sources */,
 				B2E555091F4AF70700D314C0 /* DetailViewController.m in Sources */,
+				B26019861F4EF6E200C5782C /* YKStarView.m in Sources */,
 				B2BD3E9B1F4AA4F7002C6B98 /* SKTag.m in Sources */,
 				B2BD3E8D1F4AA4EF002C6B98 /* RequestAPI.m in Sources */,
 				B2BD3E8F1F4AA4EF002C6B98 /* Utilities.m in Sources */,
