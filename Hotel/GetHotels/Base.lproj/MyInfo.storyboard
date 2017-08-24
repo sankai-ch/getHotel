@@ -439,10 +439,10 @@
             </objects>
             <point key="canvasLocation" x="-3143.1999999999998" y="1547.6761619190406"/>
         </scene>
-        <!--任务-->
+        <!--我的酒店-->
         <scene sceneID="UUa-sQ-0Jl">
             <objects>
-                <viewController title="任务" id="hzG-1f-aVT" customClass="TaskViewController" sceneMemberID="viewController">
+                <viewController title="我的酒店" id="hzG-1f-aVT" customClass="MyHotelViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="XpN-wQ-pxJ"/>
                         <viewControllerLayoutGuide type="bottom" id="sTr-0h-1j3"/>
@@ -500,7 +500,7 @@
                                                 <rect key="frame" x="0.0" y="33" width="375" height="177"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="7Xq-9J-N1K" id="hwg-e9-a5K">
-                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="176.5"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="177"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_unlock" translatesAutoresizingMaskIntoConstraints="NO" id="2Z3-dY-iWW">
@@ -573,11 +573,19 @@
                                                     </constraints>
                                                 </tableViewCellContentView>
                                                 <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                                <connections>
+                                                    <outlet property="endDateLabel" destination="bjl-xt-wnH" id="dl8-1k-pFz"/>
+                                                    <outlet property="hotelAddressLAbel" destination="IQ4-NN-IS8" id="SWh-QH-JT6"/>
+                                                    <outlet property="hotelImg" destination="psG-hu-EIq" id="hg2-7D-pvy"/>
+                                                    <outlet property="hotelPeopleNumLabel" destination="Lm3-Wd-f2a" id="svA-YQ-pD7"/>
+                                                    <outlet property="hotelTypeLabel" destination="8GQ-jG-hV3" id="HxS-lo-cLO"/>
+                                                    <outlet property="startDateLabel" destination="wqe-Ea-CWk" id="v5e-2m-vOp"/>
+                                                </connections>
                                             </tableViewCell>
                                         </prototypes>
                                         <connections>
-                                            <outlet property="dataSource" destination="hzG-1f-aVT" id="IFR-qS-G3v"/>
-                                            <outlet property="delegate" destination="hzG-1f-aVT" id="S4H-hs-WRR"/>
+                                            <outlet property="dataSource" destination="hzG-1f-aVT" id="CvB-2Y-dOd"/>
+                                            <outlet property="delegate" destination="hzG-1f-aVT" id="hRt-fe-7Et"/>
                                         </connections>
                                     </tableView>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="65" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="aeP-pz-YE9" userLabel="Available Table View">
@@ -588,7 +596,7 @@
                                                 <rect key="frame" x="0.0" y="28" width="375" height="177"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="NOG-ll-qD5" id="QOC-RO-bnJ">
-                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="176.5"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="177"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_unlock" translatesAutoresizingMaskIntoConstraints="NO" id="C1l-8n-HUe">
@@ -661,11 +669,19 @@
                                                     </constraints>
                                                 </tableViewCellContentView>
                                                 <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                                <connections>
+                                                    <outlet property="endDateLabel" destination="DAz-bb-t5h" id="j4T-Ej-6Ae"/>
+                                                    <outlet property="hotelAddressLabel" destination="e9W-fq-COy" id="TvN-08-1xD"/>
+                                                    <outlet property="hotelImg" destination="1p0-rq-SZz" id="sAy-I6-KEM"/>
+                                                    <outlet property="hotelPeopleNumLabel" destination="coa-cc-Kug" id="a0M-4C-UCU"/>
+                                                    <outlet property="hotelTypeLabel" destination="bNY-tZ-LqE" id="grg-Vd-xJS"/>
+                                                    <outlet property="startDateLabel" destination="PYN-hj-DEY" id="eoc-H6-qrB"/>
+                                                </connections>
                                             </tableViewCell>
                                         </prototypes>
                                         <connections>
-                                            <outlet property="dataSource" destination="hzG-1f-aVT" id="G9d-yr-Ham"/>
-                                            <outlet property="delegate" destination="hzG-1f-aVT" id="0JC-fF-jXp"/>
+                                            <outlet property="dataSource" destination="hzG-1f-aVT" id="vb4-GK-wZe"/>
+                                            <outlet property="delegate" destination="hzG-1f-aVT" id="SNa-iX-1IV"/>
                                         </connections>
                                     </tableView>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="FfB-cU-YKd" userLabel="Expired Table View">
@@ -749,11 +765,19 @@
                                                     </constraints>
                                                 </tableViewCellContentView>
                                                 <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                                <connections>
+                                                    <outlet property="endDateLabel" destination="c32-dF-Six" id="MLj-k9-IFo"/>
+                                                    <outlet property="hotelAddressLabel" destination="Bv3-HG-Z5k" id="cff-fO-DVv"/>
+                                                    <outlet property="hotelImg" destination="37E-M2-iSL" id="s88-dS-Oi1"/>
+                                                    <outlet property="hotelPeopleNumLabel" destination="dYg-lu-fpc" id="meo-bx-6GN"/>
+                                                    <outlet property="hotelTypeLabel" destination="hZ1-A8-gfJ" id="Xwj-2M-cWf"/>
+                                                    <outlet property="startDateLabel" destination="CXO-mB-M0y" id="1bL-nn-bQ5"/>
+                                                </connections>
                                             </tableViewCell>
                                         </prototypes>
                                         <connections>
-                                            <outlet property="dataSource" destination="hzG-1f-aVT" id="nP8-5b-bvb"/>
-                                            <outlet property="delegate" destination="hzG-1f-aVT" id="Bpd-lL-Fqp"/>
+                                            <outlet property="dataSource" destination="hzG-1f-aVT" id="mTy-CB-zLS"/>
+                                            <outlet property="delegate" destination="hzG-1f-aVT" id="oFy-xR-Q43"/>
                                         </connections>
                                     </tableView>
                                 </subviews>
@@ -773,7 +797,7 @@
                                     <constraint firstItem="aeP-pz-YE9" firstAttribute="trailing" secondItem="FfB-cU-YKd" secondAttribute="leading" id="v9Y-Ii-mZl"/>
                                 </constraints>
                                 <connections>
-                                    <outlet property="delegate" destination="hzG-1f-aVT" id="uSB-pb-Bcn"/>
+                                    <outlet property="delegate" destination="hzG-1f-aVT" id="b2F-4e-bnM"/>
                                 </connections>
                             </scrollView>
                         </subviews>
@@ -792,12 +816,11 @@
                     <navigationItem key="navigationItem" title="我的酒店" id="kbK-kR-Aqo"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
-                        <outlet property="acquireTableView" destination="fOA-nN-5CT" id="3lZ-cu-Uer"/>
-                        <outlet property="followTableView" destination="FfB-cU-YKd" id="MB9-KQ-asY"/>
-                        <outlet property="notAcquireTableView" destination="aeP-pz-YE9" id="YyG-tx-I3b"/>
-                        <outlet property="scrollView" destination="tEH-AY-hM1" id="rVm-e1-75d"/>
-                        <outlet property="titleNumLabel" destination="sGN-tH-1D6" id="DIP-Z1-aIH"/>
-                        <outlet property="titleView" destination="Rzf-i6-N9n" id="AIU-bh-gxc"/>
+                        <outlet property="AllOrdersTableView" destination="fOA-nN-5CT" id="B4i-xe-xec"/>
+                        <outlet property="AvailableTableView" destination="aeP-pz-YE9" id="QEf-cj-mw3"/>
+                        <outlet property="ExpiredTableView" destination="FfB-cU-YKd" id="9oy-LC-Mxh"/>
+                        <outlet property="scrollView" destination="tEH-AY-hM1" id="b58-Nz-rRR"/>
+                        <outlet property="titleView" destination="Rzf-i6-N9n" id="WJq-sb-eZa"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kfW-Nv-Z1f" userLabel="First Responder" sceneMemberID="firstResponder"/>
