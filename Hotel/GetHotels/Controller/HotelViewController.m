@@ -25,6 +25,7 @@
 @property (strong, nonatomic) NSMutableArray *hotelArr;
 @property (strong, nonatomic) NSMutableArray *advArr;
 @property (weak, nonatomic) IBOutlet UITableView *hotelTableView;
+@property (strong, nonatomic) UIActivityIndicatorView *avi;
 
 @property (strong, nonatomic) CLLocationManager *locMgr;
 @property (strong, nonatomic) CLLocation *location;
@@ -80,6 +81,7 @@
 */
 
 - (void)dataInitialize {
+    _avi = [Utilities getCoverOnView:self.view];
     BOOL appInit = NO;
     if ([[Utilities getUserDefaults:@"UserCity"] isKindOfClass:[NSNull class]]) {
         //是第一次打开APP
@@ -121,6 +123,13 @@
     [_datePicker setMinimumDate:today];
     
 }
+
+- (void)setADImage {
+    for (AAndHModel *adV in _advArr) {
+        
+    }
+}
+
 #pragma mark - loction
 //这个方法专门处理定位的基本设置
 - (void)locationConfig {
@@ -305,8 +314,14 @@
     //NSLog(@"%@,%@",_date1,_date2);
     [RequestAPI requestURL:@"/findAllHotelAndAdvertising" withParameters:para andHeader:nil byMethod:kForm andSerializer:kForm success:^(id responseObject) {
         NSLog(@"%@",responseObject);
+        [_avi stopAnimating];
         if ([responseObject[@"result"] integerValue] == 0) {
-            //NSArray *advertising = responseObject[@"content"][@"advertising"];
+            NSArray *advertising = responseObject[@"content"][@"advertising"];
+            for (NSDictionary *dict in advertising) {
+                AAndHModel *adV = [[AAndHModel alloc] initWithDictForAD:dict];
+                [_advArr addObject:adV];
+                
+            }
             NSArray *hotel = responseObject[@"content"][@"hotel"];
             for (NSDictionary *dict in hotel) {
                 AAndHModel *hotelModel = [[AAndHModel alloc] initWithDictForHotelCell:dict];
@@ -321,7 +336,7 @@
         }
         
     }failure:^(NSInteger statusCode, NSError *error) {
-        
+        [_avi stopAnimating];
     }];
 }
 
