@@ -43,6 +43,10 @@
     // Pass the selected object to the new view controller.
 }
 */
+
+- (void)setSegment{
+}
+
 //有多少组
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return _myInfoArr.count;

@@ -7,11 +7,12 @@
 //
 
 #import "LoginViewController.h"
-
+#import "UserModel.h"
 @interface LoginViewController ()<UITextFieldDelegate>
 @property (weak, nonatomic) IBOutlet UIImageView *shadowImageView;
 @property (weak, nonatomic) IBOutlet UITextField *phoneTextField;
 @property (weak, nonatomic) IBOutlet UITextField *pwdTextField;
+@property (strong,nonatomic)UIActivityIndicatorView *avi;
 - (IBAction)loginBtn:(UIButton *)sender;
 
 @property (weak, nonatomic) IBOutlet UIButton *loginBtn;
@@ -29,13 +30,21 @@
     [_phoneTextField addTarget:self action:@selector(textChange:) forControlEvents:UIControlEventEditingChanged];
     [_pwdTextField addTarget:self action:@selector(textChange:) forControlEvents:UIControlEventEditingChanged];
     [self naviConfig];
+    [self uilayout];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+-(void)uilayout{
+    if(![[Utilities getUserDefaults:@"UserTel"] isKindOfClass:[NSNull class]]){
+        if([Utilities getUserDefaults:@"UserTel"]!=nil){
+            _phoneTextField.text=[Utilities getUserDefaults:@"UserTel"];
+        }
+    }
 
+}
 //当textField结束编辑的时候调用
 - (void)textFieldDidEndEditing:(UITextField *)textField{
     if(textField == _phoneTextField || textField == _pwdTextField){
@@ -144,10 +153,37 @@
         }];
     }
     //确认无误后，执行网络请求
-    
+    [self signInRequest];
 }
 #pragma mark - request
 -(void)signInRequest{
-    NSDictionary *para=@{@"tel":_phoneTextField.text};
+    _avi=[Utilities getCoverOnView:self.view];
+    NSDictionary *para=@{@"tel":_phoneTextField.text,@"pwd":_pwdTextField.text};
+    [RequestAPI requestURL:@"/login" withParameters:para andHeader:nil byMethod:kPost andSerializer:kForm success:^(id responseObject) {
+        [_avi stopAnimating];
+        if([responseObject[@"result"] integerValue]==1){
+            NSLog(@"%@",responseObject[@"content"]);
+            NSDictionary *result=responseObject[@"content"];
+            UserModel *user=[[UserModel alloc]initWhitDictionary:result];
+            [[StorageMgr singletonStorageMgr]addKey:@"UserInfo" andValue:user];
+            [[StorageMgr singletonStorageMgr]addKey:@"MemberId" andValue:user.userId];
+            [self.view endEditing:YES];
+            _pwdTextField.text=@"";
+            [Utilities setUserDefaults:@"UserTel" content:_phoneTextField.text];
+            [self dismissViewControllerAnimated:YES completion:nil];
+        }
+        else{
+            NSString *errorMsg=[ErrorHandler getProperErrorString:[responseObject[@"resultFlag"]integerValue]];
+            [Utilities popUpAlertViewWithMsg:errorMsg andTitle:nil onView:nil onCompletion:nil];
+        }
+        
+    } failure:^(NSInteger statusCode, NSError *error) {
+        [_avi stopAnimating];
+        NSLog(@"%ld",(long)statusCode);
+        [Utilities popUpAlertViewWithMsg:@"网络错误，请稍后再试!" andTitle:@"提示" onView:self onCompletion:^{
+            
+        }];
+
+    }];
 }
 @end
