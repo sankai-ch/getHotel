@@ -12,7 +12,6 @@
 @interface CityListTableViewController () <UITableViewDelegate,UITableViewDataSource>
 @property (strong, nonatomic) IBOutlet UITableView *cityListTableView;
 @property (strong, nonatomic) NSMutableArray *cityListArr;
-@property (strong, nonatomic) NSMutableArray *arr;
 @end
 
 @implementation CityListTableViewController
@@ -20,7 +19,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     _cityListArr = [NSMutableArray new];
-    _arr = [NSMutableArray new];
     [self requestCiry];
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -29,14 +27,10 @@
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
-
-
 
 #pragma mark - Table view data source
 
@@ -72,10 +66,6 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-
-- (NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView {
-    return _arr;
-}
 /*
 // Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -125,12 +115,9 @@
         //NSLog(@"%@",responseObject);
         if ([responseObject[@"result"] integerValue] == 1) {
             NSArray *content = responseObject[@"content"];
-            [_arr removeAllObjects];
             for (NSDictionary *dict in content) {
                 CityListModel *cityList = [[CityListModel alloc] initWithDict:dict];
                 [_cityListArr addObject:cityList];
-                [_arr addObject:cityList.tip];
-                
             }
 //            CityListModel *cityList = _cityListArr[0];
 //            NSLog(@"%@",cityList.tip);

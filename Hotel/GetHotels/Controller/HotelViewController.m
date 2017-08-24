@@ -26,7 +26,6 @@
 @property (strong, nonatomic) NSMutableArray *advArr;
 @property (weak, nonatomic) IBOutlet UITableView *hotelTableView;
 
-
 @property (strong, nonatomic) CLLocationManager *locMgr;
 @property (strong, nonatomic) CLLocation *location;
 
@@ -106,7 +105,6 @@
 
     _hotelArr = [NSMutableArray new];
     _advArr = [NSMutableArray new];
-    
 }
 
 - (void)setDefaultTime {
@@ -216,7 +214,7 @@
                 CLPlacemark *first = placemarks.firstObject;
                 NSDictionary *locDict = first.addressDictionary;
                 
-               // NSLog(@"locDict = %@",locDict);
+                NSLog(@"locDict = %@",locDict);
                 NSString *cityStr = locDict[@"City"];
                 cityStr = [cityStr substringToIndex:cityStr.length - 1];
                 [[StorageMgr singletonStorageMgr] removeObjectForKey:@"locDict"];
@@ -292,21 +290,21 @@
 
 #pragma mark - request 
 
-//- (void)requestCiry {
-//    [RequestAPI requestURL:@"/findCity" withParameters:@{@"id":@0} andHeader:nil byMethod:kGet andSerializer:kForm success:^(id responseObject) {
-//        NSLog(@"%@",responseObject);
-//    } failure:^(NSInteger statusCode, NSError *error) {
-//        
-//    }];
-//}
+- (void)requestCiry {
+    [RequestAPI requestURL:@"/findCity" withParameters:@{@"id":@0} andHeader:nil byMethod:kGet andSerializer:kForm success:^(id responseObject) {
+        NSLog(@"%@",responseObject);
+    } failure:^(NSInteger statusCode, NSError *error) {
+        
+    }];
+}
 
-//获得所有的酒店信息和广告
+
 - (void)requestAll {
     
     NSDictionary *para = @{@"startId":@1,@"priceId":@0,@"sortingId":@1,@"inTime":_date1,@"outTime":_date2,@"page":@5};
     //NSLog(@"%@,%@",_date1,_date2);
     [RequestAPI requestURL:@"/findAllHotelAndAdvertising" withParameters:para andHeader:nil byMethod:kForm andSerializer:kForm success:^(id responseObject) {
-        NSLog(@"%@",responseObject);
+        //NSLog(@"%@",responseObject);
         if ([responseObject[@"result"] integerValue] == 0) {
             //NSArray *advertising = responseObject[@"content"][@"advertising"];
             NSArray *hotel = responseObject[@"content"][@"hotel"];
@@ -334,10 +332,6 @@
     return _hotelArr.count;
 }
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
-}
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     HotelTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"HotelCell" forIndexPath:indexPath];
     //NSLog(@"%ld",(long)indexPath.row);
@@ -353,7 +347,7 @@
     NSData *data = [NSData dataWithContentsOfURL:url];
     NSLog(@"%@",data);
     cell.hotelImage.image = [UIImage imageWithData:data];
-    cell.hotelLocation.text = hotelModel.hotelAdd;
+    cell.hotelLocation.text = [NSString stringWithFormat:@"%ld",(long)hotelModel.cityId];
     cell.hotelDistance.text = hotelModel.distance;
     return cell;
 }
@@ -366,11 +360,6 @@
     //[self presentViewController:nc animated:YES completion:nil];
     [self.navigationController pushViewController:detailVC animated:YES];
 }
-
-//- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-//    
-//}
-
 
 #pragma mark - btnAction
 
@@ -414,6 +403,5 @@
     
     _datePicker.hidden = YES;
     _toolBar.hidden = YES;
-    [self requestAll];
 }
 @end
