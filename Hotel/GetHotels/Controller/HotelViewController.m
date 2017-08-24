@@ -9,8 +9,12 @@
 #import "HotelViewController.h"
 #import "HotelTableViewCell.h"
 #import "DetailViewController.h"
-@interface HotelViewController () <UITableViewDelegate,UITableViewDataSource> {
+#import "AAndHModel.h"
+#import <CoreLocation/CoreLocation.h>
+@interface HotelViewController () <UITableViewDelegate,UITableViewDataSource,CLLocationManagerDelegate> {
     NSInteger btnTime;
+    BOOL firstVisit;
+    
 }
 @property (weak, nonatomic) IBOutlet UIDatePicker *datePicker;
 @property (weak, nonatomic) IBOutlet UIButton *dateInBtn;
@@ -18,6 +22,12 @@
 @property (weak, nonatomic) IBOutlet UIToolbar *toolBar;
 @property (strong, nonatomic) NSString *date1;
 @property (strong, nonatomic) NSString *date2;
+@property (strong, nonatomic) NSMutableArray *hotelArr;
+@property (strong, nonatomic) NSMutableArray *advArr;
+@property (weak, nonatomic) IBOutlet UITableView *hotelTableView;
+
+@property (strong, nonatomic) CLLocationManager *locMgr;
+@property (strong, nonatomic) CLLocation *location;
 
 - (IBAction)dateInAction:(UIButton *)sender forEvent:(UIEvent *)event;
 - (IBAction)dateOutAction:(UIButton *)sender forEvent:(UIEvent *)event;
@@ -32,12 +42,26 @@
 @implementation HotelViewController
 
 - (void)viewDidLoad {
+    
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    [self dataInitialize];
     [self naviConfig];
     [self setDefaultTime];
+    [self locationConfig];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(checkCityState:) name:@"ResetHome" object:nil];
     //[self requestCiry];
     [self requestAll];
+}
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [self locationStart];
+}
+
+- (void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    [_locMgr stopUpdatingLocation];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -55,6 +79,34 @@
 }
 */
 
+- (void)dataInitialize {
+    BOOL appInit = NO;
+    if ([[Utilities getUserDefaults:@"UserCity"] isKindOfClass:[NSNull class]]) {
+        //是第一次打开APP
+        appInit = YES;
+    } else {
+        if ([Utilities getUserDefaults:@"UserCity"] == nil) {
+            //第一次打开APP
+            appInit = YES;
+        }
+    }
+    if (appInit) {
+        //第一次来到页面将默认城市与记忆城市同步
+        NSString *userCity = _cityLocation.titleLabel.text;
+        [Utilities setUserDefaults:@"UserCity" content:userCity];
+    } else {
+        //不是第一次来到APP则将记忆城市与按钮上的城市名反向同步
+        NSString *userCity = [Utilities getUserDefaults:@"UserCity"];
+        [_cityLocation setTitle:userCity forState:UIControlStateNormal];
+        
+    }
+    
+    firstVisit = YES;
+
+    _hotelArr = [NSMutableArray new];
+    _advArr = [NSMutableArray new];
+}
+
 - (void)setDefaultTime {
     NSDateFormatter *formatter = [NSDateFormatter new];
     formatter.dateFormat = @"MM-dd";
@@ -68,6 +120,150 @@
     [_dateOutBtn setTitle:[NSString stringWithFormat:@"离店%@", [formatter stringFromDate:tomorrow]] forState:UIControlStateNormal];
     [_datePicker setMinimumDate:today];
     
+}
+#pragma mark - loction
+//这个方法专门处理定位的基本设置
+- (void)locationConfig {
+    //初始化
+    _locMgr = [CLLocationManager new];
+    //签协议
+    _locMgr.delegate = self;
+    //识别定位到的设备位移多少距离进行一次识别
+    _locMgr.distanceFilter = kCLDistanceFilterNone;
+    //设置地球分割成边长多少精度的方块
+    _locMgr.desiredAccuracy = kCLLocationAccuracyBest;
+}
+
+//这个方法处理开始定位
+- (void)locationStart {
+    //判断用户有没有选择过是否使用定位
+    if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusNotDetermined) {
+        //询问用户是否愿意使用定位
+#ifdef __IPHONE_8_0
+        if ([_locMgr respondsToSelector:@selector(requestWhenInUseAuthorization)]) {
+            //使用“使用中打开定位”这个策略去运用定位功能
+            [_locMgr requestWhenInUseAuthorization];
+        }
+#endif
+    }
+    //打开定位服务的开关（开始定位）
+    [_locMgr startUpdatingLocation];
+    
+}
+
+
+
+//定位失败时
+- (void)locationManager:(CLLocationManager *)manager
+       didFailWithError:(NSError *)error {
+    if (error) {
+        switch (error.code) {
+            case kCLErrorNetwork:
+                [Utilities popUpAlertViewWithMsg:@"网络错误" andTitle:nil onView:self onCompletion:^{
+                    
+                }];
+                break;
+            case kCLErrorDenied:
+                [Utilities popUpAlertViewWithMsg:@"未打开定位" andTitle:nil onView:self onCompletion:^{
+                    
+                }];
+                break;
+            case kCLErrorLocationUnknown:
+                [Utilities popUpAlertViewWithMsg:@"未知地址" andTitle:nil onView:self onCompletion:^{
+                    
+                }];
+                break;
+            default:
+                [Utilities popUpAlertViewWithMsg:@"未知错误" andTitle:nil onView:self onCompletion:^{
+                    
+                }];
+                break;
+        }
+    }
+}
+
+
+//定位成功时
+- (void)locationManager:(CLLocationManager *)manager
+    didUpdateToLocation:(CLLocation *)newLocation
+           fromLocation:(CLLocation *)oldLocation {
+    
+    //NSLog(@"维度 ：%f",newLocation.coordinate.latitude);
+    //NSLog(@"经度 ：%f",newLocation.coordinate.longitude);
+    _location = newLocation;
+    //用flag思想判断是否可以去根据定位拿到城市
+   
+        //根据定位拿到城市
+        [self getRegeoViaCoordinate];
+    
+}
+
+
+- (void)getRegeoViaCoordinate {
+    //duration表示从NOW开始过三个SEC
+    dispatch_time_t duration = dispatch_time(DISPATCH_TIME_NOW, 3 * NSEC_PER_SEC);
+    //用duration这个设置好的策略去做某件事  GCD = dispatch
+    dispatch_after(duration, dispatch_get_main_queue(), ^{
+        //正式做事
+        CLGeocoder *geo = [CLGeocoder new];
+        //反向地理编码
+        [geo reverseGeocodeLocation:_location completionHandler:^(NSArray<CLPlacemark *> * _Nullable placemarks, NSError * _Nullable error) {
+            if (!error) {
+                //从placemarks中拿到地址信息
+                //CLPlacemark *first = placemarks[0];
+                CLPlacemark *first = placemarks.firstObject;
+                NSDictionary *locDict = first.addressDictionary;
+                
+                NSLog(@"locDict = %@",locDict);
+                NSString *cityStr = locDict[@"City"];
+                cityStr = [cityStr substringToIndex:cityStr.length - 1];
+                [[StorageMgr singletonStorageMgr] removeObjectForKey:@"locDict"];
+                //将定位到的城市保存进单例化全局变量
+                [[StorageMgr singletonStorageMgr] addKey:@"locDict" andValue:cityStr];
+                //NSLog(@"city = %@",cityStr);
+                if (firstVisit) {
+                    firstVisit = !firstVisit;
+                    if (![_cityLocation.titleLabel.text isEqualToString:cityStr]) {
+                        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:[NSString stringWithFormat:@"当前定位到的城市为%@,是否切换？",cityStr] preferredStyle:UIAlertControllerStyleAlert];
+                        UIAlertAction *confirm = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                            //修改城市按钮标题
+                            [_cityLocation setTitle:cityStr forState:UIControlStateNormal];
+                            //删除记忆体
+                            [Utilities removeUserDefaults:@"UserCity"];
+                            //添加记忆体
+                            [Utilities setUserDefaults:@"UserCity" content:cityStr];
+                            //网络请求
+                            [self requestAll];
+                        
+                        }];
+                        UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+                        [alert addAction:confirm];
+                        [alert addAction:cancel];
+                        [self presentViewController:alert animated:YES completion:nil];
+                    }
+                }
+            }
+        }];
+        //三秒后关掉开关
+        [_locMgr stopUpdatingLocation];
+    });
+   
+}
+
+#pragma mark - notification
+
+- (void)checkCityState: (NSNotification *)note {
+    NSString *cityStr = note.object;
+    if (![_cityLocation.titleLabel.text isEqualToString:cityStr]) {
+        //修改城市按钮标题
+        [_cityLocation setTitle:cityStr forState:UIControlStateNormal];
+        //删除记忆体
+        [Utilities removeUserDefaults:@"UserCity"];
+        //添加记忆体
+        [Utilities setUserDefaults:@"UserCity" content:cityStr];
+        //重新执行网络请求
+        [self requestAll];
+    }
 }
 
 
@@ -105,17 +301,27 @@
 
 - (void)requestAll {
     
-    NSDictionary *para = @{@"startId":@1,@"priceId":@0,@"sortingId":@1,@"inTime":_date1,@"outTime":_date2,@"page":@10};
+    NSDictionary *para = @{@"startId":@1,@"priceId":@0,@"sortingId":@1,@"inTime":_date1,@"outTime":_date2,@"page":@5};
     //NSLog(@"%@,%@",_date1,_date2);
     [RequestAPI requestURL:@"/findAllHotelAndAdvertising" withParameters:para andHeader:nil byMethod:kForm andSerializer:kForm success:^(id responseObject) {
-        NSLog(@"%@",responseObject);
-        if (responseObject[@"result"] == 0) {
-            NSArray *advertising = responseObject[@"advertising"];
+        //NSLog(@"%@",responseObject);
+        if ([responseObject[@"result"] integerValue] == 0) {
+            //NSArray *advertising = responseObject[@"content"][@"advertising"];
+            NSArray *hotel = responseObject[@"content"][@"hotel"];
+            for (NSDictionary *dict in hotel) {
+                AAndHModel *hotelModel = [[AAndHModel alloc] initWithDictForHotelCell:dict];
+                //NSLog(@"%@",hotelModel.hotelName);
+                [_hotelArr addObject:hotelModel];
+                
+            }
+//                        AAndHModel *hotel1 = _hotelArr[0];
+//                        NSLog(@"%@",hotel1.hotelName);
+//                        NSLog(@"%@",hotel1.hotelPrice);
+            [_hotelTableView reloadData];
         }
         
-    } failure:^(NSInteger statusCode, NSError *error) {
-        NSLog(@"%ld",(long)statusCode);
-        NSLog(@"%@",error);
+    }failure:^(NSInteger statusCode, NSError *error) {
+        
     }];
 }
 
@@ -123,13 +329,29 @@
 #pragma mark - table View
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 1;
+    return _hotelArr.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     HotelTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"HotelCell" forIndexPath:indexPath];
+    //NSLog(@"%ld",(long)indexPath.row);
+    AAndHModel *hotelModel = _hotelArr[indexPath.row];
+    //NSLog(@"123%@",hotelModel.hotelName);
+    cell.hotelName.text = hotelModel.hotelName;
+    //NSLog(@"%@",cell.hotelName.text);
+    cell.hotelPrice.text = [NSString stringWithFormat:@"¥%@",hotelModel.hotelPrice];
+    //NSLog(@"%@",cell.hotelPrice.text);
+    NSLog(@"%@",hotelModel.hotelImg);
+    NSURL *url = [NSURL URLWithString:hotelModel.hotelImg];
+    NSLog(@"%@",url);
+    NSData *data = [NSData dataWithContentsOfURL:url];
+    NSLog(@"%@",data);
+    cell.hotelImage.image = [UIImage imageWithData:data];
+    cell.hotelLocation.text = [NSString stringWithFormat:@"%ld",(long)hotelModel.cityId];
+    cell.hotelDistance.text = hotelModel.distance;
     return cell;
 }
+
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];

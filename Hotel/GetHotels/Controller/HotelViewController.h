@@ -10,4 +10,6 @@
 
 @interface HotelViewController : UIViewController
 
+@property (weak, nonatomic) IBOutlet UIButton *cityLocation;
+
 @end
