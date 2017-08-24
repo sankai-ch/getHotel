@@ -7,7 +7,7 @@
 //
 
 #import "LoginViewController.h"
-
+#import "UserModel.h"
 @interface LoginViewController ()<UITextFieldDelegate>
 @property (weak, nonatomic) IBOutlet UIImageView *shadowImageView;
 @property (weak, nonatomic) IBOutlet UITextField *phoneTextField;
@@ -30,13 +30,21 @@
     [_phoneTextField addTarget:self action:@selector(textChange:) forControlEvents:UIControlEventEditingChanged];
     [_pwdTextField addTarget:self action:@selector(textChange:) forControlEvents:UIControlEventEditingChanged];
     [self naviConfig];
+    [self uilayout];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+-(void)uilayout{
+    if(![[Utilities getUserDefaults:@"UserTel"] isKindOfClass:[NSNull class]]){
+        if([Utilities getUserDefaults:@"UserTel"]!=nil){
+            _phoneTextField.text=[Utilities getUserDefaults:@"UserTel"];
+        }
+    }
 
+}
 //当textField结束编辑的时候调用
 - (void)textFieldDidEndEditing:(UITextField *)textField{
     if(textField == _phoneTextField || textField == _pwdTextField){
@@ -153,7 +161,21 @@
     NSDictionary *para=@{@"tel":_phoneTextField.text,@"pwd":_pwdTextField.text};
     [RequestAPI requestURL:@"/login" withParameters:para andHeader:nil byMethod:kPost andSerializer:kForm success:^(id responseObject) {
         [_avi stopAnimating];
-        NSLog(@"%@",responseObject[@"result"]);
+        if([responseObject[@"result"] integerValue]==1){
+            NSLog(@"%@",responseObject[@"content"]);
+            NSDictionary *result=responseObject[@"content"];
+            UserModel *user=[[UserModel alloc]initWhitDictionary:result];
+            [[StorageMgr singletonStorageMgr]addKey:@"UserInfo" andValue:user];
+            [[StorageMgr singletonStorageMgr]addKey:@"MemberId" andValue:user.userId];
+            [self.view endEditing:YES];
+            _pwdTextField.text=@"";
+            [Utilities setUserDefaults:@"UserTel" content:_phoneTextField.text];
+            [self dismissViewControllerAnimated:YES completion:nil];
+        }
+        else{
+            NSString *errorMsg=[ErrorHandler getProperErrorString:[responseObject[@"resultFlag"]integerValue]];
+            [Utilities popUpAlertViewWithMsg:errorMsg andTitle:nil onView:nil onCompletion:nil];
+        }
         
     } failure:^(NSInteger statusCode, NSError *error) {
         [_avi stopAnimating];

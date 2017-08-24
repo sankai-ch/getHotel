@@ -12,6 +12,7 @@
 		6A958D671F4D1856008C2A7D /* HotelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A958D661F4D1856008C2A7D /* HotelViewController.m */; };
 		844E869D1F4B12C20080C2ED /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 844E869C1F4B12C20080C2ED /* LoginViewController.m */; };
 		844E86A01F4B12E20080C2ED /* SignInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 844E869F1F4B12E20080C2ED /* SignInViewController.m */; };
+		B21E853A1F4E622F00C32754 /* UserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B21E85391F4E622F00C32754 /* UserModel.m */; };
 		B224DB761F4BEA970022C007 /* CustomerServiceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B224DB751F4BEA970022C007 /* CustomerServiceViewController.m */; };
 		B224DB911F4C33910022C007 /* GBAlipayManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B224DB7A1F4C33910022C007 /* GBAlipayManager.m */; };
 		B224DB921F4C33910022C007 /* base64.m in Sources */ = {isa = PBXBuildFile; fileRef = B224DB7D1F4C33910022C007 /* base64.m */; };
@@ -103,6 +104,8 @@
 		844E869F1F4B12E20080C2ED /* SignInViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignInViewController.m; sourceTree = "<group>"; };
 		87E248321E9C674FE6281D42 /* Pods-GetHotels.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GetHotels.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GetHotels/Pods-GetHotels.debug.xcconfig"; sourceTree = "<group>"; };
 		91A29EB61D066B9FD83C2A3C /* libPods-GetHotels.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-GetHotels.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		B21E85381F4E622F00C32754 /* UserModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserModel.h; sourceTree = "<group>"; };
+		B21E85391F4E622F00C32754 /* UserModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserModel.m; sourceTree = "<group>"; };
 		B224DB741F4BEA970022C007 /* CustomerServiceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomerServiceViewController.h; sourceTree = "<group>"; };
 		B224DB751F4BEA970022C007 /* CustomerServiceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomerServiceViewController.m; sourceTree = "<group>"; };
 		B224DB781F4C33910022C007 /* GBAlipayConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GBAlipayConfig.h; sourceTree = "<group>"; };
@@ -499,6 +502,8 @@
 				B224DBAC1F4C34E00022C007 /* Order.h */,
 				B224DBAD1F4C34E00022C007 /* Order.m */,
 				B2BD3E9F1F4AA59D002C6B98 /* GetHotels.xcdatamodeld */,
+				B21E85381F4E622F00C32754 /* UserModel.h */,
+				B21E85391F4E622F00C32754 /* UserModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -821,6 +826,7 @@
 				844E86A01F4B12E20080C2ED /* SignInViewController.m in Sources */,
 				B224DB941F4C33910022C007 /* DataVerifier.m in Sources */,
 				B2F076231F4D18DB0074C80C /* zhifuViewController.m in Sources */,
+				B21E853A1F4E622F00C32754 /* UserModel.m in Sources */,
 				B2BD3E8A1F4AA4EF002C6B98 /* NSDate+Utility.m in Sources */,
 				B224DBB11F4C46110022C007 /* MyInfoTableViewCell.m in Sources */,
 				B2E555091F4AF70700D314C0 /* DetailViewController.m in Sources */,
