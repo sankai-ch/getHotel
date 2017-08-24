@@ -12,6 +12,7 @@
 @interface CityListTableViewController () <UITableViewDelegate,UITableViewDataSource>
 @property (strong, nonatomic) IBOutlet UITableView *cityListTableView;
 @property (strong, nonatomic) NSMutableArray *cityListArr;
+@property (strong, nonatomic) NSMutableArray *arr;
 @end
 
 @implementation CityListTableViewController
@@ -19,6 +20,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     _cityListArr = [NSMutableArray new];
+    _arr = [NSMutableArray new];
     [self requestCiry];
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -64,6 +66,10 @@
     [[NSNotificationCenter defaultCenter] performSelectorOnMainThread:@selector(postNotification:) withObject:[NSNotification notificationWithName:@"ResetHome" object:cityListModel.cityArr[indexPath.row]] waitUntilDone:YES];
     //跳转
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (nullable NSArray<NSString *> *)sectionIndexTitlesForTableView:(UITableView *)tableView {
+    return _arr;
 }
 
 /*
@@ -115,9 +121,11 @@
         //NSLog(@"%@",responseObject);
         if ([responseObject[@"result"] integerValue] == 1) {
             NSArray *content = responseObject[@"content"];
+            [_arr removeAllObjects];
             for (NSDictionary *dict in content) {
                 CityListModel *cityList = [[CityListModel alloc] initWithDict:dict];
                 [_cityListArr addObject:cityList];
+                [_arr addObject:cityList.tip];
             }
 //            CityListModel *cityList = _cityListArr[0];
 //            NSLog(@"%@",cityList.tip);
