@@ -19,7 +19,6 @@
 @property (strong, nonatomic) NSString *date1;
 @property (strong, nonatomic) NSString *date2;
 
-
 - (IBAction)dateInAction:(UIButton *)sender forEvent:(UIEvent *)event;
 - (IBAction)dateOutAction:(UIButton *)sender forEvent:(UIEvent *)event;
 - (IBAction)cancelAction:(UIBarButtonItem *)sender;
@@ -37,6 +36,8 @@
     // Do any additional setup after loading the view.
     [self naviConfig];
     [self setDefaultTime];
+    //[self requestCiry];
+    [self requestAll];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -59,10 +60,12 @@
     formatter.dateFormat = @"MM-dd";
     NSDate *today = [NSDate date];
     NSDate *tomorrow = [NSDate dateTomorrow];
-    _date1 = [formatter stringFromDate:today];
-    _date2 = [formatter stringFromDate:tomorrow];
-    [_dateInBtn setTitle:[NSString stringWithFormat:@"入住%@", _date1] forState:UIControlStateNormal];
-    [_dateOutBtn setTitle:[NSString stringWithFormat:@"离店%@", _date2] forState:UIControlStateNormal];
+    NSDateFormatter *pFormatter = [NSDateFormatter new];
+    pFormatter.dateFormat = @"yyyy-MM-ddTHH:mm:ss.SSSZ";
+    _date1 = [pFormatter stringFromDate:today];
+    _date2 = [pFormatter stringFromDate:tomorrow];
+    [_dateInBtn setTitle:[NSString stringWithFormat:@"入住%@", [formatter stringFromDate:today]] forState:UIControlStateNormal];
+    [_dateOutBtn setTitle:[NSString stringWithFormat:@"离店%@", [formatter stringFromDate:tomorrow]] forState:UIControlStateNormal];
     [_datePicker setMinimumDate:today];
     
 }
@@ -91,12 +94,28 @@
 
 #pragma mark - request 
 
-- (void)requestAll {
-    NSDictionary *para = @{};
-    [RequestAPI requestURL:@"/findAllHotelAndAdvertising" withParameters:para andHeader:nil byMethod:kGet andSerializer:kForm success:^(id responseObject) {
-        
+- (void)requestCiry {
+    [RequestAPI requestURL:@"/findCity" withParameters:@{@"id":@0} andHeader:nil byMethod:kGet andSerializer:kForm success:^(id responseObject) {
+        NSLog(@"%@",responseObject);
     } failure:^(NSInteger statusCode, NSError *error) {
         
+    }];
+}
+
+
+- (void)requestAll {
+    
+    NSDictionary *para = @{@"startId":@1,@"priceId":@0,@"sortingId":@1,@"inTime":_date1,@"outTime":_date2,@"page":@10};
+    //NSLog(@"%@,%@",_date1,_date2);
+    [RequestAPI requestURL:@"/findAllHotelAndAdvertising" withParameters:para andHeader:nil byMethod:kForm andSerializer:kForm success:^(id responseObject) {
+        NSLog(@"%@",responseObject);
+        if (responseObject[@"result"] == 0) {
+            NSArray *advertising = responseObject[@"advertising"];
+        }
+        
+    } failure:^(NSInteger statusCode, NSError *error) {
+        NSLog(@"%ld",(long)statusCode);
+        NSLog(@"%@",error);
     }];
 }
 
@@ -146,15 +165,18 @@
     NSDateFormatter *formatter = [NSDateFormatter new];
     formatter.dateFormat = @"MM-dd";
     NSString *theDate = [formatter stringFromDate:date];
-
+    NSDateFormatter *pFormatter = [NSDateFormatter new];
+    pFormatter.dateFormat = @"yyyy-MM-ddTHH:mm:ss.SSSZ";
     if (btnTime == 0) {
         [_dateInBtn setTitle:[NSString stringWithFormat:@"入住%@", theDate] forState:UIControlStateNormal];
         [_dateOutBtn setTitle:[NSString stringWithFormat:@"离店%@", theDate] forState:UIControlStateNormal];
         [_datePicker setMinimumDate:date];
+        _date1 = [pFormatter stringFromDate:date];
     }
     else {
         
         [_dateOutBtn setTitle:[NSString stringWithFormat:@"离店%@", theDate] forState:UIControlStateNormal];
+        _date2 = [pFormatter stringFromDate:date];
     }
     
     _datePicker.hidden = YES;

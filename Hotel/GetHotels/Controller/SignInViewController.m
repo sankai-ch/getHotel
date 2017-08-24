@@ -9,6 +9,7 @@
 #import "SignInViewController.h"
 
 @interface SignInViewController ()<UITextFieldDelegate>
+@property (strong,nonatomic)UIActivityIndicatorView *avi;
 @property (weak, nonatomic) IBOutlet UIImageView *shadowImageView;
 @property (weak, nonatomic) IBOutlet UITextField *phoneTextField;
 @property (weak, nonatomic) IBOutlet UITextField *pwdTextField;
@@ -95,7 +96,7 @@
 
 - (IBAction)SignInAction:(UIButton *)sender forEvent:(UIEvent *)event {
     if ([_pwdTextField.text isEqualToString:_confirmPwdTextField.text]) {
-        NSLog(@"注册成功");
+        [self signUpRequest];
     }else{
         [Utilities popUpAlertViewWithMsg:@"密码输入不一致，请重新输入" andTitle:@"提示" onView:self onCompletion:^{
             _pwdTextField.text = @"";
@@ -103,5 +104,14 @@
         }];
     }
 
+}
+-(void)signUpRequest{
+    _avi=[Utilities getCoverOnView:self.view];
+    NSDictionary *para=@{@"tel":_phoneTextField.text,@"pwd":_pwdTextField.text};
+    [RequestAPI requestURL:@"/register" withParameters:para andHeader:nil byMethod:kPost andSerializer:kForm success:^(id responseObject) {
+        NSLog(@"%@",responseObject);
+    } failure:^(NSInteger statusCode, NSError *error) {
+        NSLog(@"%ld",(long)statusCode);
+    }];
 }
 @end
