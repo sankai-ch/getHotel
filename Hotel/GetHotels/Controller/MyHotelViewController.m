@@ -7,8 +7,22 @@
 //
 
 #import "MyHotelViewController.h"
+#import "AllOrdersTableViewCell.h"
+#import "AvailableTableViewCell.h"
+#import "ExpiredTableViewCell.h"
+#import "HMSegmentedControl.h"
+@interface MyHotelViewController ()<UITableViewDelegate,UITableViewDelegate,UIScrollViewDelegate>
 
-@interface MyHotelViewController ()
+@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
+@property (weak, nonatomic) IBOutlet UITableView *AllOrdersTableView;
+@property (weak, nonatomic) IBOutlet UITableView *AvailableTableView;
+@property (weak, nonatomic) IBOutlet UITableView *ExpiredTableView;
+@property (weak, nonatomic) IBOutlet UIView *titleView;
+
+
+
+
+
 
 @end
 

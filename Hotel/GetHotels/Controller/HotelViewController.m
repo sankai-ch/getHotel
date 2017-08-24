@@ -25,6 +25,7 @@
 @property (strong, nonatomic) NSMutableArray *hotelArr;
 @property (strong, nonatomic) NSMutableArray *advArr;
 @property (weak, nonatomic) IBOutlet UITableView *hotelTableView;
+@property (strong, nonatomic) UIActivityIndicatorView *avi;
 
 @property (strong, nonatomic) CLLocationManager *locMgr;
 @property (strong, nonatomic) CLLocation *location;
@@ -80,6 +81,7 @@
 */
 
 - (void)dataInitialize {
+    _avi = [Utilities getCoverOnView:self.view];
     BOOL appInit = NO;
     if ([[Utilities getUserDefaults:@"UserCity"] isKindOfClass:[NSNull class]]) {
         //是第一次打开APP
@@ -121,6 +123,13 @@
     [_datePicker setMinimumDate:today];
     
 }
+
+- (void)setADImage {
+    for (AAndHModel *adV in _advArr) {
+        
+    }
+}
+
 #pragma mark - loction
 //这个方法专门处理定位的基本设置
 - (void)locationConfig {
@@ -214,7 +223,7 @@
                 CLPlacemark *first = placemarks.firstObject;
                 NSDictionary *locDict = first.addressDictionary;
                 
-                NSLog(@"locDict = %@",locDict);
+                //NSLog(@"locDict = %@",locDict);
                 NSString *cityStr = locDict[@"City"];
                 cityStr = [cityStr substringToIndex:cityStr.length - 1];
                 [[StorageMgr singletonStorageMgr] removeObjectForKey:@"locDict"];
@@ -290,13 +299,13 @@
 
 #pragma mark - request 
 
-- (void)requestCiry {
-    [RequestAPI requestURL:@"/findCity" withParameters:@{@"id":@0} andHeader:nil byMethod:kGet andSerializer:kForm success:^(id responseObject) {
-        NSLog(@"%@",responseObject);
-    } failure:^(NSInteger statusCode, NSError *error) {
-        
-    }];
-}
+//- (void)requestCiry {
+//    [RequestAPI requestURL:@"/findCity" withParameters:@{@"id":@0} andHeader:nil byMethod:kGet andSerializer:kForm success:^(id responseObject) {
+//        NSLog(@"%@",responseObject);
+//    } failure:^(NSInteger statusCode, NSError *error) {
+//        
+//    }];
+//}
 
 
 - (void)requestAll {
@@ -304,9 +313,15 @@
     NSDictionary *para = @{@"startId":@1,@"priceId":@0,@"sortingId":@1,@"inTime":_date1,@"outTime":_date2,@"page":@5};
     //NSLog(@"%@,%@",_date1,_date2);
     [RequestAPI requestURL:@"/findAllHotelAndAdvertising" withParameters:para andHeader:nil byMethod:kForm andSerializer:kForm success:^(id responseObject) {
-        //NSLog(@"%@",responseObject);
+        NSLog(@"%@",responseObject);
+        [_avi stopAnimating];
         if ([responseObject[@"result"] integerValue] == 0) {
-            //NSArray *advertising = responseObject[@"content"][@"advertising"];
+            NSArray *advertising = responseObject[@"content"][@"advertising"];
+            for (NSDictionary *dict in advertising) {
+                AAndHModel *adV = [[AAndHModel alloc] initWithDictForAD:dict];
+                [_advArr addObject:adV];
+                
+            }
             NSArray *hotel = responseObject[@"content"][@"hotel"];
             for (NSDictionary *dict in hotel) {
                 AAndHModel *hotelModel = [[AAndHModel alloc] initWithDictForHotelCell:dict];
@@ -321,7 +336,7 @@
         }
         
     }failure:^(NSInteger statusCode, NSError *error) {
-        
+        [_avi stopAnimating];
     }];
 }
 
@@ -341,13 +356,11 @@
     //NSLog(@"%@",cell.hotelName.text);
     cell.hotelPrice.text = [NSString stringWithFormat:@"¥%@",hotelModel.hotelPrice];
     //NSLog(@"%@",cell.hotelPrice.text);
-    NSLog(@"%@",hotelModel.hotelImg);
+    //NSLog(@"%@",hotelModel.hotelImg);
     NSURL *url = [NSURL URLWithString:hotelModel.hotelImg];
-    NSLog(@"%@",url);
-    NSData *data = [NSData dataWithContentsOfURL:url];
-    NSLog(@"%@",data);
-    cell.hotelImage.image = [UIImage imageWithData:data];
-    cell.hotelLocation.text = [NSString stringWithFormat:@"%ld",(long)hotelModel.cityId];
+    [cell.imageView sd_setImageWithURL:url placeholderImage:[UIImage imageNamed:@"酒店"]];
+    
+    cell.hotelLocation.text = hotelModel.hotelAdd;
     cell.hotelDistance.text = hotelModel.distance;
     return cell;
 }
@@ -403,5 +416,6 @@
     
     _datePicker.hidden = YES;
     _toolBar.hidden = YES;
+    [self requestAll];
 }
 @end
