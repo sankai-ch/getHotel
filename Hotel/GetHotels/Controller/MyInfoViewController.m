@@ -8,6 +8,7 @@
 
 #import "MyInfoViewController.h"
 #import "MyInfoTableViewCell.h"
+#import "UserModel.h"
 @interface MyInfoViewController ()<UITableViewDelegate, UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UIImageView *headImageView;
@@ -15,6 +16,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *gradeLabel;
 - (IBAction)loginBtn:(UIButton *)sender forEvent:(UIEvent *)event;
 @property (strong, nonatomic) NSArray *myInfoArr;
+@property (weak, nonatomic) IBOutlet UIButton *loginBtn;
 
 @end
 
@@ -33,6 +35,13 @@
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:YES animated:NO];
+    if([Utilities loginCheck]){
+        //已登录
+        _loginBtn.hidden=YES;
+        _nameLabel.hidden=NO;
+        UserModel *user=[[StorageMgr singletonStorageMgr]objectForKey:@"UserInfo"];
+        
+    }
 }
 /*
 #pragma mark - Navigation
