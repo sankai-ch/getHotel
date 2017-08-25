@@ -482,13 +482,23 @@
                                         <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QTm-hv-Mtl">
+                                        <rect key="frame" x="0.0" y="55" width="375" height="5"/>
+                                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="5" id="0o5-Ju-TOK"/>
+                                        </constraints>
+                                    </view>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="vsE-ZB-01m" firstAttribute="leading" secondItem="Rzf-i6-N9n" secondAttribute="leading" constant="15" id="9rw-8J-BVF"/>
                                     <constraint firstItem="S5k-h3-xPv" firstAttribute="centerY" secondItem="Rzf-i6-N9n" secondAttribute="centerY" id="9uR-U2-Uqb"/>
                                     <constraint firstItem="vsE-ZB-01m" firstAttribute="centerY" secondItem="Rzf-i6-N9n" secondAttribute="centerY" id="AP9-7j-b9g"/>
+                                    <constraint firstAttribute="bottom" secondItem="QTm-hv-Mtl" secondAttribute="bottom" id="EGt-4p-dGV"/>
                                     <constraint firstItem="sGN-tH-1D6" firstAttribute="centerY" secondItem="Rzf-i6-N9n" secondAttribute="centerY" id="K5A-cj-iVW"/>
+                                    <constraint firstAttribute="trailing" secondItem="QTm-hv-Mtl" secondAttribute="trailing" id="aIk-ZN-Zmc"/>
+                                    <constraint firstItem="QTm-hv-Mtl" firstAttribute="leading" secondItem="Rzf-i6-N9n" secondAttribute="leading" id="bgS-fd-eCQ"/>
                                     <constraint firstAttribute="height" constant="60" id="nkd-Nl-IEl"/>
                                     <constraint firstItem="sGN-tH-1D6" firstAttribute="centerX" secondItem="Rzf-i6-N9n" secondAttribute="centerX" id="rBB-Pi-bH0"/>
                                     <constraint firstAttribute="trailing" secondItem="S5k-h3-xPv" secondAttribute="trailing" constant="15" id="vP7-AQ-Daf"/>
@@ -500,14 +510,9 @@
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="63" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="fOA-nN-5CT" userLabel="All Orders Table View">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="543"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <view key="tableHeaderView" contentMode="scaleToFill" id="ZAn-O6-KLw">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="5"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
-                                        </view>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="177" id="7Xq-9J-N1K" customClass="AllOrdersTableViewCell">
-                                                <rect key="frame" x="0.0" y="33" width="375" height="177"/>
+                                                <rect key="frame" x="0.0" y="28" width="375" height="177"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="7Xq-9J-N1K" id="hwg-e9-a5K">
                                                     <rect key="frame" x="0.0" y="0.0" width="375" height="177"/>
@@ -835,7 +840,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kfW-Nv-Z1f" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1367" y="622"/>
+            <point key="canvasLocation" x="-1367.2" y="621.13943028485767"/>
         </scene>
     </scenes>
     <resources>

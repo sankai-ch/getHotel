@@ -49,7 +49,7 @@
     _expiredArr = [NSMutableArray new];
     
     [self allOrdersRequest];
-    NSLog(@"dasd");
+    [self setSegment];
     // Do any additional setup after loading the view.
 }
 
@@ -115,8 +115,8 @@
 //全部订单网络请求
 - (void)allOrdersRequest{
     UserModel *user = [[StorageMgr singletonStorageMgr] objectForKey:@"UserInfo"];
-    NSDictionary *para = @{@"wxcode":@"",@"id":user.openId};
-    [RequestAPI requestURL:@"/findOrders" withParameters:para andHeader:nil byMethod:kPost andSerializer:kForm success:^(id responseObject) {
+    NSDictionary *para = @{@"wxcode":user.openId,@"id":user.userId};
+    [RequestAPI requestURL:@"/findOrders_edu" withParameters:para andHeader:nil byMethod:kPost andSerializer:kForm success:^(id responseObject) {
        
         NSLog(@"request:%@",responseObject);
         
@@ -139,14 +139,15 @@
     _segmentedControl.backgroundColor = [UIColor whiteColor];
     //设置线的高度
     _segmentedControl.selectionIndicatorHeight = 2.5f;
+    _segmentedControl.selectionIndicatorColor = UIColorFromRGB(21, 126, 251);
     //设置选中状态的样式
     _segmentedControl.selectionStyle = HMSegmentedControlSelectionStyleFullWidthStripe;
     //选中时的标记的位置
     _segmentedControl.selectionIndicatorLocation = HMSegmentedControlSelectionIndicatorLocationDown;
     //设置未选中的标题样式
-    _segmentedControl.titleTextAttributes = @{NSForegroundColorAttributeName:UIColorFromRGBA(230, 230, 230, 1),NSFontAttributeName:[UIFont boldSystemFontOfSize:15]};
+    _segmentedControl.titleTextAttributes = @{NSForegroundColorAttributeName:UIColorFromRGBA(111, 113, 121, 1),NSFontAttributeName:[UIFont systemFontOfSize:17]};
     //选中时的标题样式
-    _segmentedControl.selectedTitleTextAttributes = @{NSForegroundColorAttributeName:UIColorFromRGBA(154, 154, 154, 1),NSFontAttributeName:[UIFont boldSystemFontOfSize:15]};
+    _segmentedControl.selectedTitleTextAttributes = @{NSForegroundColorAttributeName:UIColorFromRGBA(21, 126, 251, 1),NSFontAttributeName:[UIFont systemFontOfSize:17]};
     
     __weak typeof(self) weakSelf = self;
     [_segmentedControl setIndexChangeBlock:^(NSInteger index) {
@@ -162,6 +163,10 @@
 - (void)setNavigationItem{
     //self.navigationController.navigationBar.backgroundColor = [UIColor whiteColor];
     [self.navigationController.navigationBar setBarTintColor:HEAD_THEMECOLOR];
+    
+    self.navigationController.navigationBar.barTintColor = UIColorFromRGB(24, 124, 236);
+    //设置导航条标题颜色
+    self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName : [UIColor whiteColor]};
     //实例化一个button 类型为UIButtonTypeSystem
     UIButton *leftBtn = [UIButton buttonWithType:UIButtonTypeSystem];
     //设置位置大小
