@@ -9,7 +9,7 @@
 #import "MyInfoViewController.h"
 #import "MyInfoTableViewCell.h"
 #import "UserModel.h"
-#import "YKStarView.h"
+
 @interface MyInfoViewController ()<UITableViewDelegate, UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UIImageView *headImageView;
@@ -18,8 +18,11 @@
 - (IBAction)loginBtn:(UIButton *)sender forEvent:(UIEvent *)event;
 @property (strong, nonatomic) NSArray *myInfoArr;
 @property (weak, nonatomic) IBOutlet UIButton *loginBtn;
-@property (weak, nonatomic) IBOutlet YKStarView *myStarView;
+
 @property (weak, nonatomic) IBOutlet UILabel *grade;
+@property (weak, nonatomic) IBOutlet UIImageView *star1;
+@property (weak, nonatomic) IBOutlet UIImageView *star2;
+@property (weak, nonatomic) IBOutlet UIImageView *star3;
 
 @end
 
@@ -27,30 +30,19 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+<<<<<<< HEAD
     _myInfoArr = @[@{@"leftIcon":@"酒店",@"title":@"我的酒店"},@{@"leftIcon":@"航空",@"title":@"我的航空"},@{@"leftIcon":@"我的消息",@"title":@"我的消息"},@{@"leftIcon":@"账号与安全",@"title":@"账户设置"},@{@"leftIcon":@"我的消息",@"title":@"使用协议"},@{@"leftIcon":@"电话",@"title":@"联系客服"}];    // Do any additional setup after loading the view.
     [self naviConfig];
+   
+=======
+    _myInfoArr = @[@{@"leftIcon":@"酒店",@"title":@"我的酒店"},@{@"leftIcon":@"航空",@"title":@"我的航空"},@{@"leftIcon":@"我的消息",@"title":@"我的消息"},@{@"leftIcon":@"账号与安全",@"title":@"账户设置"},@{@"leftIcon":@"我的消息",@"title":@"使用协议"},@{@"leftIcon":@"电话",@"title":@"联系我们"}];    // Do any additional setup after loading the view.
+>>>>>>> 69e07c873d619de5cbf98f85f3bfb19dd52ed5ee
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-//设置导航栏样式
-- (void)naviConfig{
-    //self.navigationController.navigationBar.backgroundColor = [UIColor whiteColor];
-    [self.navigationController.navigationBar setBarTintColor:HEAD_THEMECOLOR];
-    //实例化一个button 类型为UIButtonTypeSystem
-    UIButton *leftBtn = [UIButton buttonWithType:UIButtonTypeSystem];
-    //设置位置大小
-    leftBtn.frame = CGRectMake(0, 0, 20, 20);
-    //设置其背景图片为返回图片
-    [leftBtn setBackgroundImage:[UIImage imageNamed:@"返回"] forState:UIControlStateNormal];
-    //给按钮添加事件
-    [leftBtn addTarget:self action:@selector(backAction) forControlEvents:UIControlEventTouchUpInside];
-    
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:leftBtn];
-}
-
 //当前页面将要显示的时候，隐藏导航栏
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
@@ -63,16 +55,28 @@
         [_headImageView sd_setImageWithURL:[NSURL URLWithString:user.headImg]placeholderImage:[UIImage imageNamed:@"用户"]];
         _nameLabel.text=user.nickName;
         _grade.hidden=NO;
-        _myStarView.hidden=NO;
-        _myStarView=[[YKStarView alloc]initWithFrame:CGRectMake(0, 0, 100, 16)];
-        _myStarView.showStar=user.state *20;
+        UIImage  *stars=[UIImage imageNamed:@"star"];
+        switch (user.state) {
+            case 1:
+                _star1.image=stars;
+                break;
+                case 2:
+                _star1.image=stars;
+                _star2.image=stars;
+                case 3:
+                _star1.image=stars;
+                _star2.image=stars;
+                _star3.image=stars;
+            default:
+                break;
+        }
        
         
     }
     else{
         _loginBtn.hidden=NO;
         _nameLabel.hidden=YES;
-        _myStarView.hidden=YES;
+        
         _grade.hidden=YES;
         _headImageView.image=[UIImage imageNamed:@"用户"];
         _nameLabel.text=@"游客";

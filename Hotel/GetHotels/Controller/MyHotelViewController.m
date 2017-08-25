@@ -60,6 +60,7 @@
     
     //[self allOrdersRequest];
     [self setSegment];
+    [self setNavigationItem];
     // Do any additional setup after loading the view.
 }
 
@@ -215,12 +216,9 @@
 
 //设置导航栏样式
 - (void)setNavigationItem{
+    self.navigationItem.title = @"我的酒店";
     //self.navigationController.navigationBar.backgroundColor = [UIColor whiteColor];
     [self.navigationController.navigationBar setBarTintColor:HEAD_THEMECOLOR];
-    
-    self.navigationController.navigationBar.barTintColor = UIColorFromRGB(24, 124, 236);
-    //设置导航条标题颜色
-    self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName : [UIColor whiteColor]};
     //实例化一个button 类型为UIButtonTypeSystem
     UIButton *leftBtn = [UIButton buttonWithType:UIButtonTypeSystem];
     //设置位置大小
@@ -236,7 +234,6 @@
 - (void)leftButtonAction: (UIButton *)sender{
     [self.navigationController popViewControllerAnimated:YES];
 }
-
 #pragma mark - tableView
 //多少组
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{

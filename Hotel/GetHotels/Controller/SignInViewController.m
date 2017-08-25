@@ -16,6 +16,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *confirmPwdTextField;
 @property (weak, nonatomic) IBOutlet UIButton *signInBtn;
 - (IBAction)SignInAction:(UIButton *)sender forEvent:(UIEvent *)event;
+@property (weak, nonatomic) IBOutlet UIImageView *avatar;
 
 @end
 
@@ -28,6 +29,7 @@
 
     [self naviConfig];
     [self setShadow];
+    [self uiLayout];
     // Do any additional setup after loading the view.
 }
 
@@ -35,13 +37,17 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+-(void)uiLayout{
+    _avatar.layer.borderColor=[UIColor blueColor].CGColor;
+
+}
 
 - (void)setShadow {
     
     _shadowImageView.layer.shadowColor = [UIColor blackColor].CGColor;//shadowColor阴影颜色
-    _shadowImageView.layer.shadowOffset = CGSizeMake(5,5);//shadowOffset阴影偏移,x向右偏移4，y向下偏移4，默认(0, -3),这个跟shadowRadius配合使用
-    _shadowImageView.layer.shadowOpacity = 0.5;//阴影透明度，默认0
-    _shadowImageView.layer.shadowRadius = 4;//阴影半径，默认3
+    _shadowImageView.layer.shadowOffset = CGSizeMake(0,0);//shadowOffset阴影偏移,x向右偏移4，y向下偏移4，默认(0, -3),这个跟shadowRadius配合使用
+    _shadowImageView.layer.shadowOpacity = 0.7f;//阴影透明度，默认0
+    _shadowImageView.layer.shadowRadius = 4.f;//阴影半径，默认3
 }
 
 //设置导航栏样式
