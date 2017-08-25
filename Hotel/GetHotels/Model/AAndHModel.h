@@ -23,6 +23,7 @@
 @property (strong, nonatomic) NSString *hotelPrice;
 @property (strong, nonatomic) NSString *hotelImg;
 @property (nonatomic) NSInteger cityId;
+@property (nonatomic) NSInteger hotelId;
 
 - (instancetype)initWithDictForHotelCell: (NSDictionary *)dict;
 - (instancetype)initWithDictForAD: (NSDictionary *)dict;
