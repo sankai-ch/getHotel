@@ -40,6 +40,8 @@
 */
 //设置导航栏样式
 - (void)setNavigationItem{
+    self.navigationItem.title = @"我的消息";
+
     //self.navigationController.navigationBar.backgroundColor = [UIColor whiteColor];
     [self.navigationController.navigationBar setBarTintColor:HEAD_THEMECOLOR];
     //实例化一个button 类型为UIButtonTypeSystem
