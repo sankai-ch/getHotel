@@ -58,6 +58,7 @@
     _availableArr = [NSMutableArray new];
     _expiredArr = [NSMutableArray new];
     
+    
     //[self allOrdersRequest];
     [self setSegment];
     [self setNavigationItem];
@@ -227,8 +228,11 @@
     [self.navigationController.navigationBar setBarTintColor:HEAD_THEMECOLOR];
     //实例化一个button 类型为UIButtonTypeSystem
     UIButton *leftBtn = [UIButton buttonWithType:UIButtonTypeSystem];
+    //设置导航条的颜色（风格颜色）
+    self.navigationController.navigationBar.barTintColor = UIColorFromRGB(0, 100, 255);
     //设置位置大小
     leftBtn.frame = CGRectMake(0, 0, 20, 20);
+    
     //设置其背景图片为返回图片
     [leftBtn setBackgroundImage:[UIImage imageNamed:@"返回"] forState:UIControlStateNormal];
     //给按钮添加事件
@@ -244,7 +248,7 @@
 //多少组
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     if (tableView == _AllOrdersTableView) {
-        return _allOrdersArr.count;
+        return 10;
     }else if (tableView == _AvailableTableView) {
         return _availableArr.count;
     }else{
@@ -260,6 +264,12 @@
     
     if (tableView == _AllOrdersTableView) {
         AllOrdersTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"allOrdersCell" forIndexPath:indexPath];
+        
+        NSLog(@"进入allordersTableView");
+        
+        
+        
+        cell.hotelTypeLabel.text = @"342342";
         
         
         return cell;
@@ -277,7 +287,7 @@
 }
 //设置细胞高度
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 80.f;
+    return 200.f;
 }
 
 @end
