@@ -19,6 +19,7 @@
         self.distance = [Utilities nullAndNilCheck:dict[@"distance"] replaceBy:@"未知"];
         self.hotelPrice = [Utilities nullAndNilCheck:dict[@"price"] replaceBy:@"未知"];
         self.hotelImg = [Utilities nullAndNilCheck:dict[@"hotel_img"] replaceBy:@""];
+        self.hotelId = [[Utilities nullAndNilCheck:dict[@"id"] replaceBy:0] integerValue];
     }
     return self;
 }
@@ -29,7 +30,7 @@
     self = [super init];
     if (self) {
         self.adName = [Utilities nullAndNilCheck:dict[@"ad_name"] replaceBy:@"暂无"];
-        self.adImg = [Utilities nullAndNilCheck:dict[@"ad_img"] replaceBy:@""];
+        self.adImg = [Utilities nullAndNilCheck:dict[@"ad_img"] replaceBy:@"123"];
         self.adUrl = [Utilities nullAndNilCheck:dict[@"ad_url"] replaceBy:@""];
         self.adId = [[Utilities nullAndNilCheck:@"id" replaceBy:@""] integerValue];
     }

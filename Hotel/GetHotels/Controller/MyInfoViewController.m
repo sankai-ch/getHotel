@@ -9,7 +9,7 @@
 #import "MyInfoViewController.h"
 #import "MyInfoTableViewCell.h"
 #import "UserModel.h"
-#import "YKStarView.h"
+
 @interface MyInfoViewController ()<UITableViewDelegate, UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UIImageView *headImageView;
@@ -18,8 +18,11 @@
 - (IBAction)loginBtn:(UIButton *)sender forEvent:(UIEvent *)event;
 @property (strong, nonatomic) NSArray *myInfoArr;
 @property (weak, nonatomic) IBOutlet UIButton *loginBtn;
-@property (weak, nonatomic) IBOutlet YKStarView *myStarView;
+
 @property (weak, nonatomic) IBOutlet UILabel *grade;
+@property (weak, nonatomic) IBOutlet UIImageView *star1;
+@property (weak, nonatomic) IBOutlet UIImageView *star2;
+@property (weak, nonatomic) IBOutlet UIImageView *star3;
 
 @end
 
@@ -27,7 +30,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+
     _myInfoArr = @[@{@"leftIcon":@"酒店",@"title":@"我的酒店"},@{@"leftIcon":@"航空",@"title":@"我的航空"},@{@"leftIcon":@"我的消息",@"title":@"我的消息"},@{@"leftIcon":@"账号与安全",@"title":@"账户设置"},@{@"leftIcon":@"我的消息",@"title":@"使用协议"},@{@"leftIcon":@"电话",@"title":@"联系客服"}];    // Do any additional setup after loading the view.
+    [self naviConfig];
+   
+
+
 }
 
 - (void)didReceiveMemoryWarning {
@@ -46,20 +54,51 @@
         [_headImageView sd_setImageWithURL:[NSURL URLWithString:user.headImg]placeholderImage:[UIImage imageNamed:@"用户"]];
         _nameLabel.text=user.nickName;
         _grade.hidden=NO;
-        _myStarView.hidden=NO;
-        _myStarView=[[YKStarView alloc]initWithFrame:CGRectMake(0, 0, 100, 16)];
-        _myStarView.showStar=user.state *20;
+        UIImage  *stars=[UIImage imageNamed:@"star"];
+        switch (user.state) {
+            case 1:
+                _star1.image=stars;
+                break;
+                case 2:
+                _star1.image=stars;
+                _star2.image=stars;
+                case 3:
+                _star1.image=stars;
+                _star2.image=stars;
+                _star3.image=stars;
+            default:
+                break;
+        }
        
         
     }
     else{
         _loginBtn.hidden=NO;
         _nameLabel.hidden=YES;
-        _myStarView.hidden=YES;
+        
         _grade.hidden=YES;
         _headImageView.image=[UIImage imageNamed:@"用户"];
         _nameLabel.text=@"游客";
     }
+}
+//这个方法专门做导航条的控制
+- (void)naviConfig{
+    //设置导航条标题的文字
+    self.navigationItem.title = @"城市列表";
+    //设置导航条的颜色（风格颜色）
+    self.navigationController.navigationBar.barTintColor = UIColorFromRGB(24, 124, 236);
+    //设置导航条标题颜色
+    self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName : [UIColor whiteColor]};
+    //设置导航条是否被隐藏
+    self.navigationController.navigationBar.hidden = NO;
+    
+    //设置导航条上按钮的风格颜色
+    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
+    //设置是否需要毛玻璃效果
+    self.navigationController.navigationBar.translucent = YES;
+    //为导航条左上角创建一个按钮
+    UIBarButtonItem *left = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self action:@selector(backAction)];
+    self.navigationItem.leftBarButtonItem = left;
 }
 /*
 #pragma mark - Navigation
