@@ -395,8 +395,8 @@
     
     NSDictionary *para = @{@"startId":@1,@"priceId":@0,@"sortingId":@1,@"inTime":_date1,@"outTime":_date2,@"page":@5};
     //NSLog(@"%@,%@",_date1,_date2);
-    [RequestAPI requestURL:@"/findAllHotelAndAdvertising" withParameters:para andHeader:nil byMethod:kForm andSerializer:kForm success:^(id responseObject) {
-        //NSLog(@"%@",responseObject);
+    [RequestAPI requestURL:@"/findAllHotelAndAdvertising" withParameters:para andHeader:nil byMethod:kGet andSerializer:kForm success:^(id responseObject) {
+        NSLog(@"%@",responseObject);
         [_avi stopAnimating];
         if ([responseObject[@"result"] integerValue] == 0) {
             NSArray *advertising = responseObject[@"content"][@"advertising"];
@@ -447,7 +447,7 @@
     //NSLog(@"%@",cell.hotelPrice.text);
     //NSLog(@"%@",hotelModel.hotelImg);
     NSURL *url = [NSURL URLWithString:hotelModel.hotelImg];
-    NSLog(@"%@",url);
+    //NSLog(@"%@",url);
     [cell.imageView sd_setImageWithURL:url placeholderImage:[UIImage imageNamed:@"酒店"]];
     
     cell.hotelLocation.text = hotelModel.hotelAdd;
