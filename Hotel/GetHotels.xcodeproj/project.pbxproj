@@ -18,6 +18,7 @@
 		848DEF111F4EDD0B00D03E45 /* AllOrdersTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 848DEF101F4EDD0B00D03E45 /* AllOrdersTableViewCell.m */; };
 		848DEF171F4EDD4F00D03E45 /* AvailableTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 848DEF161F4EDD4F00D03E45 /* AvailableTableViewCell.m */; };
 		848DEF1A1F4EDD6600D03E45 /* ExpiredTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 848DEF191F4EDD6600D03E45 /* ExpiredTableViewCell.m */; };
+		848DEF1D1F4EEE2100D03E45 /* HotelOrdersModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 848DEF1C1F4EEE2100D03E45 /* HotelOrdersModel.m */; };
 		B21E853A1F4E622F00C32754 /* UserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B21E85391F4E622F00C32754 /* UserModel.m */; };
 		B224DB761F4BEA970022C007 /* CustomerServiceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B224DB751F4BEA970022C007 /* CustomerServiceViewController.m */; };
 		B224DB911F4C33910022C007 /* GBAlipayManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B224DB7A1F4C33910022C007 /* GBAlipayManager.m */; };
@@ -42,6 +43,7 @@
 		B224DBB11F4C46110022C007 /* MyInfoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B224DBB01F4C46110022C007 /* MyInfoTableViewCell.m */; };
 		B224DBB41F4C4D370022C007 /* AirViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B224DBB31F4C4D370022C007 /* AirViewController.m */; };
 		B224DBB71F4C4D4C0022C007 /* MessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B224DBB61F4C4D4C0022C007 /* MessageViewController.m */; };
+		B26019861F4EF6E200C5782C /* YKStarView.m in Sources */ = {isa = PBXBuildFile; fileRef = B26019851F4EF6E200C5782C /* YKStarView.m */; };
 		B2A2D71F1F4AF35B001D6B81 /* Deatil.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B2A2D71D1F4AF35B001D6B81 /* Deatil.storyboard */; };
 		B2A2D7221F4AF373001D6B81 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B2A2D7201F4AF373001D6B81 /* Login.storyboard */; };
 		B2A2D7321F4AFC20001D6B81 /* MyInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B2A2D7311F4AFC20001D6B81 /* MyInfoViewController.m */; };
@@ -120,6 +122,8 @@
 		848DEF161F4EDD4F00D03E45 /* AvailableTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AvailableTableViewCell.m; sourceTree = "<group>"; };
 		848DEF181F4EDD6600D03E45 /* ExpiredTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExpiredTableViewCell.h; sourceTree = "<group>"; };
 		848DEF191F4EDD6600D03E45 /* ExpiredTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExpiredTableViewCell.m; sourceTree = "<group>"; };
+		848DEF1B1F4EEE2100D03E45 /* HotelOrdersModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HotelOrdersModel.h; sourceTree = "<group>"; };
+		848DEF1C1F4EEE2100D03E45 /* HotelOrdersModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HotelOrdersModel.m; sourceTree = "<group>"; };
 		87E248321E9C674FE6281D42 /* Pods-GetHotels.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GetHotels.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GetHotels/Pods-GetHotels.debug.xcconfig"; sourceTree = "<group>"; };
 		91A29EB61D066B9FD83C2A3C /* libPods-GetHotels.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-GetHotels.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B21E85381F4E622F00C32754 /* UserModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserModel.h; sourceTree = "<group>"; };
@@ -164,6 +168,8 @@
 		B224DBB31F4C4D370022C007 /* AirViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AirViewController.m; sourceTree = "<group>"; };
 		B224DBB51F4C4D4C0022C007 /* MessageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageViewController.h; sourceTree = "<group>"; };
 		B224DBB61F4C4D4C0022C007 /* MessageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageViewController.m; sourceTree = "<group>"; };
+		B26019841F4EF6E200C5782C /* YKStarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YKStarView.h; sourceTree = "<group>"; };
+		B26019851F4EF6E200C5782C /* YKStarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YKStarView.m; sourceTree = "<group>"; };
 		B2A2D71E1F4AF35B001D6B81 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = GetHotels/Base.lproj/Deatil.storyboard; sourceTree = SOURCE_ROOT; };
 		B2A2D7211F4AF373001D6B81 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = GetHotels/Base.lproj/Login.storyboard; sourceTree = SOURCE_ROOT; };
 		B2A2D7301F4AFC20001D6B81 /* MyInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyInfoViewController.h; sourceTree = "<group>"; };
@@ -534,6 +540,8 @@
 				B21E85391F4E622F00C32754 /* UserModel.m */,
 				6AB8B95F1F4E994600E45E61 /* CityListModel.h */,
 				6AB8B9601F4E994600E45E61 /* CityListModel.m */,
+				848DEF1B1F4EEE2100D03E45 /* HotelOrdersModel.h */,
+				848DEF1C1F4EEE2100D03E45 /* HotelOrdersModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -582,6 +590,8 @@
 				B2BD3E841F4AA4EF002C6B98 /* StorageMgr.m */,
 				B2BD3E851F4AA4EF002C6B98 /* Utilities.h */,
 				B2BD3E861F4AA4EF002C6B98 /* Utilities.m */,
+				B26019841F4EF6E200C5782C /* YKStarView.h */,
+				B26019851F4EF6E200C5782C /* YKStarView.m */,
 			);
 			path = Utlity;
 			sourceTree = "<group>";
@@ -835,6 +845,7 @@
 				B224DB981F4C33910022C007 /* RSADataSigner.m in Sources */,
 				B2BD3E8C1F4AA4EF002C6B98 /* NSString+Crypt.m in Sources */,
 				B2BD3E871F4AA4EF002C6B98 /* AppAPIClient.m in Sources */,
+				848DEF1D1F4EEE2100D03E45 /* HotelOrdersModel.m in Sources */,
 				B2A2D7321F4AFC20001D6B81 /* MyInfoViewController.m in Sources */,
 				B224DBB71F4C4D4C0022C007 /* MessageViewController.m in Sources */,
 				B2BD3E731F4AA439002C6B98 /* BasicEncodingRules.m in Sources */,
@@ -862,6 +873,7 @@
 				B2BD3E8A1F4AA4EF002C6B98 /* NSDate+Utility.m in Sources */,
 				B224DBB11F4C46110022C007 /* MyInfoTableViewCell.m in Sources */,
 				B2E555091F4AF70700D314C0 /* DetailViewController.m in Sources */,
+				B26019861F4EF6E200C5782C /* YKStarView.m in Sources */,
 				B2BD3E9B1F4AA4F7002C6B98 /* SKTag.m in Sources */,
 				B2BD3E8D1F4AA4EF002C6B98 /* RequestAPI.m in Sources */,
 				B2BD3E8F1F4AA4EF002C6B98 /* Utilities.m in Sources */,

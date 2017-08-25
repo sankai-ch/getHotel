@@ -31,6 +31,7 @@
     [_pwdTextField addTarget:self action:@selector(textChange:) forControlEvents:UIControlEventEditingChanged];
     [self naviConfig];
     [self uilayout];
+    [self setShadow];
 }
 
 - (void)didReceiveMemoryWarning {
