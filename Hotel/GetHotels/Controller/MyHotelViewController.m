@@ -268,22 +268,22 @@
     [self.view addSubview:_segmentedControl];
 }
 
-
+#pragma mark - setNavigation
 
 //设置导航栏样式
 - (void)setNavigationItem{
     self.navigationItem.title = @"我的酒店";
     //self.navigationController.navigationBar.backgroundColor = [UIColor whiteColor];
-    [self.navigationController.navigationBar setBarTintColor:HEAD_THEMECOLOR];
+    self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName : [UIColor whiteColor]};
     //实例化一个button 类型为UIButtonTypeSystem
     UIButton *leftBtn = [UIButton buttonWithType:UIButtonTypeSystem];
     //设置导航条的颜色（风格颜色）
-    self.navigationController.navigationBar.barTintColor = UIColorFromRGB(0, 100, 255);
+    self.navigationController.navigationBar.barTintColor = UIColorFromRGB(24, 124, 326);
     //设置位置大小
     leftBtn.frame = CGRectMake(0, 0, 20, 20);
     
     //设置其背景图片为返回图片
-    [leftBtn setBackgroundImage:[UIImage imageNamed:@"返回"] forState:UIControlStateNormal];
+    [leftBtn setBackgroundImage:[UIImage imageNamed:@"返回白色"] forState:UIControlStateNormal];
     //给按钮添加事件
     [leftBtn addTarget:self action:@selector(leftButtonAction:) forControlEvents:UIControlEventTouchUpInside];
     
