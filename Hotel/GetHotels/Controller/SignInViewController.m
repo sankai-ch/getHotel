@@ -27,6 +27,7 @@
     _signInBtn.enabled = NO;
 
     [self naviConfig];
+    [self setShadow];
     // Do any additional setup after loading the view.
 }
 
@@ -38,7 +39,7 @@
 - (void)setShadow {
     
     _shadowImageView.layer.shadowColor = [UIColor blackColor].CGColor;//shadowColor阴影颜色
-    _shadowImageView.layer.shadowOffset = CGSizeMake(0,0);//shadowOffset阴影偏移,x向右偏移4，y向下偏移4，默认(0, -3),这个跟shadowRadius配合使用
+    _shadowImageView.layer.shadowOffset = CGSizeMake(5,5);//shadowOffset阴影偏移,x向右偏移4，y向下偏移4，默认(0, -3),这个跟shadowRadius配合使用
     _shadowImageView.layer.shadowOpacity = 0.5;//阴影透明度，默认0
     _shadowImageView.layer.shadowRadius = 4;//阴影半径，默认3
 }
