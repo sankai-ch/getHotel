@@ -33,6 +33,10 @@
 @property (strong, nonatomic) NSMutableArray *availableArr;
 @property (strong, nonatomic) NSMutableArray *expiredArr;
 
+@property (strong, nonatomic) UIImageView *allOrdersNothingImg;
+@property (strong, nonatomic) UIImageView *avaNothingImg;
+@property (strong, nonatomic) UIImageView *expiredNothingImg;
+
 @property (strong, nonatomic) HMSegmentedControl *segmentedControl;
 @property (strong, nonatomic) UIActivityIndicatorView *avi;
 
@@ -58,12 +62,29 @@
     _availableArr = [NSMutableArray new];
     _expiredArr = [NSMutableArray new];
     
+    if (_allOrdersArr.count == 0){
+        [self nothingForTableView];
+    }
     
     //[self allOrdersRequest];
+    //菜单栏
     [self setSegment];
+    //设置导航条样式
     [self setNavigationItem];
-    [self allOrdersRequest];
+    //刷新指示器
+    [self setRefreshControl];
+    //[self allOrdersRequest];
+    
+    //已获取任务的网络请求（带蒙层）
+    [self allOrdersInitializeData];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshHome) name:@"refreshHome" object:nil];
     // Do any additional setup after loading the view.
+}
+
+- (void)refreshHome{
+    [self allRef];
+    [self expiredRef];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -86,7 +107,7 @@
 }
 */
 
-/*
+
 
 #pragma mark - refreshControl
 //创建刷新指示器的方法
@@ -111,22 +132,36 @@
 }
 
 //已获取列表下拉刷新事件
-- (void)acquireRef{
+- (void)allRef{
     allOrdersPageNum = 1;
     [self allOrdersRequest];
 }
 //未获取列表下拉刷新事件
-- (void)notAcquireRef{
+- (void)avaRef{
     availablePageNum = 1;
     [self allOrdersRequest];
 }
 //跟进列表下拉刷新事件
-- (void)followRef{
+- (void)expiredRef{
     ExpiredPageNum = 1;
     [self allOrdersRequest];
 }
 
-*/
+//第一次进行网络请求的时候需要盖上蒙层，而下拉刷新的时候不需要蒙层，所以我们把第一次网络请求和下拉刷新分开来
+- (void)allOrdersInitializeData{
+    _avi = [Utilities getCoverOnView:self.view];
+    [self allOrdersRequest];
+}
+- (void)avaInitializeData{
+    _avi = [Utilities getCoverOnView:self.view];
+    [self allOrdersRequest];
+}
+- (void)expiredInitializeData{
+    _avi = [Utilities getCoverOnView:self.view];
+    [self allOrdersRequest];
+}
+
+
 
 #pragma mark - scrollView
 
@@ -163,11 +198,6 @@
     return page;
 }
 
-//第一次进行网络请求的时候需要盖上蒙层，而下拉刷新的时候不需要蒙层，所以我们把第一次网络请求和下拉刷新分开来
-- (void)allOrdersInitializeData{
-    _avi = [Utilities getCoverOnView:self.view];
-    [self allOrdersRequest];
-}
 #pragma mark - request
 //全部订单网络请求
 - (void)allOrdersRequest{
@@ -178,13 +208,32 @@
     NSLog(@"%@",user.openId);
     NSLog(@"%@",user.userId);
        [RequestAPI requestURL:@"/findOrders_edu" withParameters:para andHeader:nil byMethod:kPost andSerializer:kForm success:^(id responseObject) {
+           
         [_avi stopAnimating];
         NSLog(@"request:%@",responseObject);
         
     } failure:^(NSInteger statusCode, NSError *error) {
+        
         [_avi stopAnimating];
         NSLog(@"错误码dd：%ld",(long)statusCode);
     }];
+}
+
+
+//当tableView没有数据时显示图片的方法
+- (void)nothingForTableView{
+    _allOrdersNothingImg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"no_things"]];
+    _allOrdersNothingImg.frame = CGRectMake((UI_SCREEN_W - 100) / 2, 50, 100, 100);
+    
+    _avaNothingImg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"no_things"]];
+    _avaNothingImg.frame = CGRectMake(UI_SCREEN_W + (UI_SCREEN_W - 100) / 2, 50, 100, 100);
+    
+    _expiredNothingImg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"no_things"]];
+    _expiredNothingImg.frame = CGRectMake(UI_SCREEN_W * 2 + (UI_SCREEN_W - 100) / 2, 50, 100, 100);
+    
+    [_scrollView addSubview:_allOrdersNothingImg];
+    [_scrollView addSubview:_avaNothingImg];
+    [_scrollView addSubview:_expiredNothingImg];
 }
 
 
@@ -248,7 +297,7 @@
 //多少组
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     if (tableView == _AllOrdersTableView) {
-        return 10;
+        return _allOrdersArr.count;
     }else if (tableView == _AvailableTableView) {
         return _availableArr.count;
     }else{
@@ -266,10 +315,6 @@
         AllOrdersTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"allOrdersCell" forIndexPath:indexPath];
         
         NSLog(@"进入allordersTableView");
-        
-        
-        
-        cell.hotelTypeLabel.text = @"342342";
         
         
         return cell;
