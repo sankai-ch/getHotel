@@ -67,6 +67,7 @@
 */
 //设置导航栏样式
 - (void)setNavigationItem{
+    self.navigationItem.title = @"使用协议";
     //self.navigationController.navigationBar.backgroundColor = [UIColor whiteColor];
     [self.navigationController.navigationBar setBarTintColor:HEAD_THEMECOLOR];
     //实例化一个button 类型为UIButtonTypeSystem
@@ -84,4 +85,5 @@
 - (void)leftButtonAction: (UIButton *)sender{
     [self.navigationController popViewControllerAnimated:YES];
 }
+
 @end

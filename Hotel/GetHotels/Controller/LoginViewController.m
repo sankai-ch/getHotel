@@ -14,6 +14,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *pwdTextField;
 @property (strong,nonatomic)UIActivityIndicatorView *avi;
 - (IBAction)loginBtn:(UIButton *)sender;
+@property (weak, nonatomic) IBOutlet UIImageView *avatar;
 
 @property (weak, nonatomic) IBOutlet UIButton *loginBtn;
 
@@ -30,7 +31,7 @@
     [_phoneTextField addTarget:self action:@selector(textChange:) forControlEvents:UIControlEventEditingChanged];
     [_pwdTextField addTarget:self action:@selector(textChange:) forControlEvents:UIControlEventEditingChanged];
     [self naviConfig];
-    [self uilayout];
+    [self uiLayout];
     [self setShadow];
 }
 
@@ -38,7 +39,8 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
--(void)uilayout{
+-(void)uiLayout{
+    _avatar.layer.borderColor=[UIColor blueColor].CGColor;
     if(![[Utilities getUserDefaults:@"UserTel"] isKindOfClass:[NSNull class]]){
         if([Utilities getUserDefaults:@"UserTel"]!=nil){
             _phoneTextField.text=[Utilities getUserDefaults:@"UserTel"];
@@ -70,10 +72,7 @@
     }
 }
 
-
-
 - (void)setShadow {
-    
     _shadowImageView.layer.shadowColor = [UIColor blackColor].CGColor;//shadowColor阴影颜色
     _shadowImageView.layer.shadowOffset = CGSizeMake(0,0);//shadowOffset阴影偏移,x向右偏移4，y向下偏移4，默认(0, -3),这个跟shadowRadius配合使用
     _shadowImageView.layer.shadowOpacity = 0.5;//阴影透明度，默认0

@@ -27,7 +27,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    _myInfoArr = @[@{@"leftIcon":@"酒店",@"title":@"我的酒店"},@{@"leftIcon":@"航空",@"title":@"我的航空"},@{@"leftIcon":@"我的消息",@"title":@"我的消息"},@{@"leftIcon":@"账号与安全",@"title":@"账户设置"},@{@"leftIcon":@"我的消息",@"title":@"使用协议"},@{@"leftIcon":@"电话",@"title":@"联系客服"}];    // Do any additional setup after loading the view.
+    _myInfoArr = @[@{@"leftIcon":@"酒店",@"title":@"我的酒店"},@{@"leftIcon":@"航空",@"title":@"我的航空"},@{@"leftIcon":@"我的消息",@"title":@"我的消息"},@{@"leftIcon":@"账号与安全",@"title":@"账户设置"},@{@"leftIcon":@"我的消息",@"title":@"使用协议"},@{@"leftIcon":@"电话",@"title":@"联系我们"}];    // Do any additional setup after loading the view.
 }
 
 - (void)didReceiveMemoryWarning {
