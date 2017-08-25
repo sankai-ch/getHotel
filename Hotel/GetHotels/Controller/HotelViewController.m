@@ -11,7 +11,7 @@
 #import "DetailViewController.h"
 #import "AAndHModel.h"
 #import <CoreLocation/CoreLocation.h>
-@interface HotelViewController () <UITableViewDelegate,UITableViewDataSource,CLLocationManagerDelegate> {
+@interface HotelViewController () <UITableViewDelegate,UITableViewDataSource,UIScrollViewDelegate,CLLocationManagerDelegate> {
     NSInteger btnTime;
     BOOL firstVisit;
     
@@ -26,6 +26,14 @@
 @property (strong, nonatomic) NSMutableArray *advArr;
 @property (weak, nonatomic) IBOutlet UITableView *hotelTableView;
 @property (strong, nonatomic) UIActivityIndicatorView *avi;
+@property (weak, nonatomic) IBOutlet UIImageView *adImage1;
+@property (weak, nonatomic) IBOutlet UIImageView *adImage2;
+@property (weak, nonatomic) IBOutlet UIImageView *adImage3;
+@property (weak, nonatomic) IBOutlet UIImageView *adImage4;
+@property (weak, nonatomic) IBOutlet UIImageView *adImage5;
+
+
+
 
 @property (strong, nonatomic) CLLocationManager *locMgr;
 @property (strong, nonatomic) CLLocation *location;
@@ -125,10 +133,36 @@
 }
 
 - (void)setADImage {
-    for (AAndHModel *adV in _advArr) {
-        
+    NSMutableArray *urlArr = [NSMutableArray new];
+    
+    for (AAndHModel *adv in _advArr) {
+        [urlArr addObject:adv.adImg];
     }
+    NSLog(@"%@",urlArr);
+    
+    
+    
+    [_adImage1 sd_setImageWithURL:[NSURL URLWithString:urlArr[0]] placeholderImage:[UIImage imageNamed:@"酒店"]];
+    [_adImage2 sd_setImageWithURL:[NSURL URLWithString:urlArr[1]] placeholderImage:[UIImage imageNamed:@"酒店"]];
+    [_adImage3 sd_setImageWithURL:[NSURL URLWithString:urlArr[2]] placeholderImage:[UIImage imageNamed:@"酒店"]];
+    [_adImage4 sd_setImageWithURL:[NSURL URLWithString:urlArr[3]] placeholderImage:[UIImage imageNamed:@"酒店"]];
+    [_adImage5 sd_setImageWithURL:[NSURL URLWithString:urlArr[4]] placeholderImage:[UIImage imageNamed:@"酒店"]];
+    
 }
+
+#pragma mark - pageAndScorll
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    int page = scrollView.contentOffset.x / scrollView.frame.size.width;
+        //NSLog(@"%d", page);
+    
+    // 设置页码
+    //_pageController.currentPage = page;
+}
+
+
+
 
 #pragma mark - loction
 //这个方法专门处理定位的基本设置
@@ -322,6 +356,8 @@
                 [_advArr addObject:adV];
                 
             }
+            [self setADImage];
+            //NSLog(@"_advArr:%@",_advArr);
             NSArray *hotel = responseObject[@"content"][@"hotel"];
             for (NSDictionary *dict in hotel) {
                 AAndHModel *hotelModel = [[AAndHModel alloc] initWithDictForHotelCell:dict];
@@ -347,6 +383,10 @@
     return _hotelArr.count;
 }
 
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 1;
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     HotelTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"HotelCell" forIndexPath:indexPath];
     //NSLog(@"%ld",(long)indexPath.row);
@@ -368,9 +408,11 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    AAndHModel *hotelID = _hotelArr[indexPath.row];
     DetailViewController *detailVC = [Utilities getStoryboardInstance:@"Deatil" byIdentity:@"reservation"];
     //UINavigationController *nc = [[UINavigationController alloc]initWithRootViewController:detailVC];
     //[self presentViewController:nc animated:YES completion:nil];
+    //detailVC.hotelid = hotelID.hotelId;
     [self.navigationController pushViewController:detailVC animated:YES];
 }
 
