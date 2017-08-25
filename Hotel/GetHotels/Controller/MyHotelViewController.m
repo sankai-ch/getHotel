@@ -28,9 +28,11 @@
 @property (weak, nonatomic) IBOutlet UITableView *AvailableTableView;
 @property (weak, nonatomic) IBOutlet UITableView *ExpiredTableView;
 @property (weak, nonatomic) IBOutlet UIView *titleView;
+
 @property (strong, nonatomic) NSMutableArray *allOrdersArr;
 @property (strong, nonatomic) NSMutableArray *availableArr;
 @property (strong, nonatomic) NSMutableArray *expiredArr;
+
 @property (strong, nonatomic) HMSegmentedControl *segmentedControl;
 @property (strong, nonatomic) UIActivityIndicatorView *avi;
 
@@ -44,11 +46,19 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setNavigationItem];
+    
+    availableFlag = 1;
+    expiredFlag = 1;
+    
+    allOrdersPageNum = 1;
+    availablePageNum = 1;
+    ExpiredPageNum = 1;
+    
     _allOrdersArr = [NSMutableArray new];
     _availableArr = [NSMutableArray new];
     _expiredArr = [NSMutableArray new];
     
-    [self allOrdersRequest];
+    //[self allOrdersRequest];
     [self setSegment];
     [self setNavigationItem];
     // Do any additional setup after loading the view.
@@ -74,7 +84,47 @@
 }
 */
 
+/*
 
+#pragma mark - refreshControl
+//创建刷新指示器的方法
+- (void)setRefreshControl{
+    //全部订单的刷新指示器
+    UIRefreshControl *allOrdersRef = [UIRefreshControl new];
+    [allOrdersRef addTarget:self action:@selector(allOrdersRef) forControlEvents:UIControlEventValueChanged];
+    allOrdersRef.tag = 10001;
+    [_AllOrdersTableView addSubview:allOrdersRef];
+    
+    //可使用的刷新指示器
+    UIRefreshControl *avaRef = [UIRefreshControl new];
+    [avaRef addTarget:self action:@selector(avaRef) forControlEvents:UIControlEventValueChanged];
+    avaRef.tag = 10002;
+    [_AvailableTableView addSubview:avaRef];
+    
+    //未过期的刷新指示器
+    UIRefreshControl *expiredRef = [UIRefreshControl new];
+    [expiredRef addTarget:self action:@selector(expiredRef) forControlEvents:UIControlEventValueChanged];
+    expiredRef.tag = 10003;
+    [_ExpiredTableView addSubview:expiredRef];
+}
+
+//已获取列表下拉刷新事件
+- (void)acquireRef{
+    allOrdersPageNum = 1;
+    [self allOrdersRequest];
+}
+//未获取列表下拉刷新事件
+- (void)notAcquireRef{
+    availablePageNum = 1;
+    [self allOrdersRequest];
+}
+//跟进列表下拉刷新事件
+- (void)followRef{
+    ExpiredPageNum = 1;
+    [self allOrdersRequest];
+}
+
+*/
 
 #pragma mark - scrollView
 
@@ -111,7 +161,11 @@
     return page;
 }
 
-
+//第一次进行网络请求的时候需要盖上蒙层，而下拉刷新的时候不需要蒙层，所以我们把第一次网络请求和下拉刷新分开来
+- (void)allOrdersInitializeData{
+    _avi = [Utilities getCoverOnView:self.view];
+    [self allOrdersRequest];
+}
 #pragma mark - request
 //全部订单网络请求
 - (void)allOrdersRequest{
@@ -197,15 +251,47 @@
 }
 //每行长什么样
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    UIImage *homeImg = [UIImage imageNamed:@"Home"];
+    //NSLog(@"进入allordersTableView");
+    NSDictionary *dict = @{@"hotelAddressLAbel":@"江苏省无锡市",@"hotelPeopleNumLabel":@"三人入住",@"hotelTypeLabel":@"超级无敌海景房",@"startDateLabel":@"2018-12-12",@"endDateLabel":@"2019-01-11",@"hotelImg":homeImg};
     if (tableView == _AllOrdersTableView) {
         AllOrdersTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"allOrdersCell" forIndexPath:indexPath];
+        NSLog(@"进入allordersTableView");
+        
+        
+        
+        cell.hotelTypeLabel.text = @"342342";
+        cell.hotelAddressLAbel.text = dict[@"hotelAddressLAbel"];
+        cell.hotelPeopleNumLabel.text = dict[@"hotelPeopleNumLabel"];
+        cell.startDateLabel.text = dict[@"startDateLabel"];
+        cell.endDateLabel.text = dict[@"endDateLabel"];
+        cell.hotelImg.image = dict[@"homeImg"];
+        
         return cell;
+        
     }else if (tableView == _AvailableTableView) {
         AvailableTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"availableCell" forIndexPath:indexPath];
+       // [_availableArr addObject:dict];
         
+        dict = _availableArr[indexPath.section];
+        cell.hotelTypeLabel.text = @"342342";
+        cell.hotelAddressLabel.text = dict[@"hotelAddressLAbel"];
+        cell.hotelPeopleNumLabel.text = dict[@"hotelPeopleNumLabel"];
+        cell.startDateLabel.text = dict[@"startDateLabel"];
+        cell.endDateLabel.text = dict[@"endDateLabel"];
+        cell.hotelImg.image = dict[@"homeImg"];
         return cell;
     }else{
         ExpiredTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"expiredCell" forIndexPath:indexPath];
+        
+        dict = _expiredArr[indexPath.section];
+        //[_expiredArr addObject:dict];
+        cell.hotelTypeLabel.text = @"342342";
+        cell.hotelAddressLabel.text = dict[@"hotelAddressLAbel"];
+        cell.hotelPeopleNumLabel.text = dict[@"hotelPeopleNumLabel"];
+        cell.startDateLabel.text = dict[@"startDateLabel"];
+        cell.endDateLabel.text = dict[@"endDateLabel"];
+        cell.hotelImg.image = dict[@"homeImg"];
         return cell;
     }
 }
