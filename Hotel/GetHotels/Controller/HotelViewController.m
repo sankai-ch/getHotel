@@ -462,7 +462,7 @@
     DetailViewController *detailVC = [Utilities getStoryboardInstance:@"Deatil" byIdentity:@"reservation"];
     //UINavigationController *nc = [[UINavigationController alloc]initWithRootViewController:detailVC];
     //[self presentViewController:nc animated:YES completion:nil];
-    //detailVC.hotelid = hotelID.hotelId;
+    detailVC.hotelid = [NSString stringWithFormat:@"%ld",(long)hotelID.hotelId];
     [self.navigationController pushViewController:detailVC animated:YES];
 }
 
