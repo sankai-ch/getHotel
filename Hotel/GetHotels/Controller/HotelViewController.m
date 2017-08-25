@@ -477,7 +477,7 @@
     _inTimeBtn.frame = CGRectMake(25, 5, 65, 20);
     _outTimeBtn.frame = CGRectMake(135, 5, 65, 20);
     _orderByBtn.frame = CGRectMake(235, 5, 65, 20);
-    _selectBtn.frame = CGRectMake(265, 5, 65, 20);
+    _selectBtn.frame = CGRectMake(325, 5, 65, 20);
     [_inTimeBtn addTarget:self action:@selector(inTimeAction) forControlEvents:UIControlEventTouchUpInside];
     [_outTimeBtn addTarget:self action:@selector(outTimeAction) forControlEvents:UIControlEventTouchUpInside];
     [view addSubview:_inTimeBtn];
