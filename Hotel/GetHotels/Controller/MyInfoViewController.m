@@ -31,8 +31,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    _myInfoArr = @[@{@"leftIcon":@"酒店",@"title":@"我的酒店"},@{@"leftIcon":@"航空",@"title":@"我的航空"},@{@"leftIcon":@"我的消息",@"title":@"我的消息"},@{@"leftIcon":@"账号与安全",@"title":@"账户设置"},@{@"leftIcon":@"我的消息",@"title":@"使用协议"},@{@"leftIcon":@"电话",@"title":@"联系客服"}];    // Do any additional setup after loading the view.
-    [self naviConfig];
+    _myInfoArr = @[@{@"leftIcon":@"hotel",@"title":@"我的酒店"},@{@"leftIcon":@"aviation",@"title":@"我的航空"},@{@"leftIcon":@"我的消息",@"title":@"我的消息"},@{@"leftIcon":@"setting",@"title":@"账户设置"},@{@"leftIcon":@"protocol",@"title":@"使用协议"},@{@"leftIcon":@"电话",@"title":@"联系客服"}];    // Do any additional setup after loading the view.
+    [self setNavigationItem];
    
 
 
@@ -81,10 +81,11 @@
         _nameLabel.text=@"游客";
     }
 }
+/*
 //这个方法专门做导航条的控制
 - (void)naviConfig{
     //设置导航条标题的文字
-    self.navigationItem.title = @"城市列表";
+    self.navigationItem.title = @"我的";
     //设置导航条的颜色（风格颜色）
     self.navigationController.navigationBar.barTintColor = UIColorFromRGB(24, 124, 236);
     //设置导航条标题颜色
@@ -100,6 +101,28 @@
     UIBarButtonItem *left = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self action:@selector(backAction)];
     self.navigationItem.leftBarButtonItem = left;
 }
+ */
+//设置导航栏样式
+- (void)setNavigationItem{
+    self.navigationItem.title = @"我的";
+    //self.navigationController.navigationBar.backgroundColor = [UIColor whiteColor];
+    [self.navigationController.navigationBar setBarTintColor:HEAD_THEMECOLOR];
+    
+    //实例化一个button 类型为UIButtonTypeSystem
+    UIButton *leftBtn = [UIButton buttonWithType:UIButtonTypeSystem];
+    //设置导航条的颜色（风格颜色）
+    self.navigationController.navigationBar.barTintColor = UIColorFromRGB(24, 124, 326);
+    //设置位置大小
+    leftBtn.frame = CGRectMake(0, 0, 20, 20);
+    
+    //设置其背景图片为返回图片
+    [leftBtn setBackgroundImage:[UIImage imageNamed:@"返回白色"] forState:UIControlStateNormal];
+    //给按钮添加事件
+    [leftBtn addTarget:self action:@selector(leftButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+    
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:leftBtn];
+}
+
 /*
 #pragma mark - Navigation
 

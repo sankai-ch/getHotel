@@ -118,9 +118,22 @@
     [RequestAPI requestURL:@"/register" withParameters:para andHeader:nil byMethod:kPost andSerializer:kForm success:^(id responseObject) {
         [_avi stopAnimating];
         NSLog(@"%@",responseObject);
+        if([responseObject[@"result"] integerValue] == 1){
+            [Utilities popUpAlertViewWithMsg:@"注册成功" andTitle:nil onView:self onCompletion:^{
+                [self performSegueWithIdentifier:@"signUpToLogin" sender:self];
+            }];
+        }else{
+            //业务逻辑失败的情况下
+            NSString *errorMsg = [ErrorHandler getProperErrorString:[responseObject[@"result"] integerValue]];
+            [Utilities popUpAlertViewWithMsg:errorMsg andTitle:nil onView:self onCompletion:nil];
+        }
+        
+
     } failure:^(NSInteger statusCode, NSError *error) {
         [_avi stopAnimating];
         NSLog(@"%ld",(long)statusCode);
+        [Utilities popUpAlertViewWithMsg:@"请保持网络参数" andTitle:nil onView:self onCompletion:nil];
+
     }];
 }
 @end

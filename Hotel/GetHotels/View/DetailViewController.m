@@ -21,6 +21,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *imaget;
 @property (weak, nonatomic) IBOutlet UILabel *jiudian;
 @property (weak, nonatomic) IBOutlet UILabel *price;
+@property (weak, nonatomic) IBOutlet UILabel *hotelbed;
 @property (weak, nonatomic) IBOutlet UIImageView *image2;
 @property (weak, nonatomic) IBOutlet UILabel *dizhi;
 @property (weak, nonatomic) IBOutlet UIButton *tidu;
@@ -46,6 +47,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self setNavigationItem];
+    [self request];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -146,5 +148,18 @@
     }
     _toolbar.hidden = YES;
     _time.hidden = YES;
+}
+- (void)request{
+    NSDictionary * para = @{@"id":@1};
+    [RequestAPI requestURL:@"/findHotelById" withParameters:para andHeader:nil byMethod:kGet andSerializer:kForm success:^(id responseObject) {
+        NSLog(@"hotel:%@",responseObject);
+        if([responseObject[@"result"]integerValue]==0){
+            
+        }else{
+            
+        }
+    } failure:^(NSInteger statusCode, NSError *error) {
+        
+    }];
 }
 @end

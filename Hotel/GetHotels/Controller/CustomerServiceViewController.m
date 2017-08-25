@@ -43,6 +43,7 @@
     // Pass the selected object to the new view controller.
 }
 */
+/*
 ///设置导航栏样式
 - (void)setNavigationItem{
     self.navigationItem.title = @"联系我们";
@@ -64,6 +65,32 @@
 - (void)leftButtonAction: (UIButton *)sender{
     [self.navigationController popViewControllerAnimated:YES];
 }
+ */
+//设置导航栏样式
+- (void)setNavigationItem{
+    self.navigationItem.title = @"联系我们";
+    //self.navigationController.navigationBar.backgroundColor = [UIColor whiteColor];
+    [self.navigationController.navigationBar setBarTintColor:HEAD_THEMECOLOR];
+    //实例化一个button 类型为UIButtonTypeSystem
+    UIButton *leftBtn = [UIButton buttonWithType:UIButtonTypeSystem];
+    //设置导航条的颜色（风格颜色）
+    self.navigationController.navigationBar.barTintColor = UIColorFromRGB(24, 124, 326);
+    //设置位置大小
+    leftBtn.frame = CGRectMake(0, 0, 20, 20);
+    
+    //设置其背景图片为返回图片
+    [leftBtn setBackgroundImage:[UIImage imageNamed:@"返回白色"] forState:UIControlStateNormal];
+    //给按钮添加事件
+    [leftBtn addTarget:self action:@selector(leftButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+    
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:leftBtn];
+}
+//自定的返回按钮的事件
+- (void)leftButtonAction: (UIButton *)sender{
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+
 //每组多少行
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return _arr.count;
