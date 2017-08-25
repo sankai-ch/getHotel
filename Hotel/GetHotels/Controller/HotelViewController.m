@@ -11,7 +11,7 @@
 #import "DetailViewController.h"
 #import "AAndHModel.h"
 #import <CoreLocation/CoreLocation.h>
-@interface HotelViewController () <UITableViewDelegate,UITableViewDataSource,UIScrollViewDelegate,CLLocationManagerDelegate> {
+@interface HotelViewController () <UITableViewDelegate,UITableViewDataSource,UIScrollViewDelegate,UISearchBarDelegate,CLLocationManagerDelegate> {
     NSInteger btnTime;
     BOOL firstVisit;
     
@@ -31,11 +31,13 @@
 @property (weak, nonatomic) IBOutlet UIImageView *adImage5;
 @property (strong, nonatomic) NSTimer *timer;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
+
+//代码画界面
 @property (strong, nonatomic) IBOutlet UIButton *inTimeBtn;
 @property (strong, nonatomic) IBOutlet UIButton *outTimeBtn;
 @property (strong, nonatomic) IBOutlet UIButton *orderByBtn;
 @property (strong, nonatomic) IBOutlet UIButton *selectBtn;
-
+@property (strong, nonatomic) UIView *selectView;
 
 @property (strong, nonatomic) CLLocationManager *locMgr;
 @property (strong, nonatomic) CLLocation *location;
@@ -58,6 +60,7 @@
     
     [self dataInitialize];
     [self naviConfig];
+    [self setheaderViewInit];
     [self setDefaultTime];
     [self locationConfig];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(checkCityState:) name:@"ResetHome" object:nil];
@@ -121,6 +124,22 @@
     _advArr = [NSMutableArray new];
 }
 
+- (void)setheaderViewInit {
+    _inTimeBtn = [UIButton new];
+    _outTimeBtn = [UIButton new];
+    _orderByBtn = [UIButton new];
+    _selectBtn = [UIButton new];
+    _selectView = [UIView new];
+    _selectView.hidden = YES;
+    _inTimeBtn.titleLabel.font = [UIFont systemFontOfSize:13];
+    _outTimeBtn.titleLabel.font = [UIFont systemFontOfSize:13];
+    _orderByBtn.titleLabel.font = [UIFont systemFontOfSize:13];
+    _selectBtn.titleLabel.font = [UIFont systemFontOfSize:13];
+    
+    [_orderByBtn setTitle:@"智能排序" forState:UIControlStateNormal];
+    [_selectBtn setTitle:@"筛选" forState:UIControlStateNormal];
+}
+
 - (void)setDefaultTime {
     NSDateFormatter *formatter = [NSDateFormatter new];
     formatter.dateFormat = @"MM-dd";
@@ -130,18 +149,9 @@
     pFormatter.dateFormat = @"yyyy-MM-ddTHH:mm:ss.SSSZ";
     _date1 = [pFormatter stringFromDate:today];
     _date2 = [pFormatter stringFromDate:tomorrow];
-    _inTimeBtn = [UIButton new];
-    _outTimeBtn = [UIButton new];
-    _orderByBtn = [UIButton new];
-    _selectBtn = [UIButton new];
-    _inTimeBtn.titleLabel.font = [UIFont systemFontOfSize:13];
-    _outTimeBtn.titleLabel.font = [UIFont systemFontOfSize:13];
-    _orderByBtn.titleLabel.font = [UIFont systemFontOfSize:13];
-    _selectBtn.titleLabel.font = [UIFont systemFontOfSize:13];
     [_inTimeBtn setTitle:[NSString stringWithFormat:@"入住%@", [formatter stringFromDate:today]] forState:UIControlStateNormal];
     [_outTimeBtn setTitle:[NSString stringWithFormat:@"离店%@", [formatter stringFromDate:tomorrow]] forState:UIControlStateNormal];
-    [_orderByBtn setTitle:@"智能排序" forState:UIControlStateNormal];
-    [_selectBtn setTitle:@"筛选" forState:UIControlStateNormal];
+    
 //    [_dateInBtn setTitle:[NSString stringWithFormat:@"入住%@", [formatter stringFromDate:today]] forState:UIControlStateNormal];
 //    [_dateOutBtn setTitle:[NSString stringWithFormat:@"离店%@", [formatter stringFromDate:tomorrow]] forState:UIControlStateNormal];
     [_datePicker setMinimumDate:today];
@@ -490,6 +500,13 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     return 30;
 }
+
+#pragma mark - searchBar
+
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
+    
+}
+
 
 #pragma mark - btnAction
 
