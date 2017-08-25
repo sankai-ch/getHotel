@@ -351,6 +351,7 @@
                         <outlet property="pwdTextField" destination="f6k-ZQ-L3o" id="2mK-CB-iXU"/>
                         <outlet property="shadowImageView" destination="eH7-ek-qIg" id="0Sa-vs-7Ol"/>
                         <outlet property="signInBtn" destination="rf4-Mj-t9n" id="HPc-WR-hjD"/>
+                        <segue destination="id3-CZ-Eni" kind="show" identifier="signUpToLogin" id="xG5-1p-dzD"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cTP-r5-f4G" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -363,4 +364,7 @@
         <image name="手机" width="25" height="25"/>
         <image name="账号与安全" width="22" height="22"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="xG5-1p-dzD"/>
+    </inferredMetricsTieBreakers>
 </document>
