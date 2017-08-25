@@ -17,8 +17,6 @@
     
 }
 @property (weak, nonatomic) IBOutlet UIDatePicker *datePicker;
-@property (weak, nonatomic) IBOutlet UIButton *dateInBtn;
-@property (weak, nonatomic) IBOutlet UIButton *dateOutBtn;
 @property (weak, nonatomic) IBOutlet UIToolbar *toolBar;
 @property (strong, nonatomic) NSString *date1;
 @property (strong, nonatomic) NSString *date2;
@@ -31,15 +29,18 @@
 @property (weak, nonatomic) IBOutlet UIImageView *adImage3;
 @property (weak, nonatomic) IBOutlet UIImageView *adImage4;
 @property (weak, nonatomic) IBOutlet UIImageView *adImage5;
-
-
+@property (strong, nonatomic) NSTimer *timer;
+@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
+@property (strong, nonatomic) IBOutlet UIButton *inTimeBtn;
+@property (strong, nonatomic) IBOutlet UIButton *outTimeBtn;
+@property (strong, nonatomic) IBOutlet UIButton *orderByBtn;
+@property (strong, nonatomic) IBOutlet UIButton *selectBtn;
 
 
 @property (strong, nonatomic) CLLocationManager *locMgr;
 @property (strong, nonatomic) CLLocation *location;
 
-- (IBAction)dateInAction:(UIButton *)sender forEvent:(UIEvent *)event;
-- (IBAction)dateOutAction:(UIButton *)sender forEvent:(UIEvent *)event;
+
 - (IBAction)cancelAction:(UIBarButtonItem *)sender;
 - (IBAction)confirmAction:(UIBarButtonItem *)sender;
 
@@ -70,6 +71,7 @@
 
 - (void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
+    [_timer invalidate];
     [_locMgr stopUpdatingLocation];
 }
 
@@ -87,6 +89,8 @@
     // Pass the selected object to the new view controller.
 }
 */
+
+#pragma mark - init
 
 - (void)dataInitialize {
     _avi = [Utilities getCoverOnView:self.view];
@@ -126,8 +130,20 @@
     pFormatter.dateFormat = @"yyyy-MM-ddTHH:mm:ss.SSSZ";
     _date1 = [pFormatter stringFromDate:today];
     _date2 = [pFormatter stringFromDate:tomorrow];
-    [_dateInBtn setTitle:[NSString stringWithFormat:@"入住%@", [formatter stringFromDate:today]] forState:UIControlStateNormal];
-    [_dateOutBtn setTitle:[NSString stringWithFormat:@"离店%@", [formatter stringFromDate:tomorrow]] forState:UIControlStateNormal];
+    _inTimeBtn = [UIButton new];
+    _outTimeBtn = [UIButton new];
+    _orderByBtn = [UIButton new];
+    _selectBtn = [UIButton new];
+    _inTimeBtn.titleLabel.font = [UIFont systemFontOfSize:13];
+    _outTimeBtn.titleLabel.font = [UIFont systemFontOfSize:13];
+    _orderByBtn.titleLabel.font = [UIFont systemFontOfSize:13];
+    _selectBtn.titleLabel.font = [UIFont systemFontOfSize:13];
+    [_inTimeBtn setTitle:[NSString stringWithFormat:@"入住%@", [formatter stringFromDate:today]] forState:UIControlStateNormal];
+    [_outTimeBtn setTitle:[NSString stringWithFormat:@"离店%@", [formatter stringFromDate:tomorrow]] forState:UIControlStateNormal];
+    [_orderByBtn setTitle:@"智能排序" forState:UIControlStateNormal];
+    [_selectBtn setTitle:@"筛选" forState:UIControlStateNormal];
+//    [_dateInBtn setTitle:[NSString stringWithFormat:@"入住%@", [formatter stringFromDate:today]] forState:UIControlStateNormal];
+//    [_dateOutBtn setTitle:[NSString stringWithFormat:@"离店%@", [formatter stringFromDate:tomorrow]] forState:UIControlStateNormal];
     [_datePicker setMinimumDate:today];
     
 }
@@ -138,7 +154,7 @@
     for (AAndHModel *adv in _advArr) {
         [urlArr addObject:adv.adImg];
     }
-    NSLog(@"%@",urlArr);
+    //NSLog(@"%@",urlArr);
     
     
     
@@ -147,22 +163,55 @@
     [_adImage3 sd_setImageWithURL:[NSURL URLWithString:urlArr[2]] placeholderImage:[UIImage imageNamed:@"酒店"]];
     [_adImage4 sd_setImageWithURL:[NSURL URLWithString:urlArr[3]] placeholderImage:[UIImage imageNamed:@"酒店"]];
     [_adImage5 sd_setImageWithURL:[NSURL URLWithString:urlArr[4]] placeholderImage:[UIImage imageNamed:@"酒店"]];
+    [_timer invalidate];
+    _timer = [NSTimer scheduledTimerWithTimeInterval:1.5 target:self selector:@selector(changeImage) userInfo:nil repeats:YES];
     
 }
+
+
 
 #pragma mark - pageAndScorll
 
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView
-{
-    int page = scrollView.contentOffset.x / scrollView.frame.size.width;
-        //NSLog(@"%d", page);
-    
-    // 设置页码
-    //_pageController.currentPage = page;
+//- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+//{
+//    int page = scrollView.contentOffset.x / scrollView.frame.size.width;
+//        //NSLog(@"%d", page);
+//    
+//    // 设置页码
+//    //_pageController.currentPage = page;
+//}
+
+//开始拖拽的代理方法，在此方法中暂停定时器。
+-(void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
+    //NSLog(@"正在拖拽视图，所以需要将自动播放暂停掉");
+    //setFireDate：设置定时器在什么时间启动
+    //[NSDate distantFuture]:将来的某一时刻
+    [_timer setFireDate:[NSDate distantFuture]];
+}
+
+//视图静止时（没有人在拖拽），开启定时器，让自动轮播
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
+    //视图静止之后，过1.5秒在开启定时器
+    //[NSDate dateWithTimeInterval:1.5 sinceDate:[NSDate date]]  返回值为从现在时刻开始 再过1.5秒的时刻。
+    //NSLog(@"开启定时器");
+    [_timer setFireDate:[NSDate dateWithTimeInterval:1.5 sinceDate:[NSDate date]]];
 }
 
 
 
+
+- (void)changeImage {
+    NSInteger page = [self scrollCheck:_scrollView];
+    [_scrollView scrollRectToVisible:CGRectMake(UI_SCREEN_W *(page+1), 0, UI_SCREEN_W, 150) animated:YES];
+}
+- (NSInteger)scrollCheck: (UIScrollView *)scrollView {
+    NSInteger page = scrollView.contentOffset.x / scrollView.frame.size.width;
+    if (page == 4) {
+        page = -1;
+    }
+    //NSLog(@"%ld",(long)page);
+    return page;
+}
 
 #pragma mark - loction
 //这个方法专门处理定位的基本设置
@@ -347,7 +396,7 @@
     NSDictionary *para = @{@"startId":@1,@"priceId":@0,@"sortingId":@1,@"inTime":_date1,@"outTime":_date2,@"page":@5};
     //NSLog(@"%@,%@",_date1,_date2);
     [RequestAPI requestURL:@"/findAllHotelAndAdvertising" withParameters:para andHeader:nil byMethod:kForm andSerializer:kForm success:^(id responseObject) {
-        NSLog(@"%@",responseObject);
+        //NSLog(@"%@",responseObject);
         [_avi stopAnimating];
         if ([responseObject[@"result"] integerValue] == 0) {
             NSArray *advertising = responseObject[@"content"][@"advertising"];
@@ -398,6 +447,7 @@
     //NSLog(@"%@",cell.hotelPrice.text);
     //NSLog(@"%@",hotelModel.hotelImg);
     NSURL *url = [NSURL URLWithString:hotelModel.hotelImg];
+    NSLog(@"%@",url);
     [cell.imageView sd_setImageWithURL:url placeholderImage:[UIImage imageNamed:@"酒店"]];
     
     cell.hotelLocation.text = hotelModel.hotelAdd;
@@ -412,11 +462,49 @@
     DetailViewController *detailVC = [Utilities getStoryboardInstance:@"Deatil" byIdentity:@"reservation"];
     //UINavigationController *nc = [[UINavigationController alloc]initWithRootViewController:detailVC];
     //[self presentViewController:nc animated:YES completion:nil];
-    //detailVC.hotelid = hotelID.hotelId;
+    detailVC.hotelid = [NSString stringWithFormat:@"%ld",(long)hotelID.hotelId];
     [self.navigationController pushViewController:detailVC animated:YES];
 }
 
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    UIView *view = [UIView new];
+    view.backgroundColor = [UIColor whiteColor];
+    _inTimeBtn.titleLabel.textColor = [UIColor blueColor];
+    _outTimeBtn.titleLabel.textColor = [UIColor blueColor];
+    _orderByBtn.titleLabel.textColor = [UIColor blueColor];
+    _selectBtn.titleLabel.textColor = [UIColor blueColor];
+    _inTimeBtn.frame = CGRectMake(25, 5, 65, 20);
+    _outTimeBtn.frame = CGRectMake(135, 5, 65, 20);
+    _orderByBtn.frame = CGRectMake(235, 5, 65, 20);
+    _selectBtn.frame = CGRectMake(325, 5, 65, 20);
+    [_inTimeBtn addTarget:self action:@selector(inTimeAction) forControlEvents:UIControlEventTouchUpInside];
+    [_outTimeBtn addTarget:self action:@selector(outTimeAction) forControlEvents:UIControlEventTouchUpInside];
+    [view addSubview:_inTimeBtn];
+    [view addSubview:_outTimeBtn];
+    [view addSubview:_orderByBtn];
+    [view addSubview:_selectBtn];
+    return view;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return 30;
+}
+
 #pragma mark - btnAction
+
+- (void)inTimeAction {
+    [_inTimeBtn titleForState:UIControlStateHighlighted];
+    btnTime = 0;
+    _datePicker.hidden = NO;
+    _toolBar.hidden = NO;
+}
+- (void)outTimeAction {
+    [_outTimeBtn titleForState:UIControlStateHighlighted];
+    btnTime = 1;
+    _datePicker.hidden = NO;
+    _toolBar.hidden = NO;
+}
 
 - (IBAction)dateInAction:(UIButton *)sender forEvent:(UIEvent *)event {
     btnTime = 0;
@@ -445,14 +533,14 @@
     NSDateFormatter *pFormatter = [NSDateFormatter new];
     pFormatter.dateFormat = @"yyyy-MM-ddTHH:mm:ss.SSSZ";
     if (btnTime == 0) {
-        [_dateInBtn setTitle:[NSString stringWithFormat:@"入住%@", theDate] forState:UIControlStateNormal];
-        [_dateOutBtn setTitle:[NSString stringWithFormat:@"离店%@", theDate] forState:UIControlStateNormal];
+        [_inTimeBtn setTitle:[NSString stringWithFormat:@"入住%@", theDate] forState:UIControlStateNormal];
+        [_outTimeBtn setTitle:[NSString stringWithFormat:@"离店%@", theDate] forState:UIControlStateNormal];
         [_datePicker setMinimumDate:date];
         _date1 = [pFormatter stringFromDate:date];
     }
     else {
         
-        [_dateOutBtn setTitle:[NSString stringWithFormat:@"离店%@", theDate] forState:UIControlStateNormal];
+        [_outTimeBtn setTitle:[NSString stringWithFormat:@"离店%@", theDate] forState:UIControlStateNormal];
         _date2 = [pFormatter stringFromDate:date];
     }
     

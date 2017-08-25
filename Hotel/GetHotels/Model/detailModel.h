@@ -12,6 +12,7 @@
 @property (strong,nonatomic) NSString *hotels;
 @property (strong,nonatomic) NSString *address;
 @property (strong,nonatomic) NSString *image;
+@property (strong,nonatomic) NSString *type;
 @property (nonatomic) NSInteger price;
 -(instancetype)initWithDict:(NSDictionary *)dict;
 @end

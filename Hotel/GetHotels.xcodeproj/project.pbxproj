@@ -77,6 +77,7 @@
 		B2BD3EB51F4ACBA0002C6B98 /* MyInfo.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B2BD3EB11F4ACBA0002C6B98 /* MyInfo.storyboard */; };
 		B2C913441F4D19DD00AAC60A /* agreement.txt in Resources */ = {isa = PBXBuildFile; fileRef = B2C913431F4D19DD00AAC60A /* agreement.txt */; };
 		B2E555091F4AF70700D314C0 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B2E555081F4AF70700D314C0 /* DetailViewController.m */; };
+		B2E9BB7F1F4FB4200064B303 /* detailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B2E9BB7E1F4FB4200064B303 /* detailModel.m */; };
 		B2F076231F4D18DB0074C80C /* zhifuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B2F076221F4D18DB0074C80C /* zhifuViewController.m */; };
 		B2F076261F4DA24A0074C80C /* weiliaoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B2F076251F4DA24A0074C80C /* weiliaoViewController.m */; };
 		B2F076291F4DA3A10074C80C /* dituViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B2F076281F4DA3A10074C80C /* dituViewController.m */; };
@@ -229,6 +230,8 @@
 		B2C913431F4D19DD00AAC60A /* agreement.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = agreement.txt; sourceTree = "<group>"; };
 		B2E555071F4AF70700D314C0 /* DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DetailViewController.h; path = ../View/DetailViewController.h; sourceTree = "<group>"; };
 		B2E555081F4AF70700D314C0 /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DetailViewController.m; path = ../View/DetailViewController.m; sourceTree = "<group>"; };
+		B2E9BB7D1F4FB4200064B303 /* detailModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = detailModel.h; sourceTree = "<group>"; };
+		B2E9BB7E1F4FB4200064B303 /* detailModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = detailModel.m; sourceTree = "<group>"; };
 		B2F076211F4D18DB0074C80C /* zhifuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zhifuViewController.h; sourceTree = "<group>"; };
 		B2F076221F4D18DB0074C80C /* zhifuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = zhifuViewController.m; sourceTree = "<group>"; };
 		B2F076241F4DA24A0074C80C /* weiliaoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = weiliaoViewController.h; sourceTree = "<group>"; };
@@ -528,6 +531,7 @@
 		B2BD3E681F4AA430002C6B98 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				B2E9BB7C1F4FB39E0064B303 /* detail */,
 				6AB8B9591F4E7E5F00E45E61 /* AAndHModel.h */,
 				6AB8B95A1F4E7E5F00E45E61 /* AAndHModel.m */,
 				B224DBAC1F4C34E00022C007 /* Order.h */,
@@ -626,6 +630,15 @@
 				B2BD3E991F4AA4F7002C6B98 /* SKTagView.m */,
 			);
 			path = SKTagView;
+			sourceTree = "<group>";
+		};
+		B2E9BB7C1F4FB39E0064B303 /* detail */ = {
+			isa = PBXGroup;
+			children = (
+				B2E9BB7D1F4FB4200064B303 /* detailModel.h */,
+				B2E9BB7E1F4FB4200064B303 /* detailModel.m */,
+			);
+			name = detail;
 			sourceTree = "<group>";
 		};
 		FAD6FEFC89CC80A05647D01D /* Frameworks */ = {
@@ -845,6 +858,7 @@
 				B224DBB71F4C4D4C0022C007 /* MessageViewController.m in Sources */,
 				B2BD3E731F4AA439002C6B98 /* BasicEncodingRules.m in Sources */,
 				6A7C04911F4B15FC003D72FB /* HotelTableViewCell.m in Sources */,
+				B2E9BB7F1F4FB4200064B303 /* detailModel.m in Sources */,
 				B2F076261F4DA24A0074C80C /* weiliaoViewController.m in Sources */,
 				B224DB951F4C33910022C007 /* MD5DataSigner.m in Sources */,
 				6A958D671F4D1856008C2A7D /* HotelViewController.m in Sources */,
