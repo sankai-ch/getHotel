@@ -35,8 +35,8 @@
 @property (strong, nonatomic) NSString *inTime;
 @property (strong, nonatomic) NSString *outTime;
 //@property (strong, nonatomic) NSDate *flagDate;
-@property (strong, nonatomic) NSDate *inDate;
-@property (strong, nonatomic) NSDate *outDate;
+@property (nonatomic) NSTimeInterval inTimeIn;
+@property (nonatomic) NSTimeInterval outTimeIn;
 //代码画界面
 //@property (strong, nonatomic) IBOutlet UIButton *inTimeBtn;
 //@property (strong, nonatomic) IBOutlet UIButton *outTimeBtn;
@@ -49,6 +49,8 @@
 @property (strong, nonatomic) NSArray *select;
 @property (strong, nonatomic) NSArray *starLevel;
 @property (strong, nonatomic) NSArray *priceDuring;
+@property (strong, nonatomic) DOPDropDownMenu *menu;
+
 
 @property (strong, nonatomic) CLLocationManager *locMgr;
 @property (strong, nonatomic) CLLocation *location;
@@ -163,21 +165,24 @@
 - (void)setDefaultTime {
     NSDateFormatter *formatter = [NSDateFormatter new];
     formatter.dateFormat = @"MM-dd";
-    _inDate = [NSDate date];
-    _outDate = [NSDate dateTomorrow];
+    NSDate *today = [NSDate date];
+    NSDate *tomorrow = [NSDate dateTomorrow];
     NSDateFormatter *pFormatter = [NSDateFormatter new];
     pFormatter.dateFormat = @"yyyy-MM-ddTHH:mm:ss.SSSZ";
-    _date1 = [pFormatter stringFromDate:_inDate];
-    _date2 = [pFormatter stringFromDate:_outDate];
-    [_datePicker setMinimumDate:_inDate];
+    _date1 = [pFormatter stringFromDate:today];
+    _date2 = [pFormatter stringFromDate:tomorrow];
+    [_datePicker setMinimumDate:today];
 //    [_inTimeBtn setTitle:[NSString stringWithFormat:@"入住%@", [formatter stringFromDate:today]] forState:UIControlStateNormal];
 //    [_outTimeBtn setTitle:[NSString stringWithFormat:@"离店%@", [formatter stringFromDate:tomorrow]] forState:UIControlStateNormal];
     
 //    [_dateInBtn setTitle:[NSString stringWithFormat:@"入住%@", [formatter stringFromDate:today]] forState:UIControlStateNormal];
 //    [_dateOutBtn setTitle:[NSString stringWithFormat:@"离店%@", [formatter stringFromDate:tomorrow]] forState:UIControlStateNormal];
     //[_datePicker setMinimumDate:today];
-    _inTime = [NSString stringWithFormat:@"入住%@", [formatter stringFromDate:_inDate]];
-    _outTime = [NSString stringWithFormat:@"离店%@", [formatter stringFromDate:_outDate]];
+    _outTimeIn = [tomorrow timeIntervalSince1970InMilliSecond];
+    
+    _inTimeIn = [today timeIntervalSince1970InMilliSecond];
+    _inTime = [NSString stringWithFormat:@"入住%@", [formatter stringFromDate:today]];
+    _outTime = [NSString stringWithFormat:@"离店%@", [formatter stringFromDate:tomorrow]];
 }
 
 - (void)setADImage {
@@ -501,15 +506,15 @@
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     
-    DOPDropDownMenu *menu= [[DOPDropDownMenu alloc] initWithOrigin:CGPointMake(0, 0) andHeight:40];
-    menu.delegate = self;
-    menu.dataSource = self;
-    menu.textColor = [UIColor grayColor];
-    [menu selectIndexPath:[DOPIndexPath indexPathWithCol:0 row:0 item:0]];
-    menu.finishedBlock = ^(DOPIndexPath *indexPath) {
+    _menu= [[DOPDropDownMenu alloc] initWithOrigin:CGPointMake(0, 0) andHeight:40];
+    _menu.delegate = self;
+    _menu.dataSource = self;
+    _menu.textColor = [UIColor grayColor];
+    [_menu selectIndexPath:[DOPIndexPath indexPathWithCol:0 row:0 item:0]];
+    _menu.finishedBlock = ^(DOPIndexPath *indexPath) {
         //[self requestAll];
     };
-    
+    //[menu hideMenu]
     
     
 //    JPullDownMenu *menu = [[JPullDownMenu alloc] initWithFrame:CGRectMake(0, 0, UI_SCREEN_W, 40) menuTitleArray:@[_inTime,_outTime,@"智能排序",@"筛选"]];
@@ -544,7 +549,7 @@
 //    [view addSubview:_outTimeBtn];
 //    [view addSubview:_orderByBtn];
 //    [view addSubview:_selectBtn];
-    return menu;
+    return _menu;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
@@ -687,6 +692,7 @@
 - (IBAction)cancelAction:(UIBarButtonItem *)sender {
     _datePicker.hidden = YES;
     _toolBar.hidden = YES;
+    [_menu hideMenu];
 }
 
 - (IBAction)confirmAction:(UIBarButtonItem *)sender {
@@ -696,27 +702,31 @@
     NSDateFormatter *formatter = [NSDateFormatter new];
     formatter.dateFormat = @"MM-dd";
     NSString *theDate = [formatter stringFromDate:date];
+    NSTimeInterval Time = [date timeIntervalSince1970InMilliSecond];
+//    NSTimeInterval Time = [Utilities cTimestampFromString:theDate format:@"MM-dd"];
     NSDateFormatter *pFormatter = [NSDateFormatter new];
     pFormatter.dateFormat = @"yyyy-MM-ddTHH:mm:ss.SSSZ";
     if (btnTime == 0) {
-        if (date > _outDate) {
+        if (Time > _outTimeIn) {
             [Utilities popUpAlertViewWithMsg:@"请选择正确的入住时间" andTitle:nil onView:self onCompletion:^{
                 
             }];
             return;
         }
+        _inTimeIn = Time;
         _inTime = [NSString stringWithFormat:@"入住%@",theDate];
 //        [_outTimeBtn setTitle:[NSString stringWithFormat:@"离店%@", theDate] forState:UIControlStateNormal];
 //        [_datePicker setMinimumDate:date];
         _date1 = [pFormatter stringFromDate:date];
     }
     else {
-        if (date < _inDate) {
+        if (Time < _inTimeIn) {
             [Utilities popUpAlertViewWithMsg:@"请选择正确的离店时间" andTitle:nil onView:self onCompletion:^{
                 
             }];
             return;
         }
+        _outTimeIn = Time;
         _outTime = [NSString stringWithFormat:@"离店%@",theDate];
 //        [_outTimeBtn setTitle:[NSString stringWithFormat:@"离店%@", theDate] forState:UIControlStateNormal];
 //        _date2 = [pFormatter stringFromDate:date];
