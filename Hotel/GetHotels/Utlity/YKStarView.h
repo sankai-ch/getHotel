@@ -15,4 +15,5 @@
 @property (nonatomic, strong) UIColor *fullColor;       // 满颜色
 
 
+
 @end

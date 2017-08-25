@@ -29,11 +29,13 @@
     return self;
 }
 
+
+//重绘视图
 - (void)drawRect:(CGRect)rect
 {
     CGContextRef context = UIGraphicsGetCurrentContext();
     
-    NSString* stars = @"★★★";
+    NSString* stars = @"★★★★★";
     
     rect = self.bounds;
     CGSize starSize = [stars sizeWithFont:YKStarFont];
@@ -48,16 +50,4 @@
     [stars drawInRect:rect withFont:YKStarFont];
     
 }
--(void)setShowStar:(NSInteger) number{
-    _showStar=number;
-}
-
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
-}
-*/
-
 @end
