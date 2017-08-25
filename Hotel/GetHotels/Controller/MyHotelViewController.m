@@ -61,6 +61,7 @@
     //[self allOrdersRequest];
     [self setSegment];
     [self setNavigationItem];
+    [self allOrdersRequest];
     // Do any additional setup after loading the view.
 }
 
@@ -169,14 +170,19 @@
 #pragma mark - request
 //全部订单网络请求
 - (void)allOrdersRequest{
+    
     UserModel *user = [[StorageMgr singletonStorageMgr] objectForKey:@"UserInfo"];
-    NSDictionary *para = @{@"wxcode":user.openId,@"id":user.userId};
-    [RequestAPI requestURL:@"/findOrders_edu" withParameters:para andHeader:nil byMethod:kPost andSerializer:kForm success:^(id responseObject) {
-       
+    
+    NSDictionary *para = @{@"openid":user.openId,@"id":@1};
+    NSLog(@"%@",user.openId);
+    NSLog(@"%@",user.userId);
+       [RequestAPI requestURL:@"/findOrders_edu" withParameters:para andHeader:nil byMethod:kPost andSerializer:kForm success:^(id responseObject) {
+        [_avi stopAnimating];
         NSLog(@"request:%@",responseObject);
         
     } failure:^(NSInteger statusCode, NSError *error) {
-        NSLog(@"%ld",(long)statusCode);
+        [_avi stopAnimating];
+        NSLog(@"错误码dd：%ld",(long)statusCode);
     }];
 }
 
@@ -251,47 +257,21 @@
 }
 //每行长什么样
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    UIImage *homeImg = [UIImage imageNamed:@"Home"];
-    //NSLog(@"进入allordersTableView");
-    NSDictionary *dict = @{@"hotelAddressLAbel":@"江苏省无锡市",@"hotelPeopleNumLabel":@"三人入住",@"hotelTypeLabel":@"超级无敌海景房",@"startDateLabel":@"2018-12-12",@"endDateLabel":@"2019-01-11",@"hotelImg":homeImg};
+    
     if (tableView == _AllOrdersTableView) {
         AllOrdersTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"allOrdersCell" forIndexPath:indexPath];
-        NSLog(@"进入allordersTableView");
         
-        
-        
-        cell.hotelTypeLabel.text = @"342342";
-        cell.hotelAddressLAbel.text = dict[@"hotelAddressLAbel"];
-        cell.hotelPeopleNumLabel.text = dict[@"hotelPeopleNumLabel"];
-        cell.startDateLabel.text = dict[@"startDateLabel"];
-        cell.endDateLabel.text = dict[@"endDateLabel"];
-        cell.hotelImg.image = dict[@"homeImg"];
         
         return cell;
         
     }else if (tableView == _AvailableTableView) {
         AvailableTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"availableCell" forIndexPath:indexPath];
-       // [_availableArr addObject:dict];
-        
-        dict = _availableArr[indexPath.section];
-        cell.hotelTypeLabel.text = @"342342";
-        cell.hotelAddressLabel.text = dict[@"hotelAddressLAbel"];
-        cell.hotelPeopleNumLabel.text = dict[@"hotelPeopleNumLabel"];
-        cell.startDateLabel.text = dict[@"startDateLabel"];
-        cell.endDateLabel.text = dict[@"endDateLabel"];
-        cell.hotelImg.image = dict[@"homeImg"];
+       
         return cell;
     }else{
         ExpiredTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"expiredCell" forIndexPath:indexPath];
         
-        dict = _expiredArr[indexPath.section];
-        //[_expiredArr addObject:dict];
-        cell.hotelTypeLabel.text = @"342342";
-        cell.hotelAddressLabel.text = dict[@"hotelAddressLAbel"];
-        cell.hotelPeopleNumLabel.text = dict[@"hotelPeopleNumLabel"];
-        cell.startDateLabel.text = dict[@"startDateLabel"];
-        cell.endDateLabel.text = dict[@"endDateLabel"];
-        cell.hotelImg.image = dict[@"homeImg"];
+        
         return cell;
     }
 }
