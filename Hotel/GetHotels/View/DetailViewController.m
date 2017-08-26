@@ -99,7 +99,7 @@
 }
 -(void)startTime{
     
-    self.tr = [NSTimer timerWithTimeInterval: 3.0 target: self selector:@selector(nextpage)userInfo:nil repeats:YES];
+    self.tr = [NSTimer timerWithTimeInterval: 2.0 target: self selector:@selector(nextpage)userInfo:nil repeats:YES];
     [[NSRunLoop mainRunLoop]addTimer:self.tr forMode:NSRunLoopCommonModes];
 }
 -(void)nextpage{
@@ -123,7 +123,7 @@
     
 }
 -(void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
-    self.tr = [NSTimer timerWithTimeInterval: 3.0 target: self selector:@selector(nextpage)userInfo:nil repeats:YES];
+    self.tr = [NSTimer timerWithTimeInterval: 2.0 target: self selector:@selector(nextpage)userInfo:nil repeats:YES];
     [self startTime];
 }
 
@@ -142,7 +142,7 @@
 -(void)setNavigationItem{
     self.navigationItem.title = @"酒店预订";
     //设置导航条的颜色（风格颜色）
-    self.navigationController.navigationBar.barTintColor = UIColorFromRGB(0, 100, 255);
+    self.navigationController.navigationBar.barTintColor = UIColorFromRGB(24, 124, 236);
     //实例化一个button
     UIButton *leftBtn = [UIButton buttonWithType:UIButtonTypeSystem];
     //设置button的位置大小
