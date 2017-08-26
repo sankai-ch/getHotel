@@ -34,6 +34,7 @@
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (strong, nonatomic) NSString *inTime;
 @property (strong, nonatomic) NSString *outTime;
+@property (strong, nonatomic) NSString *SortId;
 //@property (strong, nonatomic) NSDate *flagDate;
 @property (nonatomic) NSTimeInterval inTimeIn;
 @property (nonatomic) NSTimeInterval outTimeIn;
@@ -78,7 +79,10 @@
     [self locationConfig];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(checkCityState:) name:@"ResetHome" object:nil];
     //[self requestCiry];
+    
+    //[self request];
     [self requestAll];
+
 }
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
@@ -114,7 +118,7 @@
     _select = @[@"星级",@"价格区间"];
     _starLevel = @[@"全部",@"四星",@"五星"];
     _priceDuring = @[@"不限",@"300以下",@"301-500",@"501-1000",@"1000以上"];
-    
+    _SortId = @"0";
     _avi = [Utilities getCoverOnView:self.view];
     BOOL appInit = NO;
     if ([[Utilities getUserDefaults:@"UserCity"] isKindOfClass:[NSNull class]]) {
@@ -168,7 +172,8 @@
     NSDate *today = [NSDate date];
     NSDate *tomorrow = [NSDate dateTomorrow];
     NSDateFormatter *pFormatter = [NSDateFormatter new];
-    pFormatter.dateFormat = @"yyyy-MM-ddTHH:mm:ss.SSSZ";
+    //pFormatter.dateFormat = @"yyyy-MM-ddTHH:mm:ss.SSSZ";
+    pFormatter.dateFormat = @"yyyy-MM-dd";
     _date1 = [pFormatter stringFromDate:today];
     _date2 = [pFormatter stringFromDate:tomorrow];
     [_datePicker setMinimumDate:today];
@@ -429,22 +434,28 @@
 
 
 - (void)requestAll {
-    
-    NSDictionary *para = @{@"startId":@1,@"priceId":@0,@"sortingId":@1,@"inTime":_date1,@"outTime":_date2,@"page":@5};
+    //(startId  0 = all       2 = 4  3 = 5)
+    //
+    //(sortingId 2 = l - h  3 = h - l   )
+    NSDictionary *para = @{@"city_name":@"无锡",@"pageNum":@1,@"pageSize":@10,@"startId":@0,@"priceId":@1,@"sortingId":_SortId,@"inTime":_date1,@"outTime":_date2,@"wxlongitude":@"31.568",@"wxlatitude":@"120.299"};
     //NSLog(@"%@,%@",_date1,_date2);
-    [RequestAPI requestURL:@"/findAllHotelAndAdvertising" withParameters:para andHeader:nil byMethod:kGet andSerializer:kForm success:^(id responseObject) {
+    [RequestAPI requestURL:@"/findHotelByCity_edu" withParameters:para andHeader:nil byMethod:kGet andSerializer:kJson success:^(id responseObject) {
         NSLog(@"%@",responseObject);
         [_avi stopAnimating];
-        if ([responseObject[@"result"] integerValue] == 0) {
-            NSArray *advertising = responseObject[@"content"][@"advertising"];
-            for (NSDictionary *dict in advertising) {
-                AAndHModel *adV = [[AAndHModel alloc] initWithDictForAD:dict];
-                [_advArr addObject:adV];
-                
+        if ([responseObject[@"result"] integerValue] == 1) {
+            if (_advArr.count == 0) {
+                NSArray *advertising = responseObject[@"content"][@"advertising"];
+                for (NSDictionary *dict in advertising) {
+                    AAndHModel *adV = [[AAndHModel alloc] initWithDictForAD:dict];
+                    [_advArr addObject:adV];
+                    
+                }
+                [self setADImage];
             }
-            [self setADImage];
+            
             //NSLog(@"_advArr:%@",_advArr);
-            NSArray *hotel = responseObject[@"content"][@"hotel"];
+            NSArray *hotel = responseObject[@"content"][@"hotel"][@"list"];
+            [_hotelArr removeAllObjects];
             for (NSDictionary *dict in hotel) {
                 AAndHModel *hotelModel = [[AAndHModel alloc] initWithDictForHotelCell:dict];
                 //NSLog(@"%@",hotelModel.hotelName);
@@ -458,9 +469,32 @@
         }
         
     }failure:^(NSInteger statusCode, NSError *error) {
+        
+        [_avi stopAnimating];
+        NSLog(@"%@",error);
+        [Utilities popUpAlertViewWithMsg:@"网络不稳定" andTitle:nil onView:self onCompletion:^{
+            
+        }];
+    }];
+}
+/*
+- (void)request {
+    //(startId  0 = all       2 = 4  3 = 5)
+    //
+    //(sortingId 2 = l - h  3 = h - l   )
+    NSDictionary *para = @{@"city_name":_cityLocation.titleLabel.text,@"page":@3,@"startId":@0,@"priceId":@1,@"sortingId":@(_SortId),@"inTime":_date1,@"outTime":_date2};
+    //NSLog(@"%@,%@",_date1,_date2);
+    [RequestAPI requestURL:@"/findHotelByCity" withParameters:para andHeader:nil byMethod:kGet andSerializer:kForm success:^(id responseObject) {
+        NSLog(@"查询测试：%@",responseObject);
+        [_avi stopAnimating];
+       
+        
+    }failure:^(NSInteger statusCode, NSError *error) {
         [_avi stopAnimating];
     }];
 }
+*/
+
 
 
 #pragma mark - table View
@@ -475,20 +509,23 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     HotelTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"HotelCell" forIndexPath:indexPath];
-    //NSLog(@"%ld",(long)indexPath.row);
+    NSLog(@"%ld",(long)_hotelArr.count);
+    NSLog(@"%ld",(long)indexPath.row);
     AAndHModel *hotelModel = _hotelArr[indexPath.row];
-    //NSLog(@"123%@",hotelModel.hotelName);
+    NSLog(@"123%@",hotelModel.hotelName);
     cell.hotelName.text = hotelModel.hotelName;
-    //NSLog(@"%@",cell.hotelName.text);
+    NSLog(@"%@",cell.hotelName.text);
     cell.hotelPrice.text = [NSString stringWithFormat:@"¥%@",hotelModel.hotelPrice];
-    //NSLog(@"%@",cell.hotelPrice.text);
-    //NSLog(@"%@",hotelModel.hotelImg);
+    NSLog(@"%@",cell.hotelPrice.text);
+    NSLog(@"%@",hotelModel.hotelImg);
     NSURL *url = [NSURL URLWithString:hotelModel.hotelImg];
-    //NSLog(@"%@",url);
+    NSLog(@"%@",url);
     [cell.imageView sd_setImageWithURL:url placeholderImage:[UIImage imageNamed:@"酒店"]];
     
     cell.hotelLocation.text = hotelModel.hotelAdd;
-    cell.hotelDistance.text = hotelModel.distance;
+    NSLog(@"%@",cell.hotelLocation.text);
+    cell.hotelDistance.text = [NSString stringWithFormat:@"%ld",(long)hotelModel.distance];
+    NSLog(@"%@",cell.hotelDistance.text);
     return cell;
 }
 
@@ -500,6 +537,8 @@
     //UINavigationController *nc = [[UINavigationController alloc]initWithRootViewController:detailVC];
     //[self presentViewController:nc animated:YES completion:nil];
     detailVC.hotelid = [NSString stringWithFormat:@"%ld",(long)hotelID.hotelId];
+    NSLog(@"%@",detailVC.hotelid);
+    
     [self.navigationController pushViewController:detailVC animated:YES];
 }
 
@@ -511,9 +550,9 @@
     _menu.dataSource = self;
     _menu.textColor = [UIColor grayColor];
     [_menu selectIndexPath:[DOPIndexPath indexPathWithCol:0 row:0 item:0]];
-    _menu.finishedBlock = ^(DOPIndexPath *indexPath) {
-        //[self requestAll];
-    };
+//    _menu.finishedBlock = ^(DOPIndexPath *indexPath) {
+//        [self requestAll];
+//    };
     //[menu hideMenu]
     
     
@@ -641,7 +680,54 @@
         btnTime = 1;
         _datePicker.hidden = NO;
         _toolBar.hidden = NO;
+    } else if (indexPath.column == 2) {
+        switch (indexPath.row) {
+            case 0:
+                _SortId = @"1";
+                break;
+            case 1:
+                _SortId = @"2";
+                break;
+            case 2:
+                _SortId = @"3";
+                break;
+            default:
+                _SortId = @"4";
+                break;
+        }
+        [self requestAll];
+    } else if (indexPath.column == 3 && indexPath.row == 0) {
+        switch (indexPath.item) {
+            case 0:
+                
+                break;
+            case 1:
+                
+                break;
+            default:
+                break;
+        }
+        [self requestAll];
+    } else if (indexPath.column == 3 && indexPath.row == 1) {
+        switch (indexPath.item) {
+            case 0:
+                
+                break;
+            case 1:
+                
+                break;
+            case 2:
+                
+                break;
+            case 3:
+                
+                break;
+            default:
+                break;
+        }
+        [self requestAll];
     }
+    
 }
 
 
@@ -705,7 +791,8 @@
     NSTimeInterval Time = [date timeIntervalSince1970InMilliSecond];
 //    NSTimeInterval Time = [Utilities cTimestampFromString:theDate format:@"MM-dd"];
     NSDateFormatter *pFormatter = [NSDateFormatter new];
-    pFormatter.dateFormat = @"yyyy-MM-ddTHH:mm:ss.SSSZ";
+    //pFormatter.dateFormat = @"yyyy-MM-ddTHH:mm:ss.SSSZ";
+    pFormatter.dateFormat = @"yyyy-MM-dd";
     if (btnTime == 0) {
         if (Time > _outTimeIn) {
             [Utilities popUpAlertViewWithMsg:@"请选择正确的入住时间" andTitle:nil onView:self onCompletion:^{
