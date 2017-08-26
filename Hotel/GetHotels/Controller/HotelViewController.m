@@ -34,9 +34,19 @@
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (strong, nonatomic) NSString *inTime;
 @property (strong, nonatomic) NSString *outTime;
+@property (strong, nonatomic) NSString *SortId;
 //@property (strong, nonatomic) NSDate *flagDate;
-@property (strong, nonatomic) NSDate *inDate;
-@property (strong, nonatomic) NSDate *outDate;
+@property (nonatomic) NSTimeInterval inTimeIn;
+@property (nonatomic) NSTimeInterval outTimeIn;
+@property (weak, nonatomic) IBOutlet UITableView *selectTableView;
+@property (weak, nonatomic) IBOutlet UIView *selectBView;
+
+@property (strong, nonatomic) IBOutlet UIButton *a;
+@property (strong, nonatomic) IBOutlet UIButton *b;
+@property (strong, nonatomic) IBOutlet UIButton *c;
+@property (strong, nonatomic) IBOutlet UIButton *d;
+
+//@property (strong, nonatomic) NSArray *textArr;
 //代码画界面
 //@property (strong, nonatomic) IBOutlet UIButton *inTimeBtn;
 //@property (strong, nonatomic) IBOutlet UIButton *outTimeBtn;
@@ -49,6 +59,8 @@
 @property (strong, nonatomic) NSArray *select;
 @property (strong, nonatomic) NSArray *starLevel;
 @property (strong, nonatomic) NSArray *priceDuring;
+@property (strong, nonatomic) DOPDropDownMenu *menu;
+
 
 @property (strong, nonatomic) CLLocationManager *locMgr;
 @property (strong, nonatomic) CLLocation *location;
@@ -76,7 +88,10 @@
     [self locationConfig];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(checkCityState:) name:@"ResetHome" object:nil];
     //[self requestCiry];
+    
+    //[self request];
     [self requestAll];
+
 }
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
@@ -108,11 +123,19 @@
 #pragma mark - init
 
 - (void)dataInitialize {
+    //_textArr = @[@""];
+    
+    _a = [UIButton new];
+    _b = [UIButton new];
+    _c = [UIButton new];
+    _d = [UIButton new];
+    
+    
     _sorts = @[@"智能排序",@"价格低到高",@"价格高到低",@"离我从远到近"];
     _select = @[@"星级",@"价格区间"];
     _starLevel = @[@"全部",@"四星",@"五星"];
     _priceDuring = @[@"不限",@"300以下",@"301-500",@"501-1000",@"1000以上"];
-    
+    _SortId = @"0";
     _avi = [Utilities getCoverOnView:self.view];
     BOOL appInit = NO;
     if ([[Utilities getUserDefaults:@"UserCity"] isKindOfClass:[NSNull class]]) {
@@ -163,21 +186,30 @@
 - (void)setDefaultTime {
     NSDateFormatter *formatter = [NSDateFormatter new];
     formatter.dateFormat = @"MM-dd";
-    _inDate = [NSDate date];
-    _outDate = [NSDate dateTomorrow];
+    NSDate *today = [NSDate date];
+    NSDate *tomorrow = [NSDate dateTomorrow];
     NSDateFormatter *pFormatter = [NSDateFormatter new];
-    pFormatter.dateFormat = @"yyyy-MM-ddTHH:mm:ss.SSSZ";
-    _date1 = [pFormatter stringFromDate:_inDate];
-    _date2 = [pFormatter stringFromDate:_outDate];
-    [_datePicker setMinimumDate:_inDate];
+    //pFormatter.dateFormat = @"yyyy-MM-ddTHH:mm:ss.SSSZ";
+    pFormatter.dateFormat = @"yyyy-MM-dd";
+    _date1 = [pFormatter stringFromDate:today];
+    _date2 = [pFormatter stringFromDate:tomorrow];
+    [_datePicker setMinimumDate:today];
 //    [_inTimeBtn setTitle:[NSString stringWithFormat:@"入住%@", [formatter stringFromDate:today]] forState:UIControlStateNormal];
 //    [_outTimeBtn setTitle:[NSString stringWithFormat:@"离店%@", [formatter stringFromDate:tomorrow]] forState:UIControlStateNormal];
     
 //    [_dateInBtn setTitle:[NSString stringWithFormat:@"入住%@", [formatter stringFromDate:today]] forState:UIControlStateNormal];
 //    [_dateOutBtn setTitle:[NSString stringWithFormat:@"离店%@", [formatter stringFromDate:tomorrow]] forState:UIControlStateNormal];
     //[_datePicker setMinimumDate:today];
-    _inTime = [NSString stringWithFormat:@"入住%@", [formatter stringFromDate:_inDate]];
-    _outTime = [NSString stringWithFormat:@"离店%@", [formatter stringFromDate:_outDate]];
+    _outTimeIn = [tomorrow timeIntervalSince1970InMilliSecond];
+    
+    _inTimeIn = [today timeIntervalSince1970InMilliSecond];
+    _inTime = [NSString stringWithFormat:@"入住%@", [formatter stringFromDate:today]];
+    _outTime = [NSString stringWithFormat:@"离店%@", [formatter stringFromDate:tomorrow]];
+    [_a setTitle:_inTime forState:UIControlStateNormal];
+    [_b setTitle:_outTime forState:UIControlStateNormal];
+    [_c setTitle:@"智能筛选" forState:UIControlStateNormal];
+    [_d setTitle:@"zxc" forState:UIControlStateNormal];
+
 }
 
 - (void)setADImage {
@@ -424,22 +456,28 @@
 
 
 - (void)requestAll {
-    
-    NSDictionary *para = @{@"startId":@1,@"priceId":@0,@"sortingId":@1,@"inTime":_date1,@"outTime":_date2,@"page":@5};
+    //(startId  0 = all       2 = 4  3 = 5)
+    //
+    //(sortingId 2 = l - h  3 = h - l   )
+    NSDictionary *para = @{@"city_name":@"无锡",@"pageNum":@1,@"pageSize":@10,@"startId":@0,@"priceId":@1,@"sortingId":_SortId,@"inTime":_date1,@"outTime":_date2,@"wxlongitude":@"31.568",@"wxlatitude":@"120.299"};
     //NSLog(@"%@,%@",_date1,_date2);
-    [RequestAPI requestURL:@"/findAllHotelAndAdvertising" withParameters:para andHeader:nil byMethod:kGet andSerializer:kForm success:^(id responseObject) {
+    [RequestAPI requestURL:@"/findHotelByCity_edu" withParameters:para andHeader:nil byMethod:kGet andSerializer:kJson success:^(id responseObject) {
         NSLog(@"%@",responseObject);
         [_avi stopAnimating];
-        if ([responseObject[@"result"] integerValue] == 0) {
-            NSArray *advertising = responseObject[@"content"][@"advertising"];
-            for (NSDictionary *dict in advertising) {
-                AAndHModel *adV = [[AAndHModel alloc] initWithDictForAD:dict];
-                [_advArr addObject:adV];
-                
+        if ([responseObject[@"result"] integerValue] == 1) {
+            if (_advArr.count == 0) {
+                NSArray *advertising = responseObject[@"content"][@"advertising"];
+                for (NSDictionary *dict in advertising) {
+                    AAndHModel *adV = [[AAndHModel alloc] initWithDictForAD:dict];
+                    [_advArr addObject:adV];
+                    
+                }
+                [self setADImage];
             }
-            [self setADImage];
+            
             //NSLog(@"_advArr:%@",_advArr);
-            NSArray *hotel = responseObject[@"content"][@"hotel"];
+            NSArray *hotel = responseObject[@"content"][@"hotel"][@"list"];
+            [_hotelArr removeAllObjects];
             for (NSDictionary *dict in hotel) {
                 AAndHModel *hotelModel = [[AAndHModel alloc] initWithDictForHotelCell:dict];
                 //NSLog(@"%@",hotelModel.hotelName);
@@ -453,14 +491,40 @@
         }
         
     }failure:^(NSInteger statusCode, NSError *error) {
+        
+        [_avi stopAnimating];
+        NSLog(@"%@",error);
+        [Utilities popUpAlertViewWithMsg:@"网络不稳定" andTitle:nil onView:self onCompletion:^{
+            
+        }];
+    }];
+}
+/*
+- (void)request {
+    //(startId  0 = all       2 = 4  3 = 5)
+    //
+    //(sortingId 2 = l - h  3 = h - l   )
+    NSDictionary *para = @{@"city_name":_cityLocation.titleLabel.text,@"page":@3,@"startId":@0,@"priceId":@1,@"sortingId":@(_SortId),@"inTime":_date1,@"outTime":_date2};
+    //NSLog(@"%@,%@",_date1,_date2);
+    [RequestAPI requestURL:@"/findHotelByCity" withParameters:para andHeader:nil byMethod:kGet andSerializer:kForm success:^(id responseObject) {
+        NSLog(@"查询测试：%@",responseObject);
+        [_avi stopAnimating];
+       
+        
+    }failure:^(NSInteger statusCode, NSError *error) {
         [_avi stopAnimating];
     }];
 }
+*/
+
 
 
 #pragma mark - table View
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    if (tableView == _selectTableView) {
+        return _sorts.count;
+    }
     return _hotelArr.count;
 }
 
@@ -469,47 +533,77 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (tableView == _selectTableView) {
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"selectCell" forIndexPath:indexPath];
+        cell.textLabel.text = _sorts[indexPath.row];
+        return cell;
+    }
     HotelTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"HotelCell" forIndexPath:indexPath];
-    //NSLog(@"%ld",(long)indexPath.row);
+    NSLog(@"%ld",(long)_hotelArr.count);
+    NSLog(@"%ld",(long)indexPath.row);
     AAndHModel *hotelModel = _hotelArr[indexPath.row];
-    //NSLog(@"123%@",hotelModel.hotelName);
+    NSLog(@"123%@",hotelModel.hotelName);
     cell.hotelName.text = hotelModel.hotelName;
-    //NSLog(@"%@",cell.hotelName.text);
+    NSLog(@"%@",cell.hotelName.text);
     cell.hotelPrice.text = [NSString stringWithFormat:@"¥%@",hotelModel.hotelPrice];
-    //NSLog(@"%@",cell.hotelPrice.text);
-    //NSLog(@"%@",hotelModel.hotelImg);
+    NSLog(@"%@",cell.hotelPrice.text);
+    NSLog(@"%@",hotelModel.hotelImg);
     NSURL *url = [NSURL URLWithString:hotelModel.hotelImg];
-    //NSLog(@"%@",url);
+    NSLog(@"%@",url);
     [cell.imageView sd_setImageWithURL:url placeholderImage:[UIImage imageNamed:@"酒店"]];
     
     cell.hotelLocation.text = hotelModel.hotelAdd;
-    cell.hotelDistance.text = hotelModel.distance;
+    NSLog(@"%@",cell.hotelLocation.text);
+    cell.hotelDistance.text = [NSString stringWithFormat:@"%ld",(long)hotelModel.distance];
+    NSLog(@"%@",cell.hotelDistance.text);
     return cell;
 }
 
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    if (tableView == _selectTableView) {
+        [_c setTitle:_sorts[indexPath.row] forState:UIControlStateNormal];
+        switch (indexPath.row) {
+            case 0:
+                _SortId = @"1";
+                break;
+            case 1:
+                _SortId = @"2";
+                break;
+            case 2:
+                _SortId = @"3";
+                break;
+            default:
+                _SortId = @"4";
+                break;
+        }
+        _selectBView.hidden = YES;
+        [self requestAll];
+        return;
+    }
     AAndHModel *hotelID = _hotelArr[indexPath.row];
     DetailViewController *detailVC = [Utilities getStoryboardInstance:@"Deatil" byIdentity:@"reservation"];
     //UINavigationController *nc = [[UINavigationController alloc]initWithRootViewController:detailVC];
     //[self presentViewController:nc animated:YES completion:nil];
     detailVC.hotelid = [NSString stringWithFormat:@"%ld",(long)hotelID.hotelId];
+    NSLog(@"%@",detailVC.hotelid);
+    
     [self.navigationController pushViewController:detailVC animated:YES];
 }
 
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     
-    DOPDropDownMenu *menu= [[DOPDropDownMenu alloc] initWithOrigin:CGPointMake(0, 0) andHeight:40];
-    menu.delegate = self;
-    menu.dataSource = self;
-    menu.textColor = [UIColor grayColor];
-    [menu selectIndexPath:[DOPIndexPath indexPathWithCol:0 row:0 item:0]];
-    menu.finishedBlock = ^(DOPIndexPath *indexPath) {
-        //[self requestAll];
-    };
-    
+//    _menu= [[DOPDropDownMenu alloc] initWithOrigin:CGPointMake(0, 0) andHeight:40];
+//    _menu.delegate = self;
+//    _menu.dataSource = self;
+//    _menu.textColor = [UIColor grayColor];
+//    [_menu selectIndexPath:[DOPIndexPath indexPathWithCol:0 row:0 item:0]];
+//    _menu.finishedBlock = ^(DOPIndexPath *indexPath) {
+//        [self requestAll];
+//    };
+    //[menu hideMenu]
     
     
 //    JPullDownMenu *menu = [[JPullDownMenu alloc] initWithFrame:CGRectMake(0, 0, UI_SCREEN_W, 40) menuTitleArray:@[_inTime,_outTime,@"智能排序",@"筛选"]];
@@ -544,10 +638,47 @@
 //    [view addSubview:_outTimeBtn];
 //    [view addSubview:_orderByBtn];
 //    [view addSubview:_selectBtn];
-    return menu;
+    if (tableView == _hotelTableView) {
+        UIView *view = [UIView new];
+        view.backgroundColor = [UIColor whiteColor];
+        
+        _a.titleLabel.textColor = [UIColor whiteColor];
+        _b.titleLabel.textColor = [UIColor whiteColor];
+        _c.titleLabel.textColor = [UIColor whiteColor];
+        _d.titleLabel.textColor = [UIColor whiteColor];
+        _a.backgroundColor = [UIColor lightGrayColor];
+        _b.backgroundColor = [UIColor lightGrayColor];
+        _c.backgroundColor = [UIColor lightGrayColor];
+        _d.backgroundColor = [UIColor lightGrayColor];
+        _a.titleLabel.font = [UIFont systemFontOfSize:13];
+        _b.titleLabel.font = [UIFont systemFontOfSize:13];
+        _c.titleLabel.font = [UIFont systemFontOfSize:13];
+        _d.titleLabel.font = [UIFont systemFontOfSize:13];
+        [_a addTarget:self action:@selector(inTimeAction) forControlEvents:UIControlEventTouchUpInside];
+        [_b addTarget:self action:@selector(outTimeAction) forControlEvents:UIControlEventTouchUpInside];
+        [_c addTarget:self action:@selector(showSelectView) forControlEvents:UIControlEventTouchUpInside];
+        view.frame = CGRectMake(0, 0, UI_SCREEN_W, 40);
+        CGFloat wd = UI_SCREEN_W/4;
+        _a.frame = CGRectMake(0,0,wd,40);
+        _b.frame = CGRectMake(wd,0,wd,40);
+        _c.frame = CGRectMake(wd*2,0,wd,40);
+        _d.frame = CGRectMake(wd*3,0,wd,40);
+        
+        [view addSubview:_a];
+        [view addSubview:_b];
+        [view addSubview:_c];
+        [view addSubview:_d];
+        
+        return view;
+    }
+    else
+        return nil;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    if (tableView == _selectTableView) {
+        return 0;
+    }
     return 40;
 }
 
@@ -563,86 +694,6 @@
 }
 
 
-#pragma mark - menuDrop
-
-
-
-- (NSInteger)numberOfColumnsInMenu:(DOPDropDownMenu *)menu
-{
-    return 4;
-}
-
-- (NSInteger)menu:(DOPDropDownMenu *)menu numberOfRowsInColumn:(NSInteger)column {
-    if (column == 0) {
-        return 1;
-    } else if (column == 1) {
-        return 1;
-    } else if (column == 2) {
-        return _sorts.count;
-    } else {
-        return _select.count;
-    }
-}
-
-
-- (NSString *)menu:(DOPDropDownMenu *)menu titleForRowAtIndexPath:(DOPIndexPath *)indexPath {
-    if (indexPath.column == 0) {
-        return _inTime;
-    } else if (indexPath.column == 1) {
-        return _outTime;
-    } else if (indexPath.column == 2) {
-        return _sorts[indexPath.row];
-    } else {
-        return _select[indexPath.row];
-    }
-    
-}
-
-- (NSInteger)menu:(DOPDropDownMenu *)menu numberOfItemsInRow:(NSInteger)row column:(NSInteger)column {
-    if (column == 3) {
-        if (row == 0) {
-            return _starLevel.count;
-        } else if (row == 1){
-            return _priceDuring.count;
-        }
-    }
-    return 0;
-}
-
-- (NSString *)menu:(DOPDropDownMenu *)menu titleForItemsInRowAtIndexPath:(DOPIndexPath *)indexPath {
-    if (indexPath.column == 3) {
-        if (indexPath.row == 0) {
-            return _starLevel[indexPath.item];
-        } else if (indexPath.row == 1) {
-            return _priceDuring[indexPath.item];
-        }
-    }
-    return nil;
-}
-
-
-//- (void)menu:(DOPDropDownMenu *)menu didSelectRowAtIndexPath:(DOPIndexPath *)indexPath
-//{
-//    if (indexPath.item >= 0) {
-//        NSLog(@"点击了 %ld - %ld - %ld 项目",indexPath.column,indexPath.row,indexPath.item);
-//    }else {
-//        NSLog(@"点击了 %ld - %ld 项目",indexPath.column,indexPath.row);
-//    }
-//}
-
-
-- (void)menu:(DOPDropDownMenu *)menu didSelectRowAtIndexPath:(DOPIndexPath *)indexPath {
-    if (indexPath.column == 0 && indexPath.row == 0) {
-        NSLog(@"datePick");
-        btnTime = 0;
-        _datePicker.hidden = NO;
-        _toolBar.hidden = NO;
-    } else if (indexPath.column == 1 && indexPath.row == 0){
-        btnTime = 1;
-        _datePicker.hidden = NO;
-        _toolBar.hidden = NO;
-    }
-}
 
 
 #pragma mark - btnAction
@@ -654,28 +705,45 @@
 //}
 
 
-//- (void)showSelectView {
-//    [_selectBtn titleForState:UIControlStateHighlighted];
-//    _selectView.hidden = NO;
-//}
-//
-//- (void)showOrderView {
-//    [_orderByBtn titleForState:UIControlStateHighlighted];
-//    _orederByView.hidden = NO;
-//}
-//
-//- (void)inTimeAction {
-//    [_inTimeBtn titleForState:UIControlStateHighlighted];
-//    btnTime = 0;
-//    _datePicker.hidden = NO;
-//    _toolBar.hidden = NO;
-//}
-//- (void)outTimeAction {
-//    [_outTimeBtn titleForState:UIControlStateHighlighted];
-//    btnTime = 1;
-//    _datePicker.hidden = NO;
-//    _toolBar.hidden = NO;
-//}
+- (void)showSelectView {
+    //[a titleForState:UIControlStateHighlighted];
+    //_selectView.hidden = NO;
+    if (!_selectBView.hidden) {
+        _selectBView.hidden = YES;
+        return;
+    }
+    _selectBView.hidden = NO;
+}
+
+- (void)showOrderView {
+    //[_orderByBtn titleForState:UIControlStateHighlighted];
+    //_orederByView.hidden = NO;
+}
+
+- (void)inTimeAction {
+    //[_inTimeBtn titleForState:UIControlStateHighlighted];
+    if (!_datePicker.hidden) {
+        _datePicker.hidden = YES;
+        _toolBar.hidden = YES;
+        [_a setTitle:_inTime forState:UIControlStateNormal];
+        return;
+    }
+    btnTime = 0;
+    _datePicker.hidden = NO;
+    _toolBar.hidden = NO;
+}
+- (void)outTimeAction {
+    //[_outTimeBtn titleForState:UIControlStateHighlighted];
+    if (!_datePicker.hidden) {
+        _datePicker.hidden = YES;
+        _toolBar.hidden = YES;
+        [_b setTitle:_outTime forState:UIControlStateNormal];
+        return;
+    }
+    btnTime = 1;
+    _datePicker.hidden = NO;
+    _toolBar.hidden = NO;
+}
 
 //- (IBAction)dateInAction:(UIButton *)sender forEvent:(UIEvent *)event {
 //    btnTime = 0;
@@ -692,6 +760,7 @@
 - (IBAction)cancelAction:(UIBarButtonItem *)sender {
     _datePicker.hidden = YES;
     _toolBar.hidden = YES;
+    [_menu hideMenu];
 }
 
 - (IBAction)confirmAction:(UIBarButtonItem *)sender {
@@ -701,28 +770,35 @@
     NSDateFormatter *formatter = [NSDateFormatter new];
     formatter.dateFormat = @"MM-dd";
     NSString *theDate = [formatter stringFromDate:date];
+    NSTimeInterval Time = [date timeIntervalSince1970InMilliSecond];
+//    NSTimeInterval Time = [Utilities cTimestampFromString:theDate format:@"MM-dd"];
     NSDateFormatter *pFormatter = [NSDateFormatter new];
-    pFormatter.dateFormat = @"yyyy-MM-ddTHH:mm:ss.SSSZ";
+    //pFormatter.dateFormat = @"yyyy-MM-ddTHH:mm:ss.SSSZ";
+    pFormatter.dateFormat = @"yyyy-MM-dd";
     if (btnTime == 0) {
-        if (date > _outDate) {
+        if (Time > _outTimeIn) {
             [Utilities popUpAlertViewWithMsg:@"请选择正确的入住时间" andTitle:nil onView:self onCompletion:^{
                 
             }];
             return;
         }
+        _inTimeIn = Time;
         _inTime = [NSString stringWithFormat:@"入住%@",theDate];
+        [_a setTitle:_inTime forState:UIControlStateNormal];
 //        [_outTimeBtn setTitle:[NSString stringWithFormat:@"离店%@", theDate] forState:UIControlStateNormal];
 //        [_datePicker setMinimumDate:date];
         _date1 = [pFormatter stringFromDate:date];
     }
     else {
-        if (date < _inDate) {
+        if (Time < _inTimeIn) {
             [Utilities popUpAlertViewWithMsg:@"请选择正确的离店时间" andTitle:nil onView:self onCompletion:^{
                 
             }];
             return;
         }
+        _outTimeIn = Time;
         _outTime = [NSString stringWithFormat:@"离店%@",theDate];
+        [_b setTitle:_outTime forState:UIControlStateNormal];
 //        [_outTimeBtn setTitle:[NSString stringWithFormat:@"离店%@", theDate] forState:UIControlStateNormal];
 //        _date2 = [pFormatter stringFromDate:date];
     }
