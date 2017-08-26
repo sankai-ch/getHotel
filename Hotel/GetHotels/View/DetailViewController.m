@@ -70,22 +70,18 @@
 #pragma mark - scrollview
 -(void)getimage{
     // 使用ImageView通过name找到图片
-    CGSize scrollSize = self.scrollView1.frame.size;
+    //CGSize scrollSize = self.scrollView1.frame.size;
    
-        _p1.image = [UIImage imageNamed:@"11"];
-         _p2.image = [UIImage imageNamed:@"美图"];
-          _p3.image = [UIImage imageNamed:@"11"];
-          _p4.image = [UIImage imageNamed:@"美图"];
+       
     
-    
-    _scrollView1.contentSize = CGSizeMake(scrollSize.width * 4, 150);
-    _scrollView1.contentOffset = CGPointMake(0, 0);
-    
-    _scrollView1.pagingEnabled = YES;
-    _scrollView1.bounces = NO;
-    _scrollView1.showsVerticalScrollIndicator = NO;
-    _scrollView1.contentInset = UIEdgeInsetsMake(0, 50, 50, 0);
-   _scrollView1.scrollIndicatorInsets = UIEdgeInsetsMake(0, 50, 0, 0);
+//    _scrollView1.contentSize = CGSizeMake(scrollSize.width * 4, 150);
+//    _scrollView1.contentOffset = CGPointMake(0, 0);
+//    
+//    _scrollView1.pagingEnabled = YES;
+//    _scrollView1.bounces = NO;
+//    _scrollView1.showsVerticalScrollIndicator = NO;
+//    _scrollView1.contentInset = UIEdgeInsetsMake(0, 50, 50, 0);
+//   _scrollView1.scrollIndicatorInsets = UIEdgeInsetsMake(0, 50, 0, 0);
 
 }
 
@@ -99,12 +95,9 @@
     //实例化一个button
     UIButton *leftBtn = [UIButton buttonWithType:UIButtonTypeSystem];
     //设置button的位置大小
-    //leftBtn.backgroundColor = [UIColor whiteColor];
-    
     leftBtn.frame = CGRectMake(0, 0, 20, 20);
     //设置背景图片
-    
-    [leftBtn setBackgroundImage:[UIImage imageNamed:@"返回"] forState:UIControlStateNormal];
+    [leftBtn setBackgroundImage:[UIImage imageNamed:@"back1"] forState:UIControlStateNormal];
     //给按钮添加事件
     [leftBtn addTarget:self action:@selector(leftButtonAction:) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:leftBtn];
