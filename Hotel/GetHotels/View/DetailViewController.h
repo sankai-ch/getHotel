@@ -10,4 +10,5 @@
 #import "detailModel.h"
 @interface DetailViewController : UIViewController
 @property (strong,nonatomic) NSString *hotelid;
+
 @end
