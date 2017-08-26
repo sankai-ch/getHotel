@@ -583,13 +583,13 @@
         return;
     }
     AAndHModel *hotelID = _hotelArr[indexPath.row];
-    DetailViewController *detailVC = [Utilities getStoryboardInstance:@"Deatil" byIdentity:@"reservation"];
-    //UINavigationController *nc = [[UINavigationController alloc]initWithRootViewController:detailVC];
+//    DetailViewController *detailVC = [Utilities getStoryboardInstance:@"Deatil" byIdentity:@"reservation"];
+    UINavigationController *nc = [Utilities getStoryboardInstance:@"Deatil" byIdentity:@"reservation"];
     //[self presentViewController:nc animated:YES completion:nil];
-    detailVC.hotelid = [NSString stringWithFormat:@"%ld",(long)hotelID.hotelId];
-    NSLog(@"%@",detailVC.hotelid);
+    //detailVC.hotelid = [NSString stringWithFormat:@"%ld",(long)hotelID.hotelId];
+    //NSLog(@"%@",detailVC.hotelid);
     
-    [self.navigationController pushViewController:detailVC animated:YES];
+    [self.navigationController pushViewController:nc animated:YES];
 }
 
 
