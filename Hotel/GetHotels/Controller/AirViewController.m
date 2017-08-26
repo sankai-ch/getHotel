@@ -40,10 +40,28 @@
 */
 //设置导航栏样式
 //设置导航栏样式
+
+//设置导航栏样式
+- (void)setNavigationItem{
+    self.navigationItem.title = @"我的航空";
+    self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName : [UIColor whiteColor]};
+    //实例化一个button 类型为UIButtonTypeSystem
+    //UIButton *leftBtn = [UIButton buttonWithType:UIButtonTypeSystem];
+    //设置导航条的颜色（风格颜色）
+    self.navigationController.navigationBar.barTintColor = UIColorFromRGB(24, 124, 326);
+    
+}
+/*
+//设置导航栏样式
 - (void)setNavigationItem{
     self.navigationItem.title = @"我的航空";
     //self.navigationController.navigationBar.backgroundColor = [UIColor whiteColor];
     [self.navigationController.navigationBar setBarTintColor:HEAD_THEMECOLOR];
-    
+    //实例化一个button 类型为UIButtonTypeSystem
+    // UIButton *leftBtn = [UIButton buttonWithType:UIButtonTypeSystem];
+    //设置导航条的颜色（风格颜色）
+    // self.navigationController.navigationBar.barTintColor = UIColorFromRGB(24, 124, 326);
 }
+*/
+
 @end

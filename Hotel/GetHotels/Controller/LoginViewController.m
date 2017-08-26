@@ -29,9 +29,13 @@
     // Do any additional setup after loading the view.
     //添加事件，监听当输入框的内容改变时调用textChange的方法
     [_phoneTextField addTarget:self action:@selector(textChange:) forControlEvents:UIControlEventEditingChanged];
+    //同上，密码框的监听
     [_pwdTextField addTarget:self action:@selector(textChange:) forControlEvents:UIControlEventEditingChanged];
+    //设置导航条
     [self naviConfig];
+    //记忆用户名，让下一次登录可以不用再次输入用户名
     [self uiLayout];
+    //设置阴影
     [self setShadow];
 }
 
@@ -174,7 +178,9 @@
         }
         else{
             NSString *errorMsg=[ErrorHandler getProperErrorString:[responseObject[@"resultFlag"]integerValue]];
-            [Utilities popUpAlertViewWithMsg:errorMsg andTitle:nil onView:nil onCompletion:nil];
+            [Utilities popUpAlertViewWithMsg:@"密码错误！" andTitle:@"警报" onView:self onCompletion:^{
+                
+            }];
         }
         
     } failure:^(NSInteger statusCode, NSError *error) {
