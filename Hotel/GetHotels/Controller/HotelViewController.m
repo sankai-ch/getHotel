@@ -554,7 +554,12 @@
 #pragma mark - searchBar
 
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
-    
+    NSDictionary *para=@{@"hotel_name":searchText,@"inTime":_date1,@"outTime":_date2};
+    [RequestAPI requestURL:@"selectHotel" withParameters:para andHeader:nil byMethod:kGet andSerializer:kForm success:^(id responseObject) {
+        NSLog(@"%@",responseObject);
+    } failure:^(NSInteger statusCode, NSError *error) {
+         NSLog(@"%ld",(long)statusCode);
+    }];
 }
 
 
