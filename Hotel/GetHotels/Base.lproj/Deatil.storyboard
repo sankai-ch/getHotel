@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="nGx-MZ-SV9">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -78,12 +78,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Vdn-ad-P7T" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1348" y="142.57871064467767"/>
+            <point key="canvasLocation" x="3959.1999999999998" y="372.86356821589209"/>
         </scene>
         <!--酒店预订-->
         <scene sceneID="JnE-nB-goD">
             <objects>
-                <viewController storyboardIdentifier="reservation" hidesBottomBarWhenPushed="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="aVw-Cn-1er" customClass="DetailViewController" sceneMemberID="viewController">
+                <viewController hidesBottomBarWhenPushed="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="aVw-Cn-1er" customClass="DetailViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="cr8-X1-obx"/>
                         <viewControllerLayoutGuide type="bottom" id="exX-8m-if0"/>
@@ -92,6 +92,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" pagingEnabled="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3d4-Mi-uze">
+                                <rect key="frame" x="0.0" y="64" width="375" height="150"/>
+                                <color key="backgroundColor" red="1" green="0.209618256" blue="0.2145918839" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="150" id="dIA-cW-mBP"/>
+                                </constraints>
+                            </scrollView>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="34h-Uw-Yoy">
                                 <rect key="frame" x="0.0" y="214" width="375" height="453"/>
                                 <subviews>
@@ -514,24 +521,6 @@
                                     <action selector="weiiaoAction:forEvent:" destination="aVw-Cn-1er" eventType="touchUpInside" id="Vtv-4X-dnr"/>
                                 </connections>
                             </button>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3d4-Mi-uze">
-                                <rect key="frame" x="0.0" y="64" width="375" height="150"/>
-                                <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="kA9-mv-mvT">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="150"/>
-                                    </imageView>
-                                </subviews>
-                                <color key="backgroundColor" red="1" green="0.209618256" blue="0.2145918839" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="kA9-mv-mvT" secondAttribute="trailing" id="0bL-Ji-F3Y"/>
-                                    <constraint firstItem="kA9-mv-mvT" firstAttribute="top" secondItem="3d4-Mi-uze" secondAttribute="top" id="PyL-jU-D6A"/>
-                                    <constraint firstItem="kA9-mv-mvT" firstAttribute="width" secondItem="3d4-Mi-uze" secondAttribute="width" id="W1U-qV-I14"/>
-                                    <constraint firstAttribute="height" constant="150" id="dIA-cW-mBP"/>
-                                    <constraint firstItem="kA9-mv-mvT" firstAttribute="centerY" secondItem="3d4-Mi-uze" secondAttribute="centerY" id="hb1-vK-Ipa"/>
-                                    <constraint firstItem="kA9-mv-mvT" firstAttribute="leading" secondItem="3d4-Mi-uze" secondAttribute="leading" id="p1R-kr-krF"/>
-                                    <constraint firstAttribute="bottom" secondItem="kA9-mv-mvT" secondAttribute="bottom" id="voY-8R-25D"/>
-                                </constraints>
-                            </scrollView>
                         </subviews>
                         <color key="backgroundColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
                         <constraints>
@@ -572,9 +561,8 @@
                         <outlet property="image3" destination="o1D-RV-I0W" id="O9E-Cd-Z2P"/>
                         <outlet property="imaget" destination="ZbO-u9-wXI" id="ssr-IB-5WA"/>
                         <outlet property="jiudian" destination="bMW-YT-ed7" id="z0y-5v-cv4"/>
-                        <outlet property="p1" destination="kA9-mv-mvT" id="5q5-fC-MZ6"/>
                         <outlet property="price" destination="QJp-2d-G8f" id="lwV-w9-Qol"/>
-                        <outlet property="scrollView1" destination="3d4-Mi-uze" id="qXW-Y6-hAU"/>
+                        <outlet property="scroll" destination="3d4-Mi-uze" id="Gb2-Hc-pVc"/>
                         <outlet property="scrollView2" destination="34h-Uw-Yoy" id="CbL-t5-Ei2"/>
                         <outlet property="tidu" destination="dqu-jP-cIo" id="W5H-uH-9i5"/>
                         <outlet property="time" destination="2Pz-Va-E36" id="H8C-A3-5qZ"/>
@@ -589,7 +577,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cfw-BM-vzT" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2117.5999999999999" y="35.532233883058474"/>
+            <point key="canvasLocation" x="3056.8000000000002" y="35.532233883058474"/>
         </scene>
         <!--我的位置-->
         <scene sceneID="Kao-G4-0Wy">
@@ -607,7 +595,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rV3-LO-rNl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3812" y="-85"/>
+            <point key="canvasLocation" x="4751.1999999999998" y="-85.007496251874073"/>
         </scene>
         <!--支付-->
         <scene sceneID="6cK-4n-pTR">
@@ -707,7 +695,25 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Rv7-L3-udj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1164" y="919"/>
+            <point key="canvasLocation" x="2118" y="797"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="yZY-bY-Pqc">
+            <objects>
+                <navigationController storyboardIdentifier="reservation" automaticallyAdjustsScrollViewInsets="NO" id="nGx-MZ-SV9" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="XPX-UU-CGb">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="aVw-Cn-1er" kind="relationship" relationship="rootViewController" id="mhb-m7-2Gl"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="NYj-en-pPC" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2117.5999999999999" y="35.532233883058474"/>
         </scene>
     </scenes>
     <resources>
