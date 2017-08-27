@@ -12,11 +12,16 @@
 #import "AAndHModel.h"
 #import <CoreLocation/CoreLocation.h>
 #import "DOPDropDownMenu.h"
+#import "textCollectionViewCell.h"
 @interface HotelViewController () <UITableViewDelegate,UITableViewDataSource,UIScrollViewDelegate,UISearchBarDelegate,CLLocationManagerDelegate,DOPDropDownMenuDelegate,DOPDropDownMenuDataSource> {
     NSInteger btnTime;
     BOOL firstVisit;
+    NSInteger starlevels;
+    NSInteger priceduring;
+    NSInteger selectsection;
     
 }
+@property (weak, nonatomic) IBOutlet UIView *sequenceView;
 @property (weak, nonatomic) IBOutlet UIDatePicker *datePicker;
 @property (weak, nonatomic) IBOutlet UIToolbar *toolBar;
 @property (strong, nonatomic) NSString *date1;
@@ -40,11 +45,14 @@
 @property (nonatomic) NSTimeInterval outTimeIn;
 @property (weak, nonatomic) IBOutlet UITableView *selectTableView;
 @property (weak, nonatomic) IBOutlet UIView *selectBView;
+@property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
+@property (weak, nonatomic) IBOutlet UICollectionView *collectionView2;
 
 @property (strong, nonatomic) IBOutlet UIButton *a;
 @property (strong, nonatomic) IBOutlet UIButton *b;
 @property (strong, nonatomic) IBOutlet UIButton *c;
 @property (strong, nonatomic) IBOutlet UIButton *d;
+- (IBAction)cofirmAction:(UIButton *)sender forEvent:(UIEvent *)event;
 
 //@property (strong, nonatomic) NSArray *textArr;
 //代码画界面
@@ -60,6 +68,7 @@
 @property (strong, nonatomic) NSArray *starLevel;
 @property (strong, nonatomic) NSArray *priceDuring;
 @property (strong, nonatomic) DOPDropDownMenu *menu;
+
 
 
 @property (strong, nonatomic) CLLocationManager *locMgr;
@@ -91,7 +100,10 @@
     
     //[self request];
     [self requestAll];
-
+       [_collectionView selectItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0] animated:YES scrollPosition:UICollectionViewScrollPositionNone];
+    starlevels=1;
+    priceduring=1;
+    selectsection=-1;
 }
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
@@ -459,7 +471,7 @@
     //(startId  0 = all       2 = 4  3 = 5)
     //
     //(sortingId 2 = l - h  3 = h - l   )
-    NSDictionary *para = @{@"city_name":@"无锡",@"pageNum":@1,@"pageSize":@10,@"startId":@0,@"priceId":@1,@"sortingId":_SortId,@"inTime":_date1,@"outTime":_date2,@"wxlongitude":@"31.568",@"wxlatitude":@"120.299"};
+    NSDictionary *para = @{@"city_name":@"无锡",@"pageNum":@1,@"pageSize":@10,@"startId":@(starlevels),@"priceId":@(priceduring),@"sortingId":_SortId,@"inTime":_date1,@"outTime":_date2,@"wxlongitude":@"31.568",@"wxlatitude":@"120.299"};
     //NSLog(@"%@,%@",_date1,_date2);
     [RequestAPI requestURL:@"/findHotelByCity_edu" withParameters:para andHeader:nil byMethod:kGet andSerializer:kJson success:^(id responseObject) {
         NSLog(@"%@",responseObject);
@@ -657,6 +669,7 @@
         [_a addTarget:self action:@selector(inTimeAction) forControlEvents:UIControlEventTouchUpInside];
         [_b addTarget:self action:@selector(outTimeAction) forControlEvents:UIControlEventTouchUpInside];
         [_c addTarget:self action:@selector(showSelectView) forControlEvents:UIControlEventTouchUpInside];
+        [_d addTarget:self action:@selector(sequenceAt) forControlEvents:UIControlEventTouchUpInside];
         view.frame = CGRectMake(0, 0, UI_SCREEN_W, 40);
         CGFloat wd = UI_SCREEN_W/4;
         _a.frame = CGRectMake(0,0,wd,40);
@@ -704,6 +717,13 @@
 //    }
 //}
 
+- (void)sequenceAt{
+    if(!_sequenceView.hidden){
+        _sequenceView.hidden=YES;
+        return;
+    }
+    _sequenceView.hidden=NO;
+}
 
 - (void)showSelectView {
     //[a titleForState:UIControlStateHighlighted];
@@ -805,6 +825,111 @@
     
     _datePicker.hidden = YES;
     _toolBar.hidden = YES;
+    [self requestAll];
+}
+
+#pragma mark-collection
+
+-(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
+    return 1;
+}
+//每组有多少个items
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
+    if(collectionView==_collectionView2){
+        return _starLevel.count;
+    }
+    else
+    {
+        return _priceDuring.count;
+    }
+}
+//每个items长什么样
+- (__kindof UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
+    
+    
+    
+    
+    if(collectionView==_collectionView2){
+        textCollectionViewCell *cell=[collectionView dequeueReusableCellWithReuseIdentifier:@"cell2"forIndexPath:indexPath];
+        cell.cellLabel2.text=_starLevel[indexPath.row];
+        return cell;
+    }
+    else{
+        textCollectionViewCell *cell=[collectionView dequeueReusableCellWithReuseIdentifier:@"cell"forIndexPath:indexPath];
+        cell.cellLabel.text=_priceDuring[indexPath.row];
+        return cell;
+    }
+    
+ }
+//设置细胞尺寸
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
+//    CGFloat x=self.view.frame.size.width;
+//    CGFloat space=self.view.frame.size.width/200;
+//    return CGSizeMake((x-space*3)/4,(x-space*3)/4);
+    return CGSizeMake(62, 15);
+}
+//行间距
+-(CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section{
+    return  self.view.frame.size.width/100;
+}
+//设置细胞的横向间距。
+-(CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section{
+    return self.view.frame.size.width/30;
+}
+
+//UI    w被选中时调用的方法
+-(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{   selectsection=indexPath.section;
+    UICollectionViewCell * cell = (UICollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
+    cell.backgroundColor = [UIColor blueColor];
+    
+    if(collectionView==_collectionView2){
+        switch (indexPath.row) {
+            case 0:
+                starlevels=1;
+                break;
+                case 1:
+                starlevels=2;
+                break;
+            case 2:
+                starlevels=3;
+            default:
+                break;
+        }
+    }
+    if(collectionView==_collectionView){
+        switch (indexPath.row) {
+            case 0:
+                priceduring=1;
+                break;
+            case 1:
+                priceduring=2;
+                break;
+            case 2:
+                priceduring=3;
+                break;
+            case 3:
+                priceduring=4;
+                break;
+            case 4:
+                priceduring=5;
+                break;
+            default:
+                break;
+        }
+    }
+}
+
+//取消选定
+-(void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath{
+    
+    UICollectionViewCell *cell=(UICollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
+    cell.backgroundColor=[UIColor whiteColor];
+   
+    NSLog(@"1第%ld区，1第%ld个",(long)indexPath.section,(long)indexPath.row);
+}
+- (IBAction)cofirmAction:(UIButton *)sender forEvent:(UIEvent *)event {
+    _sequenceView.hidden=YES;
     [self requestAll];
 }
 @end
