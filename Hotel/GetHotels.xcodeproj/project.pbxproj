@@ -14,13 +14,13 @@
 		6A958D671F4D1856008C2A7D /* HotelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A958D661F4D1856008C2A7D /* HotelViewController.m */; };
 		6AB8B95B1F4E7E5F00E45E61 /* AAndHModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AB8B95A1F4E7E5F00E45E61 /* AAndHModel.m */; };
 		6AB8B9611F4E994600E45E61 /* CityListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AB8B9601F4E994600E45E61 /* CityListModel.m */; };
-		843D17531F52777A005420E2 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 843D17521F52777A005420E2 /* Icon.png */; };
 		844E869D1F4B12C20080C2ED /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 844E869C1F4B12C20080C2ED /* LoginViewController.m */; };
 		844E86A01F4B12E20080C2ED /* SignInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 844E869F1F4B12E20080C2ED /* SignInViewController.m */; };
 		848DEF111F4EDD0B00D03E45 /* AllOrdersTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 848DEF101F4EDD0B00D03E45 /* AllOrdersTableViewCell.m */; };
 		848DEF171F4EDD4F00D03E45 /* AvailableTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 848DEF161F4EDD4F00D03E45 /* AvailableTableViewCell.m */; };
 		848DEF1A1F4EDD6600D03E45 /* ExpiredTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 848DEF191F4EDD6600D03E45 /* ExpiredTableViewCell.m */; };
 		848DEF1D1F4EEE2100D03E45 /* HotelOrdersModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 848DEF1C1F4EEE2100D03E45 /* HotelOrdersModel.m */; };
+		B21B6C071F52A97D002F2277 /* Hotel.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B21B6C061F52A97D002F2277 /* Hotel.storyboard */; };
 		B21E853A1F4E622F00C32754 /* UserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B21E85391F4E622F00C32754 /* UserModel.m */; };
 		B224DB761F4BEA970022C007 /* CustomerServiceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B224DB751F4BEA970022C007 /* CustomerServiceViewController.m */; };
 		B224DB911F4C33910022C007 /* GBAlipayManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B224DB7A1F4C33910022C007 /* GBAlipayManager.m */; };
@@ -76,7 +76,6 @@
 		B2BD3EA11F4AA59D002C6B98 /* GetHotels.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B2BD3E9F1F4AA59D002C6B98 /* GetHotels.xcdatamodeld */; };
 		B2BD3EA31F4AA5DB002C6B98 /* Openssl.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B2BD3EA21F4AA5DB002C6B98 /* Openssl.framework */; };
 		B2BD3EB31F4ACBA0002C6B98 /* Aviation.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B2BD3EAD1F4ACBA0002C6B98 /* Aviation.storyboard */; };
-		B2BD3EB41F4ACBA0002C6B98 /* Hotel.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B2BD3EAF1F4ACBA0002C6B98 /* Hotel.storyboard */; };
 		B2BD3EB51F4ACBA0002C6B98 /* MyInfo.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B2BD3EB11F4ACBA0002C6B98 /* MyInfo.storyboard */; };
 		B2C913441F4D19DD00AAC60A /* agreement.txt in Resources */ = {isa = PBXBuildFile; fileRef = B2C913431F4D19DD00AAC60A /* agreement.txt */; };
 		B2E555091F4AF70700D314C0 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B2E555081F4AF70700D314C0 /* DetailViewController.m */; };
@@ -117,7 +116,6 @@
 		6AB8B95A1F4E7E5F00E45E61 /* AAndHModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AAndHModel.m; sourceTree = "<group>"; };
 		6AB8B95F1F4E994600E45E61 /* CityListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CityListModel.h; sourceTree = "<group>"; };
 		6AB8B9601F4E994600E45E61 /* CityListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CityListModel.m; sourceTree = "<group>"; };
-		843D17521F52777A005420E2 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Icon.png; path = ../../../../Icon.png; sourceTree = "<group>"; };
 		844E869B1F4B12C20080C2ED /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		844E869C1F4B12C20080C2ED /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		844E869E1F4B12E20080C2ED /* SignInViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignInViewController.h; sourceTree = "<group>"; };
@@ -132,6 +130,7 @@
 		848DEF1C1F4EEE2100D03E45 /* HotelOrdersModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HotelOrdersModel.m; sourceTree = "<group>"; };
 		87E248321E9C674FE6281D42 /* Pods-GetHotels.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GetHotels.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GetHotels/Pods-GetHotels.debug.xcconfig"; sourceTree = "<group>"; };
 		91A29EB61D066B9FD83C2A3C /* libPods-GetHotels.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-GetHotels.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		B21B6C061F52A97D002F2277 /* Hotel.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Hotel.storyboard; sourceTree = "<group>"; };
 		B21E85381F4E622F00C32754 /* UserModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserModel.h; sourceTree = "<group>"; };
 		B21E85391F4E622F00C32754 /* UserModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserModel.m; sourceTree = "<group>"; };
 		B224DB741F4BEA970022C007 /* CustomerServiceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomerServiceViewController.h; sourceTree = "<group>"; };
@@ -233,7 +232,6 @@
 		B2BD3EA01F4AA59D002C6B98 /* GetHotels.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = GetHotels.xcdatamodel; sourceTree = "<group>"; };
 		B2BD3EA21F4AA5DB002C6B98 /* Openssl.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Openssl.framework; path = GetHotels/Openssl.framework; sourceTree = "<group>"; };
 		B2BD3EAE1F4ACBA0002C6B98 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = GetHotels/Base.lproj/Aviation.storyboard; sourceTree = SOURCE_ROOT; };
-		B2BD3EB01F4ACBA0002C6B98 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = GetHotels/Base.lproj/Hotel.storyboard; sourceTree = SOURCE_ROOT; };
 		B2BD3EB21F4ACBA0002C6B98 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = GetHotels/Base.lproj/MyInfo.storyboard; sourceTree = SOURCE_ROOT; };
 		B2C913431F4D19DD00AAC60A /* agreement.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = agreement.txt; sourceTree = "<group>"; };
 		B2E555071F4AF70700D314C0 /* DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DetailViewController.h; path = ../View/DetailViewController.h; sourceTree = "<group>"; };
@@ -345,7 +343,7 @@
 		B2A2D7251F4AF3D2001D6B81 /* Hotel */ = {
 			isa = PBXGroup;
 			children = (
-				B2BD3EAF1F4ACBA0002C6B98 /* Hotel.storyboard */,
+				B21B6C061F52A97D002F2277 /* Hotel.storyboard */,
 				6A7C048F1F4B15FC003D72FB /* HotelTableViewCell.h */,
 				6A7C04901F4B15FC003D72FB /* HotelTableViewCell.m */,
 				B29E085E1F5173F5001A0DD6 /* textCollectionViewCell.h */,
@@ -626,7 +624,6 @@
 				B2A2D7241F4AF3C4001D6B81 /* Aviation */,
 				B2A2D72A1F4AF415001D6B81 /* Launch */,
 				B2BD3E721F4AA439002C6B98 /* Assets.xcassets */,
-				843D17521F52777A005420E2 /* Icon.png */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -791,11 +788,10 @@
 				B2BD3E421F4AA201002C6B98 /* LaunchScreen.storyboard in Resources */,
 				B2BD3EB31F4ACBA0002C6B98 /* Aviation.storyboard in Resources */,
 				B2BD3E741F4AA439002C6B98 /* Assets.xcassets in Resources */,
-				B2BD3EB41F4ACBA0002C6B98 /* Hotel.storyboard in Resources */,
 				B224DB9D1F4C33D90022C007 /* Cities.plist in Resources */,
 				B2BD3EB51F4ACBA0002C6B98 /* MyInfo.storyboard in Resources */,
 				B2A2D71F1F4AF35B001D6B81 /* Deatil.storyboard in Resources */,
-				843D17531F52777A005420E2 /* Icon.png in Resources */,
+				B21B6C071F52A97D002F2277 /* Hotel.storyboard in Resources */,
 				B2BD3E3A1F4AA201002C6B98 /* Main.storyboard in Resources */,
 				B2C913441F4D19DD00AAC60A /* agreement.txt in Resources */,
 			);
@@ -1000,14 +996,6 @@
 				B2BD3EAE1F4ACBA0002C6B98 /* Base */,
 			);
 			name = Aviation.storyboard;
-			sourceTree = "<group>";
-		};
-		B2BD3EAF1F4ACBA0002C6B98 /* Hotel.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				B2BD3EB01F4ACBA0002C6B98 /* Base */,
-			);
-			name = Hotel.storyboard;
 			sourceTree = "<group>";
 		};
 		B2BD3EB11F4ACBA0002C6B98 /* MyInfo.storyboard */ = {

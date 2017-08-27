@@ -12,12 +12,10 @@
 #import "AAndHModel.h"
 #import <CoreLocation/CoreLocation.h>
 #import "DOPDropDownMenu.h"
-<<<<<<< HEAD
+
 #import "textCollectionViewCell.h"
-@interface HotelViewController () <UITableViewDelegate,UITableViewDataSource,UIScrollViewDelegate,UISearchBarDelegate,CLLocationManagerDelegate,DOPDropDownMenuDelegate,DOPDropDownMenuDataSource> {
-=======
 @interface HotelViewController () <UITableViewDelegate,UITableViewDataSource,UIScrollViewDelegate,UISearchBarDelegate,CLLocationManagerDelegate> {
->>>>>>> 25206b0fe8ec06b9e554c358605aee69da48d115
+
     NSInteger btnTime;
     BOOL firstVisit;
     NSInteger starlevels;
@@ -476,11 +474,9 @@
     //(startId  0 = all       2 = 4  3 = 5)
     //
     //(sortingId 2 = l - h  3 = h - l   )
-<<<<<<< HEAD
-    NSDictionary *para = @{@"city_name":@"无锡",@"pageNum":@1,@"pageSize":@10,@"startId":@(starlevels),@"priceId":@(priceduring),@"sortingId":_SortId,@"inTime":_date1,@"outTime":_date2,@"wxlongitude":@"31.568",@"wxlatitude":@"120.299"};
-=======
-    NSDictionary *para = @{@"city_name":_cityLocation.titleLabel.text,@"pageNum":@1,@"pageSize":@10,@"startId":@0,@"priceId":@1,@"sortingId":_SortId,@"inTime":_date1,@"outTime":_date2,@"wxlongitude":@"31.568",@"wxlatitude":@"120.299"};
->>>>>>> 25206b0fe8ec06b9e554c358605aee69da48d115
+
+    NSDictionary *para = @{@"city_name":_cityLocation.titleLabel.text,@"pageNum":@1,@"pageSize":@10,@"startId":@(starlevels),@"priceId":@(priceduring),@"sortingId":_SortId,@"inTime":_date1,@"outTime":_date2,@"wxlongitude":@"31.568",@"wxlatitude":@"120.299"};
+
     //NSLog(@"%@,%@",_date1,_date2);
     [RequestAPI requestURL:@"/findHotelByCity_edu" withParameters:para andHeader:nil byMethod:kGet andSerializer:kJson success:^(id responseObject) {
         NSLog(@"%@",responseObject);
