@@ -601,6 +601,12 @@
     }
     AAndHModel *hotelID = _hotelArr[indexPath.row];
     DetailViewController *detailVC = [Utilities getStoryboardInstance:@"Deatil" byIdentity:@"reservation"];
+    [[StorageMgr singletonStorageMgr] removeObjectForKey:@"hotelId"];
+    [[StorageMgr singletonStorageMgr] addKey:@"hotelId" andValue:@(hotelID.hotelId)];
+    [[StorageMgr singletonStorageMgr] removeObjectForKey:@"customInTime"];
+    [[StorageMgr singletonStorageMgr] addKey:@"customInTime" andValue:_inTime];
+    [[StorageMgr singletonStorageMgr] removeObjectForKey:@"customOutTime"];
+    [[StorageMgr singletonStorageMgr] addKey:@"customOutTime" andValue:_outTime];
     //UINavigationController *nc = [[UINavigationController alloc]initWithRootViewController:detailVC];
     //[self presentViewController:nc animated:YES completion:nil];
    // detailVC.hotelId = hotelID.hotelId;
@@ -723,6 +729,9 @@
 //}
 
 - (void)sequenceAt{
+    _datePicker.hidden = YES;
+    _toolBar.hidden = YES;
+    _selectBView.hidden = YES;
     if(!_sequenceView.hidden){
         _sequenceView.hidden=YES;
         return;
@@ -733,6 +742,7 @@
 - (void)showSelectView {
     //[a titleForState:UIControlStateHighlighted];
     //_selectView.hidden = NO;
+    _sequenceView.hidden=YES;
     _datePicker.hidden = YES;
     _toolBar.hidden = YES;
     if (!_selectBView.hidden) {
@@ -750,6 +760,7 @@
 - (void)inTimeAction {
     //[_inTimeBtn titleForState:UIControlStateHighlighted];
     _selectBView.hidden = YES;
+    _sequenceView.hidden=YES;
     if (!_datePicker.hidden) {
         _datePicker.hidden = YES;
         _toolBar.hidden = YES;
@@ -763,6 +774,7 @@
 - (void)outTimeAction {
     //[_outTimeBtn titleForState:UIControlStateHighlighted];
     _selectBView.hidden = YES;
+    _sequenceView.hidden=YES;
     if (!_datePicker.hidden) {
         _datePicker.hidden = YES;
         _toolBar.hidden = YES;
@@ -837,7 +849,7 @@
     [self requestAll];
 }
 
-#pragma mark-collection
+#pragma mark - collection
 
 -(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
     return 1;
