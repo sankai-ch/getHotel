@@ -16,7 +16,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *p3;
 @property (weak, nonatomic) IBOutlet UIImageView *p2;
 @property (weak, nonatomic) IBOutlet UIImageView *p1;
-@property (weak, nonatomic) IBOutlet UIScrollView *scrollView1;
+@property (weak, nonatomic) IBOutlet UIScrollView *scroll;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView2;
 @property (weak, nonatomic) IBOutlet UIDatePicker *time;
 @property (weak, nonatomic) IBOutlet UIToolbar *toolbar;
@@ -49,7 +49,8 @@
 - (IBAction)day1Action:(UIButton *)sender forEvent:(UIEvent *)event;
 - (IBAction)concer:(UIBarButtonItem *)sender;
 - (IBAction)confirm:(UIBarButtonItem *)sender;
-
+@property (strong,nonatomic )IBOutlet UIPageControl *page;
+@property (strong ,nonatomic) IBOutlet NSTimer *tr;
 @end
 
 @implementation DetailViewController
@@ -69,20 +70,68 @@
 
 #pragma mark - scrollview
 -(void)getimage{
-    // 使用ImageView通过name找到图片
-    //CGSize scrollSize = self.scrollView1.frame.size;
-   
-       
+    CGSize scrollSize = _scroll.frame.size;
+    for(int i =0;i<4;i++)
+    {
+        UIImageView *imageview = [[UIImageView alloc]init];
+        
+        //CGFloat scrollWidth = scrollSize.width;
+        CGFloat imagex = [[UIScreen mainScreen] bounds].size.width * i;
+        CGFloat imagey = 0;
+        CGFloat imagew = [[UIScreen mainScreen] bounds].size.width;
+        CGFloat imageh = scrollSize.height;
+        imageview.frame = CGRectMake(imagex, imagey, imagew, imageh);
+        NSString *imagestr = [NSString stringWithFormat:@"1%d",i+1];
+        imageview.image = [UIImage imageNamed:imagestr];
+        [_scroll addSubview:imageview];
+    }
+    _scroll.contentSize = CGSizeMake([[UIScreen mainScreen] bounds].size.width * 4, 0);
+    _scroll.showsVerticalScrollIndicator = NO;
+    _scroll.backgroundColor = [UIColor grayColor];
+    self.scroll.delegate = self;
+    _page = [[UIPageControl alloc] init];
+    _page.frame = CGRectMake([[UIScreen mainScreen] bounds].size.width/2 + 150, [[UIScreen mainScreen] bounds].size.height/6 +80, 10, 10);
+    _page.numberOfPages = 4;
+    _page.pageIndicatorTintColor = [UIColor redColor];
+    _page.currentPageIndicatorTintColor = [UIColor blueColor];
+    [self.view addSubview:_page];
+    [self startTime];
+}
+-(void)startTime{
     
-//    _scrollView1.contentSize = CGSizeMake(scrollSize.width * 4, 150);
-//    _scrollView1.contentOffset = CGPointMake(0, 0);
-//    
-//    _scrollView1.pagingEnabled = YES;
-//    _scrollView1.bounces = NO;
-//    _scrollView1.showsVerticalScrollIndicator = NO;
-//    _scrollView1.contentInset = UIEdgeInsetsMake(0, 50, 50, 0);
-//   _scrollView1.scrollIndicatorInsets = UIEdgeInsetsMake(0, 50, 0, 0);
+    self.tr = [NSTimer timerWithTimeInterval: 2.0 target: self selector:@selector(nextpage)userInfo:nil repeats:YES];
+    [[NSRunLoop mainRunLoop]addTimer:self.tr forMode:NSRunLoopCommonModes];
+}
+-(void)nextpage{
+    NSInteger page1 = self.page.currentPage;
+    NSLog(@"%ld",(long)page1);
+    NSInteger nextpage = 0;
+    if(page1 == self.page.numberOfPages - 1)
+    {
+        nextpage = 0;
+    }else{
+        nextpage = page1 +1;
+    }
+    
+    CGFloat content = nextpage *_scroll.frame.size.width;
+    _scroll.contentOffset = CGPointMake(content, 0);
+    
+    
+}
+-(void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView{
+    [_tr invalidate];
+    
+}
+-(void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
+    self.tr = [NSTimer timerWithTimeInterval: 2.0 target: self selector:@selector(nextpage)userInfo:nil repeats:YES];
+    [self startTime];
+}
 
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView{
+    int page = scrollView.contentOffset.x / scrollView.frame.size.width;
+    //    NSLog(@"%d", page);
+    // 设置页码
+    _page.currentPage = page;
 }
 
 
@@ -91,7 +140,7 @@
 -(void)setNavigationItem{
     self.navigationItem.title = @"酒店预订";
     //设置导航条的颜色（风格颜色）
-    self.navigationController.navigationBar.barTintColor = UIColorFromRGB(0, 100, 255);
+    self.navigationController.navigationBar.barTintColor = UIColorFromRGB(24, 124, 236);
     //实例化一个button
     UIButton *leftBtn = [UIButton buttonWithType:UIButtonTypeSystem];
     //设置button的位置大小

@@ -287,6 +287,7 @@
                                     <constraint firstAttribute="trailing" secondItem="SJX-Og-KpB" secondAttribute="trailing" id="zuO-HS-dm3"/>
                                 </constraints>
                             </view>
+<<<<<<< HEAD
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EjV-eh-aPV">
                                 <rect key="frame" x="0.0" y="304" width="375" height="103"/>
                                 <subviews>
@@ -414,11 +415,16 @@
                                     <constraint firstItem="pZ2-5i-zpM" firstAttribute="top" secondItem="SeM-Mc-aET" secondAttribute="bottom" constant="20" id="vhR-bQ-TNx"/>
                                 </constraints>
                             </view>
+=======
+>>>>>>> 25206b0fe8ec06b9e554c358605aee69da48d115
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="SU5-sG-LYu" firstAttribute="leading" secondItem="6ta-ME-CdA" secondAttribute="leading" id="7Ze-l5-hG1"/>
+<<<<<<< HEAD
                             <constraint firstItem="EjV-eh-aPV" firstAttribute="top" secondItem="YtY-0e-rqu" secondAttribute="bottom" constant="40" id="BNm-2F-3ph"/>
+=======
+>>>>>>> 25206b0fe8ec06b9e554c358605aee69da48d115
                             <constraint firstAttribute="trailing" secondItem="YtY-0e-rqu" secondAttribute="trailing" id="BlV-z1-16l"/>
                             <constraint firstItem="TcS-ei-m1e" firstAttribute="leading" secondItem="6ta-ME-CdA" secondAttribute="leading" id="Bq6-y4-lAy"/>
                             <constraint firstItem="qN3-XF-HKO" firstAttribute="top" secondItem="YtY-0e-rqu" secondAttribute="bottom" constant="40" id="DZ2-l0-Avl"/>

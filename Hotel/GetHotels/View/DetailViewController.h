@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "detailModel.h"
 @interface DetailViewController : UIViewController
+@property (nonatomic) NSInteger *hotelId;
+@property (strong,nonatomic) NSString *timestartdate;
+@property (strong,nonatomic) NSString *timeenddate;
 @property (strong,nonatomic) NSString *hotelid;
-
 @end

@@ -14,6 +14,7 @@
 		6A958D671F4D1856008C2A7D /* HotelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A958D661F4D1856008C2A7D /* HotelViewController.m */; };
 		6AB8B95B1F4E7E5F00E45E61 /* AAndHModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AB8B95A1F4E7E5F00E45E61 /* AAndHModel.m */; };
 		6AB8B9611F4E994600E45E61 /* CityListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AB8B9601F4E994600E45E61 /* CityListModel.m */; };
+		843D17531F52777A005420E2 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 843D17521F52777A005420E2 /* Icon.png */; };
 		844E869D1F4B12C20080C2ED /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 844E869C1F4B12C20080C2ED /* LoginViewController.m */; };
 		844E86A01F4B12E20080C2ED /* SignInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 844E869F1F4B12E20080C2ED /* SignInViewController.m */; };
 		848DEF111F4EDD0B00D03E45 /* AllOrdersTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 848DEF101F4EDD0B00D03E45 /* AllOrdersTableViewCell.m */; };
@@ -116,6 +117,7 @@
 		6AB8B95A1F4E7E5F00E45E61 /* AAndHModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AAndHModel.m; sourceTree = "<group>"; };
 		6AB8B95F1F4E994600E45E61 /* CityListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CityListModel.h; sourceTree = "<group>"; };
 		6AB8B9601F4E994600E45E61 /* CityListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CityListModel.m; sourceTree = "<group>"; };
+		843D17521F52777A005420E2 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Icon.png; path = ../../../../Icon.png; sourceTree = "<group>"; };
 		844E869B1F4B12C20080C2ED /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		844E869C1F4B12C20080C2ED /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		844E869E1F4B12E20080C2ED /* SignInViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignInViewController.h; sourceTree = "<group>"; };
@@ -624,6 +626,7 @@
 				B2A2D7241F4AF3C4001D6B81 /* Aviation */,
 				B2A2D72A1F4AF415001D6B81 /* Launch */,
 				B2BD3E721F4AA439002C6B98 /* Assets.xcassets */,
+				843D17521F52777A005420E2 /* Icon.png */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -792,6 +795,7 @@
 				B224DB9D1F4C33D90022C007 /* Cities.plist in Resources */,
 				B2BD3EB51F4ACBA0002C6B98 /* MyInfo.storyboard in Resources */,
 				B2A2D71F1F4AF35B001D6B81 /* Deatil.storyboard in Resources */,
+				843D17531F52777A005420E2 /* Icon.png in Resources */,
 				B2BD3E3A1F4AA201002C6B98 /* Main.storyboard in Resources */,
 				B2C913441F4D19DD00AAC60A /* agreement.txt in Resources */,
 			);
