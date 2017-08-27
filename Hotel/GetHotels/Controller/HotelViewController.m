@@ -584,13 +584,12 @@
     }
     AAndHModel *hotelID = _hotelArr[indexPath.row];
     DetailViewController *detailVC = [Utilities getStoryboardInstance:@"Deatil" byIdentity:@"reservation"];
-
+    //UINavigationController *nc = [[UINavigationController alloc]initWithRootViewController:detailVC];
     //[self presentViewController:nc animated:YES completion:nil];
-    
     detailVC.hotelid = [NSString stringWithFormat:@"%ld",(long)hotelID.hotelId];
-    //NSLog(@"%@",detailVC.hotelid);
+    NSLog(@"%@",detailVC.hotelid);
     
-    [self.navigationController popToViewController:detailVC animated:YES];
+    [self.navigationController pushViewController:detailVC animated:YES];
 }
 
 

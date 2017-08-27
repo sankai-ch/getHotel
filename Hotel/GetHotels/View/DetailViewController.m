@@ -132,8 +132,6 @@
     //    NSLog(@"%d", page);
     // 设置页码
     _page.currentPage = page;
-    NSLog(@"%ld",(long)_page.currentPage);
-    NSLog(@"%ld",(long)_page.numberOfPages);
 }
 
 
