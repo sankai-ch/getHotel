@@ -80,10 +80,10 @@
             </objects>
             <point key="canvasLocation" x="3959.1999999999998" y="372.86356821589209"/>
         </scene>
-        <!--酒店预订-->
+        <!--酒店-->
         <scene sceneID="JnE-nB-goD">
             <objects>
-                <viewController storyboardIdentifier="reservation" hidesBottomBarWhenPushed="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="aVw-Cn-1er" customClass="DetailViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="reservation" title="酒店" hidesBottomBarWhenPushed="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="aVw-Cn-1er" customClass="DetailViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="cr8-X1-obx"/>
                         <viewControllerLayoutGuide type="bottom" id="exX-8m-if0"/>
@@ -546,7 +546,6 @@
                             <constraint firstItem="zDq-xM-a3D" firstAttribute="leading" secondItem="36o-5R-3UR" secondAttribute="leading" id="wlg-Ed-WFg"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="酒店预订" id="KTl-rz-QW8"/>
                     <connections>
                         <outlet property="bed1" destination="jnI-5E-LSh" id="oxE-Nq-Cbq"/>
                         <outlet property="bed2" destination="gw5-Rn-Q1n" id="mBB-A7-i0O"/>

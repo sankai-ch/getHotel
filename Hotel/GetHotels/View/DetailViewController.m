@@ -58,11 +58,14 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    [self setNavigationItem];
+  [self setNavigationItem];
     [self request];
     [self getimage];
 }
-
+- (void)viewWillDisappear:(BOOL)animated {
+    [self viewWillDisappear:YES];
+    [_tr invalidate];
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -121,7 +124,9 @@
 -(void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView{
     [_tr invalidate];
     
+    
 }
+
 -(void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
     self.tr = [NSTimer timerWithTimeInterval: 2.0 target: self selector:@selector(nextpage)userInfo:nil repeats:YES];
     [self startTime];
