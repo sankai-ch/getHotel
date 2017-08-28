@@ -28,7 +28,7 @@
 
 //设置导航栏样式
 -(void)setNavigationItem{
-    self.navigationItem.title = @"酒店预订";
+    self.navigationItem.title = @"酒店预订支付";
     //设置导航条的颜色（风格颜色）
     self.navigationController.navigationBar.barTintColor = UIColorFromRGB(0, 100, 255);
     //实例化一个button
@@ -40,6 +40,8 @@
     //给按钮添加事件
     [leftBtn addTarget:self action:@selector(leftButtonAction:) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:leftBtn];
+    //设置是否需要毛玻璃效果
+    self.navigationController.navigationBar.translucent = YES;
 }
 -(void)leftButtonAction:(UIButton *)sender{
     [self.navigationController popViewControllerAnimated:YES];

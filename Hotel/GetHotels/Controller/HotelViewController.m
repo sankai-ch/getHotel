@@ -610,7 +610,7 @@
     //UINavigationController *nc = [[UINavigationController alloc]initWithRootViewController:detailVC];
     //[self presentViewController:nc animated:YES completion:nil];
    // detailVC.hotelId = hotelID.hotelId;
-    NSLog(@"%@",detailVC.hotelid);
+   // NSLog(@"%@",detailVC.hotelid);
     
     [self.navigationController pushViewController:detailVC animated:YES];
 }

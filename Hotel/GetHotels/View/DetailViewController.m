@@ -11,6 +11,7 @@
 @interface DetailViewController ()<UIScrollViewDelegate>
 {
     NSInteger Flag;
+    NSInteger Num;
 }
 @property (weak, nonatomic) IBOutlet UIImageView *p4;
 @property (weak, nonatomic) IBOutlet UIImageView *p3;
@@ -63,7 +64,7 @@
     [self getimage];
 }
 - (void)viewWillDisappear:(BOOL)animated {
-    [self viewWillDisappear:YES];
+  //  [self viewWillDisappear:YES];
     [_tr invalidate];
 }
 - (void)didReceiveMemoryWarning {
@@ -107,7 +108,7 @@
 }
 -(void)nextpage{
     NSInteger page1 = self.page.currentPage;
-    NSLog(@"%ld",(long)page1);
+   // NSLog(@"%ld",(long)page1);
     NSInteger nextpage = 0;
     if(page1 == self.page.numberOfPages - 1)
     {
@@ -155,6 +156,8 @@
     //给按钮添加事件
     [leftBtn addTarget:self action:@selector(leftButtonAction:) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:leftBtn];
+    //设置导航条是否被隐藏
+    self.navigationController.navigationBar.hidden = YES;
 }
 -(void)leftButtonAction:(UIButton *)sender{
     [self.navigationController popViewControllerAnimated:YES];
@@ -173,7 +176,7 @@
     NSString *dateStr = [formatter stringFromDate:date];
     NSString *dateTomStr = [formatter stringFromDate:dateTom];
     //将处理好的时间字符串设置给两个button
-    [_timeday setTitle:dateStr forState:UIControlStateNormal];
+   [_timeday setTitle:dateStr forState:UIControlStateNormal];
     [_timeday1 setTitle:dateTomStr forState:UIControlStateNormal];
 }
 
@@ -240,13 +243,21 @@
     //菊花膜
     UIActivityIndicatorView *aiv = [Utilities getCoverOnView:self.view];
     //NSLog(@"%@",_hotelid);
-    NSDictionary * para = @{@"id":@1};
+   
+    NSDictionary * para = @{@"id":[[StorageMgr singletonStorageMgr] objectForKey:@"hotelId"]};
     [RequestAPI requestURL:@"/findHotelById" withParameters:para andHeader:nil byMethod:kGet andSerializer:kForm success:^(id responseObject) {
         [aiv stopAnimating];
         NSLog(@"hotel:%@",responseObject);
         if([responseObject[@"result"]integerValue]==1){
             NSDictionary *result = responseObject[@"content"];
             detailModel *detail = [[detailModel alloc]initWithDict:result];
+            NSString *tday =[[[StorageMgr singletonStorageMgr] objectForKey:@"customInTime"] substringFromIndex:2 ];
+              NSString *tday1 =[[[StorageMgr singletonStorageMgr]objectForKey:@"customOutTime"] substringFromIndex:2 ];
+            [_timeday setTitle:tday forState:(UIControlStateNormal)];
+            NSLog(@"%@",_timeday.titleLabel.text);
+            [_timeday1 setTitle:tday1 forState:UIControlStateNormal];
+            NSLog(@"%@",_timeday1.titleLabel.text);
+
             _jiudian.text =detail.hotels;
             _dizhi.text = detail.address;
             _price.text = [NSString stringWithFormat:@"¥ %ld",(long)detail.price];
