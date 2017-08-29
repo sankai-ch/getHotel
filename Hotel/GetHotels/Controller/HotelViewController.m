@@ -23,6 +23,8 @@
     NSInteger selectsection;
     
 }
+@property (weak, nonatomic) IBOutlet UIControl *backgroundView;
+@property (weak, nonatomic) IBOutlet UIView *pickerView;
 @property (weak, nonatomic) IBOutlet UIView *sequenceView;
 @property (weak, nonatomic) IBOutlet UIDatePicker *datePicker;
 @property (weak, nonatomic) IBOutlet UIToolbar *toolBar;
@@ -80,6 +82,8 @@
 
 - (IBAction)cancelAction:(UIBarButtonItem *)sender;
 - (IBAction)confirmAction:(UIBarButtonItem *)sender;
+- (IBAction)didTouch;
+    
 
 
 
@@ -595,6 +599,7 @@
                 _SortId = @"4";
                 break;
         }
+        _backgroundView.hidden = YES;
         _selectBView.hidden = YES;
         [self requestAll];
         return;
@@ -664,15 +669,18 @@
     if (tableView == _hotelTableView) {
         UIView *view = [UIView new];
         view.backgroundColor = [UIColor whiteColor];
-        
-        _a.titleLabel.textColor = [UIColor whiteColor];
-        _b.titleLabel.textColor = [UIColor whiteColor];
-        _c.titleLabel.textColor = [UIColor whiteColor];
-        _d.titleLabel.textColor = [UIColor whiteColor];
-        _a.backgroundColor = [UIColor lightGrayColor];
-        _b.backgroundColor = [UIColor lightGrayColor];
-        _c.backgroundColor = [UIColor lightGrayColor];
-        _d.backgroundColor = [UIColor lightGrayColor];
+        [_a setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+        [_b setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+        [_c setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+        [_d setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+//        _a.titleLabel.textColor = [UIColor blueColor];
+//        _b.titleLabel.textColor = [UIColor blueColor];
+//        _c.titleLabel.textColor = [UIColor blueColor];
+//        _d.titleLabel.textColor = [UIColor blueColor];
+        _a.backgroundColor = [UIColor whiteColor];
+        _b.backgroundColor = [UIColor whiteColor];
+        _c.backgroundColor = [UIColor whiteColor];
+        _d.backgroundColor = [UIColor whiteColor];
         _a.titleLabel.font = [UIFont systemFontOfSize:13];
         _b.titleLabel.font = [UIFont systemFontOfSize:13];
         _c.titleLabel.font = [UIFont systemFontOfSize:13];
@@ -729,13 +737,16 @@
 //}
 
 - (void)sequenceAt{
-    _datePicker.hidden = YES;
-    _toolBar.hidden = YES;
+    //_datePicker.hidden = YES;
+    //_toolBar.hidden = YES;
+    _pickerView.hidden = YES;
     _selectBView.hidden = YES;
     if(!_sequenceView.hidden){
-        _sequenceView.hidden=YES;
+        _sequenceView.hidden = YES;
+        _backgroundView.hidden = YES;
         return;
     }
+    _backgroundView.hidden = NO;
     _sequenceView.hidden=NO;
 }
 
@@ -743,12 +754,15 @@
     //[a titleForState:UIControlStateHighlighted];
     //_selectView.hidden = NO;
     _sequenceView.hidden=YES;
-    _datePicker.hidden = YES;
-    _toolBar.hidden = YES;
+    _pickerView.hidden = YES;
+    //_datePicker.hidden = YES;
+    //_toolBar.hidden = YES;
     if (!_selectBView.hidden) {
         _selectBView.hidden = YES;
+        _backgroundView.hidden = YES;
         return;
     }
+    _backgroundView.hidden = NO;
     _selectBView.hidden = NO;
 }
 
@@ -761,29 +775,37 @@
     //[_inTimeBtn titleForState:UIControlStateHighlighted];
     _selectBView.hidden = YES;
     _sequenceView.hidden=YES;
-    if (!_datePicker.hidden) {
-        _datePicker.hidden = YES;
-        _toolBar.hidden = YES;
+    if (!_pickerView.hidden) {
+        //_datePicker.hidden = YES;
+        //_toolBar.hidden = YES;
+        _pickerView.hidden = YES;
+        _backgroundView.hidden = YES;
         [_a setTitle:_inTime forState:UIControlStateNormal];
         return;
     }
     btnTime = 0;
-    _datePicker.hidden = NO;
-    _toolBar.hidden = NO;
+    //_datePicker.hidden = NO;
+    //_toolBar.hidden = NO;
+    _backgroundView.hidden = NO;
+    _pickerView.hidden = NO;
 }
 - (void)outTimeAction {
     //[_outTimeBtn titleForState:UIControlStateHighlighted];
     _selectBView.hidden = YES;
     _sequenceView.hidden=YES;
-    if (!_datePicker.hidden) {
-        _datePicker.hidden = YES;
-        _toolBar.hidden = YES;
+    if (!_pickerView.hidden) {
+        //_datePicker.hidden = YES;
+        //_toolBar.hidden = YES;
+        _pickerView.hidden = YES;
+        _backgroundView.hidden = YES;
         [_b setTitle:_outTime forState:UIControlStateNormal];
         return;
     }
     btnTime = 1;
-    _datePicker.hidden = NO;
-    _toolBar.hidden = NO;
+    //_datePicker.hidden = NO;
+    //_toolBar.hidden = NO;
+    _backgroundView.hidden = NO;
+    _pickerView.hidden =NO;
 }
 
 //- (IBAction)dateInAction:(UIButton *)sender forEvent:(UIEvent *)event {
@@ -799,8 +821,8 @@
 //}
 
 - (IBAction)cancelAction:(UIBarButtonItem *)sender {
-    _datePicker.hidden = YES;
-    _toolBar.hidden = YES;
+    _pickerView.hidden = YES;
+    _backgroundView.hidden = YES;
     //[_menu hideMenu];
 }
 
@@ -843,9 +865,8 @@
 //        [_outTimeBtn setTitle:[NSString stringWithFormat:@"离店%@", theDate] forState:UIControlStateNormal];
 //        _date2 = [pFormatter stringFromDate:date];
     }
-    
-    _datePicker.hidden = YES;
-    _toolBar.hidden = YES;
+    _backgroundView.hidden = YES;
+    _pickerView.hidden = YES;
     [self requestAll];
 }
 
@@ -951,6 +972,14 @@
 }
 - (IBAction)cofirmAction:(UIButton *)sender forEvent:(UIEvent *)event {
     _sequenceView.hidden=YES;
+    _backgroundView.hidden = YES;
     [self requestAll];
+}
+
+- (IBAction)didTouch {
+    _selectBView.hidden = YES;
+    _pickerView.hidden = YES;
+    _backgroundView.hidden = YES;
+    _sequenceView.hidden = YES;
 }
 @end
