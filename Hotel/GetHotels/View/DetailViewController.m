@@ -41,15 +41,14 @@
 @property (weak, nonatomic) IBOutlet UIButton *timeday1;
 @property (weak, nonatomic) IBOutlet UIImageView *image3;
 @property (weak, nonatomic) IBOutlet UIButton *goumai;
-@property (strong,nonatomic) NSTimer *timer;
 
 - (IBAction)goumaiAction:(UIButton *)sender forEvent:(UIEvent *)event;
 - (IBAction)dayAction:(UIButton *)sender forEvent:(UIEvent *)event;
 - (IBAction)day1Action:(UIButton *)sender forEvent:(UIEvent *)event;
 - (IBAction)concer:(UIBarButtonItem *)sender;
 - (IBAction)confirm:(UIBarButtonItem *)sender;
-@property (strong,nonatomic )IBOutlet UIPageControl *page;
-@property (strong ,nonatomic) IBOutlet NSTimer *tr;
+@property (strong,nonatomic ) UIPageControl *page;
+@property (strong ,nonatomic) NSTimer *tr;
 @end
 
 @implementation DetailViewController
@@ -64,11 +63,12 @@
 - (void)viewWillDisappear:(BOOL)animated {
    
     [_tr invalidate];
+    _tr = nil;
 }
--(void)viewDidAppear:(BOOL)animated{
+-(void)viewWillAppear:(BOOL)animated{
     [self viewWillDisappear:YES];
-    [_tr invalidate];
-    [self getimage];
+    //[_tr invalidate];
+    [self startTime];
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -97,18 +97,17 @@
     _scroll.backgroundColor = [UIColor grayColor];
     self.scroll.delegate = self;
     _page = [[UIPageControl alloc] init];
-    _page.frame = CGRectMake(300, 200, 30, 10);
+    _page.frame = CGRectMake(_scrollView2.frame.size.width - 40,_scrollView2.frame.origin.y +120, 30, 10);
     _page.numberOfPages = 4;
     _page.pageIndicatorTintColor = [UIColor redColor];
     _page.currentPageIndicatorTintColor = [UIColor blueColor];
     
-    [self.sc addSubview:_page];
-    [self startTime];
+    [_scrollView2 addSubview:_page];
+    //[self startTime];
 }
 -(void)startTime{
     
-    self.tr = [NSTimer timerWithTimeInterval: 3.0 target: self selector:@selector(nextpage)userInfo:nil repeats:YES];
-    [[NSRunLoop mainRunLoop]addTimer:self.tr forMode:NSRunLoopCommonModes];
+    _tr = [NSTimer scheduledTimerWithTimeInterval: 1.5 target: self selector:@selector(nextpage)userInfo:nil repeats:YES];
 }
 -(void)nextpage{
     NSInteger page1 = self.page.currentPage;
@@ -127,14 +126,12 @@
     
 }
 -(void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView{
-    [_tr invalidate];
-    
+    [_tr setFireDate:[NSDate distantFuture]];
     
 }
 
--(void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
-    self.tr = [NSTimer timerWithTimeInterval: 3.0 target: self selector:@selector(nextpage)userInfo:nil repeats:YES];
-    [self startTime];
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
+    [_tr setFireDate:[NSDate dateWithTimeInterval:1.5 sinceDate:[NSDate date]]];
 }
 
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView{
