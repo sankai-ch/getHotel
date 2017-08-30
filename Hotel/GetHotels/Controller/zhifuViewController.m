@@ -72,7 +72,6 @@
     //给按钮添加事件
     [leftBtn addTarget:self action:@selector(leftButtonAction:) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:leftBtn];
-<<<<<<< HEAD
     //设置是否需要毛玻璃效果
     self.navigationController.navigationBar.translucent = YES;
    
@@ -98,8 +97,6 @@
     }
     
     
-=======
->>>>>>> 5b492e971e52a6dfaf396bef4bf9a7b478a04bff
 }
 -(void)leftButtonAction:(UIButton *)sender{
     [self.navigationController popViewControllerAnimated:YES];

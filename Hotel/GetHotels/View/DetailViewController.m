@@ -59,7 +59,7 @@
     [self request];
     [self getimage];
 }
-<<<<<<< HEAD
+
 - (void)viewWillDisappear:(BOOL)animated {
    
     [_tr invalidate];
@@ -70,9 +70,8 @@
     //[_tr invalidate];
     [self startTime];
 }
-=======
 
->>>>>>> 5b492e971e52a6dfaf396bef4bf9a7b478a04bff
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -129,21 +128,21 @@
     
 }
 -(void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView{
-<<<<<<< HEAD
+
     [_tr setFireDate:[NSDate distantFuture]];
     
 }
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
     [_tr setFireDate:[NSDate dateWithTimeInterval:1.5 sinceDate:[NSDate date]]];
-=======
+
     [_tr invalidate];
     
 }
 -(void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
     self.tr = [NSTimer timerWithTimeInterval: 2.0 target: self selector:@selector(nextpage)userInfo:nil repeats:YES];
     [self startTime];
->>>>>>> 5b492e971e52a6dfaf396bef4bf9a7b478a04bff
+
 }
 
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView{
@@ -169,11 +168,9 @@
     //给按钮添加事件
     [leftBtn addTarget:self action:@selector(leftButtonAction:) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:leftBtn];
-<<<<<<< HEAD
     //设置导航条是否被隐藏
     self.navigationController.navigationBar.hidden = NO;
-=======
->>>>>>> 5b492e971e52a6dfaf396bef4bf9a7b478a04bff
+
 }
 -(void)leftButtonAction:(UIButton *)sender{
     [self.navigationController popViewControllerAnimated:YES];
@@ -296,14 +293,11 @@
         if([responseObject[@"result"]integerValue]==1){
             NSDictionary *result = responseObject[@"content"];
             detailModel *detail = [[detailModel alloc]initWithDict:result];
-<<<<<<< HEAD
+
             NSString *tday =[[[StorageMgr singletonStorageMgr] objectForKey:@"customInTime"] substringFromIndex:2 ];
               NSString *tday1 =[[[StorageMgr singletonStorageMgr]objectForKey:@"customOutTime"] substringFromIndex:2 ];
             [_timeday setTitle:tday forState:(UIControlStateNormal)];
             [_timeday1 setTitle:tday1 forState:UIControlStateNormal];
-        
-=======
->>>>>>> 5b492e971e52a6dfaf396bef4bf9a7b478a04bff
             _jiudian.text =detail.hotels;
             _dizhi.text = detail.address;
             _price.text = [NSString stringWithFormat:@"¥ %ld",(long)detail.price];
