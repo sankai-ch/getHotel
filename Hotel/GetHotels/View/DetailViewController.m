@@ -12,10 +12,8 @@
 {
     NSInteger Flag;
 }
-@property (weak, nonatomic) IBOutlet UIView *yin;
-@property (weak, nonatomic) IBOutlet UIView *sc;
-
 @property (weak, nonatomic) IBOutlet UIScrollView *scroll;
+
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView2;
 @property (weak, nonatomic) IBOutlet UIDatePicker *time;
 @property (weak, nonatomic) IBOutlet UIToolbar *toolbar;
@@ -39,15 +37,16 @@
 @property (weak, nonatomic) IBOutlet UIButton *timeday;
 @property (weak, nonatomic) IBOutlet UIButton *timeday1;
 @property (weak, nonatomic) IBOutlet UIImageView *image3;
+@property (weak, nonatomic) IBOutlet UIButton *weiliao;
 @property (weak, nonatomic) IBOutlet UIButton *goumai;
-
 - (IBAction)goumaiAction:(UIButton *)sender forEvent:(UIEvent *)event;
 - (IBAction)dayAction:(UIButton *)sender forEvent:(UIEvent *)event;
 - (IBAction)day1Action:(UIButton *)sender forEvent:(UIEvent *)event;
 - (IBAction)concer:(UIBarButtonItem *)sender;
 - (IBAction)confirm:(UIBarButtonItem *)sender;
-@property (strong,nonatomic ) UIPageControl *page;
-@property (strong ,nonatomic) NSTimer *tr;
+@property (weak, nonatomic) IBOutlet UIView *yingc;
+@property (strong,nonatomic )IBOutlet UIPageControl *page;
+@property (strong ,nonatomic) IBOutlet NSTimer *tr;
 @end
 
 @implementation DetailViewController
@@ -60,17 +59,18 @@
     [self getimage];
 }
 
-- (void)viewWillDisappear:(BOOL)animated {
-   
-    [_tr invalidate];
-    _tr = nil;
-}
+
+
 -(void)viewWillAppear:(BOOL)animated{
-    [self viewWillDisappear:YES];
-    //[_tr invalidate];
+    [super viewWillAppear:animated];
     [self startTime];
 }
 
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [_tr invalidate];
+    _tr = nil;
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -97,15 +97,13 @@
     _scroll.contentSize = CGSizeMake([[UIScreen mainScreen] bounds].size.width * 4, 0);
     _scroll.showsVerticalScrollIndicator = NO;
     _scroll.backgroundColor = [UIColor grayColor];
-    self.scroll.delegate = self;
+    _scroll.delegate = self;
     _page = [[UIPageControl alloc] init];
-    _page.frame = CGRectMake(_scrollView2.frame.size.width - 40,_scrollView2.frame.origin.y +120, 30, 10);
+    _page.frame = CGRectMake(_scrollView2.frame.size.width - 40,_scrollView2.frame.origin.y +130, 30, 10);
     _page.numberOfPages = 4;
     _page.pageIndicatorTintColor = [UIColor redColor];
     _page.currentPageIndicatorTintColor = [UIColor blueColor];
-    
-    [_scrollView2 addSubview:_page];
-    //[self startTime];
+    [_scrollView2  addSubview:_page];
 }
 -(void)startTime{
     
@@ -113,7 +111,6 @@
 }
 -(void)nextpage{
     NSInteger page1 = self.page.currentPage;
-    NSLog(@"%ld",(long)page1);
     NSInteger nextpage = 0;
     if(page1 == self.page.numberOfPages - 1)
     {
@@ -122,34 +119,33 @@
         nextpage = page1 +1;
     }
     
-    CGFloat content = nextpage *_scroll.frame.size.width;
+  CGFloat content = nextpage *_scroll.frame.size.width;
     _scroll.contentOffset = CGPointMake(content, 0);
-    
+   //[_scroll scrollRectToVisible:CGRectMake(UI_SCREEN_W * nextpage, 0, UI_SCREEN_W, 150) animated:YES];
     
 }
 -(void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView{
 
-    [_tr setFireDate:[NSDate distantFuture]];
-    
+    if (scrollView == _scroll) {
+        [_tr setFireDate:[NSDate distantFuture]];
+    }
 }
-
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
-    [_tr setFireDate:[NSDate dateWithTimeInterval:1.5 sinceDate:[NSDate date]]];
 
-    [_tr invalidate];
-    
+    if (scrollView == _scroll) {
+        [_tr setFireDate:[NSDate dateWithTimeInterval:1.5 sinceDate:[NSDate date]]];
+    }
 }
--(void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
-    self.tr = [NSTimer timerWithTimeInterval: 2.0 target: self selector:@selector(nextpage)userInfo:nil repeats:YES];
-    [self startTime];
 
-}
 
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView{
-    int page = scrollView.contentOffset.x / scrollView.frame.size.width;
-    //    NSLog(@"%d", page);
-    // 设置页码
-    _page.currentPage = page;
+    
+    if (scrollView == _scroll) {
+        int page = scrollView.contentOffset.x / scrollView.frame.size.width;
+        //    NSLog(@"%d", page);
+        // 设置页码
+        _page.currentPage = page;
+    }
 }
 
 
@@ -170,7 +166,6 @@
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:leftBtn];
     //设置导航条是否被隐藏
     self.navigationController.navigationBar.hidden = NO;
-
 }
 -(void)leftButtonAction:(UIButton *)sender{
     [self.navigationController popViewControllerAnimated:YES];
@@ -195,73 +190,59 @@
 
 
 
+
 #pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    zhifuViewController *pay = [segue destinationViewController];
-    
-    pay.dict = sender;
-    
-}
-
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ zhifuViewController *pay = [segue destinationViewController];
+ 
+ pay.dict = sender;
+ 
+ }
 #pragma mark - button
 - (IBAction)dituAction:(UIButton *)sender forEvent:(UIEvent *)event {
      [self performSegueWithIdentifier:@"ditu" sender:nil];
+    _yingc.hidden = YES;
 }
-- (IBAction)weiiaoAction:(UIButton *)sender forEvent:(UIEvent *)event {
+
+
+- (IBAction)goumaiAction:(UIButton *)sender forEvent:(UIEvent *)event {
     if([Utilities loginCheck])
     {
-       
-        [self performSegueWithIdentifier:@"weiliao" sender:nil];
-       // purchaseVc.name = _jiudian.text;
+        
+        NSDictionary * dic = @{@1:_jiudian.text,@2:_timeday.titleLabel.text,@3:_timeday1.titleLabel.text,@4:_price.text};
+        [self performSegueWithIdentifier:@"zhifu" sender:dic];
+        //zhifuViewController *zhifu = [[zhifuViewController alloc]init];
+        
+        
     }else{
         UINavigationController *signNavi=[Utilities getStoryboardInstance:@"Login" byIdentity:@"SignNavi"];
         //执行跳转
         [self presentViewController:signNavi animated:YES completion:nil];
     }
-    
-}
-
-- (IBAction)goumaiAction:(UIButton *)sender forEvent:(UIEvent *)event {
-    
-  if([Utilities loginCheck])
-  {
-      
-      NSDictionary * dic = @{@1:_jiudian.text,@2:_timeday.titleLabel.text,@3:_timeday1.titleLabel.text,@4:_price.text};
-      [self performSegueWithIdentifier:@"zhifu" sender:dic];
-      //zhifuViewController *zhifu = [[zhifuViewController alloc]init];
-      
-     
-  }else{
-      UINavigationController *signNavi=[Utilities getStoryboardInstance:@"Login" byIdentity:@"SignNavi"];
-      //执行跳转
-      [self presentViewController:signNavi animated:YES completion:nil];
-  }
-    
-   
+_yingc.hidden = YES;
 
 }
 
 - (IBAction)dayAction:(UIButton *)sender forEvent:(UIEvent *)event {
     
     Flag = 0;
+    _yingc.hidden = NO;
     _toolbar.hidden = NO;
     _time.hidden = NO;
-    _yin.hidden = NO;
 }
 
 - (IBAction)day1Action:(UIButton *)sender forEvent:(UIEvent *)event {
     Flag = 1;
+    _yingc.hidden = NO;
     _toolbar.hidden = NO;
     _time.hidden = NO;
-    _yin.hidden = NO;
 }
 
 - (IBAction)concer:(UIBarButtonItem *)sender {
     _toolbar.hidden = YES;
     _time.hidden = YES;
-    _yin.hidden = YES;
+    _yingc.hidden = YES;
 }
 
 - (IBAction)confirm:(UIBarButtonItem *)sender {
@@ -280,13 +261,13 @@
     }
     _toolbar.hidden = YES;
     _time.hidden = YES;
-    _yin.hidden = YES;
+    _yingc.hidden =YES;
 }
 - (void)request{
     //菊花膜
     UIActivityIndicatorView *aiv = [Utilities getCoverOnView:self.view];
     //NSLog(@"%@",_hotelid);
-    NSDictionary * para = @{@"id":@1};
+    NSDictionary * para = @{@"id":[[StorageMgr singletonStorageMgr] objectForKey:@"hotelId"]};
     [RequestAPI requestURL:@"/findHotelById" withParameters:para andHeader:nil byMethod:kGet andSerializer:kForm success:^(id responseObject) {
         [aiv stopAnimating];
         NSLog(@"hotel:%@",responseObject);
@@ -298,6 +279,7 @@
               NSString *tday1 =[[[StorageMgr singletonStorageMgr]objectForKey:@"customOutTime"] substringFromIndex:2 ];
             [_timeday setTitle:tday forState:(UIControlStateNormal)];
             [_timeday1 setTitle:tday1 forState:UIControlStateNormal];
+        
             _jiudian.text =detail.hotels;
             _dizhi.text = detail.address;
             _price.text = [NSString stringWithFormat:@"¥ %ld",(long)detail.price];

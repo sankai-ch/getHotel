@@ -49,6 +49,7 @@
     // Saves changes in the application's managed object context before the application terminates.
     [self saveContext];
 }
+
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation{
     if([url.host isEqualToString:@"safepay"]){
         //获取支付宝支付的结果情况
@@ -58,7 +59,7 @@
             
         } ];
     }
-
+    
     
     return YES;
 }
@@ -74,6 +75,7 @@
     }
     return YES;
 }
+
 
 #pragma mark - Core Data stack
 
