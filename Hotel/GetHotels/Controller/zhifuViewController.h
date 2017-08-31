@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface zhifuViewController : UIViewController
-
+@property (strong,nonatomic) NSDictionary *dict;
 @end

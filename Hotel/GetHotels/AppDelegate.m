@@ -50,6 +50,32 @@
     [self saveContext];
 }
 
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation{
+    if([url.host isEqualToString:@"safepay"]){
+        //获取支付宝支付的结果情况
+        [[ AlipaySDK defaultService] processOrderWithPaymentResult:url standbyCallback:^(NSDictionary *resultDic) {
+            //获取支付结果具体内容（成功或失败）
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"AlipayResult" object:resultDic[@"resultStatus"]];
+            
+        } ];
+    }
+    
+    
+    return YES;
+}
+- (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options{
+    //判断是不是从支付宝app跳转到本app
+    if([url.host isEqualToString:@"safepay"]){
+        //获取支付宝支付的结果情况
+        [[ AlipaySDK defaultService] processOrderWithPaymentResult:url standbyCallback:^(NSDictionary *resultDic) {
+            //获取支付结果具体内容（成功或失败）
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"AlipayResult" object:resultDic[@"resultStatus"]];
+            
+        } ];
+    }
+    return YES;
+}
+
 
 #pragma mark - Core Data stack
 
