@@ -132,6 +132,7 @@
         if ([responseObject[@"result"] integerValue] == 1) {
             NSArray *content = responseObject[@"content"];
             [_arr removeAllObjects];
+            [_cityListArr removeAllObjects];
             for (NSDictionary *dict in content) {
                 CityListModel *cityList = [[CityListModel alloc] initWithDict:dict];
                 [_cityListArr addObject:cityList];

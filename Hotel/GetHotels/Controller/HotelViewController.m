@@ -23,6 +23,7 @@
     NSInteger selectsection;
     
 }
+@property (weak, nonatomic) IBOutlet UISearchBar *searchHotelBar;
 @property (weak, nonatomic) IBOutlet UIControl *backgroundView;
 @property (weak, nonatomic) IBOutlet UIView *pickerView;
 @property (weak, nonatomic) IBOutlet UIView *sequenceView;
@@ -472,53 +473,70 @@
 //        
 //    }];
 //}
-
+- (void)requestForSearch: (NSString *)name {
+    [RequestAPI requestURL:@"/selectHotel" withParameters:@{@"hotel_name":name,@"inTime":_date1,@"outTime":_date2} andHeader:nil byMethod:kGet andSerializer:kForm success:^(id responseObject) {
+        NSLog(@"%@",responseObject);
+        if ([responseObject[@"result"] integerValue] == 1) {
+            NSArray *searchHotelArr = responseObject[@"content"];
+            [_hotelArr removeAllObjects];
+            for (NSDictionary *dict in searchHotelArr) {
+                AAndHModel *model = [[AAndHModel alloc] initWithDictForHotelCell:dict];
+                [_hotelArr addObject:model];
+            }
+            [_hotelTableView reloadData];
+        }
+    } failure:^(NSInteger statusCode, NSError *error) {
+        
+    }];
+}
 
 - (void)requestAll {
     //(startId  0 = all       2 = 4  3 = 5)
     //
     //(sortingId 2 = l - h  3 = h - l   )
-
-    NSDictionary *para = @{@"city_name":_cityLocation.titleLabel.text,@"pageNum":@1,@"pageSize":@10,@"startId":@(starlevels),@"priceId":@(priceduring),@"sortingId":_SortId,@"inTime":_date1,@"outTime":_date2,@"wxlongitude":@"31.568",@"wxlatitude":@"120.299"};
-
-    //NSLog(@"%@,%@",_date1,_date2);
-    [RequestAPI requestURL:@"/findHotelByCity_edu" withParameters:para andHeader:nil byMethod:kGet andSerializer:kJson success:^(id responseObject) {
-        NSLog(@"%@",responseObject);
-        [_avi stopAnimating];
-        if ([responseObject[@"result"] integerValue] == 1) {
-            if (_advArr.count == 0) {
-                NSArray *advertising = responseObject[@"content"][@"advertising"];
-                for (NSDictionary *dict in advertising) {
-                    AAndHModel *adV = [[AAndHModel alloc] initWithDictForAD:dict];
-                    [_advArr addObject:adV];
+    if (_searchHotelBar.text.length == 0) {
+        NSDictionary *para = @{@"city_name":_cityLocation.titleLabel.text,@"pageNum":@1,@"pageSize":@10,@"startId":@(starlevels),@"priceId":@(priceduring),@"sortingId":_SortId,@"inTime":_date1,@"outTime":_date2,@"wxlongitude":@"31.568",@"wxlatitude":@"120.299"};
+        
+        //NSLog(@"%@,%@",_date1,_date2);
+        [RequestAPI requestURL:@"/findHotelByCity_edu" withParameters:para andHeader:nil byMethod:kGet andSerializer:kJson success:^(id responseObject) {
+            //NSLog(@"%@",responseObject);
+            [_avi stopAnimating];
+            if ([responseObject[@"result"] integerValue] == 1) {
+                if (_advArr.count == 0) {
+                    NSArray *advertising = responseObject[@"content"][@"advertising"];
+                    for (NSDictionary *dict in advertising) {
+                        AAndHModel *adV = [[AAndHModel alloc] initWithDictForAD:dict];
+                        [_advArr addObject:adV];
+                        
+                    }
+                    [self setADImage];
+                }
+                
+                //NSLog(@"_advArr:%@",_advArr);
+                NSArray *hotel = responseObject[@"content"][@"hotel"][@"list"];
+                [_hotelArr removeAllObjects];
+                for (NSDictionary *dict in hotel) {
+                    AAndHModel *hotelModel = [[AAndHModel alloc] initWithDictForHotelCell:dict];
+                    //NSLog(@"%@",hotelModel.hotelName);
+                    [_hotelArr addObject:hotelModel];
                     
                 }
-                [self setADImage];
+                //                        AAndHModel *hotel1 = _hotelArr[0];
+                //                        NSLog(@"%@",hotel1.hotelName);
+                //                        NSLog(@"%@",hotel1.hotelPrice);
+                [_hotelTableView reloadData];
             }
             
-            //NSLog(@"_advArr:%@",_advArr);
-            NSArray *hotel = responseObject[@"content"][@"hotel"][@"list"];
-            [_hotelArr removeAllObjects];
-            for (NSDictionary *dict in hotel) {
-                AAndHModel *hotelModel = [[AAndHModel alloc] initWithDictForHotelCell:dict];
-                //NSLog(@"%@",hotelModel.hotelName);
-                [_hotelArr addObject:hotelModel];
+        }failure:^(NSInteger statusCode, NSError *error) {
+            
+            [_avi stopAnimating];
+            NSLog(@"%@",error);
+            [Utilities popUpAlertViewWithMsg:@"网络不稳定" andTitle:nil onView:self onCompletion:^{
                 
-            }
-//                        AAndHModel *hotel1 = _hotelArr[0];
-//                        NSLog(@"%@",hotel1.hotelName);
-//                        NSLog(@"%@",hotel1.hotelPrice);
-            [_hotelTableView reloadData];
-        }
-        
-    }failure:^(NSInteger statusCode, NSError *error) {
-        
-        [_avi stopAnimating];
-        NSLog(@"%@",error);
-        [Utilities popUpAlertViewWithMsg:@"网络不稳定" andTitle:nil onView:self onCompletion:^{
-            
+            }];
         }];
-    }];
+
+    }
 }
 /*
 - (void)request {
@@ -560,23 +578,23 @@
         return cell;
     }
     HotelTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"HotelCell" forIndexPath:indexPath];
-    NSLog(@"%ld",(long)_hotelArr.count);
-    NSLog(@"%ld",(long)indexPath.row);
+    //NSLog(@"%ld",(long)_hotelArr.count);
+    //NSLog(@"%ld",(long)indexPath.row);
     AAndHModel *hotelModel = _hotelArr[indexPath.row];
-    NSLog(@"123%@",hotelModel.hotelName);
+    //NSLog(@"123%@",hotelModel.hotelName);
     cell.hotelName.text = hotelModel.hotelName;
-    NSLog(@"%@",cell.hotelName.text);
+    //NSLog(@"%@",cell.hotelName.text);
     cell.hotelPrice.text = [NSString stringWithFormat:@"¥%@",hotelModel.hotelPrice];
-    NSLog(@"%@",cell.hotelPrice.text);
-    NSLog(@"%@",hotelModel.hotelImg);
+    //NSLog(@"%@",cell.hotelPrice.text);
+    //NSLog(@"%@",hotelModel.hotelImg);
     NSURL *url = [NSURL URLWithString:hotelModel.hotelImg];
-    NSLog(@"%@",url);
+    //NSLog(@"%@",url);
     [cell.imageView sd_setImageWithURL:url placeholderImage:[UIImage imageNamed:@"酒店"]];
     
     cell.hotelLocation.text = hotelModel.hotelAdd;
-    NSLog(@"%@",cell.hotelLocation.text);
+    //NSLog(@"%@",cell.hotelLocation.text);
     cell.hotelDistance.text = [NSString stringWithFormat:@"%ld",(long)hotelModel.distance];
-    NSLog(@"%@",cell.hotelDistance.text);
+    //NSLog(@"%@",cell.hotelDistance.text);
     return cell;
 }
 
@@ -714,16 +732,21 @@
     return 40;
 }
 
+
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+}
+
+
 #pragma mark - searchBar
 
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
-    NSDictionary *para=@{@"hotel_name":searchText,@"inTime":_date1,@"outTime":_date2};
-    [RequestAPI requestURL:@"selectHotel" withParameters:para andHeader:nil byMethod:kGet andSerializer:kForm success:^(id responseObject) {
-        NSLog(@"%@",responseObject);
-    } failure:^(NSInteger statusCode, NSError *error) {
-         NSLog(@"%ld",(long)statusCode);
-    }];
-}
+    if (searchText.length == 0) {
+        [self requestAll];
+    } else{
+        [self requestForSearch:searchText];
+    }
+}  
 
 
 

@@ -330,7 +330,7 @@
                                 <rect key="frame" x="0.0" y="304" width="375" height="124"/>
                                 <subviews>
                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="xqx-nh-GoA">
-                                        <rect key="frame" x="100" y="63" width="275" height="28"/>
+                                        <rect key="frame" x="100" y="30.5" width="275" height="60.5"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="uRE-VJ-JRY">
                                             <size key="itemSize" width="62" height="16"/>
@@ -348,7 +348,7 @@
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yuv-zZ-emd">
                                                             <rect key="frame" x="0.0" y="0.0" width="62" height="16"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
@@ -381,7 +381,7 @@
                                         </connections>
                                     </button>
                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="FrK-mI-atm">
-                                        <rect key="frame" x="100" y="0.0" width="275" height="28"/>
+                                        <rect key="frame" x="100" y="0.0" width="275" height="30.5"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="BgL-SE-oQw">
                                             <size key="itemSize" width="63" height="16"/>
@@ -399,7 +399,7 @@
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dcq-2s-ET1">
                                                             <rect key="frame" x="0.0" y="0.0" width="63" height="16"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
@@ -422,14 +422,14 @@
                                         </connections>
                                     </collectionView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="星级" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SeM-Mc-aET">
-                                        <rect key="frame" x="20" y="0.0" width="72" height="21"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <rect key="frame" x="20" y="0.0" width="72" height="18"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="价格区间" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pZ2-5i-zpM">
-                                        <rect key="frame" x="20" y="41" width="69.5" height="21"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <rect key="frame" x="20" y="38" width="61.5" height="18"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -438,9 +438,9 @@
                                 <constraints>
                                     <constraint firstItem="SeM-Mc-aET" firstAttribute="leading" secondItem="EjV-eh-aPV" secondAttribute="leading" constant="20" id="1O8-Ku-A4P"/>
                                     <constraint firstItem="ZUg-Qa-QrI" firstAttribute="centerX" secondItem="EjV-eh-aPV" secondAttribute="centerX" id="BTD-CY-lwF"/>
-                                    <constraint firstItem="xqx-nh-GoA" firstAttribute="height" secondItem="FrK-mI-atm" secondAttribute="height" id="Fo9-oK-rUx"/>
                                     <constraint firstAttribute="bottom" secondItem="ZUg-Qa-QrI" secondAttribute="bottom" id="QL5-5T-4ml"/>
                                     <constraint firstItem="FrK-mI-atm" firstAttribute="top" secondItem="EjV-eh-aPV" secondAttribute="top" id="SRn-fU-q38"/>
+                                    <constraint firstItem="xqx-nh-GoA" firstAttribute="height" secondItem="FrK-mI-atm" secondAttribute="height" multiplier="2:1" id="SfF-9T-XQs"/>
                                     <constraint firstItem="FrK-mI-atm" firstAttribute="leading" secondItem="SeM-Mc-aET" secondAttribute="trailing" constant="8" symbolic="YES" id="WKS-uW-YCr"/>
                                     <constraint firstAttribute="trailing" secondItem="FrK-mI-atm" secondAttribute="trailing" id="X0Z-kq-fZS"/>
                                     <constraint firstItem="ZUg-Qa-QrI" firstAttribute="top" secondItem="xqx-nh-GoA" secondAttribute="bottom" constant="5" id="Yh8-ey-eef"/>
@@ -448,8 +448,8 @@
                                     <constraint firstItem="pZ2-5i-zpM" firstAttribute="leading" secondItem="EjV-eh-aPV" secondAttribute="leading" constant="20" id="cmd-AP-pIc"/>
                                     <constraint firstItem="xqx-nh-GoA" firstAttribute="leading" secondItem="EjV-eh-aPV" secondAttribute="leading" constant="100" id="dW0-1u-8tz"/>
                                     <constraint firstItem="SeM-Mc-aET" firstAttribute="top" secondItem="EjV-eh-aPV" secondAttribute="top" id="ecd-4H-wbm"/>
-                                    <constraint firstItem="ZUg-Qa-QrI" firstAttribute="height" secondItem="FrK-mI-atm" secondAttribute="height" id="gxJ-Ra-9Y2"/>
                                     <constraint firstAttribute="trailing" secondItem="xqx-nh-GoA" secondAttribute="trailing" id="kTF-Ff-PZd"/>
+                                    <constraint firstItem="xqx-nh-GoA" firstAttribute="top" secondItem="FrK-mI-atm" secondAttribute="bottom" id="sOG-3x-ii6"/>
                                     <constraint firstItem="pZ2-5i-zpM" firstAttribute="top" secondItem="SeM-Mc-aET" secondAttribute="bottom" constant="20" id="vhR-bQ-TNx"/>
                                 </constraints>
                             </view>
@@ -497,6 +497,7 @@
                         <outlet property="hotelTableView" destination="a8w-zK-PCD" id="gPf-o0-CRn"/>
                         <outlet property="pickerView" destination="Whx-wt-zO8" id="lyZ-tm-j5S"/>
                         <outlet property="scrollView" destination="YtY-0e-rqu" id="Idq-9g-rej"/>
+                        <outlet property="searchHotelBar" destination="jPe-Mp-qxy" id="K36-7M-KfM"/>
                         <outlet property="selectBView" destination="qN3-XF-HKO" id="YPG-NU-ND0"/>
                         <outlet property="selectTableView" destination="SJX-Og-KpB" id="yFO-nS-8cj"/>
                         <outlet property="sequenceView" destination="EjV-eh-aPV" id="HAP-bq-uJ2"/>
@@ -546,7 +547,7 @@
                                 </connections>
                             </searchBar>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="CPd-w3-RL7">
-                                <rect key="frame" x="0.0" y="108" width="375" height="559"/>
+                                <rect key="frame" x="0.0" y="108" width="375" height="510"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="CityListCell" textLabel="cWJ-DX-dyh" style="IBUITableViewCellStyleDefault" id="DtB-oI-gGe">
