@@ -31,7 +31,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    _myInfoArr = @[@{@"leftIcon":@"hotel",@"title":@"我的酒店"},@{@"leftIcon":@"aviation",@"title":@"我的航空"},@{@"leftIcon":@"我的消息",@"title":@"我的消息"},@{@"leftIcon":@"setting",@"title":@"账户设置"},@{@"leftIcon":@"protocol",@"title":@"使用协议"},@{@"leftIcon":@"电话",@"title":@"联系客服"}];    // Do any additional setup after loading the view.
+    _myInfoArr = @[@{@"leftIcon":@"hotel",@"title":@"我的酒店"},@{@"leftIcon":@"aviation",@"title":@"我的航空"},@{@"leftIcon":@"setting",@"title":@"账户设置"},@{@"leftIcon":@"protocol",@"title":@"使用协议"},@{@"leftIcon":@"电话",@"title":@"联系客服"}];    // Do any additional setup after loading the view.
     [self setNavigationItem];
     [self addTapGestureRecognizer:_headImageView];
 
@@ -46,7 +46,7 @@
 //当前页面将要显示的时候，隐藏导航栏
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    [self.navigationController setNavigationBarHidden:YES animated:NO];
+    //[self.navigationController setNavigationBarHidden:YES animated:NO];
     if([Utilities loginCheck]){
         //已登录
         _loginBtn.hidden=YES;
@@ -86,21 +86,21 @@
 //设置导航栏样式
 - (void)setNavigationItem{
     self.navigationItem.title = @"我的";
-    //self.navigationController.navigationBar.backgroundColor = [UIColor whiteColor];
+    
     [self.navigationController.navigationBar setBarTintColor:HEAD_THEMECOLOR];
-    
-    //实例化一个button 类型为UIButtonTypeSystem
-    UIButton *leftBtn = [UIButton buttonWithType:UIButtonTypeSystem];
+//    //实例化一个button 类型为UIButtonTypeSystem
+//    UIButton *leftBtn = [UIButton buttonWithType:UIButtonTypeSystem];
     //设置导航条的颜色（风格颜色）
-    self.navigationController.navigationBar.barTintColor = UIColorFromRGB(24, 124, 326);
+    self.navigationController.navigationBar.barTintColor = UIColorFromRGB(15, 100, 326);
+    self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName : [UIColor whiteColor]};
     //设置位置大小
-    leftBtn.frame = CGRectMake(0, 0, 20, 20);
-    //设置其背景图片为返回图片
-    [leftBtn setBackgroundImage:[UIImage imageNamed:@"返回白色"] forState:UIControlStateNormal];
+//    leftBtn.frame = CGRectMake(0, 0, 20, 20);
+//    //设置其背景图片为返回图片
+//    [leftBtn setBackgroundImage:[UIImage imageNamed:@"返回白色"] forState:UIControlStateNormal];
     //给按钮添加事件
-    [leftBtn addTarget:self action:@selector(leftButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+    //[leftBtn addTarget:self action:@selector(leftButtonAction:) forControlEvents:UIControlEventTouchUpInside];
     
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:leftBtn];
+//    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:leftBtn];
 }
 
 //添加一个单击手势事件
@@ -228,8 +228,10 @@
 }
 //设置组的底部视图高度
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
-    if (section == 2) {
-        return 5.f;
+    if (section == 0) {
+        return 0;
+    }else if(section == 1){
+        return 0;
     }
     return 1.f;
 }
@@ -251,14 +253,11 @@
                 [self performSegueWithIdentifier:@"ToAir" sender:self];
                 break;
             case 2:
-                [self performSegueWithIdentifier:@"ToMessage" sender:self];
-                break;
-            case 3:
                 [self performSegueWithIdentifier:@"ToSafe" sender:self];
                 break;
-            case 4:
+            case 3:
                 [self performSegueWithIdentifier:@"ToProtocol" sender:self];
-                break;
+                    break;
             default:
             {
                 UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"是否拨打客户电话？" message:@"13286535443" preferredStyle:UIAlertControllerStyleAlert];
@@ -283,6 +282,16 @@
     
     }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    if(section == 0 )
+    {
+        return 10;
+    }else if (section == 2){
+        return 10;
+    }else{
+        return 0;
+    }
+}
 #pragma mark - buttonAction
 
 - (IBAction)loginBtn:(UIButton *)sender forEvent:(UIEvent *)event {

@@ -44,7 +44,7 @@
     // Dispose of any resources that can be recreated.
 }
 -(void)uiLayout{
-    _avatar.layer.borderColor=[UIColor blueColor].CGColor;
+    _avatar.layer.borderColor = [UIColor colorWithRed:202/255.0f green:224/255.0f blue:251/255.0f alpha:1].CGColor;
     if(![[Utilities getUserDefaults:@"UserTel"] isKindOfClass:[NSNull class]]){
         if([Utilities getUserDefaults:@"UserTel"]!=nil){
             _phoneTextField.text=[Utilities getUserDefaults:@"UserTel"];
