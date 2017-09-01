@@ -507,7 +507,7 @@
         
         //NSLog(@"%@,%@",_date1,_date2);
         [RequestAPI requestURL:@"/findHotelByCity_edu" withParameters:para andHeader:nil byMethod:kGet andSerializer:kJson success:^(id responseObject) {
-            NSLog(@"%@",responseObject);
+            //NSLog(@"%@",responseObject);
             [_avi stopAnimating];
             UIRefreshControl *ref = (UIRefreshControl *)[_hotelTableView viewWithTag:100001];
             [ref endRefreshing];

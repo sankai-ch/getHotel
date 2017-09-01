@@ -45,9 +45,13 @@
 		B224DBB11F4C46110022C007 /* MyInfoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B224DBB01F4C46110022C007 /* MyInfoTableViewCell.m */; };
 		B224DBB41F4C4D370022C007 /* AirViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B224DBB31F4C4D370022C007 /* AirViewController.m */; };
 		B224DBB71F4C4D4C0022C007 /* MessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B224DBB61F4C4D4C0022C007 /* MessageViewController.m */; };
+<<<<<<< HEAD
 		B240210B1F5929F200E4D00E /* QuoteListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B24021091F5929F200E4D00E /* QuoteListViewController.m */; };
 		B240210E1F592A8800E4D00E /* QuoteListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B240210D1F592A8800E4D00E /* QuoteListTableViewCell.m */; };
 		B24021111F59443700E4D00E /* PayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B24021101F59443700E4D00E /* PayViewController.m */; };
+=======
+		B27158781F590209009FD372 /* AviationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B27158771F590209009FD372 /* AviationViewController.m */; };
+>>>>>>> 4c57b7c0f32e5c4c95009e20a456b75d0ff22ce2
 		B29E08601F5173F5001A0DD6 /* textCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B29E085F1F5173F5001A0DD6 /* textCollectionViewCell.m */; };
 		B2A2D71F1F4AF35B001D6B81 /* Deatil.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B2A2D71D1F4AF35B001D6B81 /* Deatil.storyboard */; };
 		B2A2D7221F4AF373001D6B81 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B2A2D7201F4AF373001D6B81 /* Login.storyboard */; };
@@ -176,12 +180,17 @@
 		B224DBB31F4C4D370022C007 /* AirViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AirViewController.m; sourceTree = "<group>"; };
 		B224DBB51F4C4D4C0022C007 /* MessageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageViewController.h; sourceTree = "<group>"; };
 		B224DBB61F4C4D4C0022C007 /* MessageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageViewController.m; sourceTree = "<group>"; };
+<<<<<<< HEAD
 		B24021081F5929F200E4D00E /* QuoteListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QuoteListViewController.h; path = ../../../../hawudha/hawudha/QuoteListViewController.h; sourceTree = "<group>"; };
 		B24021091F5929F200E4D00E /* QuoteListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QuoteListViewController.m; path = ../../../../hawudha/hawudha/QuoteListViewController.m; sourceTree = "<group>"; };
 		B240210C1F592A3600E4D00E /* QuoteListTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QuoteListTableViewCell.h; sourceTree = "<group>"; };
 		B240210D1F592A8800E4D00E /* QuoteListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuoteListTableViewCell.m; sourceTree = "<group>"; };
 		B240210F1F59443700E4D00E /* PayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PayViewController.h; sourceTree = "<group>"; };
 		B24021101F59443700E4D00E /* PayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PayViewController.m; sourceTree = "<group>"; };
+=======
+		B27158761F590209009FD372 /* AviationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AviationViewController.h; sourceTree = "<group>"; };
+		B27158771F590209009FD372 /* AviationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AviationViewController.m; sourceTree = "<group>"; };
+>>>>>>> 4c57b7c0f32e5c4c95009e20a456b75d0ff22ce2
 		B29E085E1F5173F5001A0DD6 /* textCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = textCollectionViewCell.h; sourceTree = "<group>"; };
 		B29E085F1F5173F5001A0DD6 /* textCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = textCollectionViewCell.m; sourceTree = "<group>"; };
 		B2A2D71E1F4AF35B001D6B81 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = GetHotels/Base.lproj/Deatil.storyboard; sourceTree = SOURCE_ROOT; };
@@ -341,6 +350,7 @@
 			path = AliUtil;
 			sourceTree = "<group>";
 		};
+<<<<<<< HEAD
 		B24021051F5929C800E4D00E /* QuoteListViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -350,6 +360,15 @@
 				B24021101F59443700E4D00E /* PayViewController.m */,
 			);
 			name = QuoteListViewController;
+=======
+		B27158751F5901AA009FD372 /* Aviation */ = {
+			isa = PBXGroup;
+			children = (
+				B27158761F590209009FD372 /* AviationViewController.h */,
+				B27158771F590209009FD372 /* AviationViewController.m */,
+			);
+			name = Aviation;
+>>>>>>> 4c57b7c0f32e5c4c95009e20a456b75d0ff22ce2
 			sourceTree = "<group>";
 		};
 		B2A2D7241F4AF3C4001D6B81 /* Aviation */ = {
@@ -425,7 +444,11 @@
 		B2A2D72B1F4AFB07001D6B81 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+<<<<<<< HEAD
 				B24021051F5929C800E4D00E /* QuoteListViewController */,
+=======
+				B27158751F5901AA009FD372 /* Aviation */,
+>>>>>>> 4c57b7c0f32e5c4c95009e20a456b75d0ff22ce2
 				B2A2D72F1F4AFBD2001D6B81 /* HotelViewController */,
 				B2A2D72E1F4AFB8D001D6B81 /* DetailViewController */,
 				B2A2D72D1F4AFB82001D6B81 /* LoginViewController */,
@@ -895,6 +918,7 @@
 				B224DB981F4C33910022C007 /* RSADataSigner.m in Sources */,
 				B2BD3E8C1F4AA4EF002C6B98 /* NSString+Crypt.m in Sources */,
 				B2BD3E871F4AA4EF002C6B98 /* AppAPIClient.m in Sources */,
+				B27158781F590209009FD372 /* AviationViewController.m in Sources */,
 				848DEF1D1F4EEE2100D03E45 /* HotelOrdersModel.m in Sources */,
 				B2A2D7321F4AFC20001D6B81 /* MyInfoViewController.m in Sources */,
 				B224DBB71F4C4D4C0022C007 /* MessageViewController.m in Sources */,
