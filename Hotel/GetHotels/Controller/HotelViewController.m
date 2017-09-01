@@ -26,6 +26,8 @@
     NSInteger pages;
     
 }
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *pickViewHeight;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *selectHeight;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *sequenceHeight;
 @property (weak, nonatomic) IBOutlet UISearchBar *searchHotelBar;
 @property (weak, nonatomic) IBOutlet UIControl *backgroundView;
@@ -632,6 +634,7 @@
         }
         _backgroundView.hidden = YES;
         _selectBView.hidden = YES;
+        _selectHeight.constant = 0;
         [self requestAll];
         return;
     }
@@ -792,16 +795,18 @@
     //_datePicker.hidden = YES;
     //_toolBar.hidden = YES;
     [_hotelTableView setContentOffset:CGPointMake(0, 150) animated:YES];
-    [UIView animateWithDuration:1 animations:^{
+    _sequenceHeight.constant = 40;
+    [UIView animateWithDuration:0.5 animations:^{
         [self.view layoutIfNeeded];
-    } completion:^(BOOL finished) {
-        
     }];
     _pickerView.hidden = YES;
     _selectBView.hidden = YES;
     if(!_sequenceView.hidden){
         _sequenceView.hidden = YES;
         _backgroundView.hidden = YES;
+        _pickViewHeight.constant = 550;
+        _selectHeight.constant = 0;
+        _sequenceHeight.constant = 0;
         return;
     }
     _backgroundView.hidden = NO;
@@ -812,6 +817,10 @@
     //[a titleForState:UIControlStateHighlighted];
     //_selectView.hidden = NO;
     [_hotelTableView setContentOffset:CGPointMake(0, 150) animated:NO];
+    _selectHeight.constant = 40;
+    [UIView animateWithDuration:0.5 animations:^{
+        [self.view layoutIfNeeded];
+    }];
     _sequenceView.hidden=YES;
     _pickerView.hidden = YES;
     //_datePicker.hidden = YES;
@@ -819,6 +828,9 @@
     if (!_selectBView.hidden) {
         _selectBView.hidden = YES;
         _backgroundView.hidden = YES;
+        _pickViewHeight.constant = 550;
+        _selectHeight.constant = 0;
+        _sequenceHeight.constant = 0;
         return;
     }
     _backgroundView.hidden = NO;
@@ -834,6 +846,10 @@
     //[_inTimeBtn titleForState:UIControlStateHighlighted];
     //[_hotelTableView scrollRectToVisible:CGRectMake(0, 150, UI_SCREEN_W, 150) animated:YES];
     [_hotelTableView setContentOffset:CGPointMake(0, 150) animated:NO];
+    _pickViewHeight.constant = 313;
+    [UIView animateWithDuration:0.5f animations:^{
+        [self.view layoutIfNeeded];
+    }];
     _selectBView.hidden = YES;
     _sequenceView.hidden=YES;
     if (!_pickerView.hidden) {
@@ -842,6 +858,9 @@
         _pickerView.hidden = YES;
         _backgroundView.hidden = YES;
         [_a setTitle:_inTime forState:UIControlStateNormal];
+        _pickViewHeight.constant = 550;
+        _selectHeight.constant = 0;
+        _sequenceHeight.constant = 0;
         return;
     }
     btnTime = 0;
@@ -853,6 +872,10 @@
 - (void)outTimeAction {
     //[_outTimeBtn titleForState:UIControlStateHighlighted];
     [_hotelTableView setContentOffset:CGPointMake(0, 150) animated:NO];
+    _pickViewHeight.constant = 313;
+    [UIView animateWithDuration:0.5f animations:^{
+        [self.view layoutIfNeeded];
+    }];
     _selectBView.hidden = YES;
     _sequenceView.hidden=YES;
     if (!_pickerView.hidden) {
@@ -861,6 +884,9 @@
         _pickerView.hidden = YES;
         _backgroundView.hidden = YES;
         [_b setTitle:_outTime forState:UIControlStateNormal];
+        _pickViewHeight.constant = 550;
+        _selectHeight.constant = 0;
+        _sequenceHeight.constant = 0;
         return;
     }
     btnTime = 1;
@@ -885,6 +911,7 @@
 - (IBAction)cancelAction:(UIBarButtonItem *)sender {
     _pickerView.hidden = YES;
     _backgroundView.hidden = YES;
+    _pickViewHeight.constant = 550;
     //[_menu hideMenu];
 }
 
@@ -929,6 +956,7 @@
     }
     _backgroundView.hidden = YES;
     _pickerView.hidden = YES;
+    _pickViewHeight.constant = 550;
     [self requestAll];
 }
 
@@ -985,7 +1013,7 @@
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {   selectsection=indexPath.section;
     UICollectionViewCell * cell = (UICollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
-    cell.backgroundColor = [UIColor blueColor];
+    cell.backgroundColor = UIColorFromRGB(24, 124, 236);
     
     if(collectionView==_collectionView2){
         switch (indexPath.row) {
@@ -1035,6 +1063,7 @@
 - (IBAction)cofirmAction:(UIButton *)sender forEvent:(UIEvent *)event {
     _sequenceView.hidden=YES;
     _backgroundView.hidden = YES;
+    _sequenceHeight.constant = 0;
     [self requestAll];
 }
 
@@ -1043,5 +1072,9 @@
     _pickerView.hidden = YES;
     _backgroundView.hidden = YES;
     _sequenceView.hidden = YES;
+    _pickViewHeight.constant = 550;
+    _selectHeight.constant = 0;
+    _sequenceHeight.constant = 0;
+    
 }
 @end
