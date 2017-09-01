@@ -48,7 +48,7 @@
 {
     UIAlertController *alertView = [UIAlertController alertControllerWithTitle:title == nil ? @"提示" : title message:msg == nil ? @"操作失败" : msg preferredStyle:UIAlertControllerStyleAlert];
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        completion();
+        //completion();
     }];
     [alertView addAction:cancelAction];
     [vc presentViewController:alertView animated:YES completion:nil];
