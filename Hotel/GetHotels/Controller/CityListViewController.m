@@ -11,6 +11,7 @@
 #import "HotelViewController.h"
 @interface CityListViewController () <UITableViewDelegate,UITableViewDataSource,UISearchBarDelegate>
 
+@property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 @property (strong, nonatomic) NSMutableArray *cityListArr;
 @property (strong, nonatomic) NSMutableArray *arr;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -23,7 +24,12 @@
     [super viewDidLoad];
     _cityListArr = [NSMutableArray new];
     _arr = [NSMutableArray new];
+    _tableView.tableFooterView = [UIView new];
     [self naviConfig];
+    //监听键盘将要打开这一操作，打开后执行keyboardWillShow:方法
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
+    //监听键盘将要收起这一操作，打开后执行keyboardWillHide:方法
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
     [self requestCity];
     // Do any additional setup after loading the view.
 }
@@ -123,6 +129,39 @@
     [self requestOfFindCity:searchText];
 }
 
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
+    [_searchBar resignFirstResponder];
+}
+
+#pragma mark - keyBorder
+
+//键盘打开的时候操作
+- (void)keyboardWillShow: (NSNotification *)notification {
+    //获取键盘的位置
+    CGRect keyboardRect = [[notification.userInfo objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
+//    //计算键盘出现后，为保证_scrollView的内容都能显示，它应该滚动到y轴的位置
+//    CGFloat newOffset =(_tableView.contentSize.height - _tableView.frame.size.height) + keyboardRect.size.height;
+//    //将_scrollView滚动到上述位置
+//    [_tableView setContentOffset:CGPointMake(0, newOffset) animated:YES];
+    //CGFloat viewFrame = _tableView.contentSize.height;
+    CGRect viewFrame = _tableView.frame;
+    viewFrame.size.height -= keyboardRect.size.height;
+    _tableView.frame = viewFrame;
+    
+}
+
+- (void)keyboardWillHide: (NSNotification *)notification {
+    
+    
+    CGRect keyboardRect = [[notification.userInfo objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
+    //    //计算键盘出现后，为保证_scrollView的内容都能显示，它应该滚动到y轴的位置
+    //    CGFloat newOffset =(_tableView.contentSize.height - _tableView.frame.size.height) + keyboardRect.size.height;
+    //    //将_scrollView滚动到上述位置
+    //    [_tableView setContentOffset:CGPointMake(0, newOffset) animated:YES];
+    CGRect viewFrame = _tableView.frame;
+    viewFrame.size.height += keyboardRect.size.height;
+    _tableView.frame = viewFrame;
+}
 
 
 #pragma mark - request
@@ -132,6 +171,7 @@
         if ([responseObject[@"result"] integerValue] == 1) {
             NSArray *content = responseObject[@"content"];
             [_arr removeAllObjects];
+            [_cityListArr removeAllObjects];
             for (NSDictionary *dict in content) {
                 CityListModel *cityList = [[CityListModel alloc] initWithDict:dict];
                 [_cityListArr addObject:cityList];

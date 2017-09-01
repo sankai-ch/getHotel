@@ -22,7 +22,14 @@
     NSInteger priceduring;
     NSInteger selectsection;
     
+    NSInteger pageNum;
+    NSInteger pages;
+    
 }
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *pickViewHeight;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *selectHeight;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *sequenceHeight;
+@property (weak, nonatomic) IBOutlet UISearchBar *searchHotelBar;
 @property (weak, nonatomic) IBOutlet UIControl *backgroundView;
 @property (weak, nonatomic) IBOutlet UIView *pickerView;
 @property (weak, nonatomic) IBOutlet UIView *sequenceView;
@@ -102,12 +109,13 @@
     //[self setheaderViewInit];
     [self setDefaultTime];
     [self locationConfig];
+    [self setRefreshControl];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(checkCityState:) name:@"ResetHome" object:nil];
     //[self requestCiry];
     
     //[self request];
     [self requestAll];
-       [_collectionView selectItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0] animated:YES scrollPosition:UICollectionViewScrollPositionNone];
+    [_collectionView selectItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0] animated:YES scrollPosition:UICollectionViewScrollPositionNone];
     starlevels=1;
     priceduring=1;
     selectsection=-1;
@@ -156,6 +164,12 @@
     _priceDuring = @[@"不限",@"300以下",@"301-500",@"501-1000",@"1000以上"];
     _SortId = @"0";
     _avi = [Utilities getCoverOnView:self.view];
+    firstVisit = YES;
+    pageNum = 1;
+    _hotelArr = [NSMutableArray new];
+    _advArr = [NSMutableArray new];
+    
+    
     BOOL appInit = NO;
     if ([[Utilities getUserDefaults:@"UserCity"] isKindOfClass:[NSNull class]]) {
         //是第一次打开APP
@@ -176,11 +190,6 @@
         [_cityLocation setTitle:userCity forState:UIControlStateNormal];
         
     }
-    
-    firstVisit = YES;
-    
-    _hotelArr = [NSMutableArray new];
-    _advArr = [NSMutableArray new];
 }
 
 //- (void)setheaderViewInit {
@@ -472,53 +481,77 @@
 //        
 //    }];
 //}
-
+- (void)requestForSearch: (NSString *)name {
+    [RequestAPI requestURL:@"/selectHotel" withParameters:@{@"hotel_name":name,@"inTime":_date1,@"outTime":_date2} andHeader:nil byMethod:kGet andSerializer:kForm success:^(id responseObject) {
+        NSLog(@"%@",responseObject);
+        if ([responseObject[@"result"] integerValue] == 1) {
+            NSArray *searchHotelArr = responseObject[@"content"];
+            [_hotelArr removeAllObjects];
+            for (NSDictionary *dict in searchHotelArr) {
+                AAndHModel *model = [[AAndHModel alloc] initWithDictForHotelCell:dict];
+                [_hotelArr addObject:model];
+            }
+            [_hotelTableView reloadData];
+        }
+    } failure:^(NSInteger statusCode, NSError *error) {
+        
+    }];
+}
 
 - (void)requestAll {
     //(startId  0 = all       2 = 4  3 = 5)
     //
     //(sortingId 2 = l - h  3 = h - l   )
-
-    NSDictionary *para = @{@"city_name":_cityLocation.titleLabel.text,@"pageNum":@1,@"pageSize":@10,@"startId":@(starlevels),@"priceId":@(priceduring),@"sortingId":_SortId,@"inTime":_date1,@"outTime":_date2,@"wxlongitude":@"31.568",@"wxlatitude":@"120.299"};
-
-    //NSLog(@"%@,%@",_date1,_date2);
-    [RequestAPI requestURL:@"/findHotelByCity_edu" withParameters:para andHeader:nil byMethod:kGet andSerializer:kJson success:^(id responseObject) {
-        NSLog(@"%@",responseObject);
-        [_avi stopAnimating];
-        if ([responseObject[@"result"] integerValue] == 1) {
-            if (_advArr.count == 0) {
-                NSArray *advertising = responseObject[@"content"][@"advertising"];
-                for (NSDictionary *dict in advertising) {
-                    AAndHModel *adV = [[AAndHModel alloc] initWithDictForAD:dict];
-                    [_advArr addObject:adV];
+    if (_searchHotelBar.text.length == 0) {
+        NSDictionary *para = @{@"city_name":_cityLocation.titleLabel.text,@"pageNum":@(pageNum),@"pageSize":@10,@"startId":@(starlevels),@"priceId":@(priceduring),@"sortingId":_SortId,@"inTime":_date1,@"outTime":_date2,@"wxlongitude":@"31.568",@"wxlatitude":@"120.299"};
+        
+        //NSLog(@"%@,%@",_date1,_date2);
+        [RequestAPI requestURL:@"/findHotelByCity_edu" withParameters:para andHeader:nil byMethod:kGet andSerializer:kJson success:^(id responseObject) {
+            //NSLog(@"%@",responseObject);
+            [_avi stopAnimating];
+            UIRefreshControl *ref = (UIRefreshControl *)[_hotelTableView viewWithTag:100001];
+            [ref endRefreshing];
+            if ([responseObject[@"result"] integerValue] == 1) {
+                if (_advArr.count == 0) {
+                    NSArray *advertising = responseObject[@"content"][@"advertising"];
+                    for (NSDictionary *dict in advertising) {
+                        AAndHModel *adV = [[AAndHModel alloc] initWithDictForAD:dict];
+                        [_advArr addObject:adV];
+                        
+                    }
+                    [self setADImage];
+                }
+                
+                //NSLog(@"_advArr:%@",_advArr);
+                NSArray *hotel = responseObject[@"content"][@"hotel"][@"list"];
+                pages = [responseObject[@"content"][@"hotel"][@"pages"] integerValue];
+                if (pageNum == 1) {
+                    [_hotelArr removeAllObjects];
+                }
+                for (NSDictionary *dict in hotel) {
+                    AAndHModel *hotelModel = [[AAndHModel alloc] initWithDictForHotelCell:dict];
+                    //NSLog(@"%@",hotelModel.hotelName);
+                    [_hotelArr addObject:hotelModel];
                     
                 }
-                [self setADImage];
+                //                        AAndHModel *hotel1 = _hotelArr[0];
+                //                        NSLog(@"%@",hotel1.hotelName);
+                //                        NSLog(@"%@",hotel1.hotelPrice);
+                [_hotelTableView reloadData];
             }
             
-            //NSLog(@"_advArr:%@",_advArr);
-            NSArray *hotel = responseObject[@"content"][@"hotel"][@"list"];
-            [_hotelArr removeAllObjects];
-            for (NSDictionary *dict in hotel) {
-                AAndHModel *hotelModel = [[AAndHModel alloc] initWithDictForHotelCell:dict];
-                //NSLog(@"%@",hotelModel.hotelName);
-                [_hotelArr addObject:hotelModel];
+        }failure:^(NSInteger statusCode, NSError *error) {
+            
+            [_avi stopAnimating];
+            UIRefreshControl *ref = (UIRefreshControl *)[_hotelTableView viewWithTag:100001];
+            [ref endRefreshing];
+            NSLog(@"%@",error);
+            [Utilities popUpAlertViewWithMsg:@"网络不稳定" andTitle:nil onView:self onCompletion:^{
                 
-            }
-//                        AAndHModel *hotel1 = _hotelArr[0];
-//                        NSLog(@"%@",hotel1.hotelName);
-//                        NSLog(@"%@",hotel1.hotelPrice);
-            [_hotelTableView reloadData];
-        }
-        
-    }failure:^(NSInteger statusCode, NSError *error) {
-        
-        [_avi stopAnimating];
-        NSLog(@"%@",error);
-        [Utilities popUpAlertViewWithMsg:@"网络不稳定" andTitle:nil onView:self onCompletion:^{
-            
+            }];
         }];
-    }];
+
+    }
 }
 /*
 - (void)request {
@@ -560,23 +593,23 @@
         return cell;
     }
     HotelTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"HotelCell" forIndexPath:indexPath];
-    NSLog(@"%ld",(long)_hotelArr.count);
-    NSLog(@"%ld",(long)indexPath.row);
+    //NSLog(@"%ld",(long)_hotelArr.count);
+    //NSLog(@"%ld",(long)indexPath.row);
     AAndHModel *hotelModel = _hotelArr[indexPath.row];
-    NSLog(@"123%@",hotelModel.hotelName);
+    //NSLog(@"123%@",hotelModel.hotelName);
     cell.hotelName.text = hotelModel.hotelName;
-    NSLog(@"%@",cell.hotelName.text);
+    //NSLog(@"%@",cell.hotelName.text);
     cell.hotelPrice.text = [NSString stringWithFormat:@"¥%@",hotelModel.hotelPrice];
-    NSLog(@"%@",cell.hotelPrice.text);
-    NSLog(@"%@",hotelModel.hotelImg);
+    //NSLog(@"%@",cell.hotelPrice.text);
+    //NSLog(@"%@",hotelModel.hotelImg);
     NSURL *url = [NSURL URLWithString:hotelModel.hotelImg];
-    NSLog(@"%@",url);
+    //NSLog(@"%@",url);
     [cell.imageView sd_setImageWithURL:url placeholderImage:[UIImage imageNamed:@"酒店"]];
     
     cell.hotelLocation.text = hotelModel.hotelAdd;
-    NSLog(@"%@",cell.hotelLocation.text);
+    //NSLog(@"%@",cell.hotelLocation.text);
     cell.hotelDistance.text = [NSString stringWithFormat:@"%ld",(long)hotelModel.distance];
-    NSLog(@"%@",cell.hotelDistance.text);
+    //NSLog(@"%@",cell.hotelDistance.text);
     return cell;
 }
 
@@ -601,6 +634,7 @@
         }
         _backgroundView.hidden = YES;
         _selectBView.hidden = YES;
+        _selectHeight.constant = 0;
         [self requestAll];
         return;
     }
@@ -712,19 +746,42 @@
     return 40;
 }
 
-#pragma mark - searchBar
 
-- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
-    NSDictionary *para=@{@"hotel_name":searchText,@"inTime":_date1,@"outTime":_date2};
-    [RequestAPI requestURL:@"selectHotel" withParameters:para andHeader:nil byMethod:kGet andSerializer:kForm success:^(id responseObject) {
-        NSLog(@"%@",responseObject);
-    } failure:^(NSInteger statusCode, NSError *error) {
-         NSLog(@"%ld",(long)statusCode);
-    }];
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.row == _hotelArr.count -1) {
+        if (pages >= pageNum) {
+            pageNum ++;
+            [self requestAll];
+           
+        }
+    }
+
 }
 
 
+#pragma mark - searchBar
 
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
+    if (searchText.length == 0) {
+        [self requestAll];
+    } else{
+        [self requestForSearch:searchText];
+    }
+}  
+
+#pragma mark - ref
+
+- (void)setRefreshControl {
+    UIRefreshControl *ref = [UIRefreshControl new];
+    [ref addTarget:self action:@selector(ref) forControlEvents:UIControlEventValueChanged];
+    ref.tag = 100001;
+    [_hotelTableView addSubview:ref];
+}
+
+- (void)ref {
+    pageNum = 1;
+    [self requestAll];
+}
 
 #pragma mark - btnAction
 
@@ -737,11 +794,19 @@
 - (void)sequenceAt{
     //_datePicker.hidden = YES;
     //_toolBar.hidden = YES;
+    [_hotelTableView setContentOffset:CGPointMake(0, 150) animated:YES];
+    _sequenceHeight.constant = 40;
+    [UIView animateWithDuration:0.5 animations:^{
+        [self.view layoutIfNeeded];
+    }];
     _pickerView.hidden = YES;
     _selectBView.hidden = YES;
     if(!_sequenceView.hidden){
         _sequenceView.hidden = YES;
         _backgroundView.hidden = YES;
+        _pickViewHeight.constant = 550;
+        _selectHeight.constant = 0;
+        _sequenceHeight.constant = 0;
         return;
     }
     _backgroundView.hidden = NO;
@@ -751,6 +816,11 @@
 - (void)showSelectView {
     //[a titleForState:UIControlStateHighlighted];
     //_selectView.hidden = NO;
+    [_hotelTableView setContentOffset:CGPointMake(0, 150) animated:NO];
+    _selectHeight.constant = 40;
+    [UIView animateWithDuration:0.5 animations:^{
+        [self.view layoutIfNeeded];
+    }];
     _sequenceView.hidden=YES;
     _pickerView.hidden = YES;
     //_datePicker.hidden = YES;
@@ -758,6 +828,9 @@
     if (!_selectBView.hidden) {
         _selectBView.hidden = YES;
         _backgroundView.hidden = YES;
+        _pickViewHeight.constant = 550;
+        _selectHeight.constant = 0;
+        _sequenceHeight.constant = 0;
         return;
     }
     _backgroundView.hidden = NO;
@@ -771,6 +844,12 @@
 
 - (void)inTimeAction {
     //[_inTimeBtn titleForState:UIControlStateHighlighted];
+    //[_hotelTableView scrollRectToVisible:CGRectMake(0, 150, UI_SCREEN_W, 150) animated:YES];
+    [_hotelTableView setContentOffset:CGPointMake(0, 150) animated:NO];
+    _pickViewHeight.constant = 313;
+    [UIView animateWithDuration:0.5f animations:^{
+        [self.view layoutIfNeeded];
+    }];
     _selectBView.hidden = YES;
     _sequenceView.hidden=YES;
     if (!_pickerView.hidden) {
@@ -779,6 +858,9 @@
         _pickerView.hidden = YES;
         _backgroundView.hidden = YES;
         [_a setTitle:_inTime forState:UIControlStateNormal];
+        _pickViewHeight.constant = 550;
+        _selectHeight.constant = 0;
+        _sequenceHeight.constant = 0;
         return;
     }
     btnTime = 0;
@@ -789,6 +871,11 @@
 }
 - (void)outTimeAction {
     //[_outTimeBtn titleForState:UIControlStateHighlighted];
+    [_hotelTableView setContentOffset:CGPointMake(0, 150) animated:NO];
+    _pickViewHeight.constant = 313;
+    [UIView animateWithDuration:0.5f animations:^{
+        [self.view layoutIfNeeded];
+    }];
     _selectBView.hidden = YES;
     _sequenceView.hidden=YES;
     if (!_pickerView.hidden) {
@@ -797,6 +884,9 @@
         _pickerView.hidden = YES;
         _backgroundView.hidden = YES;
         [_b setTitle:_outTime forState:UIControlStateNormal];
+        _pickViewHeight.constant = 550;
+        _selectHeight.constant = 0;
+        _sequenceHeight.constant = 0;
         return;
     }
     btnTime = 1;
@@ -821,6 +911,7 @@
 - (IBAction)cancelAction:(UIBarButtonItem *)sender {
     _pickerView.hidden = YES;
     _backgroundView.hidden = YES;
+    _pickViewHeight.constant = 550;
     //[_menu hideMenu];
 }
 
@@ -865,6 +956,7 @@
     }
     _backgroundView.hidden = YES;
     _pickerView.hidden = YES;
+    _pickViewHeight.constant = 550;
     [self requestAll];
 }
 
@@ -921,7 +1013,7 @@
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {   selectsection=indexPath.section;
     UICollectionViewCell * cell = (UICollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
-    cell.backgroundColor = [UIColor blueColor];
+    cell.backgroundColor = UIColorFromRGB(24, 124, 236);
     
     if(collectionView==_collectionView2){
         switch (indexPath.row) {
@@ -971,6 +1063,7 @@
 - (IBAction)cofirmAction:(UIButton *)sender forEvent:(UIEvent *)event {
     _sequenceView.hidden=YES;
     _backgroundView.hidden = YES;
+    _sequenceHeight.constant = 0;
     [self requestAll];
 }
 
@@ -979,5 +1072,9 @@
     _pickerView.hidden = YES;
     _backgroundView.hidden = YES;
     _sequenceView.hidden = YES;
+    _pickViewHeight.constant = 550;
+    _selectHeight.constant = 0;
+    _sequenceHeight.constant = 0;
+    
 }
 @end
