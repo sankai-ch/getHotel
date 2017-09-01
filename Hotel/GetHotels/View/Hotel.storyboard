@@ -327,10 +327,10 @@
                                 </constraints>
                             </view>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EjV-eh-aPV">
-                                <rect key="frame" x="0.0" y="304" width="375" height="124"/>
+                                <rect key="frame" x="0.0" y="114" width="375" height="120"/>
                                 <subviews>
                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="xqx-nh-GoA">
-                                        <rect key="frame" x="100" y="30.5" width="275" height="60.5"/>
+                                        <rect key="frame" x="100" y="29" width="275" height="58"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="uRE-VJ-JRY">
                                             <size key="itemSize" width="62" height="16"/>
@@ -348,7 +348,7 @@
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yuv-zZ-emd">
                                                             <rect key="frame" x="0.0" y="0.0" width="62" height="16"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
@@ -373,7 +373,7 @@
                                         </connections>
                                     </collectionView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZUg-Qa-QrI">
-                                        <rect key="frame" x="172.5" y="96" width="30" height="28"/>
+                                        <rect key="frame" x="172.5" y="92" width="30" height="28"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                         <state key="normal" title="确定"/>
                                         <connections>
@@ -381,7 +381,7 @@
                                         </connections>
                                     </button>
                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="FrK-mI-atm">
-                                        <rect key="frame" x="100" y="0.0" width="275" height="30.5"/>
+                                        <rect key="frame" x="100" y="0.0" width="275" height="29"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="BgL-SE-oQw">
                                             <size key="itemSize" width="63" height="16"/>
@@ -399,7 +399,7 @@
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dcq-2s-ET1">
                                                             <rect key="frame" x="0.0" y="0.0" width="63" height="16"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
@@ -422,14 +422,14 @@
                                         </connections>
                                     </collectionView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="星级" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SeM-Mc-aET">
-                                        <rect key="frame" x="20" y="0.0" width="72" height="18"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <rect key="frame" x="20" y="0.0" width="72" height="16"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="价格区间" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pZ2-5i-zpM">
-                                        <rect key="frame" x="20" y="38" width="61.5" height="18"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <rect key="frame" x="20" y="36" width="53.5" height="16"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -449,6 +449,7 @@
                                     <constraint firstItem="xqx-nh-GoA" firstAttribute="leading" secondItem="EjV-eh-aPV" secondAttribute="leading" constant="100" id="dW0-1u-8tz"/>
                                     <constraint firstItem="SeM-Mc-aET" firstAttribute="top" secondItem="EjV-eh-aPV" secondAttribute="top" id="ecd-4H-wbm"/>
                                     <constraint firstAttribute="trailing" secondItem="xqx-nh-GoA" secondAttribute="trailing" id="kTF-Ff-PZd"/>
+                                    <constraint firstAttribute="height" constant="120" id="omz-5e-iSP"/>
                                     <constraint firstItem="xqx-nh-GoA" firstAttribute="top" secondItem="FrK-mI-atm" secondAttribute="bottom" id="sOG-3x-ii6"/>
                                     <constraint firstItem="pZ2-5i-zpM" firstAttribute="top" secondItem="SeM-Mc-aET" secondAttribute="bottom" constant="20" id="vhR-bQ-TNx"/>
                                 </constraints>
@@ -460,14 +461,13 @@
                             <constraint firstAttribute="trailing" secondItem="EjV-eh-aPV" secondAttribute="trailing" id="6Bf-eZ-elK"/>
                             <constraint firstAttribute="trailing" secondItem="PZz-Eh-cZc" secondAttribute="trailing" id="7uY-yB-w4h"/>
                             <constraint firstItem="a8w-zK-PCD" firstAttribute="top" secondItem="S76-32-ZGi" secondAttribute="bottom" id="9Cd-2f-LX4"/>
-                            <constraint firstItem="t54-v5-XNw" firstAttribute="top" secondItem="EjV-eh-aPV" secondAttribute="bottom" constant="190" id="GgF-Nq-2U0"/>
                             <constraint firstItem="t54-v5-XNw" firstAttribute="top" secondItem="qN3-XF-HKO" secondAttribute="bottom" constant="190" id="KAA-ac-uHL"/>
                             <constraint firstItem="t54-v5-XNw" firstAttribute="top" secondItem="PZz-Eh-cZc" secondAttribute="bottom" id="Lo7-fx-LDX"/>
+                            <constraint firstItem="EjV-eh-aPV" firstAttribute="top" secondItem="S76-32-ZGi" secondAttribute="bottom" id="RZE-E1-wkv"/>
                             <constraint firstItem="t54-v5-XNw" firstAttribute="top" secondItem="Whx-wt-zO8" secondAttribute="bottom" id="T5Q-Vs-d1q"/>
                             <constraint firstItem="PZz-Eh-cZc" firstAttribute="leading" secondItem="6ta-ME-CdA" secondAttribute="leading" id="Ura-e6-sIn"/>
                             <constraint firstItem="a8w-zK-PCD" firstAttribute="leading" secondItem="6ta-ME-CdA" secondAttribute="leading" id="VOx-ry-OfQ"/>
                             <constraint firstItem="t54-v5-XNw" firstAttribute="top" secondItem="a8w-zK-PCD" secondAttribute="bottom" id="Vqm-re-Fgq"/>
-                            <constraint firstItem="EjV-eh-aPV" firstAttribute="top" secondItem="S76-32-ZGi" secondAttribute="bottom" constant="190" id="XYg-Nm-p5J"/>
                             <constraint firstItem="EjV-eh-aPV" firstAttribute="leading" secondItem="6ta-ME-CdA" secondAttribute="leading" id="epe-8B-94E"/>
                             <constraint firstItem="qN3-XF-HKO" firstAttribute="leading" secondItem="6ta-ME-CdA" secondAttribute="leading" id="hV1-CJ-QF7"/>
                             <constraint firstItem="Whx-wt-zO8" firstAttribute="top" secondItem="S76-32-ZGi" secondAttribute="bottom" constant="297" id="mtd-xF-kT5"/>
@@ -500,6 +500,7 @@
                         <outlet property="searchHotelBar" destination="jPe-Mp-qxy" id="K36-7M-KfM"/>
                         <outlet property="selectBView" destination="qN3-XF-HKO" id="YPG-NU-ND0"/>
                         <outlet property="selectTableView" destination="SJX-Og-KpB" id="yFO-nS-8cj"/>
+                        <outlet property="sequenceHeight" destination="RZE-E1-wkv" id="ify-O7-0zQ"/>
                         <outlet property="sequenceView" destination="EjV-eh-aPV" id="HAP-bq-uJ2"/>
                         <outlet property="toolBar" destination="TcS-ei-m1e" id="Itn-pO-SUF"/>
                     </connections>

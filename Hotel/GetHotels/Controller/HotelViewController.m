@@ -22,7 +22,11 @@
     NSInteger priceduring;
     NSInteger selectsection;
     
+    NSInteger pageNum;
+    NSInteger pages;
+    
 }
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *sequenceHeight;
 @property (weak, nonatomic) IBOutlet UISearchBar *searchHotelBar;
 @property (weak, nonatomic) IBOutlet UIControl *backgroundView;
 @property (weak, nonatomic) IBOutlet UIView *pickerView;
@@ -103,12 +107,13 @@
     //[self setheaderViewInit];
     [self setDefaultTime];
     [self locationConfig];
+    [self setRefreshControl];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(checkCityState:) name:@"ResetHome" object:nil];
     //[self requestCiry];
     
     //[self request];
     [self requestAll];
-       [_collectionView selectItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0] animated:YES scrollPosition:UICollectionViewScrollPositionNone];
+    [_collectionView selectItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0] animated:YES scrollPosition:UICollectionViewScrollPositionNone];
     starlevels=1;
     priceduring=1;
     selectsection=-1;
@@ -157,6 +162,12 @@
     _priceDuring = @[@"不限",@"300以下",@"301-500",@"501-1000",@"1000以上"];
     _SortId = @"0";
     _avi = [Utilities getCoverOnView:self.view];
+    firstVisit = YES;
+    pageNum = 1;
+    _hotelArr = [NSMutableArray new];
+    _advArr = [NSMutableArray new];
+    
+    
     BOOL appInit = NO;
     if ([[Utilities getUserDefaults:@"UserCity"] isKindOfClass:[NSNull class]]) {
         //是第一次打开APP
@@ -177,11 +188,6 @@
         [_cityLocation setTitle:userCity forState:UIControlStateNormal];
         
     }
-    
-    firstVisit = YES;
-    
-    _hotelArr = [NSMutableArray new];
-    _advArr = [NSMutableArray new];
 }
 
 //- (void)setheaderViewInit {
@@ -495,12 +501,14 @@
     //
     //(sortingId 2 = l - h  3 = h - l   )
     if (_searchHotelBar.text.length == 0) {
-        NSDictionary *para = @{@"city_name":_cityLocation.titleLabel.text,@"pageNum":@1,@"pageSize":@10,@"startId":@(starlevels),@"priceId":@(priceduring),@"sortingId":_SortId,@"inTime":_date1,@"outTime":_date2,@"wxlongitude":@"31.568",@"wxlatitude":@"120.299"};
+        NSDictionary *para = @{@"city_name":_cityLocation.titleLabel.text,@"pageNum":@(pageNum),@"pageSize":@10,@"startId":@(starlevels),@"priceId":@(priceduring),@"sortingId":_SortId,@"inTime":_date1,@"outTime":_date2,@"wxlongitude":@"31.568",@"wxlatitude":@"120.299"};
         
         //NSLog(@"%@,%@",_date1,_date2);
         [RequestAPI requestURL:@"/findHotelByCity_edu" withParameters:para andHeader:nil byMethod:kGet andSerializer:kJson success:^(id responseObject) {
-            //NSLog(@"%@",responseObject);
+            NSLog(@"%@",responseObject);
             [_avi stopAnimating];
+            UIRefreshControl *ref = (UIRefreshControl *)[_hotelTableView viewWithTag:100001];
+            [ref endRefreshing];
             if ([responseObject[@"result"] integerValue] == 1) {
                 if (_advArr.count == 0) {
                     NSArray *advertising = responseObject[@"content"][@"advertising"];
@@ -514,7 +522,10 @@
                 
                 //NSLog(@"_advArr:%@",_advArr);
                 NSArray *hotel = responseObject[@"content"][@"hotel"][@"list"];
-                [_hotelArr removeAllObjects];
+                pages = [responseObject[@"content"][@"hotel"][@"pages"] integerValue];
+                if (pageNum == 1) {
+                    [_hotelArr removeAllObjects];
+                }
                 for (NSDictionary *dict in hotel) {
                     AAndHModel *hotelModel = [[AAndHModel alloc] initWithDictForHotelCell:dict];
                     //NSLog(@"%@",hotelModel.hotelName);
@@ -530,6 +541,8 @@
         }failure:^(NSInteger statusCode, NSError *error) {
             
             [_avi stopAnimating];
+            UIRefreshControl *ref = (UIRefreshControl *)[_hotelTableView viewWithTag:100001];
+            [ref endRefreshing];
             NSLog(@"%@",error);
             [Utilities popUpAlertViewWithMsg:@"网络不稳定" andTitle:nil onView:self onCompletion:^{
                 
@@ -732,7 +745,14 @@
 
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
-    
+    if (indexPath.row == _hotelArr.count -1) {
+        if (pages >= pageNum) {
+            pageNum ++;
+            [self requestAll];
+           
+        }
+    }
+
 }
 
 
@@ -746,8 +766,19 @@
     }
 }  
 
+#pragma mark - ref
 
+- (void)setRefreshControl {
+    UIRefreshControl *ref = [UIRefreshControl new];
+    [ref addTarget:self action:@selector(ref) forControlEvents:UIControlEventValueChanged];
+    ref.tag = 100001;
+    [_hotelTableView addSubview:ref];
+}
 
+- (void)ref {
+    pageNum = 1;
+    [self requestAll];
+}
 
 #pragma mark - btnAction
 
@@ -760,6 +791,12 @@
 - (void)sequenceAt{
     //_datePicker.hidden = YES;
     //_toolBar.hidden = YES;
+    [_hotelTableView setContentOffset:CGPointMake(0, 150) animated:YES];
+    [UIView animateWithDuration:1 animations:^{
+        [self.view layoutIfNeeded];
+    } completion:^(BOOL finished) {
+        
+    }];
     _pickerView.hidden = YES;
     _selectBView.hidden = YES;
     if(!_sequenceView.hidden){
@@ -774,6 +811,7 @@
 - (void)showSelectView {
     //[a titleForState:UIControlStateHighlighted];
     //_selectView.hidden = NO;
+    [_hotelTableView setContentOffset:CGPointMake(0, 150) animated:NO];
     _sequenceView.hidden=YES;
     _pickerView.hidden = YES;
     //_datePicker.hidden = YES;
@@ -794,6 +832,8 @@
 
 - (void)inTimeAction {
     //[_inTimeBtn titleForState:UIControlStateHighlighted];
+    //[_hotelTableView scrollRectToVisible:CGRectMake(0, 150, UI_SCREEN_W, 150) animated:YES];
+    [_hotelTableView setContentOffset:CGPointMake(0, 150) animated:NO];
     _selectBView.hidden = YES;
     _sequenceView.hidden=YES;
     if (!_pickerView.hidden) {
@@ -812,6 +852,7 @@
 }
 - (void)outTimeAction {
     //[_outTimeBtn titleForState:UIControlStateHighlighted];
+    [_hotelTableView setContentOffset:CGPointMake(0, 150) animated:NO];
     _selectBView.hidden = YES;
     _sequenceView.hidden=YES;
     if (!_pickerView.hidden) {
