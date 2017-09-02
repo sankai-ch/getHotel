@@ -414,19 +414,6 @@
                                     <outlet property="delegate" destination="aVw-Cn-1er" id="Kx5-fm-3Qa"/>
                                 </connections>
                             </scrollView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3uH-c5-FTj">
-                                <rect key="frame" x="0.0" y="617" width="375" height="50"/>
-                                <color key="backgroundColor" red="0.31926995218878917" green="0.58064662929267807" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="MZh-7m-hnf"/>
-                                </constraints>
-                                <state key="normal" title="购买">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="goumaiAction:forEvent:" destination="aVw-Cn-1er" eventType="touchUpInside" id="l3X-XP-03Z"/>
-                                </connections>
-                            </button>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="43J-FO-9s5">
                                 <rect key="frame" x="0.0" y="417" width="375" height="250"/>
                                 <subviews>
@@ -474,19 +461,32 @@
                                     <constraint firstAttribute="height" constant="250" id="rjZ-QO-mTm"/>
                                 </constraints>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3uH-c5-FTj">
+                                <rect key="frame" x="0.0" y="617" width="375" height="50"/>
+                                <color key="backgroundColor" red="0.31926995218878917" green="0.58064662929267807" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="MZh-7m-hnf"/>
+                                </constraints>
+                                <state key="normal" title="购买">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="goumaiAction:forEvent:" destination="aVw-Cn-1er" eventType="touchUpInside" id="l3X-XP-03Z"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="3uH-c5-FTj" firstAttribute="leading" secondItem="36o-5R-3UR" secondAttribute="leading" id="1nO-HS-KT3"/>
                             <constraint firstItem="34h-Uw-Yoy" firstAttribute="top" secondItem="36o-5R-3UR" secondAttribute="top" id="DFa-iL-UeR"/>
                             <constraint firstItem="exX-8m-if0" firstAttribute="top" secondItem="34h-Uw-Yoy" secondAttribute="bottom" id="Fde-RF-9vq"/>
+                            <constraint firstAttribute="bottom" secondItem="43J-FO-9s5" secondAttribute="bottom" id="GW9-KA-td1"/>
+                            <constraint firstAttribute="bottom" secondItem="3uH-c5-FTj" secondAttribute="bottom" id="Gbd-8P-WfT"/>
                             <constraint firstAttribute="trailing" secondItem="43J-FO-9s5" secondAttribute="trailing" id="XsT-EI-WmE"/>
-                            <constraint firstAttribute="trailing" secondItem="3uH-c5-FTj" secondAttribute="trailing" id="em6-jD-BSg"/>
-                            <constraint firstItem="3uH-c5-FTj" firstAttribute="leading" secondItem="36o-5R-3UR" secondAttribute="leading" id="jWT-81-fg6"/>
-                            <constraint firstItem="exX-8m-if0" firstAttribute="top" secondItem="43J-FO-9s5" secondAttribute="bottom" id="kH8-pW-lre"/>
+                            <constraint firstAttribute="trailing" secondItem="3uH-c5-FTj" secondAttribute="trailing" id="gJo-SO-Ui9"/>
                             <constraint firstItem="43J-FO-9s5" firstAttribute="leading" secondItem="36o-5R-3UR" secondAttribute="leading" id="kSx-h8-XgI"/>
                             <constraint firstAttribute="trailing" secondItem="34h-Uw-Yoy" secondAttribute="trailing" id="pH9-od-KwU"/>
                             <constraint firstItem="34h-Uw-Yoy" firstAttribute="leading" secondItem="36o-5R-3UR" secondAttribute="leading" id="smg-Yh-ZH9"/>
-                            <constraint firstItem="exX-8m-if0" firstAttribute="top" secondItem="3uH-c5-FTj" secondAttribute="bottom" id="w5t-67-u2D"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="酒店预订" id="KTl-rz-QW8"/>
@@ -584,7 +584,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
-                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="u3f-Aq-gVd" firstAttribute="leading" secondItem="w13-LA-fI6" secondAttribute="leading" constant="25" id="3nQ-V0-zi6"/>
                                     <constraint firstItem="u3f-Aq-gVd" firstAttribute="top" secondItem="w13-LA-fI6" secondAttribute="top" constant="20" id="FgX-EJ-wNF"/>
@@ -592,10 +592,13 @@
                                     <constraint firstItem="kbz-si-Qnw" firstAttribute="top" secondItem="u3f-Aq-gVd" secondAttribute="bottom" constant="20" id="Ltm-Ci-ziC"/>
                                     <constraint firstItem="uvw-8C-1fK" firstAttribute="top" secondItem="dMl-NI-wuB" secondAttribute="bottom" constant="20" id="Lxj-g1-CF0"/>
                                     <constraint firstItem="rFH-er-PVa" firstAttribute="leading" secondItem="dMl-NI-wuB" secondAttribute="trailing" constant="8" id="Mj0-nF-pxv"/>
+                                    <constraint firstAttribute="bottom" secondItem="uvw-8C-1fK" secondAttribute="bottom" constant="10" id="NGQ-rl-T31"/>
                                     <constraint firstItem="dMl-NI-wuB" firstAttribute="leading" secondItem="w13-LA-fI6" secondAttribute="leading" constant="25" id="SiY-mZ-NDw"/>
+                                    <constraint firstItem="dMl-NI-wuB" firstAttribute="leading" secondItem="u3f-Aq-gVd" secondAttribute="leading" id="XuN-KU-xD6"/>
                                     <constraint firstItem="rFH-er-PVa" firstAttribute="top" secondItem="u3f-Aq-gVd" secondAttribute="bottom" constant="18" id="faB-eh-sRu"/>
                                     <constraint firstItem="kbz-si-Qnw" firstAttribute="leading" secondItem="rFH-er-PVa" secondAttribute="trailing" constant="8" id="l3J-KM-vRQ"/>
                                     <constraint firstItem="uvw-8C-1fK" firstAttribute="leading" secondItem="w13-LA-fI6" secondAttribute="leading" constant="25" id="nHK-F8-78P"/>
+                                    <constraint firstItem="uvw-8C-1fK" firstAttribute="leading" secondItem="u3f-Aq-gVd" secondAttribute="leading" id="oOj-qV-qRR"/>
                                     <constraint firstAttribute="height" constant="150" id="r4Z-5O-clt"/>
                                 </constraints>
                             </view>
@@ -628,7 +631,7 @@
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DUv-Tf-919">
                                 <rect key="frame" x="140" y="417" width="95" height="50"/>
-                                <color key="backgroundColor" red="1" green="0.97303372199395533" blue="0.98384421925574472" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="bWz-2K-DpC"/>
                                 </constraints>

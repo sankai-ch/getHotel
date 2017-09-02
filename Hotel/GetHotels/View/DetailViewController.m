@@ -194,13 +194,17 @@
 #pragma mark - Navigation
 
  - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
- zhifuViewController *pay = [segue destinationViewController];
- 
- pay.dict = sender;
+     
+     if([segue.identifier isEqualToString:@"zhifu"]){
+         zhifuViewController *pay = [segue destinationViewController];
+         pay.dict = sender;
+     }
+
  
  }
 #pragma mark - button
 - (IBAction)dituAction:(UIButton *)sender forEvent:(UIEvent *)event {
+   
      [self performSegueWithIdentifier:@"ditu" sender:nil];
     _yingc.hidden = YES;
 }
