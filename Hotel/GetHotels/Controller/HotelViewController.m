@@ -26,6 +26,7 @@
     NSInteger pages;
     
 }
+- (IBAction)citySelectAction:(UIButton *)sender forEvent:(UIEvent *)event;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *pickViewHeight;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *selectHeight;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *sequenceHeight;
@@ -66,15 +67,7 @@
 @property (strong, nonatomic) IBOutlet UIButton *d;
 - (IBAction)cofirmAction:(UIButton *)sender forEvent:(UIEvent *)event;
 
-//@property (strong, nonatomic) NSArray *textArr;
-//代码画界面
-//@property (strong, nonatomic) IBOutlet UIButton *inTimeBtn;
-//@property (strong, nonatomic) IBOutlet UIButton *outTimeBtn;
-//@property (strong, nonatomic) IBOutlet UIButton *orderByBtn;
-//@property (strong, nonatomic) IBOutlet UIButton *selectBtn;
-//@property (strong, nonatomic) UIView *selectView;
-//@property (strong, nonatomic) UIView *orederByView;
-//@property (strong, nonatomic) DOPDropDownMenu *menu;
+
 @property (strong, nonatomic) NSArray *sorts;
 @property (strong, nonatomic) NSArray *select;
 @property (strong, nonatomic) NSArray *starLevel;
@@ -137,15 +130,15 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
+
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+    [[StorageMgr singletonStorageMgr] removeObjectForKey:@"Tag"];
+    [[StorageMgr singletonStorageMgr] addKey:@"Tag" andValue:@1];
 }
-*/
+
 
 #pragma mark - init
 
@@ -455,7 +448,7 @@
 //这个方法专门做导航条的控制
 - (void)naviConfig{
     //设置导航条标题的文字
-    self.navigationItem.title = @"GetHotel";
+    self.navigationItem.title = @"GetHotels";
     //设置导航条的颜色（风格颜色）
     self.navigationController.navigationBar.barTintColor = UIColorFromRGB(24, 124, 236);
     //设置导航条标题颜色
@@ -604,7 +597,7 @@
     //NSLog(@"%@",hotelModel.hotelImg);
     NSURL *url = [NSURL URLWithString:hotelModel.hotelImg];
     //NSLog(@"%@",url);
-    [cell.imageView sd_setImageWithURL:url placeholderImage:[UIImage imageNamed:@"酒店"]];
+    [cell.hotelImage sd_setImageWithURL:url placeholderImage:[UIImage imageNamed:@"酒店"]];
     
     cell.hotelLocation.text = hotelModel.hotelAdd;
     //NSLog(@"%@",cell.hotelLocation.text);
@@ -655,49 +648,7 @@
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     
-//    _menu= [[DOPDropDownMenu alloc] initWithOrigin:CGPointMake(0, 0) andHeight:40];
-//    _menu.delegate = self;
-//    _menu.dataSource = self;
-//    _menu.textColor = [UIColor grayColor];
-//    [_menu selectIndexPath:[DOPIndexPath indexPathWithCol:0 row:0 item:0]];
-//    _menu.finishedBlock = ^(DOPIndexPath *indexPath) {
-//        [self requestAll];
-//    };
-    //[menu hideMenu]
-    
-    
-//    JPullDownMenu *menu = [[JPullDownMenu alloc] initWithFrame:CGRectMake(0, 0, UI_SCREEN_W, 40) menuTitleArray:@[_inTime,_outTime,@"智能排序",@"筛选"]];
-//    NSArray *arr = @[];
-//    NSArray *arr1 = @[];
-//    NSArray *arr2 = @[@"1",@"2"];
-//    NSArray *arr3 = @[@"1",@"2"];
-//    menu.menuDataArray = [NSMutableArray arrayWithObjects:arr,arr1,arr2,arr3, nil];
-//    __weak typeof(self) _self = self;
-//    [menu setHandleSelectDataBlock:^(NSString *selectTitle, NSUInteger selectIndex, NSUInteger selectButtonTag) {
-//        if (selectIndex == 0) {
-//            
-//        }
-//        
-//    }];
-    //view.backgroundColor = [UIColor whiteColor];
-//    _inTimeBtn.titleLabel.textColor = [UIColor grayColor];
-//    _outTimeBtn.titleLabel.textColor = [UIColor grayColor];
-//    _orderByBtn.titleLabel.textColor = [UIColor grayColor];
-//    _selectBtn.titleLabel.textColor = [UIColor grayColor];
-//    _selectView.backgroundColor = [UIColor grayColor];
-//    _orederByView.backgroundColor = [UIColor grayColor];
-//    _inTimeBtn.frame = CGRectMake(25, 5, 65, 20);
-//    _outTimeBtn.frame = CGRectMake(135, 5, 65, 20);
-//    _orderByBtn.frame = CGRectMake(235, 5, 65, 20);
-//    _selectBtn.frame = CGRectMake(325, 5, 65, 20);
-//    [_inTimeBtn addTarget:self action:@selector(inTimeAction) forControlEvents:UIControlEventTouchUpInside];
-//    [_outTimeBtn addTarget:self action:@selector(outTimeAction) forControlEvents:UIControlEventTouchUpInside];
-//    [_orderByBtn addTarget:self action:@selector(showOrderView) forControlEvents:UIControlEventTouchUpInside];
-//    [_orderByBtn addTarget:self action:@selector(showSelectView) forControlEvents:UIControlEventTouchUpInside];
-//    [view addSubview:_inTimeBtn];
-//    [view addSubview:_outTimeBtn];
-//    [view addSubview:_orderByBtn];
-//    [view addSubview:_selectBtn];
+
     if (tableView == _hotelTableView) {
         UIView *view = [UIView new];
         view.backgroundColor = [UIColor whiteColor];
@@ -1076,5 +1027,8 @@
     _selectHeight.constant = 0;
     _sequenceHeight.constant = 0;
     
+}
+- (IBAction)citySelectAction:(UIButton *)sender forEvent:(UIEvent *)event {
+    [self performSegueWithIdentifier:@"HotelToCity" sender:nil];
 }
 @end
