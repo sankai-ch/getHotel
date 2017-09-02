@@ -12,7 +12,7 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    // Initialization code
+    // Initializatin iion code
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
