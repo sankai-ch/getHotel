@@ -93,7 +93,7 @@
 }
 - (IBAction)payButton:(UIButton *)sender forEvent:(UIEvent *)event {
     
-    PurchaseTableViewController *purchaseVc = [ QuoteListViewController getStoryboardInstance:@"Main" byIdentity:@"Purchase"];
+    PurchaseTableViewController *purchaseVc = [ QuoteListViewController getStoryboardInstance:@"MyInfo" byIdentity:@"Purchase"];
     [self.navigationController pushViewController:purchaseVc  animated:YES];
    
     

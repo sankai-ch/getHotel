@@ -45,9 +45,9 @@
 		B224DBB11F4C46110022C007 /* MyInfoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B224DBB01F4C46110022C007 /* MyInfoTableViewCell.m */; };
 		B224DBB41F4C4D370022C007 /* AirViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B224DBB31F4C4D370022C007 /* AirViewController.m */; };
 		B224DBB71F4C4D4C0022C007 /* MessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B224DBB61F4C4D4C0022C007 /* MessageViewController.m */; };
-		B240210B1F5929F200E4D00E /* QuoteListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B24021091F5929F200E4D00E /* QuoteListViewController.m */; };
 		B240210E1F592A8800E4D00E /* QuoteListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B240210D1F592A8800E4D00E /* QuoteListTableViewCell.m */; };
 		B24021111F59443700E4D00E /* PayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B24021101F59443700E4D00E /* PayViewController.m */; };
+		B25393381F5A4B9A002C8208 /* QuoteListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B25393371F5A4B9A002C8208 /* QuoteListViewController.m */; };
 		B29E08601F5173F5001A0DD6 /* textCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B29E085F1F5173F5001A0DD6 /* textCollectionViewCell.m */; };
 		B2A2D71F1F4AF35B001D6B81 /* Deatil.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B2A2D71D1F4AF35B001D6B81 /* Deatil.storyboard */; };
 		B2A2D7221F4AF373001D6B81 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B2A2D7201F4AF373001D6B81 /* Login.storyboard */; };
@@ -176,12 +176,12 @@
 		B224DBB31F4C4D370022C007 /* AirViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AirViewController.m; sourceTree = "<group>"; };
 		B224DBB51F4C4D4C0022C007 /* MessageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageViewController.h; sourceTree = "<group>"; };
 		B224DBB61F4C4D4C0022C007 /* MessageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageViewController.m; sourceTree = "<group>"; };
-		B24021081F5929F200E4D00E /* QuoteListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QuoteListViewController.h; path = ../../../../hawudha/hawudha/QuoteListViewController.h; sourceTree = "<group>"; };
-		B24021091F5929F200E4D00E /* QuoteListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QuoteListViewController.m; path = ../../../../hawudha/hawudha/QuoteListViewController.m; sourceTree = "<group>"; };
 		B240210C1F592A3600E4D00E /* QuoteListTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QuoteListTableViewCell.h; sourceTree = "<group>"; };
 		B240210D1F592A8800E4D00E /* QuoteListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuoteListTableViewCell.m; sourceTree = "<group>"; };
 		B240210F1F59443700E4D00E /* PayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PayViewController.h; sourceTree = "<group>"; };
 		B24021101F59443700E4D00E /* PayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PayViewController.m; sourceTree = "<group>"; };
+		B25393361F5A4B9A002C8208 /* QuoteListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuoteListViewController.h; sourceTree = "<group>"; };
+		B25393371F5A4B9A002C8208 /* QuoteListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuoteListViewController.m; sourceTree = "<group>"; };
 		B29E085E1F5173F5001A0DD6 /* textCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = textCollectionViewCell.h; sourceTree = "<group>"; };
 		B29E085F1F5173F5001A0DD6 /* textCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = textCollectionViewCell.m; sourceTree = "<group>"; };
 		B2A2D71E1F4AF35B001D6B81 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = GetHotels/Base.lproj/Deatil.storyboard; sourceTree = SOURCE_ROOT; };
@@ -344,8 +344,8 @@
 		B24021051F5929C800E4D00E /* QuoteListViewController */ = {
 			isa = PBXGroup;
 			children = (
-				B24021081F5929F200E4D00E /* QuoteListViewController.h */,
-				B24021091F5929F200E4D00E /* QuoteListViewController.m */,
+				B25393361F5A4B9A002C8208 /* QuoteListViewController.h */,
+				B25393371F5A4B9A002C8208 /* QuoteListViewController.m */,
 				B240210F1F59443700E4D00E /* PayViewController.h */,
 				B24021101F59443700E4D00E /* PayViewController.m */,
 			);
@@ -891,7 +891,6 @@
 			files = (
 				B2BD3E881F4AA4EF002C6B98 /* ErrorHandler.m in Sources */,
 				B2BD3EA11F4AA59D002C6B98 /* GetHotels.xcdatamodeld in Sources */,
-				B240210B1F5929F200E4D00E /* QuoteListViewController.m in Sources */,
 				B224DB981F4C33910022C007 /* RSADataSigner.m in Sources */,
 				B2BD3E8C1F4AA4EF002C6B98 /* NSString+Crypt.m in Sources */,
 				B2BD3E871F4AA4EF002C6B98 /* AppAPIClient.m in Sources */,
@@ -903,6 +902,7 @@
 				B2E9BB7F1F4FB4200064B303 /* detailModel.m in Sources */,
 				6A88EF6E1F50248C00EAFC64 /* DOPDropDownMenu.m in Sources */,
 				B2F076261F4DA24A0074C80C /* weiliaoViewController.m in Sources */,
+				B25393381F5A4B9A002C8208 /* QuoteListViewController.m in Sources */,
 				B224DB951F4C33910022C007 /* MD5DataSigner.m in Sources */,
 				6A88EF641F4FE75A00EAFC64 /* CityListViewController.m in Sources */,
 				6A958D671F4D1856008C2A7D /* HotelViewController.m in Sources */,
