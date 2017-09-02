@@ -128,7 +128,7 @@
                                         <rect key="frame" x="0.0" y="28" width="375" height="73"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="WuF-8k-bTp" id="46D-5f-e7O">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="73"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="72"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="qHL-Oj-WoB">
@@ -989,22 +989,10 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="--" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qF4-lo-e0B">
-                                        <rect key="frame" x="79.5" y="58" width="15.5" height="21"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0.01元" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o5X-g1-Tto">
                                         <rect key="frame" x="15" y="98" width="96" height="38.5"/>
                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="32"/>
                                         <color key="textColor" red="1" green="0.64752635940000003" blue="0.1109860129" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="8月20日" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tf0-4N-wBC">
-                                        <rect key="frame" x="103" y="60" width="58" height="18"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                        <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
@@ -1012,14 +1000,10 @@
                                 <constraints>
                                     <constraint firstItem="Bch-lj-nVT" firstAttribute="leading" secondItem="Xk3-34-71v" secondAttribute="leading" constant="15" id="4lE-qx-37c"/>
                                     <constraint firstAttribute="height" constant="150" id="D7k-0z-sou"/>
-                                    <constraint firstItem="qF4-lo-e0B" firstAttribute="leading" secondItem="t3t-Ke-e4Q" secondAttribute="trailing" constant="8" id="OHg-ee-B9r"/>
                                     <constraint firstItem="t3t-Ke-e4Q" firstAttribute="leading" secondItem="Xk3-34-71v" secondAttribute="leading" constant="15" id="OVd-Tm-DXC"/>
                                     <constraint firstItem="o5X-g1-Tto" firstAttribute="leading" secondItem="Xk3-34-71v" secondAttribute="leading" constant="15" id="Uxs-za-o9x"/>
-                                    <constraint firstItem="tf0-4N-wBC" firstAttribute="top" secondItem="Bch-lj-nVT" secondAttribute="bottom" constant="20" id="Wjt-Ua-kQc"/>
                                     <constraint firstItem="o5X-g1-Tto" firstAttribute="top" secondItem="t3t-Ke-e4Q" secondAttribute="bottom" constant="20" id="XLN-EF-2Yz"/>
                                     <constraint firstItem="t3t-Ke-e4Q" firstAttribute="top" secondItem="Bch-lj-nVT" secondAttribute="bottom" constant="20" id="g2H-uT-qnt"/>
-                                    <constraint firstItem="tf0-4N-wBC" firstAttribute="leading" secondItem="qF4-lo-e0B" secondAttribute="trailing" constant="8" id="kLX-Hn-IYN"/>
-                                    <constraint firstItem="qF4-lo-e0B" firstAttribute="top" secondItem="Bch-lj-nVT" secondAttribute="bottom" constant="18" id="pOo-d4-MHs"/>
                                     <constraint firstItem="Bch-lj-nVT" firstAttribute="top" secondItem="Xk3-34-71v" secondAttribute="top" constant="20" id="xRp-M9-4sQ"/>
                                 </constraints>
                             </view>
@@ -1083,7 +1067,6 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="endtime" destination="tf0-4N-wBC" id="bte-0L-M5N"/>
                         <outlet property="nameLbl" destination="Bch-lj-nVT" id="YXE-8i-d15"/>
                         <outlet property="price" destination="o5X-g1-Tto" id="LTw-dg-PyK"/>
                         <outlet property="starttime" destination="t3t-Ke-e4Q" id="GzH-Tf-0Nq"/>
