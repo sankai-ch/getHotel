@@ -23,7 +23,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *star2;
 @property (weak, nonatomic) IBOutlet UIImageView *star3;
 @property (strong, nonatomic) UIImagePickerController *imagePC;
-
+@property (strong,nonatomic) UIImageView *navigationImageView;
 @end
 
 @implementation MyInfoViewController
@@ -34,8 +34,8 @@
     _myInfoArr = @[@{@"leftIcon":@"hotel",@"title":@"我的酒店"},@{@"leftIcon":@"aviation",@"title":@"我的航空"},@{@"leftIcon":@"setting",@"title":@"账户设置"},@{@"leftIcon":@"protocol",@"title":@"使用协议"},@{@"leftIcon":@"电话",@"title":@"联系客服"}];    // Do any additional setup after loading the view.
     [self setNavigationItem];
     [self addTapGestureRecognizer:_headImageView];
-
-
+    _navigationImageView= [self findHairlineImageViewUnder:self.navigationController.navigationBar];
+    self.navigationImageView = _navigationImageView;
 
 }
 
@@ -48,6 +48,8 @@
     [super viewWillAppear:animated];
     //[self.navigationController setNavigationBarHidden:YES animated:NO];
     if([Utilities loginCheck]){
+        self.navigationImageView.hidden = YES;
+
         //已登录
         _loginBtn.hidden=YES;
         _nameLabel.hidden=NO;
@@ -83,8 +85,28 @@
     }
 }
 
+-(UIImageView *)findHairlineImageViewUnder:(UIView *)view {
+    
+    if ([view isKindOfClass:UIImageView.class] && view.bounds.size.height <= 1.0) {
+        return (UIImageView *)view;
+    }
+    for (UIView *subview in view.subviews) {
+        UIImageView *imageView = [self findHairlineImageViewUnder:subview];
+        if (imageView) {
+            return imageView;
+        }
+    }
+    return nil;
+}
+
 //设置导航栏样式
 - (void)setNavigationItem{
+    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
+    self.navigationController.navigationBar.barStyle=UIBarStyleBlackTranslucent;
+    
+
+
+    
     self.navigationItem.title = @"我的";
     
     [self.navigationController.navigationBar setBarTintColor:HEAD_THEMECOLOR];
@@ -95,12 +117,6 @@
     self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName : [UIColor whiteColor]};
     //设置位置大小
     leftBtn.frame = CGRectMake(0, 0, 20, 20);
-    //设置其背景图片为返回图片
-    //[leftBtn setBackgroundImage:[UIImage imageNamed:@"返回白色"] forState:UIControlStateNormal];
-    //给按钮添加事件
-    //[leftBtn addTarget:self action:@selector(leftButtonAction:) forControlEvents:UIControlEventTouchUpInside];
-    
-    //self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:leftBtn];
 }
 
 //添加一个单击手势事件
@@ -260,7 +276,7 @@
                     break;
             default:
             {
-                UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"是否拨打客户电话？" message:@"13286535443" preferredStyle:UIAlertControllerStyleAlert];
+                UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"是否拨打客服电话？" message:@"13286535443" preferredStyle:UIAlertControllerStyleAlert];
                 UIAlertAction *actionA = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                     [self callAction];
                 }];

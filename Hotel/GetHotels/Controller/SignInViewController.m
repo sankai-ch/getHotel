@@ -53,16 +53,22 @@
 //设置导航栏样式
 - (void)naviConfig{
     self.navigationItem.title = @"会员注册";
-    
-    [self.navigationController.navigationBar setBarTintColor:HEAD_THEMECOLOR];
-    //设置导航条的颜色（风格颜色）
-    self.navigationController.navigationBar.barTintColor = UIColorFromRGB(15, 100, 240);
-    //设置导航栏标题的风格
     self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName : [UIColor whiteColor]};
     //实例化一个button 类型为UIButtonTypeSystem
-    UIButton *leftBtn = [UIButton buttonWithType:UIButtonTypeSystem];
-    //设置位置大小
-    leftBtn.frame = CGRectMake(0, 0, 20, 20);
+    //UIButton *leftBtn = [UIButton buttonWithType:UIButtonTypeSystem];
+    //设置导航条的颜色（风格颜色）
+    self.navigationController.navigationBar.barTintColor = UIColorFromRGB(15, 100, 240);
+//    self.navigationItem.title = @"会员注册";
+//    
+//    [self.navigationController.navigationBar setBarTintColor:HEAD_THEMECOLOR];
+//    //设置导航条的颜色（风格颜色）
+//    self.navigationController.navigationBar.barTintColor = UIColorFromRGB(15, 100, 240);
+//    //设置导航栏标题的风格
+//    self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName : [UIColor whiteColor]};
+//    //实例化一个button 类型为UIButtonTypeSystem
+//    UIButton *leftBtn = [UIButton buttonWithType:UIButtonTypeInfoLight];
+//    //设置位置大小
+//    leftBtn.frame = CGRectMake(0, 0, 20, 20);
     //设置其背景图片为返回图片
     //[leftBtn setBackgroundImage:[UIImage imageNamed:@"返回"] forState:UIControlStateNormal];
     //给按钮添加事件
