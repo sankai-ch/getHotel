@@ -1,0 +1,23 @@
+//
+//  PrefixHeader.pch
+//  GetHotels
+//
+//  Created by admin1 on 2017/8/21.
+//  Copyright © 2017年 Yixin studio. All rights reserved.
+//
+
+#ifndef PrefixHeader_pch
+#define PrefixHeader_pch
+#import "Constants.h"
+#import "Utilities.h"
+#import "StorageMgr.h"
+#import "RequestAPI.h"
+#import "ErrorHandler.h"
+#import "NSDate+Utility.h"
+#import "NSString+Crypt.h"
+#import <SDWebImage/UIImageView+WebCache.h>
+#import "GBAlipayManager.h"
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+
+#endif /* PrefixHeader_pch */
