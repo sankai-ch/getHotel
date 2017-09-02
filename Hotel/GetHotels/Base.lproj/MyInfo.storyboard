@@ -220,10 +220,10 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="Q5y-pC-Y7x" firstAttribute="top" secondItem="pMa-UV-jA0" secondAttribute="bottom" id="6cB-8t-NqM"/>
                             <constraint firstAttribute="trailing" secondItem="pMa-UV-jA0" secondAttribute="trailing" id="Sao-Gn-fXK"/>
                             <constraint firstItem="pMa-UV-jA0" firstAttribute="top" secondItem="PQR-JJ-sQ2" secondAttribute="top" id="XAY-0U-Rwv"/>
                             <constraint firstItem="pMa-UV-jA0" firstAttribute="leading" secondItem="PQR-JJ-sQ2" secondAttribute="leading" id="adX-Bq-YUs"/>
+                            <constraint firstAttribute="bottom" secondItem="pMa-UV-jA0" secondAttribute="bottom" id="qyQ-1C-vlb"/>
                         </constraints>
                     </view>
                     <connections>

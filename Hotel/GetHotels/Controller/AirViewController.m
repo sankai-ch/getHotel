@@ -48,7 +48,7 @@
     //实例化一个button 类型为UIButtonTypeSystem
     //UIButton *leftBtn = [UIButton buttonWithType:UIButtonTypeSystem];
     //设置导航条的颜色（风格颜色）
-    self.navigationController.navigationBar.barTintColor = UIColorFromRGB(24, 124, 326);
+    self.navigationController.navigationBar.barTintColor = UIColorFromRGB(15, 100, 240);
     
 }
 /*
