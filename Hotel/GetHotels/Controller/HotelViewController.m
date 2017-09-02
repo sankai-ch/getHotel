@@ -74,7 +74,7 @@
 @property (strong, nonatomic) NSArray *priceDuring;
 //@property (strong, nonatomic) DOPDropDownMenu *menu;
 
-
+@property (strong, nonatomic) UIImageView *notingImg;
 
 @property (strong, nonatomic) CLLocationManager *locMgr;
 @property (strong, nonatomic) CLLocation *location;
@@ -253,6 +253,12 @@
     
 }
 
+- (void)nothingFotTableView {
+    _notingImg = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"no_things"]];
+    _notingImg.frame = CGRectMake((UI_SCREEN_W - 100) / 2, 300, 100, 100);
+
+    [_hotelTableView addSubview:_notingImg];
+}
 
 
 #pragma mark - pageAndScorll
@@ -530,6 +536,18 @@
                 //                        AAndHModel *hotel1 = _hotelArr[0];
                 //                        NSLog(@"%@",hotel1.hotelName);
                 //                        NSLog(@"%@",hotel1.hotelPrice);
+                _notingImg.hidden = YES;
+                switch (_hotelArr.count) {
+                    case 0:
+                        [self nothingFotTableView];
+                        
+                        _notingImg.hidden = NO;
+                        break;
+                        
+                    default:
+                        _notingImg.hidden = YES;
+                        break;
+                }
                 [_hotelTableView reloadData];
             }
             
@@ -708,7 +726,14 @@
     }
 
 }
-
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (tableView == _selectTableView) {
+        return 35;
+    }
+    else {
+        return 120;
+    }
+}
 
 #pragma mark - searchBar
 
@@ -953,7 +978,7 @@
 }
 //行间距
 -(CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section{
-    return  self.view.frame.size.width/100;
+    return  self.view.frame.size.width/25;
 }
 //设置细胞的横向间距。
 -(CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section{
