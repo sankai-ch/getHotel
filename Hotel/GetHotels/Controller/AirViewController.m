@@ -7,8 +7,13 @@
 //
 
 #import "AirViewController.h"
-
+#import "HMSegmentedControl.h"
 @interface AirViewController ()
+
+@property (strong, nonatomic) HMSegmentedControl *segmentControl;
+@property (weak, nonatomic) IBOutlet UIView *headView;
+@property (weak, nonatomic) IBOutlet UITableView *tradedTableView;
+
 
 @end
 
@@ -51,6 +56,36 @@
     self.navigationController.navigationBar.barTintColor = UIColorFromRGB(15, 100, 240);
     
 }
+
+- (void)setSegmentControl {
+    _segmentControl = [[HMSegmentedControl alloc] initWithSectionTitles:@[@"已成交",@"正在发布",@"历史发布"]];
+    _segmentControl.frame = CGRectMake(0, _headView.frame.size.height, UI_SCREEN_W, 40);
+    _segmentControl.selectedSegmentIndex = 0;
+    _segmentControl
+    
+    
+    .backgroundColor = [UIColor whiteColor];
+    _segmentControl.selectionIndicatorHeight = 2.5f;
+    //设置选中状态的样式
+    _segmentControl.selectionStyle = HMSegmentedControlSelectionStyleFullWidthStripe;
+    //选中时标记的位置
+    _segmentControl.selectionIndicatorLocation = HMSegmentedControlSelectionIndicatorLocationDown;
+    //设置未选中的标题样式
+    _segmentControl.titleTextAttributes = @{NSForegroundColorAttributeName:UIColorFromRGBA(230, 230, 230, 1),NSFontAttributeName:[UIFont boldSystemFontOfSize:15]};
+    //设置选中时的标题样式
+    _segmentControl.selectedTitleTextAttributes = @{NSForegroundColorAttributeName:UIColorFromRGBA(154, 154, 154, 1),NSFontAttributeName:[UIFont boldSystemFontOfSize:15]};
+    __weak typeof (self) weakSelf = self;
+    [_segmentControl setIndexChangeBlock:^(NSInteger index) {
+        //[weakSelf.scrollView scrollRectToVisible:CGRectMake(UI_SCREEN_W * index, 0, UI_SCREEN_W, 200) animated:YES];
+    }];
+    [self.view addSubview:_segmentControl];
+}
+
+
+
+
+//}
+
 /*
 //设置导航栏样式
 - (void)setNavigationItem{
