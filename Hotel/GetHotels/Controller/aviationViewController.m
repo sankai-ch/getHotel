@@ -11,6 +11,7 @@
 @interface aviationViewController ()
 {
     NSInteger i;
+    NSInteger j;
 }
 @property (weak, nonatomic) IBOutlet UIView *xiugaitu;
 @property (weak, nonatomic) IBOutlet UIView *function;
@@ -49,14 +50,31 @@
     [self setNavigationItem];
     // Do any additional setup after loading the view.
     [self setDefaultDateForButton];
+    [self backclor];
+   
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self  action:@selector(hdAction)];
+    [_hdview addGestureRecognizer:tap];
+   
+    [[StorageMgr singletonStorageMgr] removeObjectForKey:@"Tag"];
+    [[StorageMgr singletonStorageMgr] addKey:@"Tag" andValue:@2];
+      NSString *userCity = [Utilities getUserDefaults:@"UserCity"];
+    [_fromcity setTitle:userCity forState:UIControlStateNormal];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(checkCityState:) name:@"fly" object:nil];
+}
+
+
+-(void)backclor{
     _xiugaitu.layer.borderColor = [UIColor colorWithRed:202/255.0f green:224/255.0f blue:251/255.0f alpha:1].CGColor;
     _xiugaitu.layer.borderWidth = 1.5f;
     _function.layer.shadowColor = [UIColor grayColor].CGColor;//阴影颜色
     _function.layer.shadowOffset = CGSizeMake(0, 0);
     _function.layer.shadowOpacity= 0.7f;
     _function.layer.shadowRadius = 4.0f;
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self  action:@selector(hdAction)];
-    [_hdview addGestureRecognizer:tap];
+    _stactprice.layer.borderColor = [UIColor lightGrayColor].CGColor;
+    _stactprice.layer.borderWidth = 1.0;
+    _endprice.layer.borderColor = [UIColor lightGrayColor].CGColor;
+    _endprice.layer.borderWidth = 1.0;
+
 }
 -(void)hdAction{
     _hdview.hidden = YES;
@@ -76,11 +94,33 @@
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    [[StorageMgr singletonStorageMgr] removeObjectForKey:@"Tag"];
-    [[StorageMgr singletonStorageMgr] addKey:@"Tag" andValue:@2];
+    
 }
 
 
+
+- (void)checkCityState: (NSNotification *)note {
+    
+    NSString *cityStr = note.object;
+    if(j == 0)
+    {
+    if (![_fromcity.titleLabel.text isEqualToString:cityStr]) {
+        //修改城市按钮标题
+        [_fromcity setTitle:cityStr forState:UIControlStateNormal];
+        //删除记忆体
+        [Utilities removeUserDefaults:@"UserCity"];
+        //添加记忆体
+        [Utilities setUserDefaults:@"UserCity" content:cityStr];
+    }
+    }else{
+        if (![_gocity.titleLabel.text isEqualToString:cityStr]) {
+            //修改城市按钮标题
+            [_gocity setTitle:cityStr forState:UIControlStateNormal];
+            //删除记忆体
+            
+        }
+    }
+}
 //设置导航栏样式
 //设置导航栏样式
 
@@ -176,9 +216,19 @@
 
 //初始城市
 - (IBAction)formcityAction:(UIButton *)sender forEvent:(UIEvent *)event {
+    j=0;
+ 
+    CityListViewController *vc = [Utilities getStoryboardInstance:@"Hotel" byIdentity:@"flypath"];
+    UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:vc];
+     [self presentViewController:nc animated:YES completion:nil];
+    //[self dell];
 }
 
 //到达城市
 - (IBAction)gocity:(UIButton *)sender forEvent:(UIEvent *)event {
+    j=1;
+        CityListViewController *vc = [Utilities getStoryboardInstance:@"Hotel" byIdentity:@"flypath"];
+    UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:vc];
+    [self presentViewController:nc animated:YES completion:nil];
 }
 @end
