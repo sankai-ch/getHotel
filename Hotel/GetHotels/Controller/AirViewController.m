@@ -79,6 +79,7 @@
         //[weakSelf.scrollView scrollRectToVisible:CGRectMake(UI_SCREEN_W * index, 0, UI_SCREEN_W, 200) animated:YES];
     }];
     [self.view addSubview:_segmentControl];
+    //bujiu 
 }
 
 
