@@ -24,6 +24,7 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *bed2;
 @property (weak, nonatomic) IBOutlet UILabel *bed3;
+@property (weak, nonatomic) IBOutlet UIView *hdview;
 
 
 
@@ -57,6 +58,8 @@
     [self setNavigationItem];
     [self request];
     [self getimage];
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self  action:@selector(hdAction)];
+    [_hdview addGestureRecognizer:tap];
 }
 
 
@@ -77,6 +80,13 @@
     // Dispose of any resources that can be recreated.
 }
 
+
+-(void)hdAction{
+    _hdview.hidden = YES;
+    _toolbar.hidden = YES;
+    _time.hidden = YES;
+    _yingc.hidden = YES;
+}
 #pragma mark - scrollview
 -(void)getimage{
     CGSize scrollSize = _scroll.frame.size;
@@ -206,7 +216,7 @@
 - (IBAction)dituAction:(UIButton *)sender forEvent:(UIEvent *)event {
    
      [self performSegueWithIdentifier:@"ditu" sender:nil];
-    _yingc.hidden = YES;
+   
 }
 
 
@@ -224,13 +234,14 @@
         //执行跳转
         [self presentViewController:signNavi animated:YES completion:nil];
     }
-_yingc.hidden = YES;
+
 
 }
 
 - (IBAction)dayAction:(UIButton *)sender forEvent:(UIEvent *)event {
     
     Flag = 0;
+    _hdview.hidden = NO;
     _yingc.hidden = NO;
     _toolbar.hidden = NO;
     _time.hidden = NO;
@@ -238,12 +249,14 @@ _yingc.hidden = YES;
 
 - (IBAction)day1Action:(UIButton *)sender forEvent:(UIEvent *)event {
     Flag = 1;
+     _hdview.hidden = NO;
     _yingc.hidden = NO;
     _toolbar.hidden = NO;
     _time.hidden = NO;
 }
 
 - (IBAction)concer:(UIBarButtonItem *)sender {
+     _hdview.hidden = YES;
     _toolbar.hidden = YES;
     _time.hidden = YES;
     _yingc.hidden = YES;
@@ -263,9 +276,11 @@ _yingc.hidden = YES;
     }else{
         [_timeday1 setTitle:theDate forState:UIControlStateNormal];
     }
+     _hdview.hidden = YES;
+      _yingc.hidden =YES;
     _toolbar.hidden = YES;
     _time.hidden = YES;
-    _yingc.hidden =YES;
+  
 }
 - (void)request{
     //菊花膜

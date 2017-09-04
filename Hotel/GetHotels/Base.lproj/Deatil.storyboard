@@ -414,6 +414,19 @@
                                     <outlet property="delegate" destination="aVw-Cn-1er" id="Kx5-fm-3Qa"/>
                                 </connections>
                             </scrollView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3uH-c5-FTj">
+                                <rect key="frame" x="0.0" y="617" width="375" height="50"/>
+                                <color key="backgroundColor" red="0.31926995218878917" green="0.58064662929267807" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="MZh-7m-hnf"/>
+                                </constraints>
+                                <state key="normal" title="购买">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="goumaiAction:forEvent:" destination="aVw-Cn-1er" eventType="touchUpInside" id="l3X-XP-03Z"/>
+                                </connections>
+                            </button>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="43J-FO-9s5">
                                 <rect key="frame" x="0.0" y="417" width="375" height="250"/>
                                 <subviews>
@@ -461,19 +474,10 @@
                                     <constraint firstAttribute="height" constant="250" id="rjZ-QO-mTm"/>
                                 </constraints>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3uH-c5-FTj">
-                                <rect key="frame" x="0.0" y="617" width="375" height="50"/>
-                                <color key="backgroundColor" red="0.31926995218878917" green="0.58064662929267807" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="MZh-7m-hnf"/>
-                                </constraints>
-                                <state key="normal" title="购买">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="goumaiAction:forEvent:" destination="aVw-Cn-1er" eventType="touchUpInside" id="l3X-XP-03Z"/>
-                                </connections>
-                            </button>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0IG-bW-3xC">
+                                <rect key="frame" x="0.0" y="20" width="375" height="397"/>
+                                <color key="backgroundColor" white="1" alpha="0.028119648972602738" colorSpace="calibratedWhite"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
                         <constraints>
@@ -482,8 +486,12 @@
                             <constraint firstItem="exX-8m-if0" firstAttribute="top" secondItem="34h-Uw-Yoy" secondAttribute="bottom" id="Fde-RF-9vq"/>
                             <constraint firstAttribute="bottom" secondItem="43J-FO-9s5" secondAttribute="bottom" id="GW9-KA-td1"/>
                             <constraint firstAttribute="bottom" secondItem="3uH-c5-FTj" secondAttribute="bottom" id="Gbd-8P-WfT"/>
+                            <constraint firstItem="0IG-bW-3xC" firstAttribute="leading" secondItem="36o-5R-3UR" secondAttribute="leading" id="JJO-i6-ODM"/>
+                            <constraint firstItem="43J-FO-9s5" firstAttribute="top" secondItem="0IG-bW-3xC" secondAttribute="bottom" id="X9c-c7-5cf"/>
                             <constraint firstAttribute="trailing" secondItem="43J-FO-9s5" secondAttribute="trailing" id="XsT-EI-WmE"/>
+                            <constraint firstAttribute="trailing" secondItem="0IG-bW-3xC" secondAttribute="trailing" id="aO6-77-G3k"/>
                             <constraint firstAttribute="trailing" secondItem="3uH-c5-FTj" secondAttribute="trailing" id="gJo-SO-Ui9"/>
+                            <constraint firstItem="0IG-bW-3xC" firstAttribute="top" secondItem="cr8-X1-obx" secondAttribute="bottom" id="i3e-1x-5XB"/>
                             <constraint firstItem="43J-FO-9s5" firstAttribute="leading" secondItem="36o-5R-3UR" secondAttribute="leading" id="kSx-h8-XgI"/>
                             <constraint firstAttribute="trailing" secondItem="34h-Uw-Yoy" secondAttribute="trailing" id="pH9-od-KwU"/>
                             <constraint firstItem="34h-Uw-Yoy" firstAttribute="leading" secondItem="36o-5R-3UR" secondAttribute="leading" id="smg-Yh-ZH9"/>
@@ -498,6 +506,7 @@
                         <outlet property="confirm" destination="gCt-1K-xZl" id="KHR-VZ-IjS"/>
                         <outlet property="dizhi" destination="pca-0G-cvL" id="VTR-hF-9fg"/>
                         <outlet property="goumai" destination="3uH-c5-FTj" id="aHg-qb-GMS"/>
+                        <outlet property="hdview" destination="0IG-bW-3xC" id="LcF-N1-6mf"/>
                         <outlet property="hotelbed" destination="8g7-GA-3Su" id="4ED-0H-WKI"/>
                         <outlet property="image2" destination="YWC-EI-vu4" id="9C6-52-we6"/>
                         <outlet property="image3" destination="o1D-RV-I0W" id="O9E-Cd-Z2P"/>
