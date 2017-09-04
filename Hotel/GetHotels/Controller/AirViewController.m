@@ -8,11 +8,18 @@
 
 #import "AirViewController.h"
 #import "HMSegmentedControl.h"
-@interface AirViewController ()
+#import "MyIssueTableViewCell.h"
+@interface AirViewController ()<UITableViewDelegate,UITableViewDataSource,UIScrollViewDelegate> {
+    NSInteger idNum;
+}
 
 @property (strong, nonatomic) HMSegmentedControl *segmentControl;
-@property (weak, nonatomic) IBOutlet UIView *headView;
+
+
 @property (weak, nonatomic) IBOutlet UITableView *tradedTableView;
+@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
+@property (weak, nonatomic) IBOutlet UITableView *releaseTableView;
+@property (weak, nonatomic) IBOutlet UITableView *historyListTableView;
 
 
 @end
@@ -21,7 +28,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    idNum = 1;
     [self setNavigationItem];
+    [self setSegmentControl];
+    [self requestNet];
     // Do any additional setup after loading the view.
 }
 
@@ -59,12 +69,9 @@
 
 - (void)setSegmentControl {
     _segmentControl = [[HMSegmentedControl alloc] initWithSectionTitles:@[@"已成交",@"正在发布",@"历史发布"]];
-    _segmentControl.frame = CGRectMake(0, _headView.frame.size.height, UI_SCREEN_W, 40);
+    _segmentControl.frame = CGRectMake(0, 64, UI_SCREEN_W, 40);
     _segmentControl.selectedSegmentIndex = 0;
-    _segmentControl
-    
-    
-    .backgroundColor = [UIColor whiteColor];
+    _segmentControl.backgroundColor = [UIColor whiteColor];
     _segmentControl.selectionIndicatorHeight = 2.5f;
     //设置选中状态的样式
     _segmentControl.selectionStyle = HMSegmentedControlSelectionStyleFullWidthStripe;
@@ -76,7 +83,7 @@
     _segmentControl.selectedTitleTextAttributes = @{NSForegroundColorAttributeName:UIColorFromRGBA(154, 154, 154, 1),NSFontAttributeName:[UIFont boldSystemFontOfSize:15]};
     __weak typeof (self) weakSelf = self;
     [_segmentControl setIndexChangeBlock:^(NSInteger index) {
-        //[weakSelf.scrollView scrollRectToVisible:CGRectMake(UI_SCREEN_W * index, 0, UI_SCREEN_W, 200) animated:YES];
+        [weakSelf.scrollView scrollRectToVisible:CGRectMake(UI_SCREEN_W * index, 0, UI_SCREEN_W, 200) animated:YES];
     }];
     [self.view addSubview:_segmentControl];
     //bujiu 
@@ -99,5 +106,61 @@
     // self.navigationController.navigationBar.barTintColor = UIColorFromRGB(24, 124, 326);
 }
 */
+
+#pragma mark - TableView 
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return 1;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (tableView == _tradedTableView) {
+        MyIssueTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"traded" forIndexPath:indexPath];
+        return cell;
+    } else if (tableView == _releaseTableView) {
+        MyIssueTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ReleaseTableView" forIndexPath:indexPath];
+        return cell;
+    } else {
+        MyIssueTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"HistoryList" forIndexPath:indexPath];
+        return cell;
+    }
+    
+}
+
+
+#pragma mark - Scorll
+//scrollView已经停止减速
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+    if (scrollView == _scrollView) {
+        NSInteger page = [self scrollCheck:scrollView];
+        //NSLog(@"page = %ld",(long)page);
+        //将_segmentedControl设置选中的index为page【scrollview当前显示的tableview】
+        [_segmentControl setSelectedSegmentIndex:page animated:YES];
+    }
+}
+//scorllView已经结束滑动的动画
+- (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView {
+    if (scrollView == _scrollView) {
+        [self scrollCheck:scrollView];
+    }
+}
+//判断我们的scroll滚到哪里了
+- (NSInteger)scrollCheck : (UIScrollView *)scrollView {
+    NSInteger page = scrollView.contentOffset.x / (scrollView.frame.size.width);
+    
+    return page;
+}
+
+#pragma mark - Request
+
+- (void)requestNet {
+    NSDictionary *para = @{@"id":@(idNum)};
+    [RequestAPI requestURL:@"/findOrders_edu" withParameters:para andHeader:nil byMethod:kPost andSerializer:kJson success:^(id responseObject) {
+        NSLog(@"responseObject = %@",responseObject);
+    } failure:^(NSInteger statusCode, NSError *error) {
+        NSLog(@"%@",error);
+        
+    }];
+}
 
 @end

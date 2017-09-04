@@ -811,6 +811,7 @@
     }
     _backgroundView.hidden = NO;
     _selectBView.hidden = NO;
+    //self.tabBarController.tabBar.hidden = YES;
 }
 
 - (void)showOrderView {
