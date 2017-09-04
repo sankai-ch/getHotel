@@ -237,7 +237,7 @@
                                 </connections>
                             </tableView>
                             <view hidden="YES" alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PZz-Eh-cZc" userLabel="backgroundView" customClass="UIControl">
-                                <rect key="frame" x="0.0" y="154" width="375" height="464"/>
+                                <rect key="frame" x="0.0" y="154" width="375" height="513"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
                                     <action selector="didTouch" destination="pb5-Fu-s1p" eventType="touchUpInside" id="7LB-tf-XHT"/>
@@ -511,9 +511,9 @@
                         <constraints>
                             <constraint firstItem="Whx-wt-zO8" firstAttribute="leading" secondItem="6ta-ME-CdA" secondAttribute="leading" id="57f-J2-EHC"/>
                             <constraint firstAttribute="trailing" secondItem="EjV-eh-aPV" secondAttribute="trailing" id="6Bf-eZ-elK"/>
+                            <constraint firstAttribute="bottom" secondItem="PZz-Eh-cZc" secondAttribute="bottom" id="7Bt-51-UvP"/>
                             <constraint firstAttribute="trailing" secondItem="PZz-Eh-cZc" secondAttribute="trailing" id="7uY-yB-w4h"/>
                             <constraint firstItem="a8w-zK-PCD" firstAttribute="top" secondItem="S76-32-ZGi" secondAttribute="bottom" id="9Cd-2f-LX4"/>
-                            <constraint firstItem="t54-v5-XNw" firstAttribute="top" secondItem="PZz-Eh-cZc" secondAttribute="bottom" id="Lo7-fx-LDX"/>
                             <constraint firstItem="EjV-eh-aPV" firstAttribute="top" secondItem="S76-32-ZGi" secondAttribute="bottom" id="RZE-E1-wkv"/>
                             <constraint firstItem="PZz-Eh-cZc" firstAttribute="leading" secondItem="6ta-ME-CdA" secondAttribute="leading" id="Ura-e6-sIn"/>
                             <constraint firstItem="a8w-zK-PCD" firstAttribute="leading" secondItem="6ta-ME-CdA" secondAttribute="leading" id="VOx-ry-OfQ"/>
@@ -584,7 +584,7 @@
         <!--City List View Controller-->
         <scene sceneID="s7f-x8-Phk">
             <objects>
-                <viewController hidesBottomBarWhenPushed="YES" id="MLc-xj-vpS" customClass="CityListViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="flypath" hidesBottomBarWhenPushed="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="MLc-xj-vpS" customClass="CityListViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="CL6-oU-e2H"/>
                         <viewControllerLayoutGuide type="bottom" id="Ns9-kK-3kO"/>
@@ -681,7 +681,7 @@
         <!--Navigation Controller-->
         <scene sceneID="c67-4g-eCt">
             <objects>
-                <navigationController storyboardIdentifier="flypath" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="cII-0A-4QD" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="cII-0A-4QD" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="5lm-A1-H2h">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
