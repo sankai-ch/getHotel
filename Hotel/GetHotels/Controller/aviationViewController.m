@@ -53,19 +53,50 @@
     [self backclor];
    
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self  action:@selector(hdAction)];
+    
+//    [[NSNotificationCenter defaultCenter] addObserver:self
+//                                             selector:@selector(keyboardWillHide:)
+//                                                 name:UIKeyboardWillHideNotification
+//                                               object:nil];
     [_hdview addGestureRecognizer:tap];
    
     [[StorageMgr singletonStorageMgr] removeObjectForKey:@"Tag"];
     [[StorageMgr singletonStorageMgr] addKey:@"Tag" andValue:@2];
-      NSString *userCity = [Utilities getUserDefaults:@"UserCity"];
+      NSString *userCity = [Utilities getUserDefaults:@"usercity"];
     [_fromcity setTitle:userCity forState:UIControlStateNormal];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(checkCityState:) name:@"fly" object:nil];
+    
+    //注册键盘弹出通知
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillShow:)
+                                                 name:UIKeyboardWillShowNotification
+                                               object:nil];
+ 
+   
 }
 
 
+-(void)keyboardWillShow:(NSNotification *)note
+{
+    //CGRect keyboardReck = [[note.userInfo objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
+   
+        _function.frame = CGRectMake(_function.frame.origin.x,20, _function.frame.size.width, _function.frame.size.height);
+    
+}
+//-(void)keyboardWillHide:(NSNotification *)note
+//{
+//   
+//    //_function.frame =CGRectMake(0, 0, _function.frame.size.width, _function.frame.size.height);
+//   
+//}
+- (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+    //让根视图结束编辑状态达到收回键盘的目的
+    [self.view endEditing:YES];
+}
+
 -(void)backclor{
     _xiugaitu.layer.borderColor = [UIColor colorWithRed:202/255.0f green:224/255.0f blue:251/255.0f alpha:1].CGColor;
-    _xiugaitu.layer.borderWidth = 1.5f;
+    _xiugaitu.layer.borderWidth = 2.0f;
     _function.layer.shadowColor = [UIColor grayColor].CGColor;//阴影颜色
     _function.layer.shadowOffset = CGSizeMake(0, 0);
     _function.layer.shadowOpacity= 0.7f;
@@ -108,9 +139,9 @@
         //修改城市按钮标题
         [_fromcity setTitle:cityStr forState:UIControlStateNormal];
         //删除记忆体
-        [Utilities removeUserDefaults:@"UserCity"];
+        [Utilities removeUserDefaults:@"usercity"];
         //添加记忆体
-        [Utilities setUserDefaults:@"UserCity" content:cityStr];
+        [Utilities setUserDefaults:@"usercity" content:cityStr];
     }
     }else{
         if (![_gocity.titleLabel.text isEqualToString:cityStr]) {
@@ -162,6 +193,7 @@
 }
 - (IBAction)issuedAction:(UIButton *)sender forEvent:(UIEvent *)event {
     
+       [self request];
     
 }
 - (IBAction)connerAction:(UIBarButtonItem *)sender {
@@ -230,5 +262,16 @@
         CityListViewController *vc = [Utilities getStoryboardInstance:@"Hotel" byIdentity:@"flypath"];
     UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:vc];
     [self presentViewController:nc animated:YES completion:nil];
+}
+-(void)request{
+    NSDictionary *para = @{@"aviation_demand_title":_objectiv.text
+                           ,@"set_low_time_str":_strattime.titleLabel.text,@"set_high_time_str":_endtime.titleLabel.text,@"departure":_fromcity.titleLabel.text,@"destination":_gocity.titleLabel.text,@"low_price":_stactprice.text,@"high_price":_endprice.text,@"high_price":_detail.text};
+    [RequestAPI requestURL:@"/addIssue_edu" withParameters:para andHeader:nil byMethod:kPost andSerializer:kForm success:^(id responseObject) {
+        NSLog(@"resprnse:%@",responseObject);
+        
+    } failure:^(NSInteger statusCode, NSError *error) {
+        NSLog(@"失败了");
+        
+    }];
 }
 @end
