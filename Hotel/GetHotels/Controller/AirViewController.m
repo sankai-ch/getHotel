@@ -69,7 +69,7 @@
 
 - (void)setSegmentControl {
     _segmentControl = [[HMSegmentedControl alloc] initWithSectionTitles:@[@"已成交",@"正在发布",@"历史发布"]];
-    _segmentControl.frame = CGRectMake(0, 64, UI_SCREEN_W, 40);
+    _segmentControl.frame = CGRectMake(0, [[UIApplication sharedApplication] statusBarFrame].size.height+self.navigationController.navigationBar.frame.size.height, UI_SCREEN_W, 40);
     _segmentControl.selectedSegmentIndex = 0;
     _segmentControl.backgroundColor = [UIColor whiteColor];
     _segmentControl.selectionIndicatorHeight = 2.5f;
@@ -154,8 +154,8 @@
 #pragma mark - Request
 
 - (void)requestNet {
-    NSDictionary *para = @{@"id":@(idNum)};
-    [RequestAPI requestURL:@"/findOrders_edu" withParameters:para andHeader:nil byMethod:kPost andSerializer:kJson success:^(id responseObject) {
+    NSDictionary *para = @{@"openid":[[StorageMgr singletonStorageMgr] objectForKey:@"OpenId"],@"page":@1,@"state":@1};
+    [RequestAPI requestURL:@"/findAllIssue_edu" withParameters:para andHeader:nil byMethod:kPost andSerializer:kForm success:^(id responseObject) {
         NSLog(@"responseObject = %@",responseObject);
     } failure:^(NSInteger statusCode, NSError *error) {
         NSLog(@"%@",error);
