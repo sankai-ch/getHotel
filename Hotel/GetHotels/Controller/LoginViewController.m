@@ -172,6 +172,8 @@
             UserModel *user=[[UserModel alloc]initWhitDictionary:result];
             [[StorageMgr singletonStorageMgr]addKey:@"UserInfo" andValue:user];
             [[StorageMgr singletonStorageMgr]addKey:@"MemberId" andValue:user.userId];
+            [[StorageMgr singletonStorageMgr] removeObjectForKey:@"OpenId"];
+            [[StorageMgr singletonStorageMgr] addKey:@"OpenId" andValue:user.openId];
             [self.view endEditing:YES];
             _pwdTextField.text=@"";
             [Utilities setUserDefaults:@"UserTel" content:_phoneTextField.text];
