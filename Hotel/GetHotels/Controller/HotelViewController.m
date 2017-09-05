@@ -86,7 +86,7 @@
 - (IBAction)didTouch;
     
 
-
+@property (nonatomic) CGPoint touchPoint;
 
 
 @end
@@ -622,12 +622,15 @@
     //NSLog(@"%@",cell.hotelLocation.text);
     cell.hotelDistance.text = [NSString stringWithFormat:@"%ld",(long)hotelModel.distance];
     //NSLog(@"%@",cell.hotelDistance.text);
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
 }
 
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    NSLog(@"%f,%f",_touchPoint.x,_touchPoint.y);
+    
+    //[tableView deselectRowAtIndexPath:indexPath animated:YES];
     if (tableView == _selectTableView) {
         [_c setTitle:_sorts[indexPath.row] forState:UIControlStateNormal];
         switch (indexPath.row) {
@@ -658,9 +661,13 @@
     [[StorageMgr singletonStorageMgr] addKey:@"customInTime" andValue:_inTime];
     [[StorageMgr singletonStorageMgr] removeObjectForKey:@"customOutTime"];
     [[StorageMgr singletonStorageMgr] addKey:@"customOutTime" andValue:_outTime];
+    
+    
     //UINavigationController *nc = [[UINavigationController alloc]initWithRootViewController:detailVC];
     //[self presentViewController:nc animated:YES completion:nil];
    // detailVC.hotelId = hotelID.hotelId;
+    //UITouch *touch = []
+    
     [self.navigationController pushViewController:detailVC animated:YES];
 }
 
@@ -767,6 +774,13 @@
 //        _inTime =
 //    }
 //}
+
+//- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+//    UITouch *touch = [touches anyObject];
+//    _touchPoint = [touch locationInView:self.view];
+//    NSLog(@"chumo");
+//}
+
 
 - (void)sequenceAt{
     //_datePicker.hidden = YES;
