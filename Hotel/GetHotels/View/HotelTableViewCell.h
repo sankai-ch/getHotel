@@ -14,5 +14,5 @@
 @property (weak, nonatomic) IBOutlet UILabel *hotelLocation;
 @property (weak, nonatomic) IBOutlet UILabel *hotelDistance;
 @property (weak, nonatomic) IBOutlet UILabel *hotelPrice;
-
+@property (nonatomic) NSInteger row;
 @end

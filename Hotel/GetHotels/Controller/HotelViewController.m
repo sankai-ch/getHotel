@@ -86,7 +86,7 @@
 - (IBAction)didTouch;
     
 
-
+@property (nonatomic) CGPoint touchPoint;
 
 
 @end
@@ -106,7 +106,7 @@
     [self setRefreshControl];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(checkCityState:) name:@"ResetHome" object:nil];
     //[self requestCiry];
-    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(push:) name:@"noti" object:nil];
     //[self request];
     [self requestAll];
     [_collectionView selectItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0] animated:YES scrollPosition:UICollectionViewScrollPositionNone];
@@ -609,6 +609,7 @@
     //NSLog(@"%ld",(long)indexPath.row);
     AAndHModel *hotelModel = _hotelArr[indexPath.row];
     //NSLog(@"123%@",hotelModel.hotelName);
+    cell.row = indexPath.row;
     cell.hotelName.text = hotelModel.hotelName;
     //NSLog(@"%@",cell.hotelName.text);
     cell.hotelPrice.text = [NSString stringWithFormat:@"¥%@",hotelModel.hotelPrice];
@@ -622,12 +623,15 @@
     //NSLog(@"%@",cell.hotelLocation.text);
     cell.hotelDistance.text = [NSString stringWithFormat:@"%ld",(long)hotelModel.distance];
     //NSLog(@"%@",cell.hotelDistance.text);
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
 }
 
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    NSLog(@"%f,%f",_touchPoint.x,_touchPoint.y);
+    
+    //[tableView deselectRowAtIndexPath:indexPath animated:YES];
     if (tableView == _selectTableView) {
         [_c setTitle:_sorts[indexPath.row] forState:UIControlStateNormal];
         switch (indexPath.row) {
@@ -658,9 +662,27 @@
     [[StorageMgr singletonStorageMgr] addKey:@"customInTime" andValue:_inTime];
     [[StorageMgr singletonStorageMgr] removeObjectForKey:@"customOutTime"];
     [[StorageMgr singletonStorageMgr] addKey:@"customOutTime" andValue:_outTime];
+    
+    
     //UINavigationController *nc = [[UINavigationController alloc]initWithRootViewController:detailVC];
     //[self presentViewController:nc animated:YES completion:nil];
    // detailVC.hotelId = hotelID.hotelId;
+    //UITouch *touch = []
+    
+    [self.navigationController pushViewController:detailVC animated:YES];
+}
+
+- (void)push:(NSNotification *)noti {
+    //NSLog(@"noti = %@",noti);
+    NSInteger i = [noti.object integerValue];
+    AAndHModel *hotelID = _hotelArr[i];
+    DetailViewController *detailVC = [Utilities getStoryboardInstance:@"Deatil" byIdentity:@"reservation"];
+    [[StorageMgr singletonStorageMgr] removeObjectForKey:@"hotelId"];
+    [[StorageMgr singletonStorageMgr] addKey:@"hotelId" andValue:@(hotelID.hotelId)];
+    [[StorageMgr singletonStorageMgr] removeObjectForKey:@"customInTime"];
+    [[StorageMgr singletonStorageMgr] addKey:@"customInTime" andValue:_inTime];
+    [[StorageMgr singletonStorageMgr] removeObjectForKey:@"customOutTime"];
+    [[StorageMgr singletonStorageMgr] addKey:@"customOutTime" andValue:_outTime];
     [self.navigationController pushViewController:detailVC animated:YES];
 }
 
@@ -767,6 +789,13 @@
 //        _inTime =
 //    }
 //}
+
+//- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+//    UITouch *touch = [touches anyObject];
+//    _touchPoint = [touch locationInView:self.view];
+//    NSLog(@"chumo");
+//}
+
 
 - (void)sequenceAt{
     //_datePicker.hidden = YES;

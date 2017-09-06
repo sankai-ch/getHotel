@@ -181,7 +181,7 @@
         }
         else{
             NSString *errorMsg=[ErrorHandler getProperErrorString:[responseObject[@"resultFlag"]integerValue]];
-            [Utilities popUpAlertViewWithMsg:@"密码错误！" andTitle:@"警报" onView:self onCompletion:^{
+            [Utilities popUpAlertViewWithMsg:errorMsg andTitle:@"提示" onView:self onCompletion:^{
                 
             }];
         }
