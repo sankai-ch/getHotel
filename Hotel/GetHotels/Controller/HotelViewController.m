@@ -106,7 +106,7 @@
     [self setRefreshControl];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(checkCityState:) name:@"ResetHome" object:nil];
     //[self requestCiry];
-    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(push:) name:@"noti" object:nil];
     //[self request];
     [self requestAll];
     [_collectionView selectItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0] animated:YES scrollPosition:UICollectionViewScrollPositionNone];
@@ -609,6 +609,7 @@
     //NSLog(@"%ld",(long)indexPath.row);
     AAndHModel *hotelModel = _hotelArr[indexPath.row];
     //NSLog(@"123%@",hotelModel.hotelName);
+    cell.row = indexPath.row;
     cell.hotelName.text = hotelModel.hotelName;
     //NSLog(@"%@",cell.hotelName.text);
     cell.hotelPrice.text = [NSString stringWithFormat:@"¥%@",hotelModel.hotelPrice];
@@ -668,6 +669,20 @@
    // detailVC.hotelId = hotelID.hotelId;
     //UITouch *touch = []
     
+    [self.navigationController pushViewController:detailVC animated:YES];
+}
+
+- (void)push:(NSNotification *)noti {
+    //NSLog(@"noti = %@",noti);
+    NSInteger i = [noti.object integerValue];
+    AAndHModel *hotelID = _hotelArr[i];
+    DetailViewController *detailVC = [Utilities getStoryboardInstance:@"Deatil" byIdentity:@"reservation"];
+    [[StorageMgr singletonStorageMgr] removeObjectForKey:@"hotelId"];
+    [[StorageMgr singletonStorageMgr] addKey:@"hotelId" andValue:@(hotelID.hotelId)];
+    [[StorageMgr singletonStorageMgr] removeObjectForKey:@"customInTime"];
+    [[StorageMgr singletonStorageMgr] addKey:@"customInTime" andValue:_inTime];
+    [[StorageMgr singletonStorageMgr] removeObjectForKey:@"customOutTime"];
+    [[StorageMgr singletonStorageMgr] addKey:@"customOutTime" andValue:_outTime];
     [self.navigationController pushViewController:detailVC animated:YES];
 }
 

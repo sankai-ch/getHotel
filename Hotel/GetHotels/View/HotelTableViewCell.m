@@ -29,7 +29,22 @@
     //NSLog(@"%f,%f", location.x, location.y);
     UIView *ripple = [[UIView alloc] initWithFrame:CGRectMake(location.x - 5, location.y - 5, 10, 10)];
     ripple.layer.cornerRadius = 5;
-    //ripple.backgroundColor =
+    ripple.backgroundColor = [[UIColor lightGrayColor] colorWithAlphaComponent:0.15];
+    [self addSubview:ripple];
+    POPBasicAnimation *rippleSizeAnimation = [POPBasicAnimation animation];
+    rippleSizeAnimation.property = [POPAnimatableProperty propertyWithName:kPOPLayerSize];
+    rippleSizeAnimation.duration = 0.5;
+    rippleSizeAnimation.toValue = [NSValue valueWithCGSize:CGSizeMake(120, 120)];
+    [ripple pop_addAnimation:rippleSizeAnimation forKey:@"rippleSizeAnimation"];
+    POPBasicAnimation *rippleCRAnimation = [POPBasicAnimation animation];
+    rippleCRAnimation.property = [POPAnimatableProperty propertyWithName:kPOPLayerCornerRadius];
+    rippleCRAnimation.duration = 0.5;
+    rippleCRAnimation.toValue = @60;
+    [ripple.layer pop_addAnimation:rippleCRAnimation forKey:@"rippleCRAnimation"];
+    rippleCRAnimation.completionBlock = ^(POPAnimation *anim, BOOL finished) {
+        [ripple removeFromSuperview];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"noti" object:@(_row)];
+    };
 }
 
 @end
