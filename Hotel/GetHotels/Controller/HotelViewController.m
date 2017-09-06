@@ -26,11 +26,15 @@
     NSInteger pages;
     
 }
+// 约束
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *selectViewHeight;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *sequenceViewHeight;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *pVHeight;
+
+
 @property (weak, nonatomic) IBOutlet UIButton *collectionBtn;
 - (IBAction)citySelectAction:(UIButton *)sender forEvent:(UIEvent *)event;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *pickViewHeight;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *selectHeight;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *sequenceHeight;
+
 @property (weak, nonatomic) IBOutlet UISearchBar *searchHotelBar;
 @property (weak, nonatomic) IBOutlet UIControl *backgroundView;
 @property (weak, nonatomic) IBOutlet UIView *pickerView;
@@ -483,7 +487,7 @@
 //}
 - (void)requestForSearch: (NSString *)name {
     [RequestAPI requestURL:@"/selectHotel" withParameters:@{@"hotel_name":name,@"inTime":_date1,@"outTime":_date2} andHeader:nil byMethod:kGet andSerializer:kForm success:^(id responseObject) {
-        NSLog(@"%@",responseObject);
+        //NSLog(@"%@",responseObject);
         if ([responseObject[@"result"] integerValue] == 1) {
             NSArray *searchHotelArr = responseObject[@"content"];
             [_hotelArr removeAllObjects];
@@ -507,7 +511,7 @@
         
         //NSLog(@"%@,%@",_date1,_date2);
         [RequestAPI requestURL:@"/findHotelByCity_edu" withParameters:para andHeader:nil byMethod:kGet andSerializer:kJson success:^(id responseObject) {
-            NSLog(@"%@",responseObject);
+            //NSLog(@"%@",responseObject);
             [_avi stopAnimating];
             UIRefreshControl *ref = (UIRefreshControl *)[_hotelTableView viewWithTag:100001];
             [ref endRefreshing];
@@ -650,18 +654,18 @@
         }
         _backgroundView.hidden = YES;
         _selectBView.hidden = YES;
-        _selectHeight.constant = 0;
+        _selectViewHeight.constant = 0;
         [self requestAll];
         return;
     }
-    AAndHModel *hotelID = _hotelArr[indexPath.row];
-    DetailViewController *detailVC = [Utilities getStoryboardInstance:@"Deatil" byIdentity:@"reservation"];
-    [[StorageMgr singletonStorageMgr] removeObjectForKey:@"hotelId"];
-    [[StorageMgr singletonStorageMgr] addKey:@"hotelId" andValue:@(hotelID.hotelId)];
-    [[StorageMgr singletonStorageMgr] removeObjectForKey:@"customInTime"];
-    [[StorageMgr singletonStorageMgr] addKey:@"customInTime" andValue:_inTime];
-    [[StorageMgr singletonStorageMgr] removeObjectForKey:@"customOutTime"];
-    [[StorageMgr singletonStorageMgr] addKey:@"customOutTime" andValue:_outTime];
+//    AAndHModel *hotelID = _hotelArr[indexPath.row];
+//    DetailViewController *detailVC = [Utilities getStoryboardInstance:@"Deatil" byIdentity:@"reservation"];
+//    [[StorageMgr singletonStorageMgr] removeObjectForKey:@"hotelId"];
+//    [[StorageMgr singletonStorageMgr] addKey:@"hotelId" andValue:@(hotelID.hotelId)];
+//    [[StorageMgr singletonStorageMgr] removeObjectForKey:@"customInTime"];
+//    [[StorageMgr singletonStorageMgr] addKey:@"customInTime" andValue:_inTime];
+//    [[StorageMgr singletonStorageMgr] removeObjectForKey:@"customOutTime"];
+//    [[StorageMgr singletonStorageMgr] addKey:@"customOutTime" andValue:_outTime];
     
     
     //UINavigationController *nc = [[UINavigationController alloc]initWithRootViewController:detailVC];
@@ -669,7 +673,7 @@
    // detailVC.hotelId = hotelID.hotelId;
     //UITouch *touch = []
     
-    [self.navigationController pushViewController:detailVC animated:YES];
+//    [self.navigationController pushViewController:detailVC animated:YES];
 }
 
 - (void)push:(NSNotification *)noti {
@@ -802,22 +806,27 @@
     //_toolBar.hidden = YES;
     _d.highlighted = YES;
     [_hotelTableView setContentOffset:CGPointMake(0, 150) animated:YES];
-    _sequenceHeight.constant = 40;
-    [UIView animateWithDuration:0.5 animations:^{
+    _sequenceViewHeight.constant = 140;
+    _pVHeight.constant = 25;
+    _selectViewHeight.constant = 25;
+    [UIView animateWithDuration:0.25 animations:^{
         [self.view layoutIfNeeded];
+    } completion:^(BOOL finished) {
+        _pickerView.hidden = YES;
+        _selectBView.hidden = YES;
     }];
-    _pickerView.hidden = YES;
-    _selectBView.hidden = YES;
     if(!_sequenceView.hidden){
-        _pickViewHeight.constant = 550;
-        _selectHeight.constant = 0;
-        _sequenceHeight.constant = 0;
-        [UIView animateWithDuration:0.5 animations:^{
+        _pVHeight.constant = 20;
+        _selectViewHeight.constant = 25;
+        _sequenceViewHeight.constant = 25;
+        [UIView animateWithDuration:0.25 animations:^{
             [self.view layoutIfNeeded];
+        } completion:^(BOOL finished) {
+            _sequenceView.hidden = YES;
+            _backgroundView.hidden = YES;
+            return;
         }];
-        _sequenceView.hidden = YES;
-        _backgroundView.hidden = YES;
-        return;
+        
     }
     _backgroundView.hidden = NO;
     _sequenceView.hidden=NO;
@@ -828,61 +837,66 @@
     //_selectView.hidden = NO;
     [_c setTitleColor:[UIColor blueColor] forState:UIControlStateHighlighted];
     [_hotelTableView setContentOffset:CGPointMake(0, 150) animated:YES];
-    _selectHeight.constant = 40;
-    [UIView animateWithDuration:0.5 animations:^{
+    _selectViewHeight.constant = 140;
+    _pVHeight.constant = 25;
+    _sequenceViewHeight.constant = 25;
+    [UIView animateWithDuration:0.25 animations:^{
         [self.view layoutIfNeeded];
+    } completion:^(BOOL finished) {
+        _sequenceView.hidden=YES;
+        _pickerView.hidden = YES;
     }];
-    _sequenceView.hidden=YES;
-    _pickerView.hidden = YES;
+    
     //_datePicker.hidden = YES;
     //_toolBar.hidden = YES;
+
     if (!_selectBView.hidden) {
-        _pickViewHeight.constant = 550;
-        _selectHeight.constant = 0;
-        _sequenceHeight.constant = 0;
-        [UIView animateWithDuration:0.5 animations:^{
+        _pVHeight.constant = 20;
+        _selectViewHeight.constant = 25;
+        _sequenceViewHeight.constant = 25;
+        [UIView animateWithDuration:0.25 animations:^{
             [self.view layoutIfNeeded];
+        } completion:^(BOOL finished) {
+            _selectBView.hidden = YES;
+            _backgroundView.hidden = YES;
+            return;
         }];
-        
-        _selectBView.hidden = YES;
-        _backgroundView.hidden = YES;
-        return;
-    }
+}
     _backgroundView.hidden = NO;
     _selectBView.hidden = NO;
     //self.tabBarController.tabBar.hidden = YES;
 }
 
-- (void)showOrderView {
-    //[_orderByBtn titleForState:UIControlStateHighlighted];
-    //_orederByView.hidden = NO;
-}
 
 - (void)inTimeAction {
     //[_inTimeBtn titleForState:UIControlStateHighlighted];
     //[_hotelTableView scrollRectToVisible:CGRectMake(0, 150, UI_SCREEN_W, 150) animated:YES];
     [_a setTitleColor:[UIColor blueColor] forState:UIControlStateHighlighted];
     [_hotelTableView setContentOffset:CGPointMake(0, 150) animated:YES];
-    _pickViewHeight.constant = 313;
-    [UIView animateWithDuration:0.5f animations:^{
+    _pVHeight.constant = 260;
+    _selectViewHeight.constant = 25;
+    _sequenceViewHeight.constant = 25;
+    [UIView animateWithDuration:0.25 animations:^{
         [self.view layoutIfNeeded];
+    } completion:^(BOOL finished) {
+        _selectBView.hidden = YES;
+        _sequenceView.hidden=YES;
     }];
-    _selectBView.hidden = YES;
-    _sequenceView.hidden=YES;
     if (!_pickerView.hidden) {
         //_datePicker.hidden = YES;
         //_toolBar.hidden = YES;
-        _pickViewHeight.constant = 550;
-        _selectHeight.constant = 0;
-        _sequenceHeight.constant = 0;
-        [UIView animateWithDuration:0.5f animations:^{
+        _pVHeight.constant = 25;
+        _selectViewHeight.constant = 25;
+        _sequenceViewHeight.constant = 25;
+        [UIView animateWithDuration:0.25 animations:^{
             [self.view layoutIfNeeded];
+        } completion:^(BOOL finished) {
+            _pickerView.hidden = YES;
+            _backgroundView.hidden = YES;
+            [_a setTitle:_inTime forState:UIControlStateNormal];
+            
+            return;
         }];
-        _pickerView.hidden = YES;
-        _backgroundView.hidden = YES;
-        [_a setTitle:_inTime forState:UIControlStateNormal];
-        
-        return;
     }
     btnTime = 0;
     //_datePicker.hidden = NO;
@@ -894,26 +908,30 @@
     //[_outTimeBtn titleForState:UIControlStateHighlighted];
     [_b setTitleColor:[UIColor blueColor] forState:UIControlStateHighlighted];
     [_hotelTableView setContentOffset:CGPointMake(0, 150) animated:YES];
-    _pickViewHeight.constant = 313;
-    [UIView animateWithDuration:0.5f animations:^{
+    _pVHeight.constant = 260;
+    _selectViewHeight.constant = 25;
+    _sequenceViewHeight.constant = 25;
+    [UIView animateWithDuration:0.25 animations:^{
         [self.view layoutIfNeeded];
+    } completion:^(BOOL finished) {
+        _selectBView.hidden = YES;
+        _sequenceView.hidden=YES;
     }];
-    _selectBView.hidden = YES;
-    _sequenceView.hidden=YES;
     if (!_pickerView.hidden) {
         //_datePicker.hidden = YES;
         //_toolBar.hidden = YES;
-        _pickViewHeight.constant = 550;
-        _selectHeight.constant = 0;
-        _sequenceHeight.constant = 0;
-        [UIView animateWithDuration:0.5f animations:^{
+        _pVHeight.constant = 25;
+        _selectViewHeight.constant = 25;
+        _sequenceViewHeight.constant = 25;
+        [UIView animateWithDuration:0.25 animations:^{
             [self.view layoutIfNeeded];
+        } completion:^(BOOL finished) {
+            _pickerView.hidden = YES;
+            _backgroundView.hidden = YES;
+            [_b setTitle:_inTime forState:UIControlStateNormal];
+            
+            return;
         }];
-        _pickerView.hidden = YES;
-        _backgroundView.hidden = YES;
-        [_b setTitle:_outTime forState:UIControlStateNormal];
-        
-        return;
     }
     btnTime = 1;
     //_datePicker.hidden = NO;
@@ -936,12 +954,14 @@
 
 - (IBAction)cancelAction:(UIBarButtonItem *)sender {
     
-    _pickViewHeight.constant = 550;
-    [UIView animateWithDuration:0.5f animations:^{
+    _pVHeight.constant = 20;
+    [UIView animateWithDuration:0.25 animations:^{
         [self.view layoutIfNeeded];
+    } completion:^(BOOL finished) {
+        _pickerView.hidden = YES;
+        _backgroundView.hidden = YES;
     }];
-    _pickerView.hidden = YES;
-    _backgroundView.hidden = YES;
+    
     //[_menu hideMenu];
 }
 
@@ -985,13 +1005,15 @@
 //        _date2 = [pFormatter stringFromDate:date];
     }
     
-    _pickViewHeight.constant = 550;
-    [UIView animateWithDuration:0.5f animations:^{
+    _pVHeight.constant = 20;
+    [UIView animateWithDuration:0.25 animations:^{
         [self.view layoutIfNeeded];
+    } completion:^(BOOL finished) {
+        _pickerView.hidden = YES;
+        _backgroundView.hidden = YES;
+        [self requestAll];
     }];
-    _backgroundView.hidden = YES;
-    _pickerView.hidden = YES;
-    [self requestAll];
+   
 }
 
 #pragma mark - collection
@@ -1099,17 +1121,17 @@
     springForwardAnmation.property = [POPAnimatableProperty propertyWithName:kPOPViewScaleXY];
     springForwardAnmation.toValue = [NSValue valueWithCGSize:CGSizeMake(1.2, 1.2)];
     springForwardAnmation.springBounciness = 15;
-    springForwardAnmation.springSpeed = 20;
+    springForwardAnmation.springSpeed = 25;
     [_collectionBtn pop_addAnimation:springForwardAnmation forKey:@"springForwardAnimation"];
     springForwardAnmation.completionBlock = ^(POPAnimation *anim, BOOL finished) {
         POPBasicAnimation *basicBackwardAnimation = [POPBasicAnimation animation];
         basicBackwardAnimation.property = [POPAnimatableProperty propertyWithName:kPOPViewScaleXY];
-        basicBackwardAnimation.duration = 0.25f;
+        basicBackwardAnimation.duration = 0.15f;
         basicBackwardAnimation.toValue = [NSValue valueWithCGSize:CGSizeMake(1, 1)];
         [_collectionBtn pop_addAnimation:basicBackwardAnimation forKey:@"basicBackwardAnimation"];
         _sequenceView.hidden=YES;
         _backgroundView.hidden = YES;
-        _sequenceHeight.constant = 0;
+        _sequenceViewHeight.constant = 0;
         [self requestAll];
     };
    
@@ -1120,9 +1142,9 @@
     _pickerView.hidden = YES;
     _backgroundView.hidden = YES;
     _sequenceView.hidden = YES;
-    _pickViewHeight.constant = 550;
-    _selectHeight.constant = 0;
-    _sequenceHeight.constant = 0;
+    _selectViewHeight.constant = 550;
+    _selectViewHeight.constant = 0;
+    _sequenceViewHeight.constant = 0;
     
 }
 - (IBAction)citySelectAction:(UIButton *)sender forEvent:(UIEvent *)event {
