@@ -263,18 +263,62 @@
 }
 
 - (IBAction)confirm:(UIBarButtonItem *)sender {
-    //拿到当前datePicker选择时间
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"yyyy-MM-dd"];
     NSDate *date = _time.date;
-    //初始化一个日期格式器
-    NSDateFormatter *formatter =[NSDateFormatter new];
-    //定义日期的格式为yyyy-MM-dd
-    formatter.dateFormat = @"MM-dd";
     //将日期转换为字符串
-    NSString *theDate = [formatter stringFromDate:date];
-    if(Flag == 0){
-        [_timeday setTitle:theDate forState:UIControlStateNormal];
+    NSDate* dates = [NSDate date];
+    NSTimeInterval a =[dates timeIntervalSince1970] - 86400;
+    NSTimeInterval b =[date timeIntervalSince1970];
+    //NSTimeInterval c =[date timeIntervalSince1970];
+    
+    /////////
+    NSDateFormatter *formattr =[NSDateFormatter new];
+    //定义日期的格式为yyyy-MM-dd
+    formattr.dateFormat = @"MM-dd";
+    NSString *theDate = [formattr stringFromDate:date];
+    if(Flag == 0) {
+        if(b > a){
+            NSTimeInterval c = [Utilities cTimestampFromString:theDate format:@"MM-dd"];
+            NSTimeInterval d = [Utilities cTimestampFromString:_timeday1.titleLabel.text format:@"MM-dd"];
+            if(c <= d){
+                 [_timeday setTitle:theDate forState:UIControlStateNormal];
+            } else{
+                [Utilities popUpAlertViewWithMsg:@"你输入的时间有误，请重新输入" andTitle:nil onView:self onCompletion:^{
+                    
+                }];
+            }
+        } else{
+            [Utilities popUpAlertViewWithMsg:@"你输入的时间有误，请重新输入" andTitle:nil onView:self onCompletion:^{
+                
+            }];
+        }
+
+    }
+    else if(Flag == 1){
+        if(b > a){
+            NSTimeInterval c = [Utilities cTimestampFromString:_timeday.titleLabel.text format:@"MM-dd"];
+            NSTimeInterval d = [Utilities cTimestampFromString:theDate format:@"MM-dd"];
+            if(c <= d){
+                [_timeday1 setTitle:theDate forState:UIControlStateNormal];
+            } else{
+                [Utilities popUpAlertViewWithMsg:@"你输入的时间有误，请重新输入" andTitle:nil onView:self onCompletion:^{
+                    
+                }];
+            }
+
+        } else{
+            [Utilities popUpAlertViewWithMsg:@"你输入的时间有误，请重新输入" andTitle:nil onView:self onCompletion:^{
+                
+            }];
+        }
+
+        
+        
     }else{
-        [_timeday1 setTitle:theDate forState:UIControlStateNormal];
+        [Utilities popUpAlertViewWithMsg:@"你输入的时间有误，请重新输入" andTitle:nil onView:self onCompletion:^{
+            
+        }];
     }
      _hdview.hidden = YES;
       _yingc.hidden =YES;

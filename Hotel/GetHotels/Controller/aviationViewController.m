@@ -225,33 +225,55 @@
 }
 
 - (IBAction)confrimAction:(UIBarButtonItem *)sender {
-   
-    //初始化一个日期格式器
+       //初始化一个日期格式器
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    [formatter setDateFormat:@"yyyy-MM-dd"];
-     NSDate *date = _date.date;
+    formatter.dateFormat = @"MM-dd";
+        NSDate *date = _date.date;
     //将日期转换为字符串
     NSDate* dates = [NSDate date];
-    NSTimeInterval a =[dates timeIntervalSince1970]/86400;
-    NSTimeInterval b =[date timeIntervalSince1970]/86400;
-    if(a < b){
-        //初始化一个日期格式器
-        NSDateFormatter *formatter =[NSDateFormatter new];
-        //定义日期的格式为yyyy-MM-dd
-        formatter.dateFormat = @"MM-dd";
-        NSString *theDate = [formatter stringFromDate:date];
+    NSTimeInterval a =[dates timeIntervalSince1970] - 86400;
+    NSTimeInterval b =[date timeIntervalSince1970];
+    //NSTimeInterval c =[date timeIntervalSince1970];
+    
+    /////////
+    NSString *theDate = [formatter stringFromDate:date];
         if(i == 0) {
-            [_strattime setTitle:theDate forState:UIControlStateNormal];
+            if(b > a){
+                NSTimeInterval c = [Utilities cTimestampFromString:theDate format:@"MM-dd"];
+                NSTimeInterval d = [Utilities cTimestampFromString:_endtime.titleLabel.text format:@"MM-dd"];
+                if(c <= d){
+                    [_strattime setTitle:theDate forState:UIControlStateNormal];
+                } else{
+                    [Utilities popUpAlertViewWithMsg:@"你输入的时间有误，请重新输入" andTitle:nil onView:self onCompletion:^{
+                        
+                    }];
+                }
+            }
+            else{
+                [Utilities popUpAlertViewWithMsg:@"你输入的时间有误，请重新输入" andTitle:nil onView:self onCompletion:^{
+                    
+                }];
+            }
         }
-        if(i == 1){
-            [_endtime setTitle:theDate forState:UIControlStateNormal];
+        if (i == 1){
+            if(b > a){
+                NSTimeInterval c = [Utilities cTimestampFromString:_strattime.titleLabel.text format:@"MM-dd"];
+                NSTimeInterval d = [Utilities cTimestampFromString:theDate format:@"MM-dd"];
+                if( c<=d ){
+                     [_endtime setTitle:theDate forState:UIControlStateNormal];
+                }
+                else{
+                    [Utilities popUpAlertViewWithMsg:@"你输入的时间有误，请重新输入" andTitle:nil onView:self onCompletion:^{
+                        
+                    }];
+                }
+            }else{
+                [Utilities popUpAlertViewWithMsg:@"你输入的时间有误，请重新输入" andTitle:nil onView:self onCompletion:^{
+                    
+                }];
+            }
             
-        }
-
-    }else{
-        [Utilities popUpAlertViewWithMsg:@"你输入的时间有误，请重新输入" andTitle:nil onView:self onCompletion:^{
-           
-        }];
+            
     }
     // *1000 是精确到毫秒，不乘就是精确到秒
        _hdview.hidden = YES;
@@ -299,18 +321,27 @@
     [self presentViewController:nc animated:YES completion:nil];
 }
 -(void)request{
-    NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
-    //定义日期的格式为yyyy-MM-dd
-    formatter.dateFormat = @"yyyy-MM-dd";
-    NSDate *date = [NSDate date];
-    //明天的日期
-    NSDate *dateTom = [NSDate dateTomorrow];
+
     NSString *arr = [[StorageMgr singletonStorageMgr]objectForKey:@"OpenId"];
     NSLog(@"openId = %@", arr);
-    NSDictionary *para = @{@"openid":arr,@"aviation_demand_title":_objectiv.text,@"set_low_time_str":date,@"set_high_time_str":dateTom,@"set_hour":@"20",@"departure":_fromcity.titleLabel.text,@"destination":_gocity.titleLabel.text,@"low_price":_stactprice.text,@"high_price":_endprice.text,@"aviation_demand_detail":_detail.text,@"is_back":@5,@"back_low_time_str":@"无",@"back_high_time_str":@"无",@"people_number":@3,@"child_number":@1,@"weight":@50.0};
+    NSDictionary *para = @{@"openid":arr,@"aviation_demand_title":_objectiv.text,@"set_low_time_str":_strattime.titleLabel.text,@"set_high_time_str":_endtime.titleLabel.text,@"set_hour":@"20",@"departure":_fromcity.titleLabel.text,@"destination":_gocity.titleLabel.text,@"low_price":_stactprice.text,@"high_price":_endprice.text,@"aviation_demand_detail":_detail.text,@"is_back":@5,@"back_low_time_str":@"无",@"back_high_time_str":@"无",@"people_number":@3,@"child_number":@1,@"weight":@50.0};
     NSLog(@"para = %@", para);
     [RequestAPI requestURL:@"/addIssue_edu" withParameters:para andHeader:nil byMethod:kPost andSerializer:kForm success:^(id responseObject) {
         NSLog(@"resprnse:%@",responseObject);
+        if([responseObject[@"result"] integerValue] == 1)
+        {
+            [Utilities popUpAlertViewWithMsg:@"恭喜你发布成功，请注意接收消息☺" andTitle:nil onView:self onCompletion:^{
+                _stactprice.text = @"";
+                _endprice.text = @"";
+                _detail.text =@"";
+                _objectiv.text =@"";
+            }];
+        }else{
+            NSString *errorMsg = [ErrorHandler getProperErrorString:[responseObject[@"result"] integerValue]];
+            [Utilities popUpAlertViewWithMsg:errorMsg andTitle:nil onView:self onCompletion:^{
+                
+            }];
+        }
         
     } failure:^(NSInteger statusCode, NSError *error) {
         NSLog(@"statusCode = %ld", (long)statusCode);
