@@ -9,6 +9,8 @@
 #import "AirViewController.h"
 #import "HMSegmentedControl.h"
 #import "MyIssueTableViewCell.h"
+#import "MyAviationModel.h"
+#import "QuoteListViewController.h"
 @interface AirViewController ()<UITableViewDelegate,UITableViewDataSource,UIScrollViewDelegate> {
     NSInteger status;
 }
@@ -20,7 +22,7 @@
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet UITableView *releaseTableView;
 @property (weak, nonatomic) IBOutlet UITableView *historyListTableView;
-
+@property (strong, nonatomic) NSMutableArray *releaseArr;
 
 @end
 
@@ -29,6 +31,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     status = 0;
+    _releaseArr = [NSMutableArray new];
     [self setNavigationItem];
     [self setSegmentControl];
     [self requestNet];
@@ -44,15 +47,16 @@
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:NO animated:animated];
 }
-/*
+
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+    QuoteListViewController *quotListVC = segue.destinationViewController;
+    quotListVC.Id = [sender integerValue];
+    
 }
-*/
+
 //设置导航栏样式
 //设置导航栏样式
 
@@ -110,6 +114,11 @@
 #pragma mark - TableView 
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    if (tableView == _tradedTableView) {
+        return 1;
+    } else if (tableView == _releaseTableView) {
+        return _releaseArr.count;
+    }
     return 1;
 }
 
@@ -119,6 +128,11 @@
         return cell;
     } else if (tableView == _releaseTableView) {
         MyIssueTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ReleaseTableView" forIndexPath:indexPath];
+        MyAviationModel *model = _releaseArr[indexPath.row];
+        cell.ticketLabel.text = [NSString stringWithFormat:@"%@ %@ 机票",model.startTime,model.aviationDemandTitle];
+        cell.priceLabel.text = [NSString stringWithFormat:@"价格区间:%ld-%ld",(long)model.lowPrice,(long)model.highPrice];
+        cell.timeLabel.text = @"大约下午4点左右";
+        cell.demandLabel.text = [NSString stringWithFormat:@"要求%@",model.aviationDemandDetail];
         return cell;
     } else {
         MyIssueTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"HistoryList" forIndexPath:indexPath];
@@ -127,6 +141,14 @@
     
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    if (tableView == _releaseTableView) {
+        MyAviationModel *model = _releaseArr[indexPath.row];
+        NSInteger Id = model.Id;
+        [self performSegueWithIdentifier:@"IssueToDetail" sender:@(Id)];
+    }
+}
 
 #pragma mark - Scorll
 //scrollView已经停止减速
@@ -149,13 +171,13 @@
     NSInteger page = scrollView.contentOffset.x / (scrollView.frame.size.width);
     if (page == 0) {
         status = 0;
-        [self requestNet];
+        //[self requestNet];
     } else if (page == 1){
-        status = 1;
+        status = 2;//正在发布
         [self requestNet];
     } else {
-        status = 2;
-        [self requestNet];
+        status = 1;
+        //[self requestNet];
     }
     return page;
 }
@@ -167,6 +189,15 @@
     NSDictionary *para = @{@"openid":[[StorageMgr singletonStorageMgr] objectForKey:@"OpenId"],@"page":@2,@"state":@(status)};
     [RequestAPI requestURL:@"/findAllIssue_edu" withParameters:para andHeader:nil byMethod:kPost andSerializer:kForm success:^(id responseObject) {
         NSLog(@"responseObject = %@",responseObject);
+        if ([responseObject[@"result"] integerValue] == 1) {
+            NSArray *content = responseObject[@"content"];
+            for (NSDictionary *dict in content) {
+                MyAviationModel *aviationModel = [[MyAviationModel alloc] initWithDict:dict];
+                [_releaseArr addObject:aviationModel];
+            }
+            [_releaseTableView reloadData];
+        }
+        
     } failure:^(NSInteger statusCode, NSError *error) {
         NSLog(@"%@",error);
         

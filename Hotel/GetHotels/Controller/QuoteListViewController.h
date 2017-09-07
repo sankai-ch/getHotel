@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface QuoteListViewController : UIViewController
-
+@property (nonatomic) NSInteger Id;
 
 @end
 

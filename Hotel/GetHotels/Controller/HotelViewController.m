@@ -1138,13 +1138,18 @@
 }
 
 - (IBAction)didTouch {
-    _selectBView.hidden = YES;
-    _pickerView.hidden = YES;
-    _backgroundView.hidden = YES;
-    _sequenceView.hidden = YES;
-    _selectViewHeight.constant = 550;
-    _selectViewHeight.constant = 0;
-    _sequenceViewHeight.constant = 0;
+    
+    _pVHeight.constant = 25;
+    _selectViewHeight.constant = 25;
+    _sequenceViewHeight.constant = 25;
+    [UIView animateWithDuration:0.3 animations:^{
+        [self.view layoutIfNeeded];
+    } completion:^(BOOL finished) {
+        _selectBView.hidden = YES;
+        _pickerView.hidden = YES;
+        _backgroundView.hidden = YES;
+        _sequenceView.hidden = YES;
+    }];
     
 }
 - (IBAction)citySelectAction:(UIButton *)sender forEvent:(UIEvent *)event {
