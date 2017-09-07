@@ -10,7 +10,7 @@
 #import "HMSegmentedControl.h"
 #import "MyIssueTableViewCell.h"
 @interface AirViewController ()<UITableViewDelegate,UITableViewDataSource,UIScrollViewDelegate> {
-    NSInteger idNum;
+    NSInteger status;
 }
 
 @property (strong, nonatomic) HMSegmentedControl *segmentControl;
@@ -28,7 +28,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    idNum = 1;
+    status = 0;
     [self setNavigationItem];
     [self setSegmentControl];
     [self requestNet];
@@ -147,14 +147,24 @@
 //判断我们的scroll滚到哪里了
 - (NSInteger)scrollCheck : (UIScrollView *)scrollView {
     NSInteger page = scrollView.contentOffset.x / (scrollView.frame.size.width);
-    
+    if (page == 0) {
+        status = 0;
+        [self requestNet];
+    } else if (page == 1){
+        status = 1;
+        [self requestNet];
+    } else {
+        status = 2;
+        [self requestNet];
+    }
     return page;
 }
 
 #pragma mark - Request
 
 - (void)requestNet {
-    NSDictionary *para = @{@"openid":[[StorageMgr singletonStorageMgr] objectForKey:@"OpenId"],@"page":@1,@"state":@1};
+    NSLog(@"%@",[[StorageMgr singletonStorageMgr] objectForKey:@"OpenId"]);
+    NSDictionary *para = @{@"openid":[[StorageMgr singletonStorageMgr] objectForKey:@"OpenId"],@"page":@2,@"state":@(status)};
     [RequestAPI requestURL:@"/findAllIssue_edu" withParameters:para andHeader:nil byMethod:kPost andSerializer:kForm success:^(id responseObject) {
         NSLog(@"responseObject = %@",responseObject);
     } failure:^(NSInteger statusCode, NSError *error) {
