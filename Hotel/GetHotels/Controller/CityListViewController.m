@@ -201,7 +201,11 @@
             for (NSDictionary *dict in content) {
                 CityListModel *cityList = [[CityListModel alloc] initWithDict:dict];
                 [_cityListArr addObject:cityList];
-                [_arr addObject:cityList.tip];
+                if ([cityList.tip isEqualToString:@"热门城市"]) {
+                    [_arr addObject:@"热"];
+                } else {
+                    [_arr addObject:cityList.tip];
+                }
             }
             //            CityListModel *cityList = _cityListArr[0];
             //            NSLog(@"%@",cityList.tip);

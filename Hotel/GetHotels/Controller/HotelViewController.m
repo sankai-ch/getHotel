@@ -1153,6 +1153,25 @@
     
 }
 - (IBAction)citySelectAction:(UIButton *)sender forEvent:(UIEvent *)event {
-    [self performSegueWithIdentifier:@"HotelToCity" sender:nil];
+    //POPSpringAnimation是专门制作有弹簧的效果的动画的制作器
+    POPSpringAnimation *springForwardAnimation = [POPSpringAnimation animation];
+    springForwardAnimation.property = [POPAnimatableProperty propertyWithName:kPOPViewScaleXY];
+    springForwardAnimation.toValue = [NSValue valueWithCGSize:CGSizeMake(1.2, 1.2)];
+    //设置弹簧的振幅（表示弹簧来回振动的位移量的大小）
+    springForwardAnimation.springBounciness = 20;
+    //设置弹簧的弹性系数（表示弹簧来回振动的速度的快慢）
+    springForwardAnimation.springSpeed = 20;
+    [_cityLocation pop_addAnimation:springForwardAnimation forKey:@"springForwardAnimation"];
+    //设置动画完成以后的回调
+    springForwardAnimation.completionBlock = ^(POPAnimation *anim, BOOL finished) {
+        POPBasicAnimation *basicBackwardAnimation = [POPBasicAnimation animation];
+        basicBackwardAnimation.property = [POPAnimatableProperty propertyWithName:kPOPViewScaleXY];
+        basicBackwardAnimation.duration = 0.25f;
+        basicBackwardAnimation.toValue = [NSValue valueWithCGSize:CGSizeMake(1.0, 1.0)];
+        [_cityLocation pop_addAnimation:basicBackwardAnimation forKey:@"basicBackwardAnimation"];
+        [self performSegueWithIdentifier:@"HotelToCity" sender:nil];
+    };
+
+    
 }
 @end
