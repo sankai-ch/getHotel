@@ -35,6 +35,9 @@
 @property (weak, nonatomic) IBOutlet UIButton *collectionBtn;
 - (IBAction)citySelectAction:(UIButton *)sender forEvent:(UIEvent *)event;
 
+@property (nonatomic)  CLLocationDegrees Longitude;
+@property (nonatomic)  CLLocationDegrees Latitude;
+
 @property (weak, nonatomic) IBOutlet UISearchBar *searchHotelBar;
 @property (weak, nonatomic) IBOutlet UIControl *backgroundView;
 @property (weak, nonatomic) IBOutlet UIView *pickerView;
@@ -378,6 +381,8 @@
     
     //NSLog(@"维度 ：%f",newLocation.coordinate.latitude);
     //NSLog(@"经度 ：%f",newLocation.coordinate.longitude);
+    _Latitude = newLocation.coordinate.latitude;
+    _Longitude = newLocation.coordinate.longitude;
     _location = newLocation;
     //用flag思想判断是否可以去根据定位拿到城市
    
@@ -507,11 +512,11 @@
     //
     //(sortingId 2 = l - h  3 = h - l   )
     if (_searchHotelBar.text.length == 0) {
-        NSDictionary *para = @{@"city_name":_cityLocation.titleLabel.text,@"pageNum":@(pageNum),@"pageSize":@10,@"startId":@(starlevels),@"priceId":@(priceduring),@"sortingId":_SortId,@"inTime":_date1,@"outTime":_date2,@"wxlongitude":@"31.568",@"wxlatitude":@"120.299"};
+        NSDictionary *para = @{@"city_name":_cityLocation.titleLabel.text,@"pageNum":@(pageNum),@"pageSize":@10,@"startId":@(starlevels),@"priceId":@(priceduring),@"sortingId":_SortId,@"inTime":_date1,@"outTime":_date2,@"wxlongitude":@(_Longitude),@"wxlatitude":@(_Latitude)};
         
         //NSLog(@"%@,%@",_date1,_date2);
         [RequestAPI requestURL:@"/findHotelByCity_edu" withParameters:para andHeader:nil byMethod:kGet andSerializer:kJson success:^(id responseObject) {
-            //NSLog(@"%@",responseObject);
+            NSLog(@"%@",responseObject);
             [_avi stopAnimating];
             UIRefreshControl *ref = (UIRefreshControl *)[_hotelTableView viewWithTag:100001];
             [ref endRefreshing];
@@ -633,9 +638,9 @@
 
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSLog(@"%f,%f",_touchPoint.x,_touchPoint.y);
+    //NSLog(@"%f,%f",_touchPoint.x,_touchPoint.y);
     
-    //[tableView deselectRowAtIndexPath:indexPath animated:YES];
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if (tableView == _selectTableView) {
         [_c setTitle:_sorts[indexPath.row] forState:UIControlStateNormal];
         switch (indexPath.row) {
@@ -652,11 +657,17 @@
                 _SortId = @"4";
                 break;
         }
-        _backgroundView.hidden = YES;
-        _selectBView.hidden = YES;
-        _selectViewHeight.constant = 0;
-        [self requestAll];
-        return;
+        
+        _selectViewHeight.constant = 25;
+        [UIView animateWithDuration:0.3 animations:^{
+            [self.view layoutIfNeeded];
+        } completion:^(BOOL finished) {
+            _backgroundView.hidden = YES;
+            _selectBView.hidden = YES;
+            [self requestAll];
+            return;
+        }];
+        
     }
 //    AAndHModel *hotelID = _hotelArr[indexPath.row];
 //    DetailViewController *detailVC = [Utilities getStoryboardInstance:@"Deatil" byIdentity:@"reservation"];
