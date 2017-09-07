@@ -1073,7 +1073,7 @@
 }
 //设置细胞的横向间距。
 -(CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section{
-    return self.view.frame.size.width/30;
+    return self.view.frame.size.width/20;
 }
 
 //UI    w被选中时调用的方法
