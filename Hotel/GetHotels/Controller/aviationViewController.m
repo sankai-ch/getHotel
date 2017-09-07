@@ -331,11 +331,12 @@
         if([responseObject[@"result"] integerValue] == 1)
         {
             [Utilities popUpAlertViewWithMsg:@"恭喜你发布成功，请注意接收消息☺" andTitle:nil onView:self onCompletion:^{
-                _stactprice.text = @"";
-                _endprice.text = @"";
-                _detail.text =@"";
-                _objectiv.text =@"";
+               
             }];
+            _stactprice.text = @"";
+            _endprice.text = @"";
+            _detail.text =@"";
+            _objectiv.text =@"";
         }else{
             NSString *errorMsg = [ErrorHandler getProperErrorString:[responseObject[@"result"] integerValue]];
             [Utilities popUpAlertViewWithMsg:errorMsg andTitle:nil onView:self onCompletion:^{
