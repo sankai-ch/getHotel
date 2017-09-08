@@ -135,8 +135,9 @@
         MyAviationModel *model = _releaseArr[indexPath.row];
         cell.ticketLabel.text = [NSString stringWithFormat:@"%@ %@ 机票",model.startTime,model.aviationDemandTitle];
         cell.priceLabel.text = [NSString stringWithFormat:@"价格区间:%ld-%ld",(long)model.lowPrice,(long)model.highPrice];
-        cell.timeLabel.text = @"大约下午4点左右";
-        cell.demandLabel.text = [NSString stringWithFormat:@"要求%@",model.aviationDemandDetail];
+        cell.timeLabel.text = [NSString stringWithFormat:@"大约%@点左右",model.timeRequest];
+        cell.demandLabel.text = model.aviationDemandDetail;
+        
         return cell;
     } else {
         MyIssueTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"HistoryList" forIndexPath:indexPath];
@@ -198,6 +199,7 @@
             for (NSDictionary *dict in list) {
                 MyAviationModel *aviationModel = [[MyAviationModel alloc] initWithDict:dict];
                 [_releaseArr addObject:aviationModel];
+                //NSLog(@"timer = %f",aviationModel.timeRequest);
             }
             [_releaseTableView reloadData];
         }
