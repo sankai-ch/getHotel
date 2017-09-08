@@ -50,6 +50,7 @@
 		B240210E1F592A8800E4D00E /* QuoteListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B240210D1F592A8800E4D00E /* QuoteListTableViewCell.m */; };
 		B24021111F59443700E4D00E /* PayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B24021101F59443700E4D00E /* PayViewController.m */; };
 		B25393381F5A4B9A002C8208 /* QuoteListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B25393371F5A4B9A002C8208 /* QuoteListViewController.m */; };
+		B295428F1F6234CA009C6670 /* agreement.txt in Resources */ = {isa = PBXBuildFile; fileRef = B295428E1F6234CA009C6670 /* agreement.txt */; };
 		B29E08601F5173F5001A0DD6 /* textCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B29E085F1F5173F5001A0DD6 /* textCollectionViewCell.m */; };
 		B2A2D71F1F4AF35B001D6B81 /* Deatil.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B2A2D71D1F4AF35B001D6B81 /* Deatil.storyboard */; };
 		B2A2D7221F4AF373001D6B81 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B2A2D7201F4AF373001D6B81 /* Login.storyboard */; };
@@ -82,7 +83,6 @@
 		B2BD3EA31F4AA5DB002C6B98 /* Openssl.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B2BD3EA21F4AA5DB002C6B98 /* Openssl.framework */; };
 		B2BD3EB31F4ACBA0002C6B98 /* Aviation.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B2BD3EAD1F4ACBA0002C6B98 /* Aviation.storyboard */; };
 		B2BD3EB51F4ACBA0002C6B98 /* MyInfo.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B2BD3EB11F4ACBA0002C6B98 /* MyInfo.storyboard */; };
-		B2C913441F4D19DD00AAC60A /* agreement.txt in Resources */ = {isa = PBXBuildFile; fileRef = B2C913431F4D19DD00AAC60A /* agreement.txt */; };
 		B2E555091F4AF70700D314C0 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B2E555081F4AF70700D314C0 /* DetailViewController.m */; };
 		B2E9BB7F1F4FB4200064B303 /* detailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B2E9BB7E1F4FB4200064B303 /* detailModel.m */; };
 		B2F076231F4D18DB0074C80C /* zhifuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B2F076221F4D18DB0074C80C /* zhifuViewController.m */; };
@@ -188,6 +188,7 @@
 		B24021101F59443700E4D00E /* PayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PayViewController.m; sourceTree = "<group>"; };
 		B25393361F5A4B9A002C8208 /* QuoteListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuoteListViewController.h; sourceTree = "<group>"; };
 		B25393371F5A4B9A002C8208 /* QuoteListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuoteListViewController.m; sourceTree = "<group>"; };
+		B295428E1F6234CA009C6670 /* agreement.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = agreement.txt; sourceTree = "<group>"; };
 		B29E085E1F5173F5001A0DD6 /* textCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = textCollectionViewCell.h; sourceTree = "<group>"; };
 		B29E085F1F5173F5001A0DD6 /* textCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = textCollectionViewCell.m; sourceTree = "<group>"; };
 		B2A2D71E1F4AF35B001D6B81 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = GetHotels/Base.lproj/Deatil.storyboard; sourceTree = SOURCE_ROOT; };
@@ -248,7 +249,6 @@
 		B2BD3EA21F4AA5DB002C6B98 /* Openssl.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Openssl.framework; path = GetHotels/Openssl.framework; sourceTree = "<group>"; };
 		B2BD3EAE1F4ACBA0002C6B98 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = GetHotels/Base.lproj/Aviation.storyboard; sourceTree = SOURCE_ROOT; };
 		B2BD3EB21F4ACBA0002C6B98 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = GetHotels/Base.lproj/MyInfo.storyboard; sourceTree = SOURCE_ROOT; };
-		B2C913431F4D19DD00AAC60A /* agreement.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = agreement.txt; sourceTree = "<group>"; };
 		B2E555071F4AF70700D314C0 /* DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DetailViewController.h; path = ../View/DetailViewController.h; sourceTree = "<group>"; };
 		B2E555081F4AF70700D314C0 /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DetailViewController.m; path = ../View/DetailViewController.m; sourceTree = "<group>"; };
 		B2E9BB7D1F4FB4200064B303 /* detailModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = detailModel.h; sourceTree = "<group>"; };
@@ -554,7 +554,7 @@
 		B2BD3E2F1F4AA201002C6B98 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				B2C913431F4D19DD00AAC60A /* agreement.txt */,
+				B295428E1F6234CA009C6670 /* agreement.txt */,
 				B2BD3E431F4AA201002C6B98 /* Info.plist */,
 				B224DB9C1F4C33D90022C007 /* Cities.plist */,
 				B2BD3E321F4AA201002C6B98 /* AppDelegate.h */,
@@ -842,7 +842,7 @@
 				B2A2D71F1F4AF35B001D6B81 /* Deatil.storyboard in Resources */,
 				B21B6C071F52A97D002F2277 /* Hotel.storyboard in Resources */,
 				B2BD3E3A1F4AA201002C6B98 /* Main.storyboard in Resources */,
-				B2C913441F4D19DD00AAC60A /* agreement.txt in Resources */,
+				B295428F1F6234CA009C6670 /* agreement.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
