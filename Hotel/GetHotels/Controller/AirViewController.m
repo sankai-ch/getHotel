@@ -13,6 +13,8 @@
 #import "QuoteListViewController.h"
 @interface AirViewController ()<UITableViewDelegate,UITableViewDataSource,UIScrollViewDelegate> {
     NSInteger status;
+    NSInteger pageNum;
+    NSInteger pageSize;
 }
 
 @property (strong, nonatomic) HMSegmentedControl *segmentControl;
@@ -31,10 +33,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     status = 0;
+    pageNum = 1;
+    pageSize = 4;
     _releaseArr = [NSMutableArray new];
     [self setNavigationItem];
     [self setSegmentControl];
-    [self requestNet];
+    //[self requestNet];
     // Do any additional setup after loading the view.
 }
 
@@ -186,12 +190,12 @@
 
 - (void)requestNet {
     NSLog(@"%@",[[StorageMgr singletonStorageMgr] objectForKey:@"OpenId"]);
-    NSDictionary *para = @{@"openid":[[StorageMgr singletonStorageMgr] objectForKey:@"OpenId"],@"page":@2,@"state":@(status)};
+    NSDictionary *para = @{@"openid":[[StorageMgr singletonStorageMgr] objectForKey:@"OpenId"],@"pageNum":@(pageNum),@"pageSize":@(pageSize),@"state":@(status)};
     [RequestAPI requestURL:@"/findAllIssue_edu" withParameters:para andHeader:nil byMethod:kPost andSerializer:kForm success:^(id responseObject) {
         NSLog(@"responseObject = %@",responseObject);
         if ([responseObject[@"result"] integerValue] == 1) {
-            NSArray *content = responseObject[@"content"];
-            for (NSDictionary *dict in content) {
+            NSArray *list = responseObject[@"content"][@"list"];
+            for (NSDictionary *dict in list) {
                 MyAviationModel *aviationModel = [[MyAviationModel alloc] initWithDict:dict];
                 [_releaseArr addObject:aviationModel];
             }

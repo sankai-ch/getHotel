@@ -174,14 +174,14 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="122"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="98N-pQ-52h">
-                                                    <rect key="frame" x="15" y="14" width="94" height="94"/>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="98N-pQ-52h">
+                                                    <rect key="frame" x="15" y="25" width="94" height="72"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" secondItem="98N-pQ-52h" secondAttribute="height" multiplier="1:1" id="3bK-k2-dXp"/>
+                                                        <constraint firstAttribute="width" secondItem="98N-pQ-52h" secondAttribute="height" multiplier="1.3:1" id="3bK-k2-dXp"/>
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="wuli皇冠大酒店" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hZZ-E4-PgJ">
-                                                    <rect key="frame" x="139" y="21" width="117" height="21"/>
+                                                    <rect key="frame" x="139" y="32" width="117" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -193,7 +193,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="距离我2公里" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E6m-g7-Obq">
-                                                    <rect key="frame" x="139" y="77.5" width="63" height="13.5"/>
+                                                    <rect key="frame" x="139" y="66.5" width="63" height="13.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
