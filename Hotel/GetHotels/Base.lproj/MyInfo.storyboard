@@ -238,7 +238,7 @@
         <!--Air View Controller-->
         <scene sceneID="jwh-gF-SUU">
             <objects>
-                <viewController automaticallyAdjustsScrollViewInsets="NO" id="nbF-9o-4F9" customClass="AirViewController" sceneMemberID="viewController">
+                <viewController automaticallyAdjustsScrollViewInsets="NO" hidesBottomBarWhenPushed="YES" id="nbF-9o-4F9" customClass="AirViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="lpl-uO-gbi"/>
                         <viewControllerLayoutGuide type="bottom" id="0Vc-Fv-QQn"/>
@@ -626,7 +626,7 @@
                         <outlet property="releaseTableView" destination="080-QE-7Pc" id="FBV-43-f8B"/>
                         <outlet property="scrollView" destination="Fmg-Vb-koW" id="jp4-lX-0QJ"/>
                         <outlet property="tradedTableView" destination="jhw-eM-vDE" id="6Mf-tV-EIH"/>
-                        <segue destination="oY4-Bh-F9c" kind="show" id="gR6-nF-jyo"/>
+                        <segue destination="oY4-Bh-F9c" kind="show" identifier="IssueToDetail" id="gR6-nF-jyo"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jMM-Yz-kR9" userLabel="First Responder" sceneMemberID="firstResponder"/>

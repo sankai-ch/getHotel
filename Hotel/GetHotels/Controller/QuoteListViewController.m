@@ -8,7 +8,7 @@
 
 #import "QuoteListViewController.h"
 #import "QuoteListTableViewCell.h"
-#import "PurchaseTableViewController.h"
+#import "PayViewController.h"
 @interface QuoteListViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 - (IBAction)payButton:(UIButton *)sender forEvent:(UIEvent *)event;
@@ -24,7 +24,8 @@
     
     [super viewDidLoad];
   
-    [self naviConfig];
+    [self setNavigationItem];
+    [self request];
     // Do any additional setup after loading the view, typically from a nib.
 }
 
@@ -34,21 +35,52 @@
     // Dispose of any resources that can be recreated.
 }
 #pragma mark -navigation
-//这个方法专门做导航条的控制
-- (void)naviConfig{
-    //设置导航条标题的文字
+//设置导航栏样式
+-(void)setNavigationItem{
     self.navigationItem.title = @"报价列表";
     //设置导航条的颜色（风格颜色）
-    self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:5/255.0f green:100/255.0f blue:240/255.0f alpha:1];
-    //设置导航条标题颜色
-    self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName : [UIColor whiteColor]};
+    self.navigationController.navigationBar.barTintColor = UIColorFromRGB(24, 124, 236);
+    //实例化一个button
+    UIButton *leftBtn = [UIButton buttonWithType:UIButtonTypeSystem];
+    //设置button的位置大小
+    leftBtn.frame = CGRectMake(0, 0, 20, 20);
+    //设置背景图片
+    [leftBtn setBackgroundImage:[UIImage imageNamed:@"返回白色"] forState:UIControlStateNormal];
+    //给按钮添加事件
+    [leftBtn addTarget:self action:@selector(leftButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:leftBtn];
     //设置导航条是否被隐藏
     self.navigationController.navigationBar.hidden = NO;
+}
+-(void)leftButtonAction:(UIButton *)sender{
+    [self.navigationController popViewControllerAnimated:YES];
+}
+//网络请求
+#pragma mark -request
+- (void)request{
+    //菊花膜
+    UIActivityIndicatorView *aiv = [Utilities getCoverOnView:self.view];
     
-    //设置导航条上按钮的风格颜色
-    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
-    //设置是否需要毛玻璃效果
-    //self.navigationController.navigationBar.translucent = YES;
+    NSDictionary * para = @{@"Id":@(_Id)};
+    NSLog(@"%ld",(long)_Id);
+    [RequestAPI requestURL:@"/selectOffer_edu" withParameters:para andHeader:nil byMethod:kGet andSerializer:kForm success:^(id responseObject) {
+        [aiv stopAnimating];
+        NSLog(@"pay:%@",responseObject);
+        if([responseObject[@"result"]integerValue]==1){
+            
+            
+        }else{
+            NSString *errorMsg = [ErrorHandler getProperErrorString:[responseObject[@"result"] integerValue]];
+            [Utilities popUpAlertViewWithMsg:errorMsg andTitle:nil onView:self onCompletion:^{
+                
+            }];
+        }
+    } failure:^(NSInteger statusCode, NSError *error) {
+        [aiv stopAnimating];
+        [Utilities popUpAlertViewWithMsg:@"请求发生了错误,请稍后再试!" andTitle:@"提示" onView:self onCompletion:^{
+            
+        }];
+    }];
 }
 
 #pragma mark -tableView
@@ -86,14 +118,9 @@
     
     return cell;
 }
-+ (id)getStoryboardInstance:(NSString *)sbName byIdentity:(NSString *)identity
-{
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:sbName bundle:[NSBundle mainBundle]];
-    return [storyboard instantiateViewControllerWithIdentifier:identity];
-}
 - (IBAction)payButton:(UIButton *)sender forEvent:(UIEvent *)event {
     
-    PurchaseTableViewController *purchaseVc = [ QuoteListViewController getStoryboardInstance:@"MyInfo" byIdentity:@"Purchase"];
+    PayViewController *purchaseVc = [Utilities  getStoryboardInstance:@"MyInfo" byIdentity:@"Purchase"];
     [self.navigationController pushViewController:purchaseVc  animated:YES];
    
     

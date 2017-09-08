@@ -35,6 +35,9 @@
 @property (weak, nonatomic) IBOutlet UIButton *collectionBtn;
 - (IBAction)citySelectAction:(UIButton *)sender forEvent:(UIEvent *)event;
 
+@property (nonatomic)  CLLocationDegrees Longitude;
+@property (nonatomic)  CLLocationDegrees Latitude;
+
 @property (weak, nonatomic) IBOutlet UISearchBar *searchHotelBar;
 @property (weak, nonatomic) IBOutlet UIControl *backgroundView;
 @property (weak, nonatomic) IBOutlet UIView *pickerView;
@@ -378,6 +381,8 @@
     
     //NSLog(@"维度 ：%f",newLocation.coordinate.latitude);
     //NSLog(@"经度 ：%f",newLocation.coordinate.longitude);
+    _Latitude = newLocation.coordinate.latitude;
+    _Longitude = newLocation.coordinate.longitude;
     _location = newLocation;
     //用flag思想判断是否可以去根据定位拿到城市
    
@@ -507,11 +512,11 @@
     //
     //(sortingId 2 = l - h  3 = h - l   )
     if (_searchHotelBar.text.length == 0) {
-        NSDictionary *para = @{@"city_name":_cityLocation.titleLabel.text,@"pageNum":@(pageNum),@"pageSize":@10,@"startId":@(starlevels),@"priceId":@(priceduring),@"sortingId":_SortId,@"inTime":_date1,@"outTime":_date2,@"wxlongitude":@"31.568",@"wxlatitude":@"120.299"};
+        NSDictionary *para = @{@"city_name":_cityLocation.titleLabel.text,@"pageNum":@(pageNum),@"pageSize":@10,@"startId":@(starlevels),@"priceId":@(priceduring),@"sortingId":_SortId,@"inTime":_date1,@"outTime":_date2,@"wxlongitude":@(_Longitude),@"wxlatitude":@(_Latitude)};
         
         //NSLog(@"%@,%@",_date1,_date2);
         [RequestAPI requestURL:@"/findHotelByCity_edu" withParameters:para andHeader:nil byMethod:kGet andSerializer:kJson success:^(id responseObject) {
-            //NSLog(@"%@",responseObject);
+            NSLog(@"%@",responseObject);
             [_avi stopAnimating];
             UIRefreshControl *ref = (UIRefreshControl *)[_hotelTableView viewWithTag:100001];
             [ref endRefreshing];
@@ -633,9 +638,9 @@
 
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSLog(@"%f,%f",_touchPoint.x,_touchPoint.y);
+    //NSLog(@"%f,%f",_touchPoint.x,_touchPoint.y);
     
-    //[tableView deselectRowAtIndexPath:indexPath animated:YES];
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if (tableView == _selectTableView) {
         [_c setTitle:_sorts[indexPath.row] forState:UIControlStateNormal];
         switch (indexPath.row) {
@@ -652,11 +657,17 @@
                 _SortId = @"4";
                 break;
         }
-        _backgroundView.hidden = YES;
-        _selectBView.hidden = YES;
-        _selectViewHeight.constant = 0;
-        [self requestAll];
-        return;
+        
+        _selectViewHeight.constant = 25;
+        [UIView animateWithDuration:0.3 animations:^{
+            [self.view layoutIfNeeded];
+        } completion:^(BOOL finished) {
+            _backgroundView.hidden = YES;
+            _selectBView.hidden = YES;
+            [self requestAll];
+            return;
+        }];
+        
     }
 //    AAndHModel *hotelID = _hotelArr[indexPath.row];
 //    DetailViewController *detailVC = [Utilities getStoryboardInstance:@"Deatil" byIdentity:@"reservation"];
@@ -1062,7 +1073,7 @@
 }
 //设置细胞的横向间距。
 -(CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section{
-    return self.view.frame.size.width/30;
+    return self.view.frame.size.width/20;
 }
 
 //UI    w被选中时调用的方法
@@ -1138,16 +1149,40 @@
 }
 
 - (IBAction)didTouch {
-    _selectBView.hidden = YES;
-    _pickerView.hidden = YES;
-    _backgroundView.hidden = YES;
-    _sequenceView.hidden = YES;
-    _selectViewHeight.constant = 550;
-    _selectViewHeight.constant = 0;
-    _sequenceViewHeight.constant = 0;
+    
+    _pVHeight.constant = 25;
+    _selectViewHeight.constant = 25;
+    _sequenceViewHeight.constant = 25;
+    [UIView animateWithDuration:0.3 animations:^{
+        [self.view layoutIfNeeded];
+    } completion:^(BOOL finished) {
+        _selectBView.hidden = YES;
+        _pickerView.hidden = YES;
+        _backgroundView.hidden = YES;
+        _sequenceView.hidden = YES;
+    }];
     
 }
 - (IBAction)citySelectAction:(UIButton *)sender forEvent:(UIEvent *)event {
-    [self performSegueWithIdentifier:@"HotelToCity" sender:nil];
+    //POPSpringAnimation是专门制作有弹簧的效果的动画的制作器
+    POPSpringAnimation *springForwardAnimation = [POPSpringAnimation animation];
+    springForwardAnimation.property = [POPAnimatableProperty propertyWithName:kPOPViewScaleXY];
+    springForwardAnimation.toValue = [NSValue valueWithCGSize:CGSizeMake(1.2, 1.2)];
+    //设置弹簧的振幅（表示弹簧来回振动的位移量的大小）
+    springForwardAnimation.springBounciness = 20;
+    //设置弹簧的弹性系数（表示弹簧来回振动的速度的快慢）
+    springForwardAnimation.springSpeed = 20;
+    [_cityLocation pop_addAnimation:springForwardAnimation forKey:@"springForwardAnimation"];
+    //设置动画完成以后的回调
+    springForwardAnimation.completionBlock = ^(POPAnimation *anim, BOOL finished) {
+        POPBasicAnimation *basicBackwardAnimation = [POPBasicAnimation animation];
+        basicBackwardAnimation.property = [POPAnimatableProperty propertyWithName:kPOPViewScaleXY];
+        basicBackwardAnimation.duration = 0.25f;
+        basicBackwardAnimation.toValue = [NSValue valueWithCGSize:CGSizeMake(1.0, 1.0)];
+        [_cityLocation pop_addAnimation:basicBackwardAnimation forKey:@"basicBackwardAnimation"];
+        [self performSegueWithIdentifier:@"HotelToCity" sender:nil];
+    };
+
+    
 }
 @end

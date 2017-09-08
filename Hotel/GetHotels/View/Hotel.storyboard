@@ -236,7 +236,7 @@
                                     <outlet property="delegate" destination="pb5-Fu-s1p" id="Szp-dE-U8u"/>
                                 </connections>
                             </tableView>
-                            <view hidden="YES" alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PZz-Eh-cZc" userLabel="backgroundView" customClass="UIControl">
+                            <view hidden="YES" alpha="0.40000000000000002" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PZz-Eh-cZc" userLabel="backgroundView" customClass="UIControl">
                                 <rect key="frame" x="0.0" y="154" width="375" height="513"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
