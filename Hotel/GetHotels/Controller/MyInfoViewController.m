@@ -32,6 +32,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+
+    
     _myInfoArr = @[@{@"leftIcon":@"hotel",@"title":@"我的酒店"},@{@"leftIcon":@"aviation",@"title":@"我的航空"},@{@"leftIcon":@"setting",@"title":@"账户设置"},@{@"leftIcon":@"protocol",@"title":@"使用协议"},@{@"leftIcon":@"电话",@"title":@"联系客服"}];    // Do any additional setup after loading the view.
     [self setNavigationItem];
     [self addTapGestureRecognizer:_headImageView];
@@ -59,13 +61,16 @@
         _nameLabel.text=user.nickName;
         _grade.hidden=NO;
         UIImage  *stars=[UIImage imageNamed:@"star"];
+       
         switch (user.state) {
             case 1:
                 _star1.image=stars;
+                
                 break;
             case 2:
                 _star1.image=stars;
                 _star2.image=stars;
+                
             case 3:
                 _star1.image=stars;
                 _star2.image=stars;

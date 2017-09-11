@@ -108,6 +108,7 @@
 }
 
 -(void)backclor{
+   
     _xiugaitu.layer.borderColor = [UIColor colorWithRed:202/255.0f green:224/255.0f blue:251/255.0f alpha:1].CGColor;
     _xiugaitu.layer.borderWidth = 2.0f;
     _function.layer.shadowColor = [UIColor grayColor].CGColor;//阴影颜色
