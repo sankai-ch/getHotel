@@ -67,8 +67,8 @@
         [aiv stopAnimating];
         NSLog(@"pay:%@",responseObject);
         if([responseObject[@"result"]integerValue]==1){
-            
-            
+            NSArray *result = responseObject[@"content"];
+           
         }else{
             NSString *errorMsg = [ErrorHandler getProperErrorString:[responseObject[@"result"] integerValue]];
             [Utilities popUpAlertViewWithMsg:errorMsg andTitle:nil onView:self onCompletion:^{
@@ -115,7 +115,11 @@
     cell.view.layer.shadowOffset = CGSizeMake(0,0);//shadowOffset阴影偏移,x向右偏移4，y向下偏移4，默认(0, -3),这个跟shadowRadius配合使用
     cell.view.layer.shadowOpacity = 0.5;//阴影透明度，默认0
     cell.view.layer.shadowRadius = 3;//阴影半径，默认3
-    
+    cell.dateNameLabel.text = @"";
+    cell.airNameLabel.text = @"";
+    cell.timeLabel.text = @"";
+    cell.levelLabel.text = @"";
+    cell.priceLabel.text = @"";
     return cell;
 }
 - (IBAction)payButton:(UIButton *)sender forEvent:(UIEvent *)event {
