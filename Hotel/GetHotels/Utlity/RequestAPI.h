@@ -26,4 +26,6 @@ typedef NS_ENUM (NSInteger, NetworkRequestSerializer) {
 
 + (void)requestURL:(NSString *)request withParameters:(NSDictionary *)parameter andHeader:(NSArray *)headers byMethod:(NSInteger)method andSerializer:(NSInteger)serializer success:(void (^)(id responseObject))success failure:(void (^)(NSInteger statusCode, NSError *error))failure;
 
++ (void)RequestURL:(NSString *)request withParameters:(NSDictionary *)parameter andHeader:(NSArray *)headers byMethod:(NSInteger)method andSerializer:(NSInteger)serializer success:(void (^)(id responseObject))success failure:(void (^)(NSInteger statusCode, NSError *error))failure;
+
 @end

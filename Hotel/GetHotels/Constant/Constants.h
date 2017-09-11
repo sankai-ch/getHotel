@@ -45,6 +45,6 @@
 //设置Server
 #define kServer @"https://gethotels.fisheep.com.cn"
 //#define kServer @"http://192.168.2.187:9096"
-#define kQNServer @"http://oo81h9152.bkt.clouddn.com/"
+#define kQNServer @"http://api.openweathermap.org"
 
 #endif
