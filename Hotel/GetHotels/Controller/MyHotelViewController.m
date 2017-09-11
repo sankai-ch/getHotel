@@ -49,7 +49,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self setNavigationItem];
+    [self naviConfig];
     
     availableFlag = 1;
     expiredFlag = 1;
@@ -69,8 +69,7 @@
     //[self allOrdersRequest];
     //菜单栏
     [self setSegment];
-    //设置导航条样式
-    [self setNavigationItem];
+
     //刷新指示器
     [self setRefreshControl];
     //[self allOrdersRequest];
@@ -271,12 +270,24 @@
 #pragma mark - setNavigation
 
 //设置导航栏样式
-- (void)setNavigationItem{
+- (void)naviConfig{
     self.navigationItem.title = @"我的酒店";
-    //self.navigationController.navigationBar.backgroundColor = [UIColor whiteColor];
     self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName : [UIColor whiteColor]};
     //设置导航条的颜色（风格颜色）
     self.navigationController.navigationBar.barTintColor = UIColorFromRGB(15, 100, 240);
+    //实例化一个button 类型为UIButtonTypeSystem
+    UIButton *leftBtn = [UIButton buttonWithType:UIButtonTypeSystem];
+    //设置位置大小
+    leftBtn.frame = CGRectMake(0, 0, 20, 20);
+    //设置其背景图片为返回图片
+    [leftBtn setBackgroundImage:[UIImage imageNamed:@"返回白色"] forState:UIControlStateNormal];
+    //给按钮添加事件
+    [leftBtn addTarget:self action:@selector(leftButtonAction) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:leftBtn];
+}
+//自定的返回按钮的事件
+- (void)leftButtonAction{
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 #pragma mark - tableView

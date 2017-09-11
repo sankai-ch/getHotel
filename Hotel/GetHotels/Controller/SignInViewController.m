@@ -38,8 +38,7 @@
     // Dispose of any resources that can be recreated.
 }
 -(void)uiLayout{
-    _avatar.layer.borderColor=[UIColor blueColor].CGColor;
-
+    _avatar.layer.borderColor = [UIColor colorWithRed:202/255.0f green:224/255.0f blue:251/255.0f alpha:1].CGColor;
 }
 
 - (void)setShadow {
@@ -56,20 +55,18 @@
     self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName : [UIColor whiteColor]};
     //设置导航条的颜色（风格颜色）
     self.navigationController.navigationBar.barTintColor = UIColorFromRGB(15, 100, 240);
-    //    [self.navigationController.navigationBar setBarTintColor:HEAD_THEMECOLOR];
-    //    //实例化一个button 类型为UIButtonTypeSystem
-        UIButton *leftBtn = [UIButton buttonWithType:UIButtonTypeInfoLight];
-    //    //设置位置大小
-        leftBtn.frame = CGRectMake(0, 0, 20, 20);
+    //实例化一个button 类型为UIButtonTypeSystem
+    UIButton *leftBtn = [UIButton buttonWithType:UIButtonTypeSystem];
+    //设置位置大小
+    leftBtn.frame = CGRectMake(0, 0, 20, 20);
     //设置其背景图片为返回图片
     [leftBtn setBackgroundImage:[UIImage imageNamed:@"返回白色"] forState:UIControlStateNormal];
     //给按钮添加事件
-    [leftBtn addTarget:self action:@selector(leftButtonAction:) forControlEvents:UIControlEventTouchUpInside];
-    
+    [leftBtn addTarget:self action:@selector(leftButtonAction) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:leftBtn];
 }
 //自定的返回按钮的事件
-- (void)leftButtonAction: (UIButton *)sender{
+- (void)leftButtonAction{
     [self.navigationController popViewControllerAnimated:YES];
 }
 
@@ -129,7 +126,6 @@
         [Utilities popUpAlertViewWithMsg:@"密码输入不一致，请重新输入" andTitle:nil onView:self onCompletion:^{
             _pwdTextField.text = @"";
             _confirmPwdTextField.text = @"";
-            
         }];
         return;
     }

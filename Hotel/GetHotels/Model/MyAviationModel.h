@@ -16,7 +16,7 @@
 @property (nonatomic) NSInteger lowPrice;
 @property (nonatomic) NSInteger highPrice;
 @property (strong, nonatomic) NSString *aviationDemandDetail;
-@property (strong, nonatomic) NSString *requestMark;
+@property (strong, nonatomic) NSString *timeRequest;
 @property (nonatomic) NSInteger Id;
 - (instancetype)initWithDict:(NSDictionary *)dict;
 

@@ -105,15 +105,11 @@
     self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
     self.navigationController.navigationBar.barStyle=UIBarStyleBlackTranslucent;
     self.navigationItem.title = @"我的";
-    
     [self.navigationController.navigationBar setBarTintColor:HEAD_THEMECOLOR];
-    //实例化一个button 类型为UIButtonTypeSystem
-    UIButton *leftBtn = [UIButton buttonWithType:UIButtonTypeSystem];
     //设置导航条的颜色（风格颜色）
     self.navigationController.navigationBar.barTintColor = UIColorFromRGB(15, 100, 240);
     self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName : [UIColor whiteColor]};
-    //设置位置大小
-    leftBtn.frame = CGRectMake(0, 0, 20, 20);
+
 }
 
 //添加一个单击手势事件

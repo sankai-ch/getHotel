@@ -97,7 +97,6 @@
     [leftBtn setBackgroundImage:[UIImage imageNamed:@"返回白色"] forState:UIControlStateNormal];
     //给按钮添加事件
     [leftBtn addTarget:self action:@selector(backAction) forControlEvents:UIControlEventTouchUpInside];
-    
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:leftBtn];
 }
 //用model的方式返回上一页
