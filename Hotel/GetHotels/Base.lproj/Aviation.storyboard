@@ -176,7 +176,7 @@
                                         </constraints>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                        <textInputTraits key="textInputTraits"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                     </textField>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="最终价格" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="rNE-dN-BI2">
                                         <rect key="frame" x="174" y="236" width="100" height="30"/>
@@ -185,7 +185,7 @@
                                             <constraint firstAttribute="width" constant="100" id="PXn-UY-ZpR"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                        <textInputTraits key="textInputTraits"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                     </textField>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="———" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t1X-gw-0oe">
                                         <rect key="frame" x="125" y="236" width="39" height="30"/>
@@ -447,7 +447,7 @@
         <scene sceneID="672-dx-brh">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="mak-BZ-agU" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="航空" image="航空" id="1LP-h5-s2a"/>
+                    <tabBarItem key="tabBarItem" title="航空" image="aviation" id="1LP-h5-s2a"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="u2G-e0-Bwa">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -465,6 +465,6 @@
     </scenes>
     <resources>
         <image name="aircraft" width="45" height="45"/>
-        <image name="航空" width="25" height="25"/>
+        <image name="aviation" width="22" height="22"/>
     </resources>
 </document>
