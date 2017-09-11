@@ -447,7 +447,7 @@
         <scene sceneID="672-dx-brh">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="mak-BZ-agU" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="航空" image="航空" id="1LP-h5-s2a"/>
+                    <tabBarItem key="tabBarItem" title="航空" image="aviation" id="1LP-h5-s2a"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="u2G-e0-Bwa">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -465,6 +465,6 @@
     </scenes>
     <resources>
         <image name="aircraft" width="45" height="45"/>
-        <image name="航空" width="25" height="25"/>
+        <image name="aviation" width="22" height="22"/>
     </resources>
 </document>
