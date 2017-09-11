@@ -490,6 +490,11 @@
 //        
 //    }];
 //}
+
+- (void)requestForWeather {
+    //api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}
+}
+
 - (void)requestForSearch: (NSString *)name {
     [RequestAPI requestURL:@"/selectHotel" withParameters:@{@"hotel_name":name,@"inTime":_date1,@"outTime":_date2} andHeader:nil byMethod:kGet andSerializer:kForm success:^(id responseObject) {
         //NSLog(@"%@",responseObject);

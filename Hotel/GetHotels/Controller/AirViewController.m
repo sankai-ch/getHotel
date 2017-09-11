@@ -198,10 +198,13 @@
 #pragma mark - Request
 
 - (void)requestNet {
-    NSLog(@"%@",[[StorageMgr singletonStorageMgr] objectForKey:@"OpenId"]);
+    //NSLog(@"%@",[[StorageMgr singletonStorageMgr] objectForKey:@"OpenId"]);
+    UIActivityIndicatorView *avi = [Utilities getCoverOnView:self.view];
+    
     NSDictionary *para = @{@"openid":[[StorageMgr singletonStorageMgr] objectForKey:@"OpenId"],@"pageNum":@(pageNum),@"pageSize":@(pageSize),@"state":@(status)};
     [RequestAPI requestURL:@"/findAllIssue_edu" withParameters:para andHeader:nil byMethod:kPost andSerializer:kForm success:^(id responseObject) {
-        NSLog(@"responseObject = %@",responseObject);
+        //NSLog(@"responseObject = %@",responseObject);
+        [avi stopAnimating];
         if ([responseObject[@"result"] integerValue] == 1) {
             NSArray *list = responseObject[@"content"][@"list"];
             for (NSDictionary *dict in list) {
@@ -213,8 +216,11 @@
         }
         
     } failure:^(NSInteger statusCode, NSError *error) {
-        NSLog(@"%@",error);
-        
+        //NSLog(@"%@",error);
+        [avi stopAnimating];
+        [Utilities popUpAlertViewWithMsg:@"网络不稳定" andTitle:nil onView:self onCompletion:^{
+            
+        }];
     }];
 }
 
