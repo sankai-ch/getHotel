@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="Twf-1m-sPl">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="Twf-1m-sPl">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -555,7 +555,10 @@
                         <outlet property="selectViewHeight" destination="h6n-q2-EuG" id="oO1-Tt-eG5"/>
                         <outlet property="sequenceView" destination="EjV-eh-aPV" id="HAP-bq-uJ2"/>
                         <outlet property="sequenceViewHeight" destination="omz-5e-iSP" id="4HI-13-m5b"/>
+                        <outlet property="tempLabel" destination="Gr6-Nb-25P" id="U4N-Qv-cRw"/>
                         <outlet property="toolBar" destination="TcS-ei-m1e" id="Itn-pO-SUF"/>
+                        <outlet property="weatherIcon" destination="RRh-E5-Ax9" id="N91-S8-57y"/>
+                        <outlet property="weatherLabel" destination="dsO-RX-pdG" id="hMh-TA-TwD"/>
                         <segue destination="cII-0A-4QD" kind="show" identifier="HotelToCity" id="JiT-Wq-nvb"/>
                     </connections>
                 </viewController>

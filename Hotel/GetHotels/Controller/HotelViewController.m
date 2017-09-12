@@ -32,6 +32,11 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *sequenceViewHeight;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *pVHeight;
 
+@property (weak, nonatomic) IBOutlet UILabel *tempLabel;
+@property (weak, nonatomic) IBOutlet UILabel *weatherLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *weatherIcon;
+
+
 
 @property (weak, nonatomic) IBOutlet UIButton *collectionBtn;
 - (IBAction)citySelectAction:(UIButton *)sender forEvent:(UIEvent *)event;
@@ -389,7 +394,7 @@
     //用flag思想判断是否可以去根据定位拿到城市
    
         //根据定位拿到城市
-        //[self requestForWeather];
+        [self requestForWeather];
         [self getRegeoViaCoordinate];
     
 }
@@ -498,18 +503,21 @@
 - (void)requestForWeather {
     NSDictionary *para = @{@"lat":@(_Latitude),@"lon":@(_Longitude),@"appid":@"bfea118e4e718c9885a5486048bd6698",@"lang":@"zh_cn",@"units":@"metric"};
     [RequestAPI RequestURL:@"/data/2.5/weather" withParameters:para andHeader:nil byMethod:kGet andSerializer:kForm success:^(id responseObject) {
-        NSLog(@"%@",responseObject);
+        //NSLog(@"%@",responseObject);
         NSDictionary *main = responseObject[@"main"];
         WeatherModel *tempModel = [[WeatherModel alloc] initWithTemp:main];
-        [_weatherArr addObject:tempModel];
+        _tempLabel.text = [NSString stringWithFormat:@"%ldC°",(long)tempModel.temp];
         NSArray *arr = responseObject[@"weather"];
-        for (NSDictionary *dict in arr) {
-            WeatherModel *iconModel = [[WeatherModel alloc] initWithimg:dict];
-            [_weatherArr addObject:iconModel];
-        }
+        NSDictionary *iconDict = arr[0];
+        WeatherModel *iconModel = [[WeatherModel alloc] initWithimg:iconDict];
+        NSString *iconStr = [NSString stringWithFormat:@"http://openweathermap.org/img/w/%@.png",iconModel.icon];
+        NSURL *iconUrl = [NSURL URLWithString:iconStr];
+        [_weatherIcon sd_setImageWithURL:iconUrl placeholderImage:[UIImage imageNamed:@"spit"]];
+        _weatherLabel.text = iconModel.WeatherDes;
 
     } failure:^(NSInteger statusCode, NSError *error) {
         NSLog(@"%@",error);
+        
     }];
 }
 

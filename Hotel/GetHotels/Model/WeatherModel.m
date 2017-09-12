@@ -24,7 +24,7 @@
     self = [super init];
     if (self) {
         self.icon = [Utilities nullAndNilCheck:dict[@"icon"] replaceBy:@""];
-        self.WeatherDes = [Utilities nullAndNilCheck:dict[@"description"] replaceBy:@""];
+        self.WeatherDes = [Utilities nullAndNilCheck:dict[@"description"] replaceBy:@"小雨"];
     }
     return self;
 }
