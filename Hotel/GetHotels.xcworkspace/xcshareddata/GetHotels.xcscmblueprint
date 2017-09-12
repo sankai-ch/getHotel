@@ -1,14 +1,18 @@
 {
-  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "512569BCD9192CC49A4767ED43894190A05FFD00",
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "512569BCD9192CC49A4767ED43894190A05FFD00+++DEBA19A",
   "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
 
   },
   "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
-    "512569BCD9192CC49A4767ED43894190A05FFD00" : 9223372036854775807
+    "512569BCD9192CC49A4767ED43894190A05FFD00+++57AC31A" : 9223372036854775807,
+    "512569BCD9192CC49A4767ED43894190A05FFD00+++DEBA19A" : 9223372036854775807,
+    "512569BCD9192CC49A4767ED43894190A05FFD00+++4D0CB75" : 9223372036854775807
   },
   "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "5232E420-7779-46F3-B6AA-AE26A5B8BB56",
   "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
-    "512569BCD9192CC49A4767ED43894190A05FFD00" : "hotelss%202\/"
+    "512569BCD9192CC49A4767ED43894190A05FFD00+++57AC31A" : "hotelss%202\/",
+    "512569BCD9192CC49A4767ED43894190A05FFD00+++DEBA19A" : "hotels\/",
+    "512569BCD9192CC49A4767ED43894190A05FFD00+++4D0CB75" : "hotelss%202\/"
   },
   "DVTSourceControlWorkspaceBlueprintNameKey" : "GetHotels",
   "DVTSourceControlWorkspaceBlueprintVersion" : 204,
@@ -17,12 +21,17 @@
     {
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/WangChunHui813\/getHotel.git",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
-      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "512569BCD9192CC49A4767ED43894190A05FFD00"
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "512569BCD9192CC49A4767ED43894190A05FFD00+++4D0CB75"
     },
     {
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/WangChunHui813\/getHotel.git",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
-      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "512569BCD9192CC49A4767ED43894190A05FFD00"
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "512569BCD9192CC49A4767ED43894190A05FFD00+++57AC31A"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/WangChunHui813\/getHotel.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "512569BCD9192CC49A4767ED43894190A05FFD00+++DEBA19A"
     }
   ]
 }

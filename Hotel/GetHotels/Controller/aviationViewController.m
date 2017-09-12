@@ -39,6 +39,8 @@
 - (IBAction)endActon:(UIButton *)sender forEvent:(UIEvent *)event;
 - (IBAction)formcityAction:(UIButton *)sender forEvent:(UIEvent *)event;
 - (IBAction)gocity:(UIButton *)sender forEvent:(UIEvent *)event;
+@property(strong,nonatomic)NSString *start;
+@property(strong,nonatomic)NSString *end;
 
 
 @end
@@ -193,15 +195,17 @@
     //初始化日期格式器
     NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
     //定义日期格式
-    formatter.dateFormat = @"MM-dd";
+    formatter.dateFormat = @"yyyy-MM-dd";
     //当前时间
     NSDate *date = [NSDate date];
     //明天的日期
     NSDate *dateTom = [NSDate dateTomorrow];
     //将日期转换为字符串
-    NSString *dateStr = [formatter stringFromDate:date];
-    NSString *dateTomStr = [formatter stringFromDate:dateTom];
+    _start = [formatter stringFromDate:date];
+     _end = [formatter stringFromDate:dateTom];
     //将处理好的时间字符串设置给两个button
+    NSString *dateStr = [_start substringFromIndex:5];
+     NSString *dateTomStr = [_end substringFromIndex:5];
     [_strattime setTitle:dateStr forState:UIControlStateNormal];
     [_endtime setTitle:dateTomStr forState:UIControlStateNormal];
 }
@@ -228,7 +232,7 @@
 - (IBAction)confrimAction:(UIBarButtonItem *)sender {
        //初始化一个日期格式器
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    formatter.dateFormat = @"MM-dd";
+    formatter.dateFormat = @"yyyy-MM-dd";
         NSDate *date = _date.date;
     //将日期转换为字符串
     NSDate* dates = [NSDate date];
@@ -237,15 +241,18 @@
     //NSTimeInterval c =[date timeIntervalSince1970];
     
     /////////
-    NSString *theDate = [formatter stringFromDate:date];
+  
         if(i == 0) {
             if(b > a){
-                NSTimeInterval c = [Utilities cTimestampFromString:theDate format:@"MM-dd"];
-                NSTimeInterval d = [Utilities cTimestampFromString:_endtime.titleLabel.text format:@"MM-dd"];
+                  _start = [formatter stringFromDate:date];
+                NSTimeInterval c = [Utilities cTimestampFromString:_start format:@"yyyy-MM-dd"];
+                NSTimeInterval d = [Utilities cTimestampFromString:_end format:@"yyyy-MM-dd"];
                 if(c <= d){
-                    [_strattime setTitle:theDate forState:UIControlStateNormal];
+                    NSString *dateStr = [_start substringFromIndex:5];
+                    
+                    [_strattime setTitle:dateStr forState:UIControlStateNormal];
                 } else{
-                    [Utilities popUpAlertViewWithMsg:@"你输入的时间有误，请重新输入" andTitle:nil onView:self onCompletion:^{
+                    [Utilities popUpAlertViewWithMsg:@"你输入的时间不能大于到达时间，请重新输入" andTitle:nil onView:self onCompletion:^{
                         
                     }];
                 }
@@ -258,13 +265,15 @@
         }
         if (i == 1){
             if(b > a){
-                NSTimeInterval c = [Utilities cTimestampFromString:_strattime.titleLabel.text format:@"MM-dd"];
-                NSTimeInterval d = [Utilities cTimestampFromString:theDate format:@"MM-dd"];
+                _end = [formatter stringFromDate:date];
+                NSTimeInterval c = [Utilities cTimestampFromString:_start format:@"yyyy-MM-dd"];
+                NSTimeInterval d = [Utilities cTimestampFromString:_end format:@"yyyy-MM-dd"];
                 if( c<=d ){
-                     [_endtime setTitle:theDate forState:UIControlStateNormal];
+                    NSString *dateTomStr = [_end substringFromIndex:5];
+                     [_endtime setTitle:dateTomStr forState:UIControlStateNormal];
                 }
                 else{
-                    [Utilities popUpAlertViewWithMsg:@"你输入的时间有误，请重新输入" andTitle:nil onView:self onCompletion:^{
+                    [Utilities popUpAlertViewWithMsg:@"你输入的时间小于开始时间，请重新输入" andTitle:nil onView:self onCompletion:^{
                         
                     }];
                 }
@@ -325,7 +334,7 @@
 
     NSString *arr = [[StorageMgr singletonStorageMgr]objectForKey:@"OpenId"];
     NSLog(@"openId = %@", arr);
-    NSDictionary *para = @{@"openid":arr,@"aviation_demand_title":_objectiv.text,@"set_low_time_str":_strattime.titleLabel.text,@"set_high_time_str":_endtime.titleLabel.text,@"set_hour":@"20",@"departure":_fromcity.titleLabel.text,@"destination":_gocity.titleLabel.text,@"low_price":_stactprice.text,@"high_price":_endprice.text,@"aviation_demand_detail":_detail.text,@"is_back":@5,@"back_low_time_str":@"无",@"back_high_time_str":@"无",@"people_number":@3,@"child_number":@1,@"weight":@50.0};
+    NSDictionary *para = @{@"openid":arr,@"aviation_demand_title":_objectiv.text,@"set_low_time_str":_start,@"set_high_time_str":_end,@"set_hour":@"20",@"departure":_fromcity.titleLabel.text,@"destination":_gocity.titleLabel.text,@"low_price":_stactprice.text,@"high_price":_endprice.text,@"aviation_demand_detail":_detail.text,@"is_back":@5,@"back_low_time_str":@"无",@"back_high_time_str":@"无",@"people_number":@3,@"child_number":@1,@"weight":@50.0};
     NSLog(@"para = %@", para);
     [RequestAPI requestURL:@"/addIssue_edu" withParameters:para andHeader:nil byMethod:kPost andSerializer:kForm success:^(id responseObject) {
         NSLog(@"resprnse:%@",responseObject);
