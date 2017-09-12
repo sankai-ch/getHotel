@@ -122,7 +122,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(push:) name:@"noti" object:nil];
     //[self request];
     [self requestAll];
-    
+    [self requestForWeather];
     [_collectionView selectItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0] animated:YES scrollPosition:UICollectionViewScrollPositionNone];
     starlevels=1;
     priceduring=1;
@@ -394,7 +394,7 @@
     //用flag思想判断是否可以去根据定位拿到城市
    
         //根据定位拿到城市
-        [self requestForWeather];
+        //[self requestForWeather];
         [self getRegeoViaCoordinate];
     
 }
