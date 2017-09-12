@@ -29,7 +29,7 @@
     //NSLog(@"%f,%f", location.x, location.y);
     UIView *ripple = [[UIView alloc] initWithFrame:CGRectMake(location.x - 5, location.y - 5, 10, 10)];
     ripple.layer.cornerRadius = 5;
-    ripple.backgroundColor = [[UIColor lightGrayColor] colorWithAlphaComponent:0.15];
+    ripple.backgroundColor = [[UIColor lightGrayColor] colorWithAlphaComponent:0.8];
     [self addSubview:ripple];
     POPBasicAnimation *rippleSizeAnimation = [POPBasicAnimation animation];
     rippleSizeAnimation.property = [POPAnimatableProperty propertyWithName:kPOPLayerSize];

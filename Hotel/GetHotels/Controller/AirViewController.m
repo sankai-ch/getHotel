@@ -25,7 +25,8 @@
 @property (weak, nonatomic) IBOutlet UITableView *releaseTableView;
 @property (weak, nonatomic) IBOutlet UITableView *historyListTableView;
 @property (strong, nonatomic) NSMutableArray *releaseArr;
-
+@property (strong, nonatomic) NSMutableArray *tradedArr;
+@property (strong, nonatomic) NSMutableArray *historyListArr;
 @end
 
 @implementation AirViewController
@@ -36,6 +37,8 @@
     pageNum = 1;
     pageSize = 4;
     _releaseArr = [NSMutableArray new];
+    _tradedArr = [NSMutableArray new];
+    _historyListArr = [NSMutableArray new];
     [self naviConfig];
     [self setSegmentControl];
     //[self requestNet];
@@ -184,24 +187,24 @@
     NSInteger page = scrollView.contentOffset.x / (scrollView.frame.size.width);
     if (page == 0) {
         status = 0;
-        //[self requestNet];
+        [self requestTraped];
     } else if (page == 1){
         status = 2;//正在发布
-        [self requestNet];
+        [self requestRelease];
     } else {
         status = 1;
-        //[self requestNet];
+        [self requestHistory];
     }
     return page;
 }
 
 #pragma mark - Request
 
-- (void)requestNet {
+- (void)requestRelease {
     //NSLog(@"%@",[[StorageMgr singletonStorageMgr] objectForKey:@"OpenId"]);
     UIActivityIndicatorView *avi = [Utilities getCoverOnView:self.view];
     
-    NSDictionary *para = @{@"openid":[[StorageMgr singletonStorageMgr] objectForKey:@"OpenId"],@"pageNum":@(pageNum),@"pageSize":@(pageSize),@"state":@(status)};
+    NSDictionary *para = @{@"openid":[[StorageMgr singletonStorageMgr] objectForKey:@"OpenId"],@"pageNum":@(pageNum),@"pageSize":@(pageSize),@"state":@2};
     [RequestAPI requestURL:@"/findAllIssue_edu" withParameters:para andHeader:nil byMethod:kPost andSerializer:kForm success:^(id responseObject) {
         //NSLog(@"responseObject = %@",responseObject);
         [avi stopAnimating];
@@ -213,6 +216,60 @@
                 //NSLog(@"timer = %f",aviationModel.timeRequest);
             }
             [_releaseTableView reloadData];
+        }
+        
+    } failure:^(NSInteger statusCode, NSError *error) {
+        //NSLog(@"%@",error);
+        [avi stopAnimating];
+        [Utilities popUpAlertViewWithMsg:@"网络不稳定" andTitle:nil onView:self onCompletion:^{
+            
+        }];
+    }];
+}
+
+- (void)requestTraped {
+    //NSLog(@"%@",[[StorageMgr singletonStorageMgr] objectForKey:@"OpenId"]);
+    UIActivityIndicatorView *avi = [Utilities getCoverOnView:self.view];
+    
+    NSDictionary *para = @{@"openid":[[StorageMgr singletonStorageMgr] objectForKey:@"OpenId"],@"pageNum":@(pageNum),@"pageSize":@(pageSize),@"state":@0};
+    [RequestAPI requestURL:@"/findAllIssue_edu" withParameters:para andHeader:nil byMethod:kPost andSerializer:kForm success:^(id responseObject) {
+        //NSLog(@"responseObject = %@",responseObject);
+        [avi stopAnimating];
+        if ([responseObject[@"result"] integerValue] == 1) {
+            NSArray *list = responseObject[@"content"][@"list"];
+            for (NSDictionary *dict in list) {
+                MyAviationModel *aviationModel = [[MyAviationModel alloc] initWithDict:dict];
+                [_tradedArr addObject:aviationModel];
+                //NSLog(@"timer = %f",aviationModel.timeRequest);
+            }
+            [_tradedTableView reloadData];
+        }
+        
+    } failure:^(NSInteger statusCode, NSError *error) {
+        //NSLog(@"%@",error);
+        [avi stopAnimating];
+        [Utilities popUpAlertViewWithMsg:@"网络不稳定" andTitle:nil onView:self onCompletion:^{
+            
+        }];
+    }];
+}
+
+- (void)requestHistory {
+    //NSLog(@"%@",[[StorageMgr singletonStorageMgr] objectForKey:@"OpenId"]);
+    UIActivityIndicatorView *avi = [Utilities getCoverOnView:self.view];
+    
+    NSDictionary *para = @{@"openid":[[StorageMgr singletonStorageMgr] objectForKey:@"OpenId"],@"pageNum":@(pageNum),@"pageSize":@(pageSize),@"state":@1};
+    [RequestAPI requestURL:@"/findAllIssue_edu" withParameters:para andHeader:nil byMethod:kPost andSerializer:kForm success:^(id responseObject) {
+        //NSLog(@"responseObject = %@",responseObject);
+        [avi stopAnimating];
+        if ([responseObject[@"result"] integerValue] == 1) {
+            NSArray *list = responseObject[@"content"][@"list"];
+            for (NSDictionary *dict in list) {
+                MyAviationModel *aviationModel = [[MyAviationModel alloc] initWithDict:dict];
+                [_historyListArr addObject:aviationModel];
+                //NSLog(@"timer = %f",aviationModel.timeRequest);
+            }
+            [_historyListTableView reloadData];
         }
         
     } failure:^(NSInteger statusCode, NSError *error) {

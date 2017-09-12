@@ -12,8 +12,9 @@
 #import "AAndHModel.h"
 #import <CoreLocation/CoreLocation.h>
 #import "DOPDropDownMenu.h"
-
+#import "JSONS.h"
 #import "textCollectionViewCell.h"
+#import "WeatherModel.h"
 @interface HotelViewController () <UITableViewDelegate,UITableViewDataSource,UIScrollViewDelegate,UISearchBarDelegate,CLLocationManagerDelegate> {
 
     NSInteger btnTime;
@@ -30,6 +31,11 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *selectViewHeight;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *sequenceViewHeight;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *pVHeight;
+
+@property (weak, nonatomic) IBOutlet UILabel *tempLabel;
+@property (weak, nonatomic) IBOutlet UILabel *weatherLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *weatherIcon;
+
 
 
 @property (weak, nonatomic) IBOutlet UIButton *collectionBtn;
@@ -87,7 +93,7 @@
 @property (strong, nonatomic) CLLocationManager *locMgr;
 @property (strong, nonatomic) CLLocation *location;
 
-
+@property (strong, nonatomic) NSMutableArray *weatherArr;
 - (IBAction)cancelAction:(UIBarButtonItem *)sender;
 - (IBAction)confirmAction:(UIBarButtonItem *)sender;
 - (IBAction)didTouch;
@@ -116,6 +122,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(push:) name:@"noti" object:nil];
     //[self request];
     [self requestAll];
+    [self requestForWeather];
     [_collectionView selectItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0] animated:YES scrollPosition:UICollectionViewScrollPositionNone];
     starlevels=1;
     priceduring=1;
@@ -169,7 +176,7 @@
     pageNum = 1;
     _hotelArr = [NSMutableArray new];
     _advArr = [NSMutableArray new];
-    
+    _weatherArr = [NSMutableArray new];
     
     BOOL appInit = NO;
     if ([[Utilities getUserDefaults:@"UserCity"] isKindOfClass:[NSNull class]]) {
@@ -387,6 +394,7 @@
     //用flag思想判断是否可以去根据定位拿到城市
    
         //根据定位拿到城市
+        //[self requestForWeather];
         [self getRegeoViaCoordinate];
     
 }
@@ -433,6 +441,7 @@
                         [alert addAction:confirm];
                         [alert addAction:cancel];
                         [self presentViewController:alert animated:YES completion:nil];
+                        
                     }
                 }
             }
@@ -484,7 +493,7 @@
 #pragma mark - request 
 
 //- (void)requestCiry {
-//    [RequestAPI requestURL:@"/findCity" withParameters:@{@"id":@0} andHeader:nil byMethod:kGet andSerializer:kForm success:^(id responseObject) {
+//    [RequestAPI requestURL:@"/findCity"  withParameters:@{@"id":@0} andHeader:nil byMethod:kGet andSerializer:kForm success:^(id responseObject) {
 //        NSLog(@"%@",responseObject);
 //    } failure:^(NSInteger statusCode, NSError *error) {
 //        
@@ -492,8 +501,57 @@
 //}
 
 - (void)requestForWeather {
-    //api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}
+    NSDictionary *para = @{@"lat":@(_Latitude),@"lon":@(_Longitude),@"appid":@"bfea118e4e718c9885a5486048bd6698",@"lang":@"zh_cn",@"units":@"metric"};
+    [RequestAPI RequestURL:@"/data/2.5/weather" withParameters:para andHeader:nil byMethod:kGet andSerializer:kForm success:^(id responseObject) {
+        //NSLog(@"%@",responseObject);
+        NSDictionary *main = responseObject[@"main"];
+        WeatherModel *tempModel = [[WeatherModel alloc] initWithTemp:main];
+        _tempLabel.text = [NSString stringWithFormat:@"%ldC°",(long)tempModel.temp];
+        NSArray *arr = responseObject[@"weather"];
+        NSDictionary *iconDict = arr[0];
+        WeatherModel *iconModel = [[WeatherModel alloc] initWithimg:iconDict];
+        NSString *iconStr = [NSString stringWithFormat:@"http://openweathermap.org/img/w/%@.png",iconModel.icon];
+        NSURL *iconUrl = [NSURL URLWithString:iconStr];
+        [_weatherIcon sd_setImageWithURL:iconUrl placeholderImage:[UIImage imageNamed:@"spit"]];
+        _weatherLabel.text = iconModel.WeatherDes;
+
+    } failure:^(NSInteger statusCode, NSError *error) {
+        NSLog(@"%@",error);
+        
+    }];
 }
+
+//- (void)
+
+//- (void)requestForWeather {
+//    //api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}
+//    //NSDictionary *para = @{@"lat":@(_Latitude),@"lon":@(_Longitude),@"appid":@"bfea118e4e718c9885a5486048bd6698"};
+//    NSString *weatherUrlString = [NSString stringWithFormat:@"http://api.openweathermap.org/data/2.5/weather?appid=bfea118e4e718c9885a5486048bd6698&lat=%f&lon=%f&lang=zh_cn&units=metric",_Latitude,_Longitude];
+//    NSURL *weatherUrl = [NSURL URLWithString:weatherUrlString];
+//    NSURLSession *session = [NSURLSession sharedSession];
+//    NSURLSessionDataTask *jsonDataTask = [session dataTaskWithURL:weatherUrl completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+//        if (!error) {
+//            NSHTTPURLResponse *httpRes = (NSHTTPURLResponse *)response;
+//            if (httpRes.statusCode == 200) {
+//                id jsonObject = [data JSONCol];
+//                NSLog(@"%@",jsonObject);
+//                NSDictionary *main = jsonObject[@"main"];
+//                WeatherModel *tempModel = [[WeatherModel alloc] initWithTemp:main];
+//                [_weatherArr addObject:tempModel];
+//                NSArray *arr = jsonObject[@"weather"];
+//                for (NSDictionary *dict in arr) {
+//                    WeatherModel *iconModel = [[WeatherModel alloc] initWithimg:dict];
+//                    [_weatherArr addObject:iconModel];
+//                }
+//            } else {
+//                NSLog(@"%ld",(long)httpRes.statusCode);
+//            }
+//        } else {
+//            NSLog(@"%@",error.description);
+//        }
+//    }];
+//    [jsonDataTask resume];
+//}
 
 - (void)requestForSearch: (NSString *)name {
     [RequestAPI requestURL:@"/selectHotel" withParameters:@{@"hotel_name":name,@"inTime":_date1,@"outTime":_date2} andHeader:nil byMethod:kGet andSerializer:kForm success:^(id responseObject) {
@@ -521,7 +579,7 @@
         
         //NSLog(@"%@,%@",_date1,_date2);
         [RequestAPI requestURL:@"/findHotelByCity_edu" withParameters:para andHeader:nil byMethod:kGet andSerializer:kJson success:^(id responseObject) {
-            NSLog(@"%@",responseObject);
+            //NSLog(@"%@",responseObject);
             [_avi stopAnimating];
             UIRefreshControl *ref = (UIRefreshControl *)[_hotelTableView viewWithTag:100001];
             [ref endRefreshing];
