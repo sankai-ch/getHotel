@@ -17,7 +17,7 @@
         self.hotelName = [Utilities nullAndNilCheck:dict[@"hotel_name"] replaceBy:@"暂无"];
         self.hotelAdd = [Utilities nullAndNilCheck:dict[@"hotel_address"] replaceBy:@"未知"];
         NSInteger dis = [[Utilities nullAndNilCheck:dict[@"distance"] replaceBy:0] integerValue];
-        self.distance = @(dis/100000.0);
+        self.distance = dis/100000.00;
         self.hotelPrice = [Utilities nullAndNilCheck:dict[@"price"] replaceBy:@"未知"];
         self.hotelImg = [Utilities nullAndNilCheck:dict[@"hotel_img"] replaceBy:@""];
         self.hotelId = [[Utilities nullAndNilCheck:dict[@"id"] replaceBy:0] integerValue];
