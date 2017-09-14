@@ -712,7 +712,7 @@
     
     cell.hotelLocation.text = hotelModel.hotelAdd;
     //NSLog(@"%@",cell.hotelLocation.text);
-    cell.hotelDistance.text = [NSString stringWithFormat:@"距离我%ld公里",(long)hotelModel.distance];
+    cell.hotelDistance.text = [NSString stringWithFormat:@"距离我%.2f公里",hotelModel.distance];
     //NSLog(@"%@",cell.hotelDistance.text);
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
