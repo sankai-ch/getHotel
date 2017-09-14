@@ -85,6 +85,7 @@
 		B2BD3EA31F4AA5DB002C6B98 /* Openssl.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B2BD3EA21F4AA5DB002C6B98 /* Openssl.framework */; };
 		B2BD3EB31F4ACBA0002C6B98 /* Aviation.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B2BD3EAD1F4ACBA0002C6B98 /* Aviation.storyboard */; };
 		B2BD3EB51F4ACBA0002C6B98 /* MyInfo.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B2BD3EB11F4ACBA0002C6B98 /* MyInfo.storyboard */; };
+		B2DCAC6A1F6A258900692EA8 /* QuoteModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B2DCAC691F6A258900692EA8 /* QuoteModel.m */; };
 		B2E555091F4AF70700D314C0 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B2E555081F4AF70700D314C0 /* DetailViewController.m */; };
 		B2E9BB7F1F4FB4200064B303 /* detailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B2E9BB7E1F4FB4200064B303 /* detailModel.m */; };
 		B2F076231F4D18DB0074C80C /* zhifuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B2F076221F4D18DB0074C80C /* zhifuViewController.m */; };
@@ -255,6 +256,8 @@
 		B2BD3EA21F4AA5DB002C6B98 /* Openssl.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Openssl.framework; path = GetHotels/Openssl.framework; sourceTree = "<group>"; };
 		B2BD3EAE1F4ACBA0002C6B98 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = GetHotels/Base.lproj/Aviation.storyboard; sourceTree = SOURCE_ROOT; };
 		B2BD3EB21F4ACBA0002C6B98 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = GetHotels/Base.lproj/MyInfo.storyboard; sourceTree = SOURCE_ROOT; };
+		B2DCAC681F6A258900692EA8 /* QuoteModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuoteModel.h; sourceTree = "<group>"; };
+		B2DCAC691F6A258900692EA8 /* QuoteModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuoteModel.m; sourceTree = "<group>"; };
 		B2E555071F4AF70700D314C0 /* DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DetailViewController.h; path = ../View/DetailViewController.h; sourceTree = "<group>"; };
 		B2E555081F4AF70700D314C0 /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DetailViewController.m; path = ../View/DetailViewController.m; sourceTree = "<group>"; };
 		B2E9BB7D1F4FB4200064B303 /* detailModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = detailModel.h; sourceTree = "<group>"; };
@@ -616,6 +619,8 @@
 				848DEF1C1F4EEE2100D03E45 /* HotelOrdersModel.m */,
 				6A92F1AD1F60E0C000059F44 /* MyAviationModel.h */,
 				6A92F1AE1F60E0C000059F44 /* MyAviationModel.m */,
+				B2DCAC681F6A258900692EA8 /* QuoteModel.h */,
+				B2DCAC691F6A258900692EA8 /* QuoteModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -957,6 +962,7 @@
 				B224DB911F4C33910022C007 /* GBAlipayManager.m in Sources */,
 				B2BD3E9A1F4AA4F7002C6B98 /* HMSegmentedControl.m in Sources */,
 				B2BD3E8B1F4AA4EF002C6B98 /* NSDateFormatter+Category.m in Sources */,
+				B2DCAC6A1F6A258900692EA8 /* QuoteModel.m in Sources */,
 				844E86A01F4B12E20080C2ED /* SignInViewController.m in Sources */,
 				B224DB941F4C33910022C007 /* DataVerifier.m in Sources */,
 				B2F076231F4D18DB0074C80C /* zhifuViewController.m in Sources */,
