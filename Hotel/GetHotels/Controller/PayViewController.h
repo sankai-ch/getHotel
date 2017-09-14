@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "QuoteModel.h"
 @interface PayViewController : UIViewController
+
+@property(strong,nonatomic)QuoteModel *model;
 
 @end
