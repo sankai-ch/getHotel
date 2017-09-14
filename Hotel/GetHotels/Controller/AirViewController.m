@@ -12,7 +12,7 @@
 #import "MyAviationModel.h"
 #import "QuoteListViewController.h"
 @interface AirViewController ()<UITableViewDelegate,UITableViewDataSource,UIScrollViewDelegate> {
-    NSInteger status;
+    //NSInteger status;
     NSInteger RpageNum;
     NSInteger TpageNum;
     NSInteger HpageNum;
@@ -22,7 +22,6 @@
     bool HLastPage;
     
     bool RFirst;
-    bool TFirst;
     bool HFirst;
 }
 
@@ -44,9 +43,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     RFirst = true;
-    TFirst = true;
     HFirst = true;
-    status = 0;
+    //status = 0;
     RpageNum = 1;
     pageSize = 4;
     TpageNum = 1;
@@ -59,6 +57,8 @@
 //    HLastPage = false;
     [self naviConfig];
     [self setSegmentControl];
+    [self setRefreshControl];
+    [self initrequestTraped];
     //[self requestNet];
     // Do any additional setup after loading the view.
 }
@@ -129,15 +129,31 @@
 
 #pragma mark - ref
 - (void)setRefreshControl {
-    UIRefreshControl *ref = [UIRefreshControl new];
-    [ref addTarget:self action:@selector(releaseRef) forControlEvents:UIControlEventValueChanged];
-    ref.tag = 99998;
-    [_releaseTableView addSubview:ref];
+    UIRefreshControl *ref1 = [UIRefreshControl new];
+    [ref1 addTarget:self action:@selector(releaseRef) forControlEvents:UIControlEventValueChanged];
+    ref1.tag = 99998;
+    [_releaseTableView addSubview:ref1];
+    UIRefreshControl *ref2 = [UIRefreshControl new];
+    [ref2 addTarget:self action:@selector(tradedRef) forControlEvents:UIControlEventValueChanged];
+    ref2.tag = 99997;
+    [_tradedTableView addSubview:ref2];
+    UIRefreshControl *ref3 = [UIRefreshControl new];
+    [ref3 addTarget:self action:@selector(historyRef) forControlEvents:UIControlEventValueChanged];
+    ref3.tag = 99999;
+    [_historyListTableView addSubview:ref3];
 }
 
 - (void)releaseRef {
     RpageNum = 1;
     [self requestRelease];
+}
+- (void)tradedRef {
+    TpageNum = 1;
+    [self requestTraped];
+}
+- (void)historyRef {
+    HpageNum = 1;
+    [self requestHistory];
 }
 
 //}
@@ -227,37 +243,32 @@
 //判断我们的scroll滚到哪里了
 - (NSInteger)scrollCheck : (UIScrollView *)scrollView {
     NSInteger page = scrollView.contentOffset.x / (scrollView.frame.size.width);
-    if (page == 0 && TFirst) {
-        TFirst = false;
-        
-        [self requestTraped];
-        
-    } else if (page == 1 && RFirst){
+    if (page == 1 && RFirst){
         RFirst = false;
-        [self requestRelease];
+        [self initrequestRelease];
         
     } else if (page == 2 && HFirst) {
         HFirst = false;
-        [self requestHistory];
+        [self initrequestHistory];
         
     }
     return page;
 }
 
 - (void)initrequestTraped {
-    status = 0;
+    //status = 0;
     _avi = [Utilities getCoverOnView:_tradedTableView];
     [self requestTraped];
 }
 
 - (void)initrequestRelease {
-    status = 1;//正在发布
+    //status = 1;//正在发布
     _avi = [Utilities getCoverOnView:_releaseTableView];
     [self requestRelease];
 }
 
 - (void)initrequestHistory {
-    status = 2;
+//    status = 2;
     _avi = [Utilities getCoverOnView:_historyListTableView];
     [self requestHistory];
 }
@@ -266,11 +277,12 @@
 
 - (void)requestRelease {
     //NSLog(@"%@",[[StorageMgr singletonStorageMgr] objectForKey:@"OpenId"]);
-    
+    UIRefreshControl *ref = [_releaseTableView viewWithTag:99998];
     //UIRefreshControl *ref = []
-    NSDictionary *para = @{@"openid":[[StorageMgr singletonStorageMgr] objectForKey:@"OpenId"],@"pageNum":@(RpageNum),@"pageSize":@(pageSize),@"state":@2};
+    NSDictionary *para = @{@"openid":[[StorageMgr singletonStorageMgr] objectForKey:@"OpenId"],@"pageNum":@(RpageNum),@"pageSize":@(pageSize),@"state":@1};
     [RequestAPI requestURL:@"/findAllIssue_edu" withParameters:para andHeader:nil byMethod:kPost andSerializer:kForm success:^(id responseObject) {
         NSLog(@"responseObject = %@",responseObject);
+        [ref endRefreshing];
         [_avi stopAnimating];
         if ([responseObject[@"result"] integerValue] == 1) {
             NSArray *list = responseObject[@"content"][@"list"];
@@ -298,11 +310,12 @@
 - (void)requestTraped {
     //NSLog(@"%@",[[StorageMgr singletonStorageMgr] objectForKey:@"OpenId"]);
     //UIActivityIndicatorView *avi = [Utilities getCoverOnView:self.view];
-    
+    UIRefreshControl *ref = [_releaseTableView viewWithTag:99997];
     NSDictionary *para = @{@"openid":[[StorageMgr singletonStorageMgr] objectForKey:@"OpenId"],@"pageNum":@(TpageNum),@"pageSize":@(pageSize),@"state":@0};
     [RequestAPI requestURL:@"/findAllIssue_edu" withParameters:para andHeader:nil byMethod:kPost andSerializer:kForm success:^(id responseObject) {
         //NSLog(@"responseObject = %@",responseObject);
         [_avi stopAnimating];
+        [ref endRefreshing];
         if ([responseObject[@"result"] integerValue] == 1) {
             NSArray *list = responseObject[@"content"][@"list"];
             for (NSDictionary *dict in list) {
@@ -316,6 +329,7 @@
     } failure:^(NSInteger statusCode, NSError *error) {
         //NSLog(@"%@",error);
         [_avi stopAnimating];
+        [ref endRefreshing];
         [Utilities popUpAlertViewWithMsg:@"网络不稳定" andTitle:nil onView:self onCompletion:^{
             
         }];
@@ -325,11 +339,12 @@
 - (void)requestHistory {
     //NSLog(@"%@",[[StorageMgr singletonStorageMgr] objectForKey:@"OpenId"]);
     //UIActivityIndicatorView *avi = [Utilities getCoverOnView:self.view];
-    
-    NSDictionary *para = @{@"openid":[[StorageMgr singletonStorageMgr] objectForKey:@"OpenId"],@"pageNum":@(HpageNum),@"pageSize":@(pageSize),@"state":@1};
+    UIRefreshControl *ref = [_releaseTableView viewWithTag:99999];
+    NSDictionary *para = @{@"openid":[[StorageMgr singletonStorageMgr] objectForKey:@"OpenId"],@"pageNum":@(HpageNum),@"pageSize":@(pageSize),@"state":@2};
     [RequestAPI requestURL:@"/findAllIssue_edu" withParameters:para andHeader:nil byMethod:kPost andSerializer:kForm success:^(id responseObject) {
         //NSLog(@"responseObject = %@",responseObject);
         [_avi stopAnimating];
+        [ref endRefreshing];
         if ([responseObject[@"result"] integerValue] == 1) {
             NSArray *list = responseObject[@"content"][@"list"];
             for (NSDictionary *dict in list) {
@@ -343,6 +358,7 @@
     } failure:^(NSInteger statusCode, NSError *error) {
         //NSLog(@"%@",error);
         [_avi stopAnimating];
+        [ref endRefreshing];
         [Utilities popUpAlertViewWithMsg:@"网络不稳定" andTitle:nil onView:self onCompletion:^{
             
         }];
