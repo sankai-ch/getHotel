@@ -117,10 +117,12 @@
     _function.layer.shadowOffset = CGSizeMake(0, 0);
     _function.layer.shadowOpacity= 0.7f;
     _function.layer.shadowRadius = 4.0f;
-    _stactprice.layer.borderColor = [UIColor lightGrayColor].CGColor;
+    _stactprice.layer.borderColor = [UIColor groupTableViewBackgroundColor].CGColor;
     _stactprice.layer.borderWidth = 1.0;
-    _endprice.layer.borderColor = [UIColor lightGrayColor].CGColor;
+    _stactprice.layer.cornerRadius=5.0;
+    _endprice.layer.borderColor = [UIColor groupTableViewBackgroundColor].CGColor;
     _endprice.layer.borderWidth = 1.0;
+    _endprice.layer.cornerRadius =5.0;
 
 }
 -(void)hdAction{
@@ -211,7 +213,37 @@
 }
 - (IBAction)issuedAction:(UIButton *)sender forEvent:(UIEvent *)event {
     if([Utilities loginCheck]){
-         [self request];
+        
+        if([_fromcity.titleLabel.text isEqualToString:_gocity.titleLabel.text]||[_gocity.titleLabel.text isEqualToString:@"请选择城市"]){
+            [Utilities popUpAlertViewWithMsg:@"你选中的城市有误,请重新输入" andTitle:@"提示" onView:self onCompletion:^{
+                
+            }];
+        }else{
+            if([_stactprice.text isEqualToString:@"" ] || [_endprice.text isEqualToString:@""]){
+                [Utilities popUpAlertViewWithMsg:@"请输入正确的价格,请重新输入" andTitle:@"提示" onView:self onCompletion:^{
+                    
+                }];
+                
+                
+            }else{
+                              if( [_stactprice.text integerValue] >=  [_endprice.text integerValue]){
+                    [Utilities popUpAlertViewWithMsg:@"您输入的起始价格不能大于最终价格,请重新输入" andTitle:@"提示" onView:self onCompletion:^{
+                        
+                    }];
+                }else{
+                    if([_objectiv.text isEqualToString:@""]){
+                        [Utilities popUpAlertViewWithMsg:@"标题不能为空，请重新输入" andTitle:nil onView:self onCompletion:^{
+                            
+                        }];
+                    }else{
+                        [self request];
+                    }
+
+                }
+            }
+            
+        }
+        
     }
     else{
         UINavigationController *signNavi=[Utilities getStoryboardInstance:@"Login" byIdentity:@"SignNavi"];
