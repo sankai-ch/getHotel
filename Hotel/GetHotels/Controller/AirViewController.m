@@ -42,24 +42,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    RFirst = true;
-    HFirst = true;
-    //status = 0;
-    RpageNum = 1;
-    pageSize = 4;
-    TpageNum = 1;
-    HpageNum = 1;
-    _releaseArr = [NSMutableArray new];
-    _tradedArr = [NSMutableArray new];
-    _historyListArr = [NSMutableArray new];
-//    RLastPage = false;
-//    TLastPage = false;
-//    HLastPage = false;
+    [self dataInit];
+    [self setfooterView];
     [self naviConfig];
     [self setSegmentControl];
     [self setRefreshControl];
     [self initrequestTraped];
-    //[self requestNet];
     // Do any additional setup after loading the view.
 }
 
@@ -126,6 +114,18 @@
     //bujiu 
 }
 
+- (void)dataInit{
+    RFirst = true;
+    HFirst = true;
+    //status = 0;
+    RpageNum = 1;
+    pageSize = 4;
+    TpageNum = 1;
+    HpageNum = 1;
+    _releaseArr = [NSMutableArray new];
+    _tradedArr = [NSMutableArray new];
+    _historyListArr = [NSMutableArray new];
+}
 
 #pragma mark - ref
 - (void)setRefreshControl {
@@ -173,18 +173,29 @@
 
 #pragma mark - TableView 
 
+- (void)setfooterView {
+    _historyListTableView.tableFooterView = [UIView new];
+    _tradedTableView.tableFooterView = [UIView new];
+    _releaseTableView.tableFooterView = [UIView new];
+}
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (tableView == _tradedTableView) {
-        return 1;
+        return _tradedArr.count;
     } else if (tableView == _releaseTableView) {
         return _releaseArr.count;
     }
-    return 1;
+    return _historyListArr.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (tableView == _tradedTableView) {
         MyIssueTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"traded" forIndexPath:indexPath];
+        MyAviationModel *model = _tradedArr[indexPath.row];
+        cell.ticketLabel.text = [NSString stringWithFormat:@"%@ %@ 机票",model.startTime,model.aviationDemandTitle];
+        cell.priceLabel.text = [NSString stringWithFormat:@"价格区间:%ld-%ld",(long)model.lowPrice,(long)model.highPrice];
+        cell.timeLabel.text = [NSString stringWithFormat:@"大约%@点左右",model.timeRequest];
+        cell.demandLabel.text = model.aviationDemandDetail;
         return cell;
     } else if (tableView == _releaseTableView) {
         MyIssueTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ReleaseTableView" forIndexPath:indexPath];
@@ -197,6 +208,11 @@
         return cell;
     } else {
         MyIssueTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"HistoryList" forIndexPath:indexPath];
+        MyAviationModel *model = _historyListArr[indexPath.row];
+        cell.ticketLabel.text = [NSString stringWithFormat:@"%@ %@ 机票",model.startTime,model.aviationDemandTitle];
+        cell.priceLabel.text = [NSString stringWithFormat:@"价格区间:%ld-%ld",(long)model.lowPrice,(long)model.highPrice];
+        cell.timeLabel.text = [NSString stringWithFormat:@"大约%@点左右",model.timeRequest];
+        cell.demandLabel.text = model.aviationDemandDetail;
         return cell;
     }
     
@@ -218,6 +234,13 @@
                 RpageNum ++;
                 [self requestRelease];
                 
+            }
+        }
+    } else if (tableView == _historyListTableView) {
+        if (indexPath.row == _historyListArr.count - 1) {
+            if (!HLastPage) {
+                HpageNum ++;
+                [self requestHistory];
             }
         }
     }
@@ -257,19 +280,19 @@
 
 - (void)initrequestTraped {
     //status = 0;
-    _avi = [Utilities getCoverOnView:_tradedTableView];
+    _avi = [Utilities getCoverOnView:self.view];
     [self requestTraped];
 }
 
 - (void)initrequestRelease {
     //status = 1;//正在发布
-    _avi = [Utilities getCoverOnView:_releaseTableView];
+    _avi = [Utilities getCoverOnView:self.view];
     [self requestRelease];
 }
 
 - (void)initrequestHistory {
 //    status = 2;
-    _avi = [Utilities getCoverOnView:_historyListTableView];
+    _avi = [Utilities getCoverOnView:self.view];
     [self requestHistory];
 }
 
@@ -310,7 +333,7 @@
 - (void)requestTraped {
     //NSLog(@"%@",[[StorageMgr singletonStorageMgr] objectForKey:@"OpenId"]);
     //UIActivityIndicatorView *avi = [Utilities getCoverOnView:self.view];
-    UIRefreshControl *ref = [_releaseTableView viewWithTag:99997];
+    UIRefreshControl *ref = [_tradedTableView viewWithTag:99997];
     NSDictionary *para = @{@"openid":[[StorageMgr singletonStorageMgr] objectForKey:@"OpenId"],@"pageNum":@(TpageNum),@"pageSize":@(pageSize),@"state":@0};
     [RequestAPI requestURL:@"/findAllIssue_edu" withParameters:para andHeader:nil byMethod:kPost andSerializer:kForm success:^(id responseObject) {
         //NSLog(@"responseObject = %@",responseObject);
@@ -339,7 +362,7 @@
 - (void)requestHistory {
     //NSLog(@"%@",[[StorageMgr singletonStorageMgr] objectForKey:@"OpenId"]);
     //UIActivityIndicatorView *avi = [Utilities getCoverOnView:self.view];
-    UIRefreshControl *ref = [_releaseTableView viewWithTag:99999];
+    UIRefreshControl *ref = [_historyListTableView viewWithTag:99999];
     NSDictionary *para = @{@"openid":[[StorageMgr singletonStorageMgr] objectForKey:@"OpenId"],@"pageNum":@(HpageNum),@"pageSize":@(pageSize),@"state":@2};
     [RequestAPI requestURL:@"/findAllIssue_edu" withParameters:para andHeader:nil byMethod:kPost andSerializer:kForm success:^(id responseObject) {
         //NSLog(@"responseObject = %@",responseObject);
@@ -347,6 +370,10 @@
         [ref endRefreshing];
         if ([responseObject[@"result"] integerValue] == 1) {
             NSArray *list = responseObject[@"content"][@"list"];
+            HLastPage = [responseObject[@"content"][@"isLastPage"] boolValue];
+            if (HpageNum == 1) {
+                [_historyListArr removeAllObjects];
+            }
             for (NSDictionary *dict in list) {
                 MyAviationModel *aviationModel = [[MyAviationModel alloc] initWithDict:dict];
                 [_historyListArr addObject:aviationModel];
