@@ -191,6 +191,11 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (tableView == _tradedTableView) {
         MyIssueTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"traded" forIndexPath:indexPath];
+        MyAviationModel *model = _tradedArr[indexPath.row];
+        cell.ticketLabel.text = [NSString stringWithFormat:@"%@ %@ 机票",model.startTime,model.aviationDemandTitle];
+        cell.priceLabel.text = [NSString stringWithFormat:@"价格区间:%ld-%ld",(long)model.lowPrice,(long)model.highPrice];
+        cell.timeLabel.text = [NSString stringWithFormat:@"大约%@点左右",model.timeRequest];
+        cell.demandLabel.text = model.aviationDemandDetail;
         return cell;
     } else if (tableView == _releaseTableView) {
         MyIssueTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ReleaseTableView" forIndexPath:indexPath];
@@ -275,19 +280,19 @@
 
 - (void)initrequestTraped {
     //status = 0;
-    _avi = [Utilities getCoverOnView:_tradedTableView];
+    _avi = [Utilities getCoverOnView:self.view];
     [self requestTraped];
 }
 
 - (void)initrequestRelease {
     //status = 1;//正在发布
-    _avi = [Utilities getCoverOnView:_releaseTableView];
+    _avi = [Utilities getCoverOnView:self.view];
     [self requestRelease];
 }
 
 - (void)initrequestHistory {
 //    status = 2;
-    _avi = [Utilities getCoverOnView:_historyListTableView];
+    _avi = [Utilities getCoverOnView:self.view];
     [self requestHistory];
 }
 
