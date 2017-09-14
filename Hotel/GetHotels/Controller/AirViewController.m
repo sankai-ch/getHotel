@@ -196,13 +196,16 @@
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.row == _releaseArr.count -1) {
-        if (!RLastPage) {
-            RpageNum ++;
-            [self requestRelease];
-        
+    if (tableView == _releaseTableView) {
+        if (indexPath.row == _releaseArr.count -1) {
+            if (!RLastPage) {
+                RpageNum ++;
+                [self requestRelease];
+                
+            }
         }
     }
+    
 }
 
 #pragma mark - Scorll
