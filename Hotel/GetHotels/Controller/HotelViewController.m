@@ -24,7 +24,7 @@
     NSInteger selectsection;
     
     NSInteger pageNum;
-    NSInteger pages;
+    bool pages;
     
 }
 // 约束
@@ -166,7 +166,7 @@
     _d = [UIButton new];
     _hotelTableView.tableFooterView = [UIView new];
     _selectTableView.tableFooterView = [UIView new];
-    _sorts = @[@"智能排序",@"价格低到高",@"价格高到低",@"离我从远到近"];
+    _sorts = @[@"智能排序",@"价格低到高",@"价格高到低",@"离我从近到远"];
     _select = @[@"星级",@"价格区间"];
     _starLevel = @[@"全部",@"四星",@"五星"];
     _priceDuring = @[@"不限",@"300以下",@"301-500",@"501-1000",@"1000以上"];
@@ -292,7 +292,12 @@
     //NSLog(@"正在拖拽视图，所以需要将自动播放暂停掉");
     //setFireDate：设置定时器在什么时间启动
     //[NSDate distantFuture]:将来的某一时刻
-    [_timer setFireDate:[NSDate distantFuture]];
+    if (scrollView == _scrollView) {
+        [_timer setFireDate:[NSDate distantFuture]];
+    }
+    else {
+        [_searchHotelBar resignFirstResponder];
+    }
 }
 
 //视图静止时（没有人在拖拽），开启定时器，让自动轮播
@@ -596,7 +601,7 @@
                 
                 //NSLog(@"_advArr:%@",_advArr);
                 NSArray *hotel = responseObject[@"content"][@"hotel"][@"list"];
-                pages = [responseObject[@"content"][@"hotel"][@"pages"] integerValue];
+                pages = [responseObject[@"content"][@"hotel"][@"isLastPage"] boolValue];
                 if (pageNum == 1) {
                     [_hotelArr removeAllObjects];
                 }
@@ -707,7 +712,7 @@
     
     cell.hotelLocation.text = hotelModel.hotelAdd;
     //NSLog(@"%@",cell.hotelLocation.text);
-    cell.hotelDistance.text = [NSString stringWithFormat:@"%ld",(long)hotelModel.distance];
+    cell.hotelDistance.text = [NSString stringWithFormat:@"距离我%ld公里",(long)hotelModel.distance];
     //NSLog(@"%@",cell.hotelDistance.text);
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
@@ -720,6 +725,7 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if (tableView == _selectTableView) {
         [_c setTitle:_sorts[indexPath.row] forState:UIControlStateNormal];
+        pageNum = 1;
         switch (indexPath.row) {
             case 0:
                 _SortId = @"1";
@@ -811,11 +817,28 @@
         _b.frame = CGRectMake(wd,0,wd,40);
         _c.frame = CGRectMake(wd*2,0,wd,40);
         _d.frame = CGRectMake(wd*3,0,wd,40);
+       /* [_a.layer setMasksToBounds:YES];
+        [_a.layer setBorderColor:[UIColor lightGrayColor].CGColor];
+        [_a.layer setBorderWidth:0.5];
+        [_b.layer setMasksToBounds:YES];
+        [_b.layer setBorderColor:[UIColor lightGrayColor].CGColor];
+        [_b.layer setBorderWidth:0.5];
+        [_c.layer setMasksToBounds:YES];
+        [_c.layer setBorderColor:[UIColor lightGrayColor].CGColor];
+        [_c.layer setBorderWidth:0.5];
+        [_d.layer setMasksToBounds:YES];
+        [_d.layer setBorderColor:[UIColor lightGrayColor].CGColor];
+        [_d.layer setBorderWidth:0.5];*/
         
+        UIView *line = [UIView new];
+        line.backgroundColor =[UIColor lightGrayColor];
+        line.alpha = 0.5f;
+        line.frame = CGRectMake(0, 40, UI_SCREEN_W, 0.5);
         [view addSubview:_a];
         [view addSubview:_b];
         [view addSubview:_c];
         [view addSubview:_d];
+        [view addSubview:line];
         
         return view;
     }
@@ -833,7 +856,7 @@
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.row == _hotelArr.count -1) {
-        if (pages >= pageNum) {
+        if (!pages) {
             pageNum ++;
             [self requestAll];
            
@@ -1056,6 +1079,7 @@
 }
 
 - (IBAction)confirmAction:(UIBarButtonItem *)sender {
+    pageNum = 1;
     //拿到当前datepicker选择的事件
     NSDate *date =  _datePicker.date;
     //初始化一个日期格式器
@@ -1207,6 +1231,7 @@
     NSLog(@"1第%ld区，1第%ld个",(long)indexPath.section,(long)indexPath.row);
 }
 - (IBAction)cofirmAction:(UIButton *)sender forEvent:(UIEvent *)event {
+    pageNum = 1;
     POPSpringAnimation *springForwardAnmation = [POPSpringAnimation animation];
     springForwardAnmation.property = [POPAnimatableProperty propertyWithName:kPOPViewScaleXY];
     springForwardAnmation.toValue = [NSValue valueWithCGSize:CGSizeMake(1.2, 1.2)];
