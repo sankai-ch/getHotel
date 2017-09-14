@@ -323,6 +323,11 @@
                                 <state key="normal" title="发布">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="5"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="issuedAction:forEvent:" destination="HVh-OA-hcf" eventType="touchUpInside" id="o5L-qs-quS"/>
                                 </connections>
@@ -449,7 +454,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="mak-BZ-agU" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="航空" image="aviation" id="1LP-h5-s2a"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="u2G-e0-Bwa">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="u2G-e0-Bwa">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>

@@ -203,6 +203,7 @@
         if (info) {
             //设置大头针的标题与副标题属性
             annotation.title = info[@"City"];
+        
             annotation.subtitle = info[@"Name"];
         }
         //将大头针插入地图视图
