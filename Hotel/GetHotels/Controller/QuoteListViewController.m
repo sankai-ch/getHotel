@@ -9,10 +9,12 @@
 #import "QuoteListViewController.h"
 #import "QuoteListTableViewCell.h"
 #import "PayViewController.h"
+#import "QuoteModel.h"
+#import "PayViewController.h"
 @interface QuoteListViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 - (IBAction)payButton:(UIButton *)sender forEvent:(UIEvent *)event;
-
+@property (strong, nonatomic) NSMutableArray *quoteArr;
 
 
 
@@ -23,7 +25,7 @@
 - (void)viewDidLoad {
     
     [super viewDidLoad];
-  
+    _quoteArr = [NSMutableArray new];
     [self setNavigationItem];
     [self request];
     // Do any additional setup after loading the view, typically from a nib.
@@ -67,7 +69,15 @@
         [aiv stopAnimating];
         NSLog(@"pay:%@",responseObject);
         if([responseObject[@"result"]integerValue]==1){
-            NSArray *result = responseObject[@"content"];
+            NSDictionary *result = responseObject[@"content"];
+            NSLog(@"result=%@",result);
+            for (NSDictionary *dict in result) {
+                QuoteModel *model =[[QuoteModel alloc]initWithDict:dict];
+                [_quoteArr addObject:model];
+                
+            }
+         
+            [_tableView reloadData];
            
         }else{
             NSString *errorMsg = [ErrorHandler getProperErrorString:[responseObject[@"result"] integerValue]];
@@ -86,7 +96,7 @@
 #pragma mark -tableView
 //设置有多少组
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 2;
+    return _quoteArr.count;
 }
 //设置每组多少行
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
@@ -106,7 +116,8 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
      _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     QuoteListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"quoteCell" forIndexPath:indexPath];
-    
+    QuoteModel *model = _quoteArr[indexPath.row];
+    [[StorageMgr singletonStorageMgr]addKey:@"Model" andValue:model];
     //设置支付按钮边框颜色
     cell.payButton.layer.borderColor=[UIColor colorWithRed:140/255.0f green:181/255.0f blue:249/255.0f alpha:1].CGColor;
     
@@ -115,18 +126,21 @@
     cell.view.layer.shadowOffset = CGSizeMake(0,0);//shadowOffset阴影偏移,x向右偏移4，y向下偏移4，默认(0, -3),这个跟shadowRadius配合使用
     cell.view.layer.shadowOpacity = 0.5;//阴影透明度，默认0
     cell.view.layer.shadowRadius = 3;//阴影半径，默认3
-    cell.dateNameLabel.text = @"2-24 无锡——厦门 机票";
-    cell.airNameLabel.text = @"深圳航空 ZH9703";
-    cell.timeLabel.text = @"14:10 —— 16:20";
-    cell.levelLabel.text = @"头等舱";
-    cell.priceLabel.text = @"￥468";
+    NSRange range1 = NSMakeRange(1, 5);
+    NSString *date = [model.in_time_str substringWithRange:range1];
+    NSString *inTime = [model.in_time_str substringFromIndex:5];
+    NSString *outTime = [model.out_time_str substringFromIndex:5];
+    cell.dateNameLabel.text = [NSString stringWithFormat:@"%@ %@——%@ 机票",date,model.departure,model.destination];
+    cell.airNameLabel.text = [NSString stringWithFormat:@"%@ %@",model.aviation_company,model.flight_no];
+    cell.timeLabel.text = [NSString stringWithFormat:@"%@ ——%@",inTime,outTime];
+    cell.levelLabel.text = model.aviation_cabin;
+    cell.priceLabel.text = [NSString stringWithFormat:@"￥ %ld",(long)model.final_price];
     return cell;
 }
 - (IBAction)payButton:(UIButton *)sender forEvent:(UIEvent *)event {
     
     PayViewController *purchaseVc = [Utilities  getStoryboardInstance:@"MyInfo" byIdentity:@"Purchase"];
     [self.navigationController pushViewController:purchaseVc  animated:YES];
-   
-    
+    purchaseVc.model = [[StorageMgr singletonStorageMgr]objectForKey:@"Model"];
 }
 @end

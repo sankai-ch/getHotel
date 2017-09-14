@@ -8,7 +8,11 @@
 
 #import "PayViewController.h"
 
-@interface PayViewController ()
+@interface PayViewController ()<UITabBarDelegate,UITableViewDataSource>{
+    
+        NSInteger seleced;
+    
+}
 @property (weak, nonatomic) IBOutlet UILabel *nameLbl;
 @property (weak, nonatomic) IBOutlet UILabel *starttime;
 @property (weak, nonatomic) IBOutlet UILabel *endtime;
@@ -36,9 +40,16 @@
 
 -(void)uilayout{
   
-    _nameLbl.text = @"东方航空公司 无锡———厦门";
-    _starttime.text = @"8月19日 19:00 起飞 ";
-    _price.text= @"0.01元";
+    _nameLbl.text = [NSString stringWithFormat:@"%@公司 %@——%@",_model.aviation_company,_model.departure,_model.destination];
+    NSString *inTime = [_model.in_time_str substringFromIndex:5];
+    NSRange range1 = NSMakeRange(1, 1);
+    NSString *date1 = [_model.in_time_str substringWithRange:range1];
+    NSLog(@"date1%@",date1);
+    NSRange range2 = NSMakeRange(3, 3);
+    NSString *date2 = [_model.in_time_str substringWithRange:range2];
+     NSLog(@"date2%@",date2);
+    _starttime.text = [NSString stringWithFormat:@"%@月%@日%@ 起飞",date1,date2,inTime];
+    _price.text=[NSString stringWithFormat:@"%ld元",(long)_model.final_price];
     
     //去掉线
     self.tablView.tableFooterView = [UIView new];
@@ -138,14 +149,25 @@
     
     return 40.f;
 }
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    //遍历表格中所有选中的细胞
-    for (NSIndexPath *eachIP in tableView.indexPathsForSelectedRows){
-        //当选中的细胞不是当前正在选中的细胞的情况下，
-        if(eachIP != indexPath){
-            //将细胞从选中状态改为不选中状态
-            [tableView deselectRowAtIndexPath:eachIP animated:YES];
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.row != seleced) {
+        seleced = indexPath.row;
+        //遍历表格视图中所有选中状态下的细胞
+        for(NSIndexPath *eachIP in tableView.indexPathsForSelectedRows){
+            //当选中的细胞不是当前正在按的这个细胞情况下
+            if(eachIP != indexPath){
+                //将细胞从选中状态改为不选中状态
+                [tableView deselectRowAtIndexPath:eachIP animated:YES];
+            }else{
+                //[tableView deselectRowAtIndexPath:eachIP animated:YES];
+            }
         }
+    }
+}
+
+- (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.row == seleced) {
+        [tableView selectRowAtIndexPath:indexPath animated:YES scrollPosition:UITableViewScrollPositionNone];
     }
 }
 /*
@@ -166,7 +188,7 @@
      
        
             NSString *teadeNo = [GBAlipayManager generateTradeNO];
-            [GBAlipayManager alipayWithProductName:@"您" amount:@"30" tradeNO:teadeNo notifyURL:nil productDescription:[NSString stringWithFormat:@"%@活动报名费",@"您"] itBPay:@"30"];
+            [GBAlipayManager alipayWithProductName: _nameLbl.text amount:_price.text tradeNO:teadeNo notifyURL:nil productDescription:[NSString stringWithFormat:@"%@ 机票价格",_nameLbl.text] itBPay:@"30"];
         }
             break;
         case 1:
