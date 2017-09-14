@@ -8,7 +8,9 @@
 
 #import "zhifuViewController.h"
 
-@interface zhifuViewController ()<UITableViewDataSource,UITableViewDelegate>
+@interface zhifuViewController ()<UITableViewDataSource,UITableViewDelegate>{
+    NSInteger seleced;
+}
 @property (weak, nonatomic) IBOutlet UILabel *nameLbl;
 @property (weak, nonatomic) IBOutlet UILabel *starttime;
 @property (weak, nonatomic) IBOutlet UILabel *endtime;
@@ -21,10 +23,13 @@
 @implementation zhifuViewController
 
 - (void)viewDidLoad {
+   
     [super viewDidLoad];
+    
     [self uilayout];
     [self datainitalize];
     [self setNavigationItem];
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(purchaseResultAction:) name:@"AlipalyResult" object:nil];
     // Do any additional setup after loading the view.
 }
@@ -110,6 +115,7 @@
 
 -(void)datainitalize{
     _arr = @[@"支付宝支付",@"微信支付",@"银联支付"];
+    seleced = 0;
 }
 
 
@@ -145,17 +151,27 @@
     
     return 20.f;
 }
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    //遍历表格中所有选中的细胞
-    for (NSIndexPath *eachIP in tableView.indexPathsForSelectedRows){
-        //当选中的细胞不是当前正在选中的细胞的情况下，
-        if(eachIP != indexPath){
-            //将细胞从选中状态改为不选中状态
-            [tableView deselectRowAtIndexPath:eachIP animated:YES];
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.row != seleced) {
+        seleced = indexPath.row;
+        //遍历表格视图中所有选中状态下的细胞
+        for(NSIndexPath *eachIP in tableView.indexPathsForSelectedRows){
+            //当选中的细胞不是当前正在按的这个细胞情况下
+            if(eachIP != indexPath){
+                //将细胞从选中状态改为不选中状态
+                [tableView deselectRowAtIndexPath:eachIP animated:YES];
+            }else{
+                //[tableView deselectRowAtIndexPath:eachIP animated:YES];
+            }
         }
     }
 }
-/*
+
+- (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.row == seleced) {
+        [tableView selectRowAtIndexPath:indexPath animated:YES scrollPosition:UITableViewScrollPositionNone];
+    }
+}/*
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
