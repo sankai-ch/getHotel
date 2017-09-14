@@ -39,7 +39,7 @@
 -(void)setNavigationItem{
     self.navigationItem.title = @"报价列表";
     //设置导航条的颜色（风格颜色）
-    self.navigationController.navigationBar.barTintColor = UIColorFromRGB(24, 124, 236);
+    self.navigationController.navigationBar.barTintColor = UIColorFromRGB(15, 100,240);
     //实例化一个button
     UIButton *leftBtn = [UIButton buttonWithType:UIButtonTypeSystem];
     //设置button的位置大小
@@ -115,11 +115,11 @@
     cell.view.layer.shadowOffset = CGSizeMake(0,0);//shadowOffset阴影偏移,x向右偏移4，y向下偏移4，默认(0, -3),这个跟shadowRadius配合使用
     cell.view.layer.shadowOpacity = 0.5;//阴影透明度，默认0
     cell.view.layer.shadowRadius = 3;//阴影半径，默认3
-    cell.dateNameLabel.text = @"";
-    cell.airNameLabel.text = @"";
-    cell.timeLabel.text = @"";
-    cell.levelLabel.text = @"";
-    cell.priceLabel.text = @"";
+    cell.dateNameLabel.text = @"2-24 无锡——厦门 机票";
+    cell.airNameLabel.text = @"深圳航空 ZH9703";
+    cell.timeLabel.text = @"14:10 —— 16:20";
+    cell.levelLabel.text = @"头等舱";
+    cell.priceLabel.text = @"￥468";
     return cell;
 }
 - (IBAction)payButton:(UIButton *)sender forEvent:(UIEvent *)event {
