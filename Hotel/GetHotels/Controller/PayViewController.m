@@ -189,7 +189,7 @@
      
        
             NSString *teadeNo = [GBAlipayManager generateTradeNO];
-            [GBAlipayManager alipayWithProductName: _nameLbl.text amount:_price.text tradeNO:teadeNo notifyURL:nil productDescription:[NSString stringWithFormat:@"%@ 机票价格",_nameLbl.text] itBPay:@"30"];
+            [GBAlipayManager alipayWithProductName: _nameLbl.text amount:[NSString stringWithFormat:@"%ld",(long)_model.final_price] tradeNO:teadeNo notifyURL:nil productDescription:[NSString stringWithFormat:@"%@ 机票价格",_nameLbl.text] itBPay:@"30"];
         }
             break;
         case 1:

@@ -137,8 +137,7 @@
     
     NSDate *outDate =[NSDate dateWithTimeIntervalSince1970:[model.out_time integerValue]/1000 ];
     NSInteger s = [model.in_time integerValue];
-    NSLog(@"%ld",(long)s);
-    NSLog(@"%@",model.in_time);
+    
     NSDateFormatter *outFormatter = [NSDateFormatter new];
     outFormatter.dateFormat = @"HH:mm";
     NSString *out_time = [outFormatter stringFromDate:outDate];
