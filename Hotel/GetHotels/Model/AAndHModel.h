@@ -18,7 +18,7 @@
 
 @property (nonatomic) NSInteger hotelBId;//
 @property (strong, nonatomic) NSString *hotelAdd;
-@property (nonatomic) NSInteger distance;//距离
+@property (nonatomic) float distance;//距离
 @property (strong, nonatomic) NSString *hotelName;
 @property (strong, nonatomic) NSString *hotelPrice;
 @property (strong, nonatomic) NSString *hotelImg;
