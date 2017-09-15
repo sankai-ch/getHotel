@@ -41,14 +41,15 @@
 -(void)uilayout{
   
     _nameLbl.text = [NSString stringWithFormat:@"%@公司 %@——%@",_model.aviation_company,_model.departure,_model.destination];
-    NSString *inTime = [_model.in_time_str substringFromIndex:5];
-    NSRange range1 = NSMakeRange(1, 1);
-    NSString *date1 = [_model.in_time_str substringWithRange:range1];
-    NSLog(@"date1%@",date1);
-    NSRange range2 = NSMakeRange(3, 3);
-    NSString *date2 = [_model.in_time_str substringWithRange:range2];
-     NSLog(@"date2%@",date2);
-    _starttime.text = [NSString stringWithFormat:@"%@月%@日%@ 起飞",date1,date2,inTime];
+    
+    NSDate *inDate =[NSDate dateWithTimeIntervalSince1970:[_model.in_time integerValue]/1000 ];
+    NSDateFormatter *inFormatter = [NSDateFormatter new];
+    NSDateFormatter *inFormatter1 = [NSDateFormatter new];
+    inFormatter.dateFormat = @"M月dd日";
+    inFormatter1.dateFormat = @"HH:mm";
+    NSString *in_date = [inFormatter stringFromDate:inDate];
+    NSString *in_time = [inFormatter1 stringFromDate:inDate];
+    _starttime.text = [NSString stringWithFormat:@"%@ %@ 起飞",in_date,in_time];
     _price.text=[NSString stringWithFormat:@"%ld元",(long)_model.final_price];
     
     //去掉线
