@@ -18,13 +18,11 @@
 		6AB62B211F6769E000176926 /* Annotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AB62B201F6769E000176926 /* Annotation.m */; };
 		6AB8B95B1F4E7E5F00E45E61 /* AAndHModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AB8B95A1F4E7E5F00E45E61 /* AAndHModel.m */; };
 		6AB8B9611F4E994600E45E61 /* CityListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AB8B9601F4E994600E45E61 /* CityListModel.m */; };
+		8442A9B51F6B7E3B00C6A261 /* HotelOrderTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8442A9B41F6B7E3B00C6A261 /* HotelOrderTableViewCell.m */; };
+		8442A9B81F6B890C00C6A261 /* HotelOrdersModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8442A9B71F6B890C00C6A261 /* HotelOrdersModel.m */; };
 		844E869D1F4B12C20080C2ED /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 844E869C1F4B12C20080C2ED /* LoginViewController.m */; };
 		844E86A01F4B12E20080C2ED /* SignInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 844E869F1F4B12E20080C2ED /* SignInViewController.m */; };
 		846F1C971F621CEA00D4FABA /* ZLImageViewDisplayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 846F1C961F621CEA00D4FABA /* ZLImageViewDisplayView.m */; };
-		848DEF111F4EDD0B00D03E45 /* AllOrdersTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 848DEF101F4EDD0B00D03E45 /* AllOrdersTableViewCell.m */; };
-		848DEF171F4EDD4F00D03E45 /* AvailableTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 848DEF161F4EDD4F00D03E45 /* AvailableTableViewCell.m */; };
-		848DEF1A1F4EDD6600D03E45 /* ExpiredTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 848DEF191F4EDD6600D03E45 /* ExpiredTableViewCell.m */; };
-		848DEF1D1F4EEE2100D03E45 /* HotelOrdersModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 848DEF1C1F4EEE2100D03E45 /* HotelOrdersModel.m */; };
 		B21B6C071F52A97D002F2277 /* Hotel.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B21B6C061F52A97D002F2277 /* Hotel.storyboard */; };
 		B21E853A1F4E622F00C32754 /* UserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B21E85391F4E622F00C32754 /* UserModel.m */; };
 		B224DB911F4C33910022C007 /* GBAlipayManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B224DB7A1F4C33910022C007 /* GBAlipayManager.m */; };
@@ -132,20 +130,16 @@
 		6AB8B95A1F4E7E5F00E45E61 /* AAndHModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AAndHModel.m; sourceTree = "<group>"; };
 		6AB8B95F1F4E994600E45E61 /* CityListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CityListModel.h; sourceTree = "<group>"; };
 		6AB8B9601F4E994600E45E61 /* CityListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CityListModel.m; sourceTree = "<group>"; };
+		8442A9B31F6B7E3B00C6A261 /* HotelOrderTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HotelOrderTableViewCell.h; sourceTree = "<group>"; };
+		8442A9B41F6B7E3B00C6A261 /* HotelOrderTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HotelOrderTableViewCell.m; sourceTree = "<group>"; };
+		8442A9B61F6B890C00C6A261 /* HotelOrdersModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HotelOrdersModel.h; sourceTree = "<group>"; };
+		8442A9B71F6B890C00C6A261 /* HotelOrdersModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HotelOrdersModel.m; sourceTree = "<group>"; };
 		844E869B1F4B12C20080C2ED /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		844E869C1F4B12C20080C2ED /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		844E869E1F4B12E20080C2ED /* SignInViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignInViewController.h; sourceTree = "<group>"; };
 		844E869F1F4B12E20080C2ED /* SignInViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignInViewController.m; sourceTree = "<group>"; };
 		846F1C951F621CEA00D4FABA /* ZLImageViewDisplayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZLImageViewDisplayView.h; sourceTree = "<group>"; };
 		846F1C961F621CEA00D4FABA /* ZLImageViewDisplayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZLImageViewDisplayView.m; sourceTree = "<group>"; };
-		848DEF0F1F4EDD0B00D03E45 /* AllOrdersTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AllOrdersTableViewCell.h; sourceTree = "<group>"; };
-		848DEF101F4EDD0B00D03E45 /* AllOrdersTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AllOrdersTableViewCell.m; sourceTree = "<group>"; };
-		848DEF151F4EDD4F00D03E45 /* AvailableTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AvailableTableViewCell.h; sourceTree = "<group>"; };
-		848DEF161F4EDD4F00D03E45 /* AvailableTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AvailableTableViewCell.m; sourceTree = "<group>"; };
-		848DEF181F4EDD6600D03E45 /* ExpiredTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExpiredTableViewCell.h; sourceTree = "<group>"; };
-		848DEF191F4EDD6600D03E45 /* ExpiredTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExpiredTableViewCell.m; sourceTree = "<group>"; };
-		848DEF1B1F4EEE2100D03E45 /* HotelOrdersModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HotelOrdersModel.h; sourceTree = "<group>"; };
-		848DEF1C1F4EEE2100D03E45 /* HotelOrdersModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HotelOrdersModel.m; sourceTree = "<group>"; };
 		87E248321E9C674FE6281D42 /* Pods-GetHotels.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GetHotels.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GetHotels/Pods-GetHotels.debug.xcconfig"; sourceTree = "<group>"; };
 		91A29EB61D066B9FD83C2A3C /* libPods-GetHotels.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-GetHotels.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B21B6C061F52A97D002F2277 /* Hotel.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Hotel.storyboard; sourceTree = "<group>"; };
@@ -429,14 +423,10 @@
 				B240210D1F592A8800E4D00E /* QuoteListTableViewCell.m */,
 				B224DBAF1F4C46110022C007 /* MyInfoTableViewCell.h */,
 				B224DBB01F4C46110022C007 /* MyInfoTableViewCell.m */,
-				848DEF0F1F4EDD0B00D03E45 /* AllOrdersTableViewCell.h */,
-				848DEF101F4EDD0B00D03E45 /* AllOrdersTableViewCell.m */,
-				848DEF151F4EDD4F00D03E45 /* AvailableTableViewCell.h */,
-				848DEF161F4EDD4F00D03E45 /* AvailableTableViewCell.m */,
-				848DEF181F4EDD6600D03E45 /* ExpiredTableViewCell.h */,
-				848DEF191F4EDD6600D03E45 /* ExpiredTableViewCell.m */,
 				6A9BF1FA1F5CE65E001064CD /* MyIssueTableViewCell.h */,
 				6A9BF1FB1F5CE65E001064CD /* MyIssueTableViewCell.m */,
+				8442A9B31F6B7E3B00C6A261 /* HotelOrderTableViewCell.h */,
+				8442A9B41F6B7E3B00C6A261 /* HotelOrderTableViewCell.m */,
 			);
 			name = MyInfo;
 			sourceTree = "<group>";
@@ -615,12 +605,12 @@
 				B21E85391F4E622F00C32754 /* UserModel.m */,
 				6AB8B95F1F4E994600E45E61 /* CityListModel.h */,
 				6AB8B9601F4E994600E45E61 /* CityListModel.m */,
-				848DEF1B1F4EEE2100D03E45 /* HotelOrdersModel.h */,
-				848DEF1C1F4EEE2100D03E45 /* HotelOrdersModel.m */,
 				6A92F1AD1F60E0C000059F44 /* MyAviationModel.h */,
 				6A92F1AE1F60E0C000059F44 /* MyAviationModel.m */,
 				B2DCAC681F6A258900692EA8 /* QuoteModel.h */,
 				B2DCAC691F6A258900692EA8 /* QuoteModel.m */,
+				8442A9B61F6B890C00C6A261 /* HotelOrdersModel.h */,
+				8442A9B71F6B890C00C6A261 /* HotelOrdersModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -935,7 +925,6 @@
 				B224DB981F4C33910022C007 /* RSADataSigner.m in Sources */,
 				B2BD3E8C1F4AA4EF002C6B98 /* NSString+Crypt.m in Sources */,
 				B2BD3E871F4AA4EF002C6B98 /* AppAPIClient.m in Sources */,
-				848DEF1D1F4EEE2100D03E45 /* HotelOrdersModel.m in Sources */,
 				B2A2D7321F4AFC20001D6B81 /* MyInfoViewController.m in Sources */,
 				B2BD3E731F4AA439002C6B98 /* BasicEncodingRules.m in Sources */,
 				6AB62B211F6769E000176926 /* Annotation.m in Sources */,
@@ -957,11 +946,11 @@
 				6AB8B9611F4E994600E45E61 /* CityListModel.m in Sources */,
 				B2F076291F4DA3A10074C80C /* dituViewController.m in Sources */,
 				B2BD3E341F4AA201002C6B98 /* AppDelegate.m in Sources */,
-				848DEF1A1F4EDD6600D03E45 /* ExpiredTableViewCell.m in Sources */,
 				B224DB971F4C33910022C007 /* openssl_wrapper.m in Sources */,
 				B224DB911F4C33910022C007 /* GBAlipayManager.m in Sources */,
 				B2BD3E9A1F4AA4F7002C6B98 /* HMSegmentedControl.m in Sources */,
 				B2BD3E8B1F4AA4EF002C6B98 /* NSDateFormatter+Category.m in Sources */,
+				8442A9B51F6B7E3B00C6A261 /* HotelOrderTableViewCell.m in Sources */,
 				B2DCAC6A1F6A258900692EA8 /* QuoteModel.m in Sources */,
 				844E86A01F4B12E20080C2ED /* SignInViewController.m in Sources */,
 				B224DB941F4C33910022C007 /* DataVerifier.m in Sources */,
@@ -979,8 +968,8 @@
 				B2BD3E8F1F4AA4EF002C6B98 /* Utilities.m in Sources */,
 				B2A2D7351F4B066E001D6B81 /* AccountSettingViewController.m in Sources */,
 				B2BD3E9D1F4AA4F7002C6B98 /* SKTagView.m in Sources */,
+				8442A9B81F6B890C00C6A261 /* HotelOrdersModel.m in Sources */,
 				B224DB9A1F4C33910022C007 /* JSONS.m in Sources */,
-				848DEF111F4EDD0B00D03E45 /* AllOrdersTableViewCell.m in Sources */,
 				846F1C971F621CEA00D4FABA /* ZLImageViewDisplayView.m in Sources */,
 				6AB8B95B1F4E7E5F00E45E61 /* AAndHModel.m in Sources */,
 				B2BD3E9C1F4AA4F7002C6B98 /* SKTagButton.m in Sources */,
@@ -991,7 +980,6 @@
 				B224DBAE1F4C34E00022C007 /* Order.m in Sources */,
 				B224DB961F4C33910022C007 /* NSDataEx.m in Sources */,
 				844E869D1F4B12C20080C2ED /* LoginViewController.m in Sources */,
-				848DEF171F4EDD4F00D03E45 /* AvailableTableViewCell.m in Sources */,
 				B2A2D7381F4B06A1001D6B81 /* AgreementViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

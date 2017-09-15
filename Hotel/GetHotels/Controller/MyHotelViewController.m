@@ -7,83 +7,43 @@
 //
 
 #import "MyHotelViewController.h"
-#import "AllOrdersTableViewCell.h"
-#import "AvailableTableViewCell.h"
-#import "ExpiredTableViewCell.h"
 #import "HMSegmentedControl.h"
-#import "UserModel.h"
+#import "HotelOrderTableViewCell.h"
+#import "HotelOrdersModel.h"
+
 @interface MyHotelViewController ()<UITableViewDelegate,UITableViewDelegate,UIScrollViewDelegate>{
-    NSInteger allOrdersPageNum;
+    NSInteger allPageNum;
     NSInteger availablePageNum;
-    NSInteger ExpiredPageNum;
+    NSInteger historyPageNum;
+    NSInteger pageSize;
+    bool allLastPage;
+    bool availableLastPage;
+    bool historyLastPage;
     
-    NSInteger availableFlag;
-    NSInteger expiredFlag;
-    
-    
+    bool availableFirst;
+    bool historyFirst;
 }
-
+@property (strong, nonatomic) HMSegmentedControl *segmentControl;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
-@property (weak, nonatomic) IBOutlet UITableView *AllOrdersTableView;
-@property (weak, nonatomic) IBOutlet UITableView *AvailableTableView;
-@property (weak, nonatomic) IBOutlet UITableView *ExpiredTableView;
-@property (weak, nonatomic) IBOutlet UIView *titleView;
-
-@property (strong, nonatomic) NSMutableArray *allOrdersArr;
+@property (weak, nonatomic) IBOutlet UITableView *allOrdersTableView;
+@property (weak, nonatomic) IBOutlet UITableView *availableTableView;
+@property (weak, nonatomic) IBOutlet UITableView *historyTableView;
+@property (strong, nonatomic) NSMutableArray *allArr;
 @property (strong, nonatomic) NSMutableArray *availableArr;
-@property (strong, nonatomic) NSMutableArray *expiredArr;
-
-@property (strong, nonatomic) UIImageView *allOrdersNothingImg;
-@property (strong, nonatomic) UIImageView *avaNothingImg;
-@property (strong, nonatomic) UIImageView *expiredNothingImg;
-
-@property (strong, nonatomic) HMSegmentedControl *segmentedControl;
+@property (strong, nonatomic) NSMutableArray *historyListArr;
 @property (strong, nonatomic) UIActivityIndicatorView *avi;
-
-
-
 
 @end
 
 @implementation MyHotelViewController
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self naviConfig];
+    [self setSegmentControl];
+    [self setfooterView];
+    [self dataInit];
+    [self initRequestAll];
     
-    availableFlag = 1;
-    expiredFlag = 1;
-    
-    allOrdersPageNum = 1;
-    availablePageNum = 1;
-    ExpiredPageNum = 1;
-    
-    _allOrdersArr = [NSMutableArray new];
-    _availableArr = [NSMutableArray new];
-    _expiredArr = [NSMutableArray new];
-    
-    if (_allOrdersArr.count == 0){
-        [self nothingForTableView];
-    }
-    
-    //[self allOrdersRequest];
-    //菜单栏
-    [self setSegment];
-
-    //刷新指示器
-    [self setRefreshControl];
-    //[self allOrdersRequest];
-    
-    //已获取任务的网络请求（带蒙层）
-    [self allOrdersInitializeData];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshHome) name:@"refreshHome" object:nil];
-    // Do any additional setup after loading the view.
-}
-
-- (void)refreshHome{
-    [self allRef];
-    [self expiredRef];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -96,179 +56,20 @@
     [self.navigationController setNavigationBarHidden:NO animated:animated];
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
-
-
-
-#pragma mark - refreshControl
-//创建刷新指示器的方法
-- (void)setRefreshControl{
-    //全部订单的刷新指示器
-    UIRefreshControl *allOrdersRef = [UIRefreshControl new];
-    [allOrdersRef addTarget:self action:@selector(allOrdersRef) forControlEvents:UIControlEventValueChanged];
-    allOrdersRef.tag = 10001;
-    [_AllOrdersTableView addSubview:allOrdersRef];
-    
-    //可使用的刷新指示器
-    UIRefreshControl *avaRef = [UIRefreshControl new];
-    [avaRef addTarget:self action:@selector(avaRef) forControlEvents:UIControlEventValueChanged];
-    avaRef.tag = 10002;
-    [_AvailableTableView addSubview:avaRef];
-    
-    //未过期的刷新指示器
-    UIRefreshControl *expiredRef = [UIRefreshControl new];
-    [expiredRef addTarget:self action:@selector(expiredRef) forControlEvents:UIControlEventValueChanged];
-    expiredRef.tag = 10003;
-    [_ExpiredTableView addSubview:expiredRef];
-}
-
-//已获取列表下拉刷新事件
-- (void)allRef{
-    allOrdersPageNum = 1;
-    [self allOrdersRequest];
-}
-//未获取列表下拉刷新事件
-- (void)avaRef{
+- (void)dataInit{
+    availableFirst = true;
+    historyFirst = true;
+    //status = 0;
+    allPageNum = 1;
+    pageSize = 4;
     availablePageNum = 1;
-    [self allOrdersRequest];
-}
-//跟进列表下拉刷新事件
-- (void)expiredRef{
-    ExpiredPageNum = 1;
-    [self allOrdersRequest];
+    historyPageNum = 1;
+    _allArr = [NSMutableArray new];
+    _availableArr = [NSMutableArray new];
+    _historyListArr = [NSMutableArray new];
 }
 
-//第一次进行网络请求的时候需要盖上蒙层，而下拉刷新的时候不需要蒙层，所以我们把第一次网络请求和下拉刷新分开来
-- (void)allOrdersInitializeData{
-    _avi = [Utilities getCoverOnView:self.view];
-    [self allOrdersRequest];
-}
-- (void)avaInitializeData{
-    _avi = [Utilities getCoverOnView:self.view];
-    [self allOrdersRequest];
-}
-- (void)expiredInitializeData{
-    _avi = [Utilities getCoverOnView:self.view];
-    [self allOrdersRequest];
-}
-
-
-
-#pragma mark - scrollView
-
-//scrollView已经停止减速
-- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
-    if (scrollView == _scrollView) {
-        NSInteger page = [self scrollCheck:scrollView];
-        //NSLog(@"page = %ld", (long)page);
-        //将_segmentedControl设置选中的index为page（scrollView当前显示的tableview）
-        [_segmentedControl setSelectedSegmentIndex:page animated:YES];
-    }
-}
-//scrollView已经结束滑动的动画
-- (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView{
-    if (scrollView == _scrollView) {
-        [self scrollCheck:scrollView];
-    }
-}
-//判断scrollView滑动到那里了
-- (NSInteger)scrollCheck: (UIScrollView *)scrollView{
-    NSInteger page = scrollView.contentOffset.x / (scrollView.frame.size.width);
-    
-    if (availableFlag == 1 && page == 1) {
-        availableFlag = 0;
-        NSLog(@"第一次滑动scollview来到可获取");
-        //[self notAcquireInitializeData];
-    }
-    if (expiredFlag == 1 && page == 2) {
-        expiredFlag = 0;
-        NSLog(@"第一次滑动scollview来到已过期");
-       // [self followInitializeData];
-    }
-    
-    return page;
-}
-
-#pragma mark - request
-//全部订单网络请求
-- (void)allOrdersRequest{
-    
-    UserModel *user = [[StorageMgr singletonStorageMgr] objectForKey:@"UserInfo"];
-    
-    NSDictionary *para = @{@"openid":user.openId,@"id":@1};
-    NSLog(@"%@",user.openId);
-    NSLog(@"%@",user.userId);
-       [RequestAPI requestURL:@"/findOrders_edu" withParameters:para andHeader:nil byMethod:kPost andSerializer:kForm success:^(id responseObject) {
-           
-        [_avi stopAnimating];
-        NSLog(@"request:%@",responseObject);
-        
-    } failure:^(NSInteger statusCode, NSError *error) {
-        
-        [_avi stopAnimating];
-        NSLog(@"错误码dd：%ld",(long)statusCode);
-    }];
-}
-
-
-//当tableView没有数据时显示图片的方法
-- (void)nothingForTableView{
-    _allOrdersNothingImg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"no_things"]];
-    _allOrdersNothingImg.frame = CGRectMake((UI_SCREEN_W - 100) / 2, 50, 100, 100);
-    
-    _avaNothingImg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"no_things"]];
-    _avaNothingImg.frame = CGRectMake(UI_SCREEN_W + (UI_SCREEN_W - 100) / 2, 50, 100, 100);
-    
-    _expiredNothingImg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"no_things"]];
-    _expiredNothingImg.frame = CGRectMake(UI_SCREEN_W * 2 + (UI_SCREEN_W - 100) / 2, 50, 100, 100);
-    
-    [_scrollView addSubview:_allOrdersNothingImg];
-    [_scrollView addSubview:_avaNothingImg];
-    [_scrollView addSubview:_expiredNothingImg];
-}
-
-
-#pragma mark - setSegment设置菜单栏
-
-//初始化菜单栏的方法
-- (void)setSegment{
-    _segmentedControl = [[HMSegmentedControl alloc] initWithSectionTitles:@[@"全部订单",@"可使用",@"已过期"]];
-    //设置位置
-    _segmentedControl.frame = CGRectMake(0, 60, UI_SCREEN_W, 60);
-    //设置默认选中的项
-    _segmentedControl.selectedSegmentIndex = 0;
-    //设置菜单栏的背景色
-    _segmentedControl.backgroundColor = [UIColor whiteColor];
-    //设置线的高度
-    _segmentedControl.selectionIndicatorHeight = 2.5f;
-    _segmentedControl.selectionIndicatorColor = UIColorFromRGB(21, 126, 251);
-    //设置选中状态的样式
-    _segmentedControl.selectionStyle = HMSegmentedControlSelectionStyleFullWidthStripe;
-    //选中时的标记的位置
-    _segmentedControl.selectionIndicatorLocation = HMSegmentedControlSelectionIndicatorLocationDown;
-    //设置未选中的标题样式
-    _segmentedControl.titleTextAttributes = @{NSForegroundColorAttributeName:UIColorFromRGBA(111, 113, 121, 1),NSFontAttributeName:[UIFont systemFontOfSize:17]};
-    //选中时的标题样式
-    _segmentedControl.selectedTitleTextAttributes = @{NSForegroundColorAttributeName:UIColorFromRGBA(21, 126, 251, 1),NSFontAttributeName:[UIFont systemFontOfSize:17]};
-    
-    __weak typeof(self) weakSelf = self;
-    [_segmentedControl setIndexChangeBlock:^(NSInteger index) {
-        [weakSelf.scrollView scrollRectToVisible:CGRectMake(UI_SCREEN_W * index, 0, UI_SCREEN_W, 200) animated:YES];
-    }];
-    
-    [self.view addSubview:_segmentedControl];
-}
-
-#pragma mark - setNavigation
-
+#pragma mark - 设置导航栏
 //设置导航栏样式
 - (void)naviConfig{
     self.navigationItem.title = @"我的酒店";
@@ -290,46 +91,306 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-#pragma mark - tableView
-//多少组
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    if (tableView == _AllOrdersTableView) {
-        return _allOrdersArr.count;
-    }else if (tableView == _AvailableTableView) {
+#pragma mark - 设置菜单栏
+- (void)setSegmentControl {
+    _segmentControl = [[HMSegmentedControl alloc] initWithSectionTitles:@[@"全部订单",@"可使用",@"已过期"]];
+    _segmentControl.frame = CGRectMake(0, [[UIApplication sharedApplication] statusBarFrame].size.height+self.navigationController.navigationBar.frame.size.height, UI_SCREEN_W, 40);
+    _segmentControl.selectedSegmentIndex = 0;
+    _segmentControl.backgroundColor = [UIColor whiteColor];
+    _segmentControl.selectionIndicatorHeight = 2.5f;
+    //设置选中状态的样式
+    _segmentControl.selectionStyle = HMSegmentedControlSelectionStyleFullWidthStripe;
+    //选中时标记的位置
+    _segmentControl.selectionIndicatorLocation = HMSegmentedControlSelectionIndicatorLocationDown;
+    //设置未选中的标题样式
+    _segmentControl.titleTextAttributes = @{NSForegroundColorAttributeName:UIColorFromRGBA(230, 230, 230, 1),NSFontAttributeName:[UIFont boldSystemFontOfSize:15]};
+    //设置选中时的标题样式
+    _segmentControl.selectedTitleTextAttributes = @{NSForegroundColorAttributeName:UIColorFromRGBA(154, 154, 154, 1),NSFontAttributeName:[UIFont boldSystemFontOfSize:15]};
+    __weak typeof (self) weakSelf = self;
+    [_segmentControl setIndexChangeBlock:^(NSInteger index) {
+        [weakSelf.scrollView scrollRectToVisible:CGRectMake(UI_SCREEN_W * index, 0, UI_SCREEN_W, 200) animated:YES];
+    }];
+    [self.view addSubview:_segmentControl];
+}
+
+
+
+#pragma mark - ref
+- (void)setRefreshControl {
+    UIRefreshControl *ref1 = [UIRefreshControl new];
+    [ref1 addTarget:self action:@selector(availableRef) forControlEvents:UIControlEventValueChanged];
+    ref1.tag = 10001;
+    [_availableTableView addSubview:ref1];
+    UIRefreshControl *ref2 = [UIRefreshControl new];
+    [ref2 addTarget:self action:@selector(allRef) forControlEvents:UIControlEventValueChanged];
+    ref2.tag = 10002;
+    [_availableTableView addSubview:ref2];
+    UIRefreshControl *ref3 = [UIRefreshControl new];
+    [ref3 addTarget:self action:@selector(historyRef) forControlEvents:UIControlEventValueChanged];
+    ref3.tag = 10003;
+    [_historyTableView addSubview:ref3];
+}
+
+- (void)allRef{
+    allPageNum = 1;
+    [self requestAll];
+}
+- (void)availableRef {
+    availablePageNum = 1;
+    [self requestAvailable];
+}
+
+- (void)historyRef {
+    historyPageNum = 1;
+    [self requestHistory];
+}
+
+
+#pragma mark - TableView
+- (void)setfooterView {
+    _allOrdersTableView.tableFooterView = [UIView new];
+    _availableTableView.tableFooterView = [UIView new];
+    _historyTableView.tableFooterView = [UIView new];
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    if (tableView == _allOrdersTableView) {
+        return _allArr.count;
+    } else if (tableView == _availableTableView) {
         return _availableArr.count;
-    }else{
-        return _expiredArr.count;
     }
+    return _historyListArr.count;
 }
-//每组多少行
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 1;
-}
-//每行长什么样
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (tableView == _allOrdersTableView) {
+        HotelOrderTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"allCell" forIndexPath:indexPath];
+        HotelOrdersModel *model=_allArr[indexPath.row];
+        
+        cell.hotelNameLabel.text = model.hotelName;
+        cell.areaLabel.text = model.area;
+        cell.remarkLabel.text = model.remark;
+        cell.checkIntime.text= model.checkInTime;
+        cell.checkOutTime.text = model.checkOutTime;
+        return cell;
+    } else if (tableView == _availableTableView) {
+        HotelOrderTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"avaliableCell" forIndexPath:indexPath];
+        HotelOrdersModel *model=_availableArr[indexPath.row];
+        
+        cell.hotelNameLabel.text = model.hotelName;
+        cell.areaLabel.text = model.area;
+        cell.remarkLabel.text = model.remark;
+        cell.checkIntime.text= model.checkInTime;
+        cell.checkOutTime.text = model.checkOutTime;
+        
+        
+        return cell;
+    } else {
+        HotelOrderTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"historyCell" forIndexPath:indexPath];
+        HotelOrdersModel *model=_historyListArr[indexPath.row];
+        
+        cell.hotelNameLabel.text = model.hotelName;
+        cell.areaLabel.text = model.area;
+        cell.remarkLabel.text = model.remark;
+        cell.checkIntime.text= model.checkInTime;
+        cell.checkOutTime.text = model.checkOutTime;
+        return cell;
+    }
     
-    if (tableView == _AllOrdersTableView) {
-        AllOrdersTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"allOrdersCell" forIndexPath:indexPath];
-        
-        NSLog(@"进入allordersTableView");
-        
-        
-        return cell;
-        
-    }else if (tableView == _AvailableTableView) {
-        AvailableTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"availableCell" forIndexPath:indexPath];
-       
-        return cell;
-    }else{
-        ExpiredTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"expiredCell" forIndexPath:indexPath];
-        
-        
-        return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (tableView == _availableTableView) {
+        if (indexPath.row == _availableArr.count -1) {
+            if (availableFirst) {
+                availablePageNum ++;
+                [self requestAvailable];
+            }
+        }
+    } else if (tableView == _historyTableView) {
+        if (indexPath.row == _historyListArr.count - 1) {
+            if (historyFirst) {
+                historyPageNum ++;
+                [self requestHistory];
+            }
+        }
+    }
+    
+}
+
+
+
+#pragma mark - Scorll
+//scrollView已经停止减速
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+    if (scrollView == _scrollView) {
+        NSInteger page = [self scrollCheck:scrollView];
+        NSLog(@"page = %ld",(long)page);
+        //将_segmentedControl设置选中的index为page【scrollview当前显示的tableview】
+        [_segmentControl setSelectedSegmentIndex:page animated:YES];
     }
 }
-//设置细胞高度
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 200.f;
+//scorllView已经结束滑动的动画
+- (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView {
+    if (scrollView == _scrollView) {
+        [self scrollCheck:scrollView];
+    }
 }
+//判断我们的scroll滚到哪里了
+- (NSInteger)scrollCheck : (UIScrollView *)scrollView {
+    NSInteger page = scrollView.contentOffset.x / (scrollView.frame.size.width);
+    if (page == 1 && availableFirst){
+        availableFirst = false;
+        [self initRequestAvailable];
+    } else if (page == 2 && historyFirst) {
+        historyFirst = false;
+        [self initRequestHistory];
+    }
+    return page;
+}
+
+
+- (void)initRequestAll {
+    _avi = [Utilities getCoverOnView:self.view];
+    [self requestAll];
+}
+
+- (void)initRequestAvailable {
+    _avi = [Utilities getCoverOnView:self.view];
+    [self requestAvailable];
+}
+
+- (void)initRequestHistory {
+    _avi = [Utilities getCoverOnView:self.view];
+    [self requestHistory];
+}
+
+
+#pragma mark - Request
+- (void)requestAll {
+    UIRefreshControl *ref = [_allOrdersTableView viewWithTag:10001];
+    NSDictionary *para = @{@"openid":[[StorageMgr singletonStorageMgr] objectForKey:@"OpenId"],@"id":@1};
+    [RequestAPI requestURL:@"/findOrders_edu" withParameters:para andHeader:nil byMethod:kPost andSerializer:kForm success:^(id responseObject) {
+        NSLog(@"responseObject = %@",responseObject);
+        [_avi stopAnimating];
+        [ref endRefreshing];
+        if ([responseObject[@"result"] integerValue] == 1) {
+            NSArray *list = responseObject[@"content"];
+            if (allPageNum == 1) {
+                [_allArr removeAllObjects];
+            }
+            for (NSDictionary *dict in list) {
+                HotelOrdersModel *hotelOrderModel = [[HotelOrdersModel alloc] initWithDict:dict];
+                [_allArr addObject:hotelOrderModel];
+                //NSLog(@"timer = %f",aviationModel.timeRequest);
+            }
+            [_allOrdersTableView reloadData];
+        }else{
+            NSString *errorMsg=[ErrorHandler getProperErrorString:[responseObject[@"resultFlag"]integerValue]];
+            [Utilities popUpAlertViewWithMsg:errorMsg andTitle:@"提示" onView:self onCompletion:^{
+                
+            }];
+        }
+        
+    } failure:^(NSInteger statusCode, NSError *error) {
+        //NSLog(@"%@",error);
+        [_avi stopAnimating];
+        [ref endRefreshing];
+        [Utilities popUpAlertViewWithMsg:@"网络不稳定" andTitle:nil onView:self onCompletion:^{
+            
+        }];
+    }];
+}
+
+
+
+- (void)requestAvailable {
+    UIRefreshControl *ref = [_allOrdersTableView viewWithTag:10002];
+    NSDictionary *para = @{@"openid":[[StorageMgr singletonStorageMgr] objectForKey:@"OpenId"],@"id":@2};
+    [RequestAPI requestURL:@"/findOrders_edu" withParameters:para andHeader:nil byMethod:kPost andSerializer:kForm success:^(id responseObject) {
+        NSLog(@"responseObject = %@",responseObject);
+        [_avi stopAnimating];
+        [ref endRefreshing];
+        if ([responseObject[@"result"] integerValue] == 1) {
+            NSArray *list = responseObject[@"content"];
+            if (availablePageNum == 1) {
+                [_availableArr removeAllObjects];
+            }
+            for (NSDictionary *dict in list) {
+                HotelOrdersModel *hotelOrderModel = [[HotelOrdersModel alloc] initWithDict:dict];
+                [_availableArr addObject:hotelOrderModel];
+                //NSLog(@"timer = %f",aviationModel.timeRequest);
+            }
+            [_availableTableView reloadData];
+        }else{
+            NSString *errorMsg=[ErrorHandler getProperErrorString:[responseObject[@"resultFlag"]integerValue]];
+            [Utilities popUpAlertViewWithMsg:errorMsg andTitle:@"提示" onView:self onCompletion:^{
+                
+            }];
+        }
+        
+    } failure:^(NSInteger statusCode, NSError *error) {
+        //NSLog(@"%@",error);
+        [_avi stopAnimating];
+        [ref endRefreshing];
+        [Utilities popUpAlertViewWithMsg:@"网络不稳定" andTitle:nil onView:self onCompletion:^{
+            
+        }];
+    }];
+
+    
+}
+
+- (void)requestHistory {
+    UIRefreshControl *ref = [_allOrdersTableView viewWithTag:10003];
+    NSDictionary *para = @{@"openid":[[StorageMgr singletonStorageMgr] objectForKey:@"OpenId"],@"id":@3};
+    [RequestAPI requestURL:@"/findOrders_edu" withParameters:para andHeader:nil byMethod:kPost andSerializer:kForm success:^(id responseObject) {
+        NSLog(@"responseObject = %@",responseObject);
+        [_avi stopAnimating];
+        [ref endRefreshing];
+        if ([responseObject[@"result"] integerValue] == 1) {
+            NSArray *list = responseObject[@"content"];
+            if (historyPageNum == 1) {
+                [_historyListArr removeAllObjects];
+            }
+            for (NSDictionary *dict in list) {
+                HotelOrdersModel *hotelOrderModel = [[HotelOrdersModel alloc] initWithDict:dict];
+                [_historyListArr addObject:hotelOrderModel];
+                //NSLog(@"timer = %f",aviationModel.timeRequest);
+            }
+            [_historyTableView reloadData];
+        }else{
+            NSString *errorMsg=[ErrorHandler getProperErrorString:[responseObject[@"resultFlag"]integerValue]];
+            [Utilities popUpAlertViewWithMsg:errorMsg andTitle:@"提示" onView:self onCompletion:^{
+                
+            }];
+        }
+        
+    } failure:^(NSInteger statusCode, NSError *error) {
+        //NSLog(@"%@",error);
+        [_avi stopAnimating];
+        [ref endRefreshing];
+        [Utilities popUpAlertViewWithMsg:@"网络不稳定" andTitle:nil onView:self onCompletion:^{
+            
+        }];
+    }];
+
+}
+
+
+/*
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
+
 
 @end
