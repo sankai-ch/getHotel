@@ -36,6 +36,11 @@
 @property (strong, nonatomic) NSMutableArray *tradedArr;
 @property (strong, nonatomic) NSMutableArray *historyListArr;
 @property (strong, nonatomic) UIActivityIndicatorView *avi;
+
+@property (strong, nonatomic) UIImageView *noTradedImage;
+@property (strong, nonatomic) UIImageView *noReleaseImage;
+@property (strong, nonatomic) UIImageView *noHistoryImage;
+
 @end
 
 @implementation AirViewController
@@ -59,6 +64,25 @@
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:NO animated:animated];
+}
+
+- (void)nothingFotTradedTableView {
+    _noTradedImage = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"no_things"]];
+    _noTradedImage.frame = CGRectMake((UI_SCREEN_W - 100) / 2, 300, 100, 100);
+    
+    [_tradedTableView addSubview:_noTradedImage];
+}
+- (void)nothingFotReleaseTableView {
+    _noReleaseImage = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"no_things"]];
+    _noReleaseImage.frame = CGRectMake((UI_SCREEN_W - 100) / 2, 300, 100, 100);
+    
+    [_releaseTableView addSubview:_noReleaseImage];
+}
+- (void)nothingFotHistoryTableView {
+    _noHistoryImage = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"no_things"]];
+    _noHistoryImage.frame = CGRectMake((UI_SCREEN_W - 100) / 2, 300, 100, 100);
+    
+    [_historyListTableView addSubview:_noHistoryImage];
 }
 
 #pragma mark - Navigation
@@ -318,6 +342,19 @@
                 [_releaseArr addObject:aviationModel];
                 //NSLog(@"timer = %f",aviationModel.timeRequest);
             }
+            _noReleaseImage.hidden = YES;
+            switch (_releaseArr.count) {
+                case 0:
+                    [self nothingFotReleaseTableView];
+                    
+                    _noReleaseImage.hidden = NO;
+                    break;
+                    
+                default:
+                    _noReleaseImage.hidden = YES;
+                    break;
+            }
+
             [_releaseTableView reloadData];
         }
         
@@ -346,6 +383,19 @@
                 [_tradedArr addObject:aviationModel];
                 //NSLog(@"timer = %f",aviationModel.timeRequest);
             }
+            _noTradedImage.hidden = YES;
+            switch (_tradedArr.count) {
+                case 0:
+                    [self nothingFotTradedTableView];
+                    
+                    _noTradedImage.hidden = NO;
+                    break;
+                    
+                default:
+                    _noTradedImage.hidden = YES;
+                    break;
+            }
+
             [_tradedTableView reloadData];
         }
         
@@ -379,6 +429,19 @@
                 [_historyListArr addObject:aviationModel];
                 //NSLog(@"timer = %f",aviationModel.timeRequest);
             }
+            _noHistoryImage.hidden = YES;
+            switch (_historyListArr.count) {
+                case 0:
+                    [self nothingFotHistoryTableView];
+                    
+                    _noHistoryImage.hidden = NO;
+                    break;
+                    
+                default:
+                    _noHistoryImage.hidden = YES;
+                    break;
+            }
+
             [_historyListTableView reloadData];
         }
         

@@ -17,6 +17,8 @@
          self.image = [Utilities nullAndNilCheck:dict[@"hotel_img"] replaceBy:@"无"];
         self.price=[[Utilities nullAndNilCheck:dict[@"price"] replaceBy:0]integerValue];
          self.type = [Utilities nullAndNilCheck:dict[@"hotel_type"] replaceBy:@"无"];
+       self.latitude=[Utilities nullAndNilCheck:dict[@"latitude"] replaceBy:@"无"];
+       self.longitude = [Utilities nullAndNilCheck:dict[@"longitude"] replaceBy:@"无"];
         
     }
     return self;

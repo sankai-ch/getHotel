@@ -8,6 +8,7 @@
 
 #import "DetailViewController.h"
 #import "zhifuViewController.h"
+#import "dituViewController.h"
 @interface DetailViewController ()<UIScrollViewDelegate>
 {
     NSInteger Flag;
@@ -48,6 +49,8 @@
 @property (weak, nonatomic) IBOutlet UIView *yingc;
 @property (strong,nonatomic )IBOutlet UIPageControl *page;
 @property (strong ,nonatomic) IBOutlet NSTimer *tr;
+@property (strong,nonatomic) NSString *latitude;
+@property (strong,nonatomic) NSString *longitude;
 @end
 
 @implementation DetailViewController
@@ -208,6 +211,9 @@
      if([segue.identifier isEqualToString:@"zhifu"]){
          zhifuViewController *pay = [segue destinationViewController];
          pay.dict = sender;
+     }if([segue.identifier isEqualToString:@"ditu"]){
+       dituViewController  *pay = [segue destinationViewController];
+         pay.array = sender;
      }
 
  
@@ -215,7 +221,8 @@
 #pragma mark - button
 - (IBAction)dituAction:(UIButton *)sender forEvent:(UIEvent *)event {
    
-     [self performSegueWithIdentifier:@"ditu" sender:nil];
+    NSArray *arr = @[_latitude,_longitude];
+     [self performSegueWithIdentifier:@"ditu" sender:arr];
    
 }
 
@@ -337,7 +344,11 @@
         if([responseObject[@"result"]integerValue]==1){
             NSDictionary *result = responseObject[@"content"];
             detailModel *detail = [[detailModel alloc]initWithDict:result];
-
+            _latitude = detail.latitude;
+            _longitude= detail.longitude;
+              NSLog(@"%@",_latitude);
+            NSLog(@"%@",_longitude);
+            
             NSString *tday =[[[StorageMgr singletonStorageMgr] objectForKey:@"customInTime"] substringFromIndex:2 ];
               NSString *tday1 =[[[StorageMgr singletonStorageMgr]objectForKey:@"customOutTime"] substringFromIndex:2 ];
             [_timeday setTitle:tday forState:(UIControlStateNormal)];
@@ -345,6 +356,7 @@
         
             _jiudian.text =detail.hotels;
             _dizhi.text = detail.address;
+            
             _price.text = [NSString stringWithFormat:@"¥ %ld",(long)detail.price];
             [_image3 sd_setImageWithURL:[NSURL URLWithString:detail.image] placeholderImage:[UIImage imageNamed:@"11"]];
             //_hotelbed.text = detail.type;
