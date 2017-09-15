@@ -16,8 +16,8 @@
 @property(strong,nonatomic) NSString * destination;//到达地点
 @property(strong,nonatomic) NSString * flight_no;//航班号
 @property(nonatomic) NSInteger final_price;//价格
-@property(strong,nonatomic) NSString * in_time_str;//出发日期
-@property(strong,nonatomic) NSString * out_time_str;//到达日期
+@property(strong,nonatomic) NSString * in_time;//出发日期
+@property(strong,nonatomic) NSString * out_time;//到达日期
 
 - (instancetype)initWithDict:(NSDictionary *)dict;
 @end

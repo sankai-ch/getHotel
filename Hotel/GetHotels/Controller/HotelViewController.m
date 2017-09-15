@@ -560,7 +560,7 @@
 
 - (void)requestForSearch: (NSString *)name {
     [RequestAPI requestURL:@"/selectHotel" withParameters:@{@"hotel_name":name,@"inTime":_date1,@"outTime":_date2} andHeader:nil byMethod:kGet andSerializer:kForm success:^(id responseObject) {
-        //NSLog(@"%@",responseObject);
+        NSLog(@"%@",responseObject);
         if ([responseObject[@"result"] integerValue] == 1) {
             NSArray *searchHotelArr = responseObject[@"content"];
             [_hotelArr removeAllObjects];
@@ -568,8 +568,24 @@
                 AAndHModel *model = [[AAndHModel alloc] initWithDictForHotelCell:dict];
                 [_hotelArr addObject:model];
             }
+        [_hotelTableView reloadData];
+        } else if ([responseObject[@"result"] integerValue] == 0) {
+            [_hotelArr removeAllObjects];
             [_hotelTableView reloadData];
         }
+        _notingImg.hidden = YES;
+        switch (_hotelArr.count) {
+            case 0:
+                [self nothingFotTableView];
+                
+                _notingImg.hidden = NO;
+                break;
+                
+            default:
+                _notingImg.hidden = YES;
+                break;
+        }
+
     } failure:^(NSInteger statusCode, NSError *error) {
         
     }];
@@ -884,6 +900,10 @@
         [self requestForSearch:searchText];
     }
 }  
+
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
+    [_searchHotelBar resignFirstResponder];
+}
 
 #pragma mark - ref
 
