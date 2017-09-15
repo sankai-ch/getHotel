@@ -184,6 +184,7 @@
         cell.remarkLabel.text = model.remark;
         cell.checkIntime.text= model.checkInTime;
         cell.checkOutTime.text = model.checkOutTime;
+        cell.hotelImage.image = [UIImage imageNamed:@"blueHotel"];
         return cell;
     } else if (tableView == _availableTableView) {
         HotelOrderTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"avaliableCell" forIndexPath:indexPath];
@@ -199,8 +200,7 @@
         cell.remarkLabel.text = model.remark;
         cell.checkIntime.text= model.checkInTime;
         cell.checkOutTime.text = model.checkOutTime;
-        
-        
+        cell.hotelImage.image = [UIImage imageNamed:@"blueHotel"];
         return cell;
     } else {
         HotelOrderTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"historyCell" forIndexPath:indexPath];
@@ -216,6 +216,8 @@
         cell.remarkLabel.text = model.remark;
         cell.checkIntime.text= model.checkInTime;
         cell.checkOutTime.text = model.checkOutTime;
+        cell.hotelImage.image = [UIImage imageNamed:@"my_hotel"];
+
         return cell;
     }
     
