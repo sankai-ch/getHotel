@@ -33,6 +33,9 @@
 @property (strong, nonatomic) NSMutableArray *historyListArr;
 @property (strong, nonatomic) UIActivityIndicatorView *avi;
 
+@property (strong, nonatomic) UIImageView *allNothingImg;
+@property (strong, nonatomic) UIImageView *availableNothingImg;
+@property (strong, nonatomic) UIImageView *historyNothingImg;
 @end
 
 @implementation MyHotelViewController
@@ -43,6 +46,9 @@
     [self setfooterView];
     [self dataInit];
     [self initRequestAll];
+    if(_allArr.count == 0){
+        [self nothingForTableView];
+    }
     
 }
 
@@ -167,7 +173,13 @@
         HotelOrderTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"allCell" forIndexPath:indexPath];
         HotelOrdersModel *model=_allArr[indexPath.row];
         
-        cell.hotelNameLabel.text = model.hotelName;
+        NSString *hotel_type = model.hotelType;
+        NSString *hotel_name = model.hotelName;
+        NSString *str1 = [hotel_type substringFromIndex:2];
+        NSRange range = [str1 rangeOfString:@"房"];
+        NSString *str2 = [str1 substringToIndex:range.location];
+        NSString *nameType = [hotel_name stringByAppendingString:str2];
+        cell.hotelNameLabel.text = [nameType stringByAppendingString:@"房"];
         cell.areaLabel.text = model.area;
         cell.remarkLabel.text = model.remark;
         cell.checkIntime.text= model.checkInTime;
@@ -176,8 +188,13 @@
     } else if (tableView == _availableTableView) {
         HotelOrderTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"avaliableCell" forIndexPath:indexPath];
         HotelOrdersModel *model=_availableArr[indexPath.row];
-        
-        cell.hotelNameLabel.text = model.hotelName;
+        NSString *hotel_type = model.hotelType;
+        NSString *hotel_name = model.hotelName;
+        NSString *str1 = [hotel_type substringFromIndex:2];
+        NSRange range = [str1 rangeOfString:@"房"];
+        NSString *str2 = [str1 substringToIndex:range.location];
+        NSString *nameType = [hotel_name stringByAppendingString:str2];
+        cell.hotelNameLabel.text = [nameType stringByAppendingString:@"房"];
         cell.areaLabel.text = model.area;
         cell.remarkLabel.text = model.remark;
         cell.checkIntime.text= model.checkInTime;
@@ -188,8 +205,13 @@
     } else {
         HotelOrderTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"historyCell" forIndexPath:indexPath];
         HotelOrdersModel *model=_historyListArr[indexPath.row];
-        
-        cell.hotelNameLabel.text = model.hotelName;
+        NSString *hotel_type = model.hotelType;
+        NSString *hotel_name = model.hotelName;
+        NSString *str1 = [hotel_type substringFromIndex:2];
+        NSRange range = [str1 rangeOfString:@"房"];
+        NSString *str2 = [str1 substringToIndex:range.location];
+        NSString *nameType = [hotel_name stringByAppendingString:str2];
+        cell.hotelNameLabel.text = [nameType stringByAppendingString:@"房"];
         cell.areaLabel.text = model.area;
         cell.remarkLabel.text = model.remark;
         cell.checkIntime.text= model.checkInTime;
@@ -221,8 +243,6 @@
     }
     
 }
-
-
 
 #pragma mark - Scorll
 //scrollView已经停止减速
@@ -269,6 +289,21 @@
     [self requestHistory];
 }
 
+-(void)nothingForTableView{
+    _allNothingImg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"no_things"]];
+    _allNothingImg.frame = CGRectMake((UI_SCREEN_W - 100)/2, 50, 100, 100);
+    
+    _availableNothingImg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"no_things"]];
+    _availableNothingImg.frame = CGRectMake(UI_SCREEN_W + (UI_SCREEN_W - 100) / 2, 50, 100, 100);
+    
+    _historyNothingImg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"no_things"]];
+    _historyNothingImg.frame = CGRectMake(UI_SCREEN_W * 2 + (UI_SCREEN_W - 100) / 2, 50, 100, 100);
+    
+    [_scrollView addSubview:_allNothingImg];
+    [_scrollView addSubview:_availableNothingImg];
+    [_scrollView addSubview:_historyNothingImg];
+}
+
 
 #pragma mark - Request
 - (void)requestAll {
@@ -288,6 +323,12 @@
                 [_allArr addObject:hotelOrderModel];
                 //NSLog(@"timer = %f",aviationModel.timeRequest);
             }
+            if(_allArr.count == 0){
+                _allNothingImg.hidden = NO;
+            }else{
+                _allNothingImg.hidden = YES;
+            }
+            
             [_allOrdersTableView reloadData];
         }else{
             NSString *errorMsg=[ErrorHandler getProperErrorString:[responseObject[@"resultFlag"]integerValue]];
@@ -324,6 +365,11 @@
                 HotelOrdersModel *hotelOrderModel = [[HotelOrdersModel alloc] initWithDict:dict];
                 [_availableArr addObject:hotelOrderModel];
                 //NSLog(@"timer = %f",aviationModel.timeRequest);
+            }
+            if(_availableArr.count == 0){
+                _availableNothingImg.hidden = NO;
+            }else{
+                _availableNothingImg.hidden = YES;
             }
             [_availableTableView reloadData];
         }else{
@@ -362,6 +408,13 @@
                 [_historyListArr addObject:hotelOrderModel];
                 //NSLog(@"timer = %f",aviationModel.timeRequest);
             }
+            //当数组没有数据时将图片显示，反之隐藏
+            if (_historyListArr.count == 0) {
+                _historyNothingImg.hidden = NO;
+            }else{
+                _historyNothingImg.hidden = YES;
+            }
+
             [_historyTableView reloadData];
         }else{
             NSString *errorMsg=[ErrorHandler getProperErrorString:[responseObject[@"resultFlag"]integerValue]];
