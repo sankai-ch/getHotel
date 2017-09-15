@@ -13,6 +13,9 @@
 @property (strong,nonatomic) NSString *address;
 @property (strong,nonatomic) NSString *image;
 @property (strong,nonatomic) NSString *type;
+@property (strong,nonatomic) NSString *latitude;
+@property (strong,nonatomic) NSString *longitude;
+
 @property (nonatomic) NSInteger price;
 -(instancetype)initWithDict:(NSDictionary *)dict;
 @end
