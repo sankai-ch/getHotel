@@ -20,9 +20,10 @@
         self.destination = [Utilities nullAndNilCheck:dict[@"destination"] replaceBy:@"无"];
         self.flight_no = [Utilities nullAndNilCheck:dict[@"flight_no"] replaceBy:@"1"];
         self.final_price = [[Utilities nullAndNilCheck:dict[@"final_price"] replaceBy:0 ]integerValue];
-        self.in_time_str = [Utilities nullAndNilCheck:dict[@"in_time_str"] replaceBy:@"1"];
-        self.out_time_str = [Utilities nullAndNilCheck:dict[@"out_time_str"] replaceBy:@""];
-            }
+        self.in_time = [Utilities nullAndNilCheck:dict[@"in_time"] replaceBy:@"1"];
+        
+        self.out_time = [Utilities nullAndNilCheck:dict[@"out_time"] replaceBy:@""];
+    }
     return self;
 }
 

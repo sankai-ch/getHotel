@@ -1,14 +1,14 @@
 //
-//  ExpiredTableViewCell.m
+//  HotelOrderTableViewCell.m
 //  GetHotels
 //
-//  Created by admin on 2017/8/24.
+//  Created by admin on 2017/9/15.
 //  Copyright © 2017年 Yixin studio. All rights reserved.
 //
 
-#import "ExpiredTableViewCell.h"
+#import "HotelOrderTableViewCell.h"
 
-@implementation ExpiredTableViewCell
+@implementation HotelOrderTableViewCell
 
 - (void)awakeFromNib {
     [super awakeFromNib];

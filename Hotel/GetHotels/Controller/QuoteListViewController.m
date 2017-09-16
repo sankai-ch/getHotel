@@ -126,13 +126,25 @@
     cell.view.layer.shadowOffset = CGSizeMake(0,0);//shadowOffset阴影偏移,x向右偏移4，y向下偏移4，默认(0, -3),这个跟shadowRadius配合使用
     cell.view.layer.shadowOpacity = 0.5;//阴影透明度，默认0
     cell.view.layer.shadowRadius = 3;//阴影半径，默认3
-    NSRange range1 = NSMakeRange(1, 5);
-    NSString *date = [model.in_time_str substringWithRange:range1];
-    NSString *inTime = [model.in_time_str substringFromIndex:5];
-    NSString *outTime = [model.out_time_str substringFromIndex:5];
-    cell.dateNameLabel.text = [NSString stringWithFormat:@"%@ %@——%@ 机票",date,model.departure,model.destination];
+    
+    NSDate *inDate =[NSDate dateWithTimeIntervalSince1970:[model.in_time integerValue]/1000 ];
+    NSDateFormatter *inFormatter = [NSDateFormatter new];
+    NSDateFormatter *inFormatter1 = [NSDateFormatter new];
+    inFormatter.dateFormat = @"M-dd";
+    inFormatter1.dateFormat = @"HH:mm";
+    NSString *in_date = [inFormatter stringFromDate:inDate];
+    NSString *in_time = [inFormatter1 stringFromDate:inDate];
+    
+    NSDate *outDate =[NSDate dateWithTimeIntervalSince1970:[model.out_time integerValue]/1000 ];
+    NSInteger s = [model.in_time integerValue];
+    
+    NSDateFormatter *outFormatter = [NSDateFormatter new];
+    outFormatter.dateFormat = @"HH:mm";
+    NSString *out_time = [outFormatter stringFromDate:outDate];
+    
+    cell.dateNameLabel.text = [NSString stringWithFormat:@"%@ %@——%@ 机票",in_date,model.departure,model.destination];
     cell.airNameLabel.text = [NSString stringWithFormat:@"%@ %@",model.aviation_company,model.flight_no];
-    cell.timeLabel.text = [NSString stringWithFormat:@"%@ ——%@",inTime,outTime];
+    cell.timeLabel.text = [NSString stringWithFormat:@"%@ %@",in_time,out_time];
     cell.levelLabel.text = model.aviation_cabin;
     cell.priceLabel.text = [NSString stringWithFormat:@"￥ %ld",(long)model.final_price];
     return cell;
