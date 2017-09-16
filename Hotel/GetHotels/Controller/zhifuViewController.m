@@ -94,7 +94,7 @@
     NSString *result = note.object;
     if([result isEqualToString:@"9000"])
     {
-        UIAlertController *alter = [UIAlertController alertControllerWithTitle:@"支付" message:@"恭喜你，你已经成功完成报名" preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertController *alter = [UIAlertController alertControllerWithTitle:@"支付" message:@"恭喜你，你已经成功预订" preferredStyle:UIAlertControllerStyleAlert];
         UIAlertAction *okAction =[UIAlertAction actionWithTitle:@"知道了" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             [self.navigationController popViewControllerAnimated:YES];
             
