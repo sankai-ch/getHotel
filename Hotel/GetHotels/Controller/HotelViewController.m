@@ -26,6 +26,8 @@
     NSInteger pageNum;
     bool pages;
     
+    bool startFlag;
+    
 }
 // 约束
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *selectViewHeight;
@@ -121,8 +123,7 @@
     //[self requestCiry];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(push:) name:@"noti" object:nil];
     //[self request];
-    [self requestAll];
-    [self requestForWeather];
+
     [_collectionView selectItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:0] animated:YES scrollPosition:UICollectionViewScrollPositionNone];
     starlevels=1;
     priceduring=1;
@@ -159,7 +160,7 @@
 
 - (void)dataInitialize {
     //_textArr = @[@""];
-    
+    startFlag = true;
     _a = [UIButton new];
     _b = [UIButton new];
     _c = [UIButton new];
@@ -297,6 +298,7 @@
     }
     else {
         [_searchHotelBar resignFirstResponder];
+        [_searchHotelBar setShowsCancelButton:NO animated:YES];
     }
 }
 
@@ -400,7 +402,8 @@
    
         //根据定位拿到城市
         //[self requestForWeather];
-        [self getRegeoViaCoordinate];
+    [self startRequest];
+    [self getRegeoViaCoordinate];
     
 }
 
@@ -508,7 +511,7 @@
 - (void)requestForWeather {
     NSDictionary *para = @{@"lat":@(_Latitude),@"lon":@(_Longitude),@"appid":@"bfea118e4e718c9885a5486048bd6698",@"lang":@"zh_cn",@"units":@"metric"};
     [RequestAPI RequestURL:@"/data/2.5/weather" withParameters:para andHeader:nil byMethod:kGet andSerializer:kForm success:^(id responseObject) {
-        //NSLog(@"%@",responseObject);
+        NSLog(@"%@",responseObject);
         NSDictionary *main = responseObject[@"main"];
         WeatherModel *tempModel = [[WeatherModel alloc] initWithTemp:main];
         _tempLabel.text = [NSString stringWithFormat:@"%ldC°",(long)tempModel.temp];
@@ -658,6 +661,17 @@
 
     }
 }
+
+- (void)startRequest {
+    if (startFlag) {
+        startFlag = false;
+        if (_Latitude && _Longitude) {
+            [self requestAll];
+            [self requestForWeather];
+        }
+    }
+}
+
 /*
 - (void)request {
     //(startId  0 = all       2 = 4  3 = 5)
@@ -893,6 +907,7 @@
 
 #pragma mark - searchBar
 
+
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
     if (searchText.length == 0) {
         [self requestAll];
@@ -903,7 +918,23 @@
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
     [_searchHotelBar resignFirstResponder];
+    [searchBar setShowsCancelButton:NO animated:YES];
 }
+
+- (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar {
+    [UIBarButtonItem appearanceWhenContainedInInstancesOfClasses:@[[UISearchBar class]]].tintColor = [UIColor whiteColor];
+    [UIBarButtonItem appearanceWhenContainedInInstancesOfClasses:@[[UISearchBar class]]].title = @"取消";
+    [[UIBarButtonItem appearanceWhenContainedInInstancesOfClasses:@[[UISearchBar class]]]setTitleTextAttributes:@{NSFontAttributeName : [UIFont systemFontOfSize:13]} forState:UIControlStateNormal];
+
+    [searchBar setShowsCancelButton:YES animated:YES];
+    
+}
+
+- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
+    [_searchHotelBar resignFirstResponder];
+    [searchBar setShowsCancelButton:NO animated:YES];
+}
+
 
 #pragma mark - ref
 
@@ -937,6 +968,7 @@
 - (void)sequenceAt{
     //_datePicker.hidden = YES;
     //_toolBar.hidden = YES;
+    [_searchHotelBar resignFirstResponder];
     _d.highlighted = YES;
     [_hotelTableView setContentOffset:CGPointMake(0, 150) animated:YES];
     _sequenceViewHeight.constant = 140;
@@ -968,6 +1000,7 @@
 - (void)showSelectView {
     //[a titleForState:UIControlStateHighlighted];
     //_selectView.hidden = NO;
+    [_searchHotelBar resignFirstResponder];
     [_c setTitleColor:[UIColor blueColor] forState:UIControlStateHighlighted];
     [_hotelTableView setContentOffset:CGPointMake(0, 150) animated:YES];
     _selectViewHeight.constant = 140;
@@ -1004,6 +1037,7 @@
 - (void)inTimeAction {
     //[_inTimeBtn titleForState:UIControlStateHighlighted];
     //[_hotelTableView scrollRectToVisible:CGRectMake(0, 150, UI_SCREEN_W, 150) animated:YES];
+    [_searchHotelBar resignFirstResponder];
     [_a setTitleColor:[UIColor blueColor] forState:UIControlStateHighlighted];
     [_hotelTableView setContentOffset:CGPointMake(0, 150) animated:YES];
     _pVHeight.constant = 260;
@@ -1039,6 +1073,7 @@
 }
 - (void)outTimeAction {
     //[_outTimeBtn titleForState:UIControlStateHighlighted];
+    [_searchHotelBar resignFirstResponder];
     [_b setTitleColor:[UIColor blueColor] forState:UIControlStateHighlighted];
     [_hotelTableView setContentOffset:CGPointMake(0, 150) animated:YES];
     _pVHeight.constant = 260;
