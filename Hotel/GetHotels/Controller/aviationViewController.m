@@ -63,6 +63,8 @@
     [[StorageMgr singletonStorageMgr] addKey:@"Tag" andValue:@2];
       NSString *userCity = [Utilities getUserDefaults:@"usercity"];
     [_fromcity setTitle:userCity forState:UIControlStateNormal];
+    NSString *goCity = [Utilities getUserDefaults:@"gocity"];
+    [_gocity setTitle:goCity forState:UIControlStateNormal];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(checkCityState:) name:@"fly" object:nil];
     
     //注册键盘弹出通知
@@ -166,6 +168,9 @@
             //修改城市按钮标题
             [_gocity setTitle:cityStr forState:UIControlStateNormal];
             //删除记忆体
+            [Utilities removeUserDefaults:@"gocity"];
+            //添加记忆体
+            [Utilities setUserDefaults:@"gocity" content:cityStr];
             
         }
     }
@@ -175,7 +180,7 @@
 
 //设置导航栏样式
 - (void)setNavigationItem{
-    self.navigationItem.title = @"我的航空";
+    self.navigationItem.title = @"航空发布";
     self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName : [UIColor whiteColor]};
     //实例化一个button 类型为UIButtonTypeSystem
     //UIButton *leftBtn = [UIButton buttonWithType:UIButtonTypeSystem];

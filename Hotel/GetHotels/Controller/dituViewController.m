@@ -261,7 +261,7 @@
 -(void)setNavigationItem{
     self.navigationItem.title = @"酒店位置";
     //设置导航条的颜色（风格颜色）
-    self.navigationController.navigationBar.barTintColor = UIColorFromRGB(0, 100, 255);
+    self.navigationController.navigationBar.barTintColor = UIColorFromRGB(24, 124, 236);
     //实例化一个button
     UIButton *leftBtn = [UIButton buttonWithType:UIButtonTypeSystem];
     //设置button的位置大小
