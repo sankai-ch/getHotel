@@ -171,6 +171,7 @@
     RpageNum = 1;
     [self requestRelease];
 }
+
 - (void)tradedRef {
     TpageNum = 1;
     [self requestTraped];
