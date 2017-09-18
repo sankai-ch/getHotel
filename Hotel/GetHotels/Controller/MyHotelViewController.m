@@ -311,13 +311,13 @@
 
 -(void)nothingForTableView{
     _allNothingImg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"no_things"]];
-    _allNothingImg.frame = CGRectMake((UI_SCREEN_W - 100)/2, 50, 100, 100);
+    _allNothingImg.frame = CGRectMake((UI_SCREEN_W - 100)/2, 50, 120, 120);
     
     _availableNothingImg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"no_things"]];
-    _availableNothingImg.frame = CGRectMake(UI_SCREEN_W + (UI_SCREEN_W - 100) / 2, 50, 100, 100);
+    _availableNothingImg.frame = CGRectMake(UI_SCREEN_W + (UI_SCREEN_W - 100) / 2, 50, 120, 120);
     
     _historyNothingImg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"no_things"]];
-    _historyNothingImg.frame = CGRectMake(UI_SCREEN_W * 2 + (UI_SCREEN_W - 100) / 2, 50, 100, 100);
+    _historyNothingImg.frame = CGRectMake(UI_SCREEN_W * 2 + (UI_SCREEN_W - 100) / 2, 50, 120, 120);
     
     [_scrollView addSubview:_allNothingImg];
     [_scrollView addSubview:_availableNothingImg];

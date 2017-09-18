@@ -68,19 +68,19 @@
 
 - (void)nothingFotTradedTableView {
     _noTradedImage = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"no_things"]];
-    _noTradedImage.frame = CGRectMake((UI_SCREEN_W - 100) / 2, 50, 100, 100);
+    _noTradedImage.frame = CGRectMake((UI_SCREEN_W - 100) / 2, 50, 120, 120);
     
     [_tradedTableView addSubview:_noTradedImage];
 }
 - (void)nothingFotReleaseTableView {
     _noReleaseImage = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"no_things"]];
-    _noReleaseImage.frame = CGRectMake((UI_SCREEN_W - 100) / 2, 50, 100, 100);
+    _noReleaseImage.frame = CGRectMake((UI_SCREEN_W - 100) / 2, 50, 120, 120);
     
     [_releaseTableView addSubview:_noReleaseImage];
 }
 - (void)nothingFotHistoryTableView {
     _noHistoryImage = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"no_things"]];
-    _noHistoryImage.frame = CGRectMake((UI_SCREEN_W - 100) / 2, 50, 100, 100);
+    _noHistoryImage.frame = CGRectMake((UI_SCREEN_W - 100) / 2, 50, 120, 120);
     
     [_historyListTableView addSubview:_noHistoryImage];
 }
