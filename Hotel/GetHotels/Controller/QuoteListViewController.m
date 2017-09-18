@@ -191,7 +191,7 @@
     cell.airNameLabel.text = [NSString stringWithFormat:@"%@ %@",model.aviation_company,model.flight_no];
     cell.timeLabel.text = [NSString stringWithFormat:@"%@ —— %@",in_time,out_time];
     cell.levelLabel.text = model.aviation_cabin;
-    cell.priceLabel.text = [NSString stringWithFormat:@"￥ %ld",(long)model.final_price];
+    cell.priceLabel.text = [NSString stringWithFormat:@"￥%ld",(long)model.final_price];
     return cell;
 }
 - (IBAction)payButton:(UIButton *)sender forEvent:(UIEvent *)event {
