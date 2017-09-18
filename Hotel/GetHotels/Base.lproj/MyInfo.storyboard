@@ -41,7 +41,7 @@
                                                 <rect key="frame" x="0.0" y="28" width="375" height="131"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="TaB-DL-Dgw" id="9tq-8N-r51">
-                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="130"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="131"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="希尔顿酒店套房" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="htR-sc-wFa">
@@ -161,7 +161,7 @@
                                                 <rect key="frame" x="0.0" y="28" width="375" height="131"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Hbz-Gx-tnb" id="WYR-eK-AFY">
-                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="130"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="131"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="希尔顿酒店套房" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KcT-CM-NPb">
@@ -281,13 +281,13 @@
                                                 <rect key="frame" x="0.0" y="28" width="375" height="131"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="fn6-05-hKc" id="axS-eH-HUh">
-                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="130"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="131"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="希尔顿酒店套房" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xrX-Rx-wxH">
                                                             <rect key="frame" x="15" y="15" width="121.5" height="21"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                            <color key="textColor" red="0.22757227890000001" green="0.63145727039999999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="map_adress" translatesAutoresizingMaskIntoConstraints="NO" id="kwY-Uv-djv">
@@ -448,7 +448,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Jnz-Xf-Q53" userLabel="HeaderView">
                                 <rect key="frame" x="0.0" y="64" width="375" height="150"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="用户" translatesAutoresizingMaskIntoConstraints="NO" id="2f6-9j-nNP">
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="用户" translatesAutoresizingMaskIntoConstraints="NO" id="2f6-9j-nNP">
                                         <rect key="frame" x="15" y="30" width="90" height="90"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
@@ -681,7 +681,7 @@
                                                         <rect key="frame" x="0.0" y="28" width="375" height="154"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="LQu-p9-WJr" id="7q1-vX-7hb">
-                                                            <rect key="frame" x="0.0" y="0.0" width="375" height="153"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="375" height="154"/>
                                                             <autoresizingMask key="autoresizingMask"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2-24 无锡-厦门 机票" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gqS-xw-cG1">
@@ -790,7 +790,7 @@
                                                         <rect key="frame" x="0.0" y="28" width="375" height="157"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="v5h-K9-mLa" id="CAw-vN-RXH">
-                                                            <rect key="frame" x="0.0" y="0.0" width="375" height="156"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="375" height="157"/>
                                                             <autoresizingMask key="autoresizingMask"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2-24 无锡-厦门 机票" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UnP-5V-ysq">
@@ -900,7 +900,7 @@
                                                         <rect key="frame" x="0.0" y="28" width="375" height="157"/>
                                                         <autoresizingMask key="autoresizingMask"/>
                                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="7w7-KN-0bV" id="YDL-1C-0Zk">
-                                                            <rect key="frame" x="0.0" y="0.0" width="375" height="156"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="375" height="157"/>
                                                             <autoresizingMask key="autoresizingMask"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2-24 无锡-厦门 机票" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gm6-zQ-jjq">
@@ -1213,7 +1213,7 @@
                                         <rect key="frame" x="0.0" y="38" width="355" height="166"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="smK-vg-XA2" id="9q3-VA-0WU">
-                                            <rect key="frame" x="0.0" y="0.0" width="355" height="165.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="355" height="166"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kDt-ZN-jrm">

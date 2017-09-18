@@ -68,19 +68,19 @@
 
 - (void)nothingFotTradedTableView {
     _noTradedImage = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"no_things"]];
-    _noTradedImage.frame = CGRectMake((UI_SCREEN_W - 100) / 2, 300, 100, 100);
+    _noTradedImage.frame = CGRectMake((UI_SCREEN_W - 100) / 2, 50, 100, 100);
     
     [_tradedTableView addSubview:_noTradedImage];
 }
 - (void)nothingFotReleaseTableView {
     _noReleaseImage = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"no_things"]];
-    _noReleaseImage.frame = CGRectMake((UI_SCREEN_W - 100) / 2, 300, 100, 100);
+    _noReleaseImage.frame = CGRectMake((UI_SCREEN_W - 100) / 2, 50, 100, 100);
     
     [_releaseTableView addSubview:_noReleaseImage];
 }
 - (void)nothingFotHistoryTableView {
     _noHistoryImage = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"no_things"]];
-    _noHistoryImage.frame = CGRectMake((UI_SCREEN_W - 100) / 2, 300, 100, 100);
+    _noHistoryImage.frame = CGRectMake((UI_SCREEN_W - 100) / 2, 50, 100, 100);
     
     [_historyListTableView addSubview:_noHistoryImage];
 }
@@ -204,18 +204,22 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return 1;
+}
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     if (tableView == _tradedTableView) {
         return _tradedArr.count;
     } else if (tableView == _releaseTableView) {
         return _releaseArr.count;
     }
     return _historyListArr.count;
+
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (tableView == _tradedTableView) {
         MyIssueTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"traded" forIndexPath:indexPath];
-        MyAviationModel *model = _tradedArr[indexPath.row];
+        MyAviationModel *model = _tradedArr[indexPath.section];
         cell.ticketLabel.text = [NSString stringWithFormat:@"%@ %@ 机票",model.startTime,model.aviationDemandTitle];
         cell.priceLabel.text = [NSString stringWithFormat:@"价格区间:%ld-%ld",(long)model.lowPrice,(long)model.highPrice];
         cell.timeLabel.text = [NSString stringWithFormat:@"大约%@点左右",model.timeRequest];
@@ -223,7 +227,7 @@
         return cell;
     } else if (tableView == _releaseTableView) {
         MyIssueTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ReleaseTableView" forIndexPath:indexPath];
-        MyAviationModel *model = _releaseArr[indexPath.row];
+        MyAviationModel *model = _releaseArr[indexPath.section];
         cell.ticketLabel.text = [NSString stringWithFormat:@"%@ %@ 机票",model.startTime,model.aviationDemandTitle];
         cell.priceLabel.text = [NSString stringWithFormat:@"价格区间:%ld-%ld",(long)model.lowPrice,(long)model.highPrice];
         cell.timeLabel.text = [NSString stringWithFormat:@"大约%@点左右",model.timeRequest];
@@ -232,7 +236,7 @@
         return cell;
     } else {
         MyIssueTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"HistoryList" forIndexPath:indexPath];
-        MyAviationModel *model = _historyListArr[indexPath.row];
+        MyAviationModel *model = _historyListArr[indexPath.section];
         cell.ticketLabel.text = [NSString stringWithFormat:@"%@ %@ 机票",model.startTime,model.aviationDemandTitle];
         cell.priceLabel.text = [NSString stringWithFormat:@"价格区间:%ld-%ld",(long)model.lowPrice,(long)model.highPrice];
         cell.timeLabel.text = [NSString stringWithFormat:@"大约%@点左右",model.timeRequest];
@@ -245,7 +249,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if (tableView == _releaseTableView) {
-        MyAviationModel *model = _releaseArr[indexPath.row];
+        MyAviationModel *model = _releaseArr[indexPath.section];
         NSInteger Id = model.Id;
         [self performSegueWithIdentifier:@"IssueToDetail" sender:@(Id)];
     }
@@ -253,7 +257,7 @@
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (tableView == _releaseTableView) {
-        if (indexPath.row == _releaseArr.count -1) {
+        if (indexPath.section == _releaseArr.count -1) {
             if (!RLastPage) {
                 RpageNum ++;
                 [self requestRelease];
@@ -261,14 +265,26 @@
             }
         }
     } else if (tableView == _historyListTableView) {
-        if (indexPath.row == _historyListArr.count - 1) {
+        if (indexPath.section == _historyListArr.count - 1) {
             if (!HLastPage) {
                 HpageNum ++;
                 [self requestHistory];
             }
         }
+    }else if (tableView == _tradedTableView) {
+        if (indexPath.section == _tradedArr.count - 1) {
+            if (!TLastPage) {
+                TpageNum ++;
+                [self requestTraped];
+            }
+        }
     }
+
     
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    return 10;
 }
 
 #pragma mark - Scorll
@@ -378,6 +394,10 @@
         [ref endRefreshing];
         if ([responseObject[@"result"] integerValue] == 1) {
             NSArray *list = responseObject[@"content"][@"list"];
+            TLastPage = [responseObject[@"content"][@"isLastPage"] boolValue];
+            if (TpageNum == 1) {
+                [_tradedArr removeAllObjects];
+            }
             for (NSDictionary *dict in list) {
                 MyAviationModel *aviationModel = [[MyAviationModel alloc] initWithDict:dict];
                 [_tradedArr addObject:aviationModel];
