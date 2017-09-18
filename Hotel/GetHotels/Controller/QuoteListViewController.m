@@ -189,7 +189,7 @@
     
     cell.dateNameLabel.text = [NSString stringWithFormat:@"%@ %@——%@ 机票",in_date,model.departure,model.destination];
     cell.airNameLabel.text = [NSString stringWithFormat:@"%@ %@",model.aviation_company,model.flight_no];
-    cell.timeLabel.text = [NSString stringWithFormat:@"%@ %@",in_time,out_time];
+    cell.timeLabel.text = [NSString stringWithFormat:@"%@ —— %@",in_time,out_time];
     cell.levelLabel.text = model.aviation_cabin;
     cell.priceLabel.text = [NSString stringWithFormat:@"￥ %ld",(long)model.final_price];
     return cell;
