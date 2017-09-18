@@ -18,7 +18,7 @@
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 - (IBAction)payButton:(UIButton *)sender forEvent:(UIEvent *)event;
 @property (strong, nonatomic) NSMutableArray *quoteArr;
-
+@property (strong, nonatomic) UIImageView *noTradedImage;
 
 
 @end
@@ -32,6 +32,8 @@
     [self setNavigationItem];
     [self setRefreshControl];
     [self inittializeData];
+    //去掉tableview底部多余的线
+    _tableView.tableFooterView = [UIView new];
     // Do any additional setup after loading the view, typically from a nib.
 }
 
@@ -75,6 +77,12 @@
   
     [self request];
 }
+- (void)nothingFotTradedTableView {
+    _noTradedImage = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"no_things"]];
+    _noTradedImage.frame = CGRectMake((UI_SCREEN_W - 100) / 2, 100, 100, 100);
+    
+    [_tableView addSubview:_noTradedImage];
+}
 //第一次进行网络请求的时候需要盖上蒙层，而下拉刷新的时候不需要蒙层，所以我们把第一次网络请求和下拉刷新分开来
 - (void)inittializeData{
     _avi = [Utilities getCoverOnView:self.view];
@@ -102,7 +110,18 @@
                 [_quoteArr addObject:model];
                 
             }
-         
+            _noTradedImage.hidden = YES;
+            switch (_quoteArr.count) {
+                case 0:
+                    [self nothingFotTradedTableView];
+                    
+                    _noTradedImage.hidden = NO;
+                    break;
+                    
+                default:
+                    _noTradedImage.hidden = YES;
+                    break;
+            }
             [_tableView reloadData];
            
         }else{
