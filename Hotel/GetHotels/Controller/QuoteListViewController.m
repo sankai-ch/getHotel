@@ -11,11 +11,14 @@
 #import "PayViewController.h"
 #import "QuoteModel.h"
 #import "PayViewController.h"
-@interface QuoteListViewController ()<UITableViewDelegate,UITableViewDataSource>
+@interface QuoteListViewController ()<UITableViewDelegate,UITableViewDataSource>{
+    NSInteger pageNum;
+}
+@property (strong, nonatomic) UIActivityIndicatorView *avi;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 - (IBAction)payButton:(UIButton *)sender forEvent:(UIEvent *)event;
 @property (strong, nonatomic) NSMutableArray *quoteArr;
-
+@property (strong, nonatomic) UIImageView *noTradedImage;
 
 
 @end
@@ -27,7 +30,10 @@
     [super viewDidLoad];
     _quoteArr = [NSMutableArray new];
     [self setNavigationItem];
-    [self request];
+    [self setRefreshControl];
+    [self inittializeData];
+    //去掉tableview底部多余的线
+    _tableView.tableFooterView = [UIView new];
     // Do any additional setup after loading the view, typically from a nib.
 }
 
@@ -57,26 +63,65 @@
 -(void)leftButtonAction:(UIButton *)sender{
     [self.navigationController popViewControllerAnimated:YES];
 }
-//网络请求
+#pragma mark - ref
+- (void)setRefreshControl {
+    UIRefreshControl *ref = [UIRefreshControl new];
+    [ref addTarget:self action:@selector(releaseRef) forControlEvents:UIControlEventValueChanged];
+    ref.tag = 99998;
+    [_tableView addSubview:ref];
+    
+}
+
+- (void)releaseRef {
+    pageNum = 1;
+  
+    [self request];
+}
+- (void)nothingFotTradedTableView {
+    _noTradedImage = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"no_things"]];
+    _noTradedImage.frame = CGRectMake((UI_SCREEN_W - 100) / 2, 100, 100, 100);
+    
+    [_tableView addSubview:_noTradedImage];
+}
+//第一次进行网络请求的时候需要盖上蒙层，而下拉刷新的时候不需要蒙层，所以我们把第一次网络请求和下拉刷新分开来
+- (void)inittializeData{
+    _avi = [Utilities getCoverOnView:self.view];
+    [self request];
+}//网络请求
 #pragma mark -request
 - (void)request{
-    //菊花膜
-    UIActivityIndicatorView *aiv = [Utilities getCoverOnView:self.view];
+   
     
     NSDictionary * para = @{@"Id":@(_Id)};
     NSLog(@"%ld",(long)_Id);
     [RequestAPI requestURL:@"/selectOffer_edu" withParameters:para andHeader:nil byMethod:kGet andSerializer:kForm success:^(id responseObject) {
-        [aiv stopAnimating];
+        [_avi stopAnimating];
+        UIRefreshControl *ref = (UIRefreshControl *)[_tableView viewWithTag:99998];
+        [ref endRefreshing];
         NSLog(@"pay:%@",responseObject);
         if([responseObject[@"result"]integerValue]==1){
             NSDictionary *result = responseObject[@"content"];
             NSLog(@"result=%@",result);
+            if (pageNum == 1) {
+                [_quoteArr removeAllObjects];
+            }
             for (NSDictionary *dict in result) {
                 QuoteModel *model =[[QuoteModel alloc]initWithDict:dict];
                 [_quoteArr addObject:model];
                 
             }
-         
+            _noTradedImage.hidden = YES;
+            switch (_quoteArr.count) {
+                case 0:
+                    [self nothingFotTradedTableView];
+                    
+                    _noTradedImage.hidden = NO;
+                    break;
+                    
+                default:
+                    _noTradedImage.hidden = YES;
+                    break;
+            }
             [_tableView reloadData];
            
         }else{
@@ -86,7 +131,7 @@
             }];
         }
     } failure:^(NSInteger statusCode, NSError *error) {
-        [aiv stopAnimating];
+        [_avi stopAnimating];
         [Utilities popUpAlertViewWithMsg:@"请求发生了错误,请稍后再试!" andTitle:@"提示" onView:self onCompletion:^{
             
         }];
@@ -136,7 +181,7 @@
     NSString *in_time = [inFormatter1 stringFromDate:inDate];
     
     NSDate *outDate =[NSDate dateWithTimeIntervalSince1970:[model.out_time integerValue]/1000 ];
-    NSInteger s = [model.in_time integerValue];
+  
     
     NSDateFormatter *outFormatter = [NSDateFormatter new];
     outFormatter.dateFormat = @"HH:mm";
@@ -144,9 +189,9 @@
     
     cell.dateNameLabel.text = [NSString stringWithFormat:@"%@ %@——%@ 机票",in_date,model.departure,model.destination];
     cell.airNameLabel.text = [NSString stringWithFormat:@"%@ %@",model.aviation_company,model.flight_no];
-    cell.timeLabel.text = [NSString stringWithFormat:@"%@ %@",in_time,out_time];
+    cell.timeLabel.text = [NSString stringWithFormat:@"%@ —— %@",in_time,out_time];
     cell.levelLabel.text = model.aviation_cabin;
-    cell.priceLabel.text = [NSString stringWithFormat:@"￥ %ld",(long)model.final_price];
+    cell.priceLabel.text = [NSString stringWithFormat:@"￥%ld",(long)model.final_price];
     return cell;
 }
 - (IBAction)payButton:(UIButton *)sender forEvent:(UIEvent *)event {

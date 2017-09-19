@@ -20,8 +20,10 @@
     bool availableLastPage;
     bool historyLastPage;
     
+    bool allFirst;
     bool availableFirst;
     bool historyFirst;
+    
 }
 @property (strong, nonatomic) HMSegmentedControl *segmentControl;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
@@ -46,6 +48,7 @@
     [self setfooterView];
     [self dataInit];
     [self initRequestAll];
+    [self setRefreshControl];
     if(_allArr.count == 0){
         [self nothingForTableView];
     }
@@ -124,11 +127,11 @@
 #pragma mark - ref
 - (void)setRefreshControl {
     UIRefreshControl *ref1 = [UIRefreshControl new];
-    [ref1 addTarget:self action:@selector(availableRef) forControlEvents:UIControlEventValueChanged];
+    [ref1 addTarget:self action:@selector(allRef) forControlEvents:UIControlEventValueChanged];
     ref1.tag = 10001;
-    [_availableTableView addSubview:ref1];
+    [_allOrdersTableView addSubview:ref1];
     UIRefreshControl *ref2 = [UIRefreshControl new];
-    [ref2 addTarget:self action:@selector(allRef) forControlEvents:UIControlEventValueChanged];
+    [ref2 addTarget:self action:@selector(availableRef) forControlEvents:UIControlEventValueChanged];
     ref2.tag = 10002;
     [_availableTableView addSubview:ref2];
     UIRefreshControl *ref3 = [UIRefreshControl new];
@@ -160,6 +163,9 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return 1;
+}
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     if (tableView == _allOrdersTableView) {
         return _allArr.count;
     } else if (tableView == _availableTableView) {
@@ -168,10 +174,12 @@
     return _historyListArr.count;
 }
 
+
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (tableView == _allOrdersTableView) {
         HotelOrderTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"allCell" forIndexPath:indexPath];
-        HotelOrdersModel *model=_allArr[indexPath.row];
+        HotelOrdersModel *model=_allArr[indexPath.section];
         
         NSString *hotel_type = model.hotelType;
         NSString *hotel_name = model.hotelName;
@@ -188,7 +196,7 @@
         return cell;
     } else if (tableView == _availableTableView) {
         HotelOrderTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"avaliableCell" forIndexPath:indexPath];
-        HotelOrdersModel *model=_availableArr[indexPath.row];
+        HotelOrdersModel *model=_availableArr[indexPath.section];
         NSString *hotel_type = model.hotelType;
         NSString *hotel_name = model.hotelName;
         NSString *str1 = [hotel_type substringFromIndex:2];
@@ -204,7 +212,7 @@
         return cell;
     } else {
         HotelOrderTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"historyCell" forIndexPath:indexPath];
-        HotelOrdersModel *model=_historyListArr[indexPath.row];
+        HotelOrdersModel *model=_historyListArr[indexPath.section];
         NSString *hotel_type = model.hotelType;
         NSString *hotel_name = model.hotelName;
         NSString *str1 = [hotel_type substringFromIndex:2];
@@ -229,21 +237,31 @@
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (tableView == _availableTableView) {
-        if (indexPath.row == _availableArr.count -1) {
+        if (indexPath.section == _availableArr.count -1) {
             if (availableFirst) {
                 availablePageNum ++;
                 [self requestAvailable];
             }
         }
     } else if (tableView == _historyTableView) {
-        if (indexPath.row == _historyListArr.count - 1) {
+        if (indexPath.section == _historyListArr.count - 1) {
             if (historyFirst) {
                 historyPageNum ++;
                 [self requestHistory];
             }
         }
+    }else if (tableView == _allOrdersTableView) {
+        if (indexPath.section == _allArr.count - 1) {
+            if (allFirst) {
+                allPageNum ++;
+                [self requestAll];
+            }
+        }
     }
     
+}
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    return 10;
 }
 
 #pragma mark - Scorll
@@ -293,13 +311,13 @@
 
 -(void)nothingForTableView{
     _allNothingImg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"no_things"]];
-    _allNothingImg.frame = CGRectMake((UI_SCREEN_W - 100)/2, 50, 100, 100);
+    _allNothingImg.frame = CGRectMake((UI_SCREEN_W - 100)/2, 50, 120, 120);
     
     _availableNothingImg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"no_things"]];
-    _availableNothingImg.frame = CGRectMake(UI_SCREEN_W + (UI_SCREEN_W - 100) / 2, 50, 100, 100);
+    _availableNothingImg.frame = CGRectMake(UI_SCREEN_W + (UI_SCREEN_W - 100) / 2, 50, 120, 120);
     
     _historyNothingImg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"no_things"]];
-    _historyNothingImg.frame = CGRectMake(UI_SCREEN_W * 2 + (UI_SCREEN_W - 100) / 2, 50, 100, 100);
+    _historyNothingImg.frame = CGRectMake(UI_SCREEN_W * 2 + (UI_SCREEN_W - 100) / 2, 50, 120, 120);
     
     [_scrollView addSubview:_allNothingImg];
     [_scrollView addSubview:_availableNothingImg];
@@ -352,7 +370,7 @@
 
 
 - (void)requestAvailable {
-    UIRefreshControl *ref = [_allOrdersTableView viewWithTag:10002];
+    UIRefreshControl *ref = [_availableTableView viewWithTag:10002];
     NSDictionary *para = @{@"openid":[[StorageMgr singletonStorageMgr] objectForKey:@"OpenId"],@"id":@2};
     [RequestAPI requestURL:@"/findOrders_edu" withParameters:para andHeader:nil byMethod:kPost andSerializer:kForm success:^(id responseObject) {
         NSLog(@"responseObject = %@",responseObject);
@@ -394,7 +412,7 @@
 }
 
 - (void)requestHistory {
-    UIRefreshControl *ref = [_allOrdersTableView viewWithTag:10003];
+    UIRefreshControl *ref = [_historyTableView viewWithTag:10003];
     NSDictionary *para = @{@"openid":[[StorageMgr singletonStorageMgr] objectForKey:@"OpenId"],@"id":@3};
     [RequestAPI requestURL:@"/findOrders_edu" withParameters:para andHeader:nil byMethod:kPost andSerializer:kForm success:^(id responseObject) {
         NSLog(@"responseObject = %@",responseObject);
