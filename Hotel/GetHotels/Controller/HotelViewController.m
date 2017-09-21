@@ -480,10 +480,11 @@
 #pragma mark - naviConfig
 //这个方法专门做导航条的控制
 - (void)naviConfig{
+    
     //设置导航条标题的文字
     self.navigationItem.title = @"GetHotels";
     //设置导航条的颜色（风格颜色）
-    self.navigationController.navigationBar.barTintColor = UIColorFromRGB(24, 124, 236);
+    self.navigationController.navigationBar.barTintColor = UIColorFromRGBA(24, 147, 238, 1);
     //设置导航条标题颜色
     self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName : [UIColor whiteColor]};
     //设置导航条是否被隐藏
@@ -492,7 +493,16 @@
     //设置导航条上按钮的风格颜色
     self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
     //设置是否需要毛玻璃效果
-    self.navigationController.navigationBar.translucent = YES;
+    self.navigationController.navigationBar.translucent = NO;
+    
+    UIView *backgroundView = [self.navigationController.navigationBar subviews].firstObject;
+    for (UIView *view in backgroundView.subviews) {
+        if (CGRectGetHeight([view frame]) <= 1) {
+            
+            view.hidden = YES;
+        }
+    }
+    
     //为导航条左上角创建一个按钮
 //    UIBarButtonItem *left = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemStop target:self action:@selector(backAction)];
 //    self.navigationItem.leftBarButtonItem = left;

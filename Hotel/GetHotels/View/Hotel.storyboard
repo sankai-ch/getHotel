@@ -20,11 +20,11 @@
                         <viewControllerLayoutGuide type="bottom" id="t54-v5-XNw"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="6ta-ME-CdA">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="S76-32-ZGi">
-                                <rect key="frame" x="0.0" y="64" width="375" height="50"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="location" translatesAutoresizingMaskIntoConstraints="NO" id="Qa4-eC-mBZ">
                                         <rect key="frame" x="10" y="17" width="16" height="16"/>
@@ -103,7 +103,7 @@
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="122" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="a8w-zK-PCD">
-                                <rect key="frame" x="0.0" y="114" width="375" height="504"/>
+                                <rect key="frame" x="0.0" y="50" width="375" height="504"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <view key="tableHeaderView" contentMode="scaleToFill" id="Inz-bT-GVZ">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="150"/>
@@ -237,14 +237,14 @@
                                 </connections>
                             </tableView>
                             <view hidden="YES" alpha="0.40000000000000002" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PZz-Eh-cZc" userLabel="backgroundView" customClass="UIControl">
-                                <rect key="frame" x="0.0" y="154" width="375" height="513"/>
+                                <rect key="frame" x="0.0" y="90" width="375" height="513"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
                                     <action selector="didTouch" destination="pb5-Fu-s1p" eventType="touchUpInside" id="7LB-tf-XHT"/>
                                 </connections>
                             </view>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Whx-wt-zO8" userLabel="pickView">
-                                <rect key="frame" x="0.0" y="598" width="375" height="20"/>
+                                <rect key="frame" x="0.0" y="534" width="375" height="20"/>
                                 <subviews>
                                     <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TcS-ei-m1e">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="45"/>
@@ -288,7 +288,7 @@
                                 </constraints>
                             </view>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qN3-XF-HKO">
-                                <rect key="frame" x="0.0" y="154" width="375" height="20"/>
+                                <rect key="frame" x="0.0" y="90" width="375" height="20"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="spm-xO-TSK">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="0.5"/>
@@ -340,7 +340,7 @@
                                 </constraints>
                             </view>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EjV-eh-aPV">
-                                <rect key="frame" x="0.0" y="154" width="375" height="20"/>
+                                <rect key="frame" x="0.0" y="90" width="375" height="20"/>
                                 <subviews>
                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="xqx-nh-GoA">
                                         <rect key="frame" x="100" y="46" width="275" height="56"/>
@@ -572,7 +572,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Twf-1m-sPl" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="酒店" image="hotel" id="YI8-8b-1ET"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="CGh-dX-pZi">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" translucent="NO" id="CGh-dX-pZi">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
