@@ -33,12 +33,12 @@
     [self addSubview:ripple];
     POPBasicAnimation *rippleSizeAnimation = [POPBasicAnimation animation];
     rippleSizeAnimation.property = [POPAnimatableProperty propertyWithName:kPOPLayerSize];
-    rippleSizeAnimation.duration = 0.25;
+    rippleSizeAnimation.duration = 0.1;
     rippleSizeAnimation.toValue = [NSValue valueWithCGSize:CGSizeMake(120, 120)];
     [ripple pop_addAnimation:rippleSizeAnimation forKey:@"rippleSizeAnimation"];
     POPBasicAnimation *rippleCRAnimation = [POPBasicAnimation animation];
     rippleCRAnimation.property = [POPAnimatableProperty propertyWithName:kPOPLayerCornerRadius];
-    rippleCRAnimation.duration = 0.25;
+    rippleCRAnimation.duration = 0.1;
     rippleCRAnimation.toValue = @60;
     [ripple.layer pop_addAnimation:rippleCRAnimation forKey:@"rippleCRAnimation"];
     rippleCRAnimation.completionBlock = ^(POPAnimation *anim, BOOL finished) {

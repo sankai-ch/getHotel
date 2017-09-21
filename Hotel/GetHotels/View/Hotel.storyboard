@@ -58,7 +58,7 @@
                                             <constraint firstAttribute="width" secondItem="RRh-E5-Ax9" secondAttribute="height" multiplier="1:1" id="cJX-S9-PrB"/>
                                         </constraints>
                                     </imageView>
-                                    <searchBar contentMode="redraw" barStyle="black" placeholder="请输入想找的酒店" translatesAutoresizingMaskIntoConstraints="NO" id="jPe-Mp-qxy">
+                                    <searchBar contentMode="redraw" searchBarStyle="minimal" placeholder="请输入想找的酒店" translatesAutoresizingMaskIntoConstraints="NO" id="jPe-Mp-qxy">
                                         <rect key="frame" x="71" y="0.0" width="233" height="50"/>
                                         <color key="backgroundColor" red="0.094117647058823528" green="0.48627450980392156" blue="0.92549019607843142" alpha="1" colorSpace="calibratedRGB"/>
                                         <color key="tintColor" red="0.094117647058823528" green="0.48627450980392156" blue="0.92549019607843142" alpha="1" colorSpace="calibratedRGB"/>
@@ -572,7 +572,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Twf-1m-sPl" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="酒店" image="hotel" id="YI8-8b-1ET"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" translucent="NO" id="CGh-dX-pZi">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="CGh-dX-pZi">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
