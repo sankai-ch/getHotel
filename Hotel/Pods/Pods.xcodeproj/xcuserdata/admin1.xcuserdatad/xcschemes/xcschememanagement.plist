@@ -14,6 +14,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>IQKeyboardManager.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>Pods-GetHotels.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -32,12 +37,17 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>381CE237827637FD134F53C054273222</key>
+		<key>189FC7E40C5E47199E41AA5668C230DC</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>7B5402B9F0FCEA773DC806B4C7A976C4</key>
+		<key>7A20E8DFA3E338E504DC79362F0C81D0</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>904F4F27FD314010A3812EB2A9306183</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -52,7 +62,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>F8EE814A0647CDE46787ADC0864B693A</key>
+		<key>E671DA5A07CFD46F1642D55B38C0E173</key>
 		<dict>
 			<key>primary</key>
 			<true/>

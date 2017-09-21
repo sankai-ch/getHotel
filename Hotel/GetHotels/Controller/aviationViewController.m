@@ -67,45 +67,45 @@
     [_gocity setTitle:goCity forState:UIControlStateNormal];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(checkCityState:) name:@"fly" object:nil];
     
-    //注册键盘弹出通知
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(keyboardWillSh:)
-                                                 name:UIKeyboardWillShowNotification
-                                               object:nil];
- 
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(keyboardWillHi:)
-                                                 name:UIKeyboardWillHideNotification
-                                               object:nil];
+//    //注册键盘弹出通知
+//    [[NSNotificationCenter defaultCenter] addObserver:self
+//                                             selector:@selector(keyboardWillSh:)
+//                                                 name:UIKeyboardWillShowNotification
+//                                               object:nil];
+// 
+//    [[NSNotificationCenter defaultCenter] addObserver:self
+//                                             selector:@selector(keyboardWillHi:)
+//                                                 name:UIKeyboardWillHideNotification
+//                                               object:nil];
 }
 
 
--(void)keyboardWillSh:(NSNotification *)note
-{
-    //CGRect keyboardReck = [[object.userInfo objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
-    NSDictionary *info = [note userInfo];
-    CGSize keyboardSize = [[info objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].size;
-    //目标视图UITextField
-    CGRect frame = self.view.frame;
-    int y = frame.origin.y + frame.size.height - (self.view.frame.size.height - keyboardSize.height);
- 
-    if(y > 0)
-    {
-        self.view.frame = CGRectMake(0, -y, self.view.frame.size.width, self.view.frame.size.height);
-    }
-    [UIView commitAnimations];
-    //_function.frame = CGRectMake(_function.frame.origin.x,0, _function.frame.size.width, _function.frame.size.height);
- 
-}
--(void)keyboardWillHi:(NSNotification *)note
-{
-    //CGRect keyboardReck = [[note.userInfo objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
-    
-    self.view.frame =CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
-    [UIView commitAnimations];
-    //_function.frame =CGRectMake(_function.frame.origin.x, _function.frame.origin.y, _function.frame.size.width, _function.frame.size.height);
-   
-}
+//-(void)keyboardWillSh:(NSNotification *)note
+//{
+//    //CGRect keyboardReck = [[object.userInfo objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
+//    NSDictionary *info = [note userInfo];
+//    CGSize keyboardSize = [[info objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].size;
+//    //目标视图UITextField
+//    CGRect frame = self.view.frame;
+//    int y = frame.origin.y + frame.size.height - (self.view.frame.size.height - keyboardSize.height);
+// 
+//    if(y > 0)
+//    {
+//        self.view.frame = CGRectMake(0, -y, self.view.frame.size.width, self.view.frame.size.height);
+//    }
+//    [UIView commitAnimations];
+//    //_function.frame = CGRectMake(_function.frame.origin.x,0, _function.frame.size.width, _function.frame.size.height);
+// 
+//}
+//-(void)keyboardWillHi:(NSNotification *)note
+//{
+//    //CGRect keyboardReck = [[note.userInfo objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
+//    
+//    self.view.frame =CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
+//    [UIView commitAnimations];
+//    //_function.frame =CGRectMake(_function.frame.origin.x, _function.frame.origin.y, _function.frame.size.width, _function.frame.size.height);
+//   
+//}
 - (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
     //让根视图结束编辑状态达到收回键盘的目的
     [self.view endEditing:YES];
@@ -188,6 +188,9 @@
     self.navigationController.navigationBar.barTintColor = UIColorFromRGB(24, 124, 326);
     
 }
+
+
+
 
 /*
 #pragma mark - Navigation

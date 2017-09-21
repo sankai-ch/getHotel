@@ -178,12 +178,13 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                         <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                     </textField>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="最终价格" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="rNE-dN-BI2">
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="最终价格" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="rNE-dN-BI2">
                                         <rect key="frame" x="174" y="236" width="100" height="30"/>
                                         <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="100" id="PXn-UY-ZpR"/>
                                         </constraints>
+                                        <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                         <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                     </textField>
@@ -244,7 +245,6 @@
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="MuL-Sz-hyq" secondAttribute="trailing" constant="15" id="04h-7y-Ufc"/>
                                     <constraint firstItem="3M8-kI-dxr" firstAttribute="top" secondItem="Rhz-k4-vjP" secondAttribute="bottom" constant="10" id="1Gi-LQ-2KU"/>
-                                    <constraint firstItem="rNE-dN-BI2" firstAttribute="bottom" secondItem="t1X-gw-0oe" secondAttribute="bottom" id="1qh-ay-utH"/>
                                     <constraint firstItem="zaB-QG-bB5" firstAttribute="leading" secondItem="YoE-hx-P9R" secondAttribute="trailing" constant="10" id="2qX-Kj-OUC"/>
                                     <constraint firstItem="XDJ-IH-qiT" firstAttribute="leading" secondItem="ed6-Iq-fyn" secondAttribute="leading" constant="15" id="3EZ-E9-NEa"/>
                                     <constraint firstAttribute="trailing" secondItem="w8E-Rb-kgF" secondAttribute="trailing" constant="19" id="3Oa-2W-hOT"/>
@@ -262,6 +262,7 @@
                                     <constraint firstItem="h7o-28-HSs" firstAttribute="leading" secondItem="irQ-1V-Pnh" secondAttribute="trailing" id="9ox-A8-mDp"/>
                                     <constraint firstItem="hle-oe-loh" firstAttribute="top" secondItem="G3X-Ai-QEb" secondAttribute="top" id="Cbs-o3-UYQ"/>
                                     <constraint firstItem="YoE-hx-P9R" firstAttribute="top" secondItem="G3X-Ai-QEb" secondAttribute="top" id="F1g-TL-A26"/>
+                                    <constraint firstItem="rNE-dN-BI2" firstAttribute="bottom" secondItem="eZ1-CT-NBg" secondAttribute="bottom" id="FE5-kS-yeg"/>
                                     <constraint firstItem="eUS-We-Fe6" firstAttribute="trailing" secondItem="hle-oe-loh" secondAttribute="trailing" id="FEm-fk-wUj"/>
                                     <constraint firstItem="WXA-sw-XUh" firstAttribute="leading" secondItem="DD1-M0-bnH" secondAttribute="leading" id="HH9-Ek-653"/>
                                     <constraint firstItem="8AW-id-dBi" firstAttribute="top" secondItem="ed6-Iq-fyn" secondAttribute="top" constant="50" id="IWW-Ot-dwe"/>
@@ -293,6 +294,7 @@
                                     <constraint firstItem="OlS-fj-nwP" firstAttribute="top" secondItem="G3X-Ai-QEb" secondAttribute="bottom" constant="20" id="bws-bL-rWp"/>
                                     <constraint firstItem="Rhz-k4-vjP" firstAttribute="leading" secondItem="Rkb-d3-TrT" secondAttribute="leading" id="c01-HK-bmS"/>
                                     <constraint firstItem="EnD-Qb-Ic6" firstAttribute="top" secondItem="ed6-Iq-fyn" secondAttribute="top" constant="-40" id="cUQ-fA-4Ud"/>
+                                    <constraint firstItem="rNE-dN-BI2" firstAttribute="top" secondItem="eZ1-CT-NBg" secondAttribute="top" id="czb-1H-7SH"/>
                                     <constraint firstItem="YoE-hx-P9R" firstAttribute="leading" secondItem="hle-oe-loh" secondAttribute="trailing" constant="5" id="d1p-qJ-OCf"/>
                                     <constraint firstItem="eUS-We-Fe6" firstAttribute="top" secondItem="irQ-1V-Pnh" secondAttribute="bottom" id="d9d-Os-DVQ"/>
                                     <constraint firstAttribute="trailing" secondItem="DD1-M0-bnH" secondAttribute="trailing" constant="15" id="gQd-XK-fEf"/>
@@ -302,7 +304,6 @@
                                     <constraint firstItem="3M8-kI-dxr" firstAttribute="leading" secondItem="ed6-Iq-fyn" secondAttribute="leading" constant="15" id="koS-g1-5sJ"/>
                                     <constraint firstItem="MuL-Sz-hyq" firstAttribute="top" secondItem="YoE-hx-P9R" secondAttribute="top" id="m65-en-lCM"/>
                                     <constraint firstItem="DD1-M0-bnH" firstAttribute="leading" secondItem="ed6-Iq-fyn" secondAttribute="leading" constant="15" id="nou-WS-BVo"/>
-                                    <constraint firstItem="rNE-dN-BI2" firstAttribute="top" secondItem="t1X-gw-0oe" secondAttribute="top" id="oB1-nI-KAI"/>
                                     <constraint firstItem="8AW-id-dBi" firstAttribute="leading" secondItem="ed6-Iq-fyn" secondAttribute="leading" constant="15" id="pnp-LZ-O6q"/>
                                     <constraint firstItem="1mp-eO-Alf" firstAttribute="top" secondItem="eUS-We-Fe6" secondAttribute="bottom" constant="15" id="rLf-kq-X6u"/>
                                     <constraint firstItem="4ZJ-JD-bLC" firstAttribute="leading" secondItem="fvN-H5-HWz" secondAttribute="trailing" id="tHD-Rn-K53"/>
@@ -454,7 +455,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="mak-BZ-agU" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="航空" image="aviation" id="1LP-h5-s2a"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="u2G-e0-Bwa">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="u2G-e0-Bwa">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
